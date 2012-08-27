@@ -18,8 +18,7 @@ easy_install pyusb
 easy_install pyserial
 cd GoIO-2.28.0
 # May need to run ./configure
-make
-sudo make install
+./INSTALL
 cd mytemp
 make
 

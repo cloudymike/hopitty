@@ -51,8 +51,8 @@ if not simulation:
 
 while True:
     lt=time.localtime(time.time())
-    settings=pickle.load(open("../datadir/settings.pkl","rb"))
-    setTemp=int(settings['t'])
+    settings=pickle.load(open("/tmp/settings.pkl","rb"))
+    setTemp=int(settings['time'])
     ret=subprocess.check_output('./mytemp')
     if not simulation:
         currTemp=int(ret)
@@ -75,7 +75,7 @@ while True:
              'setSec': setTemp
     }
     print data1
-    output = open('../datadir/data.pkl', 'wb')
+    output = open('/tmp/data.pkl', 'wb')
     # Pickle dictionary using protocol 0.
     pickle.dump(data1, output)
     output.close()

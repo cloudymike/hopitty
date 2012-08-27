@@ -14,13 +14,13 @@ setTime = cgi.escape(setTime)
 settings = {'time': setTime,
     'name': 'JustMe'
 }
-output = open('settings.pkl', 'wb')
+output = open('/tmp/settings.pkl', 'wb')
 # Pickle dictionary using protocol 0.
 pickle.dump(settings, output)
 output.close()
 
 
-data=pickle.load(open("data.pkl","rb"))
+data=pickle.load(open("/tmp/data.pkl","rb"))
 myname = data['me']
 time=data['t']
 status=data['status']

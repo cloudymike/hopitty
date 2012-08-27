@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# Script to install files into cgi-bin
+
+sudo cp ./n2.py /usr/lib/cgi-bin
+sudo cp ./pickshow.py /usr/lib/cgi-bin
+sudo cp ../datadir/* /tmp
