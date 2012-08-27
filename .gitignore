@@ -3,3 +3,19 @@
 # editor backup files
 *~
 
+# Compiled source #
+###################
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.lo
+*.la
+
+# GoIO generated files
+mytemp
+GoIO-2.28.0/GoIO_DLL/.libs/
+GoIO-2.28.0/GoIO_cpp/.libs/
+GoIO-2.28.0/GoIO_cpp/Linux/.libs/
