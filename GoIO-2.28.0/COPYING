@@ -1,0 +1,5 @@
+The SDK includes complete source code in C++. You are free to use this code however you like. All the software included in this SDK was written by Vernier Software & Technology(VST), and VST places absolutely no legal restrictions on using the software. You can copy the code, modify it, embed it in your own products, etc.
+
+VST does not guarantee that the code is bug free, but we try to make it so. If you find any bugs, please report them to http://www.vernier.com/tech/supportform.html .
+
+VST would prefer that you not modify GoIO_DLL.dll, libGoIO_DLL.dylib, libGoIO_DLL.framework, or libGoIO. If you do modify any of them, please give your modified version a different name, so we can easily distinguish your version from the VST version.
