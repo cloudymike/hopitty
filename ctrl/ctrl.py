@@ -6,19 +6,48 @@ import getpass
 import logging
 import time
 import subprocess
+import getopt
+import sys
 
 from x10.controllers.cm11 import CM11
 
+def usage():
+   print 'usage:'
+
+options, remainder = getopt.getopt(sys.argv[1:], 'hsv', [
+                                                         'help',
+                                                         'simulate',
+                                                         'verbose',
+                                                         'version=',
+                                                        ])
+verbose=False
+simulation=False
+for opt, arg in options:
+    if opt in ('-h', '--help'):
+        usage()
+    elif opt in ('-s', '--simulate'):
+        simulation = True
+    elif opt in ('-v', '--verbose'):
+        verbose = True
+    elif opt == '--version':
+        version = arg
+
+if verbose:
+    print 'Verbose'
+    if simulation:
+        print 'Simulation mode'
+
 # X10 setup. Logger logs to screen
-logger = logging.getLogger()
-hdlr = logging.StreamHandler() # Console
-formatter = logging.Formatter('%(module)s - %(asctime)s %(levelname)s %(message)s')
-hdlr.setFormatter(formatter)
-logger.addHandler(hdlr) 
-logger.setLevel(logging.DEBUG)
-dev = CM11('/dev/ttyUSB0')
-dev.open()
-livinglamp = dev.actuator("H14")
+if not simulation:
+    logger = logging.getLogger()
+    hdlr = logging.StreamHandler() # Console
+    formatter = logging.Formatter('%(module)s - %(asctime)s %(levelname)s %(message)s')
+    hdlr.setFormatter(formatter)
+    logger.addHandler(hdlr) 
+    logger.setLevel(logging.DEBUG)
+    dev = CM11('/dev/ttyUSB0')
+    dev.open()
+    hotWaterTun = dev.actuator("H14")
 
 while True:
     lt=time.localtime(time.time())
@@ -31,10 +60,12 @@ while True:
     me=getpass.getuser()
     if currTemp < setTemp:
         status='On'
-        livinglamp.on()
+        if not simulation:
+            hotWaterTun.on()
     else:
         status='Off'
-        livinglamp.off()
+        if not simulation:
+            hotWaterTun.off()
     data1 = {'t': currTemp,
              'me': me,
              'status': status,
