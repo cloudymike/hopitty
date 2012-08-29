@@ -52,7 +52,7 @@ if not simulation:
 while True:
     lt=time.localtime(time.time())
     settings=pickle.load(open("/tmp/settings.pkl","rb"))
-    setTemp=int(settings['time'])
+    setTemp=int(settings['temperature'])
     ret=subprocess.check_output('./mytemp')
     if not simulation:
         currTemp=int(ret)
