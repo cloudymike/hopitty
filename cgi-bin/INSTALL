@@ -4,4 +4,5 @@
 
 sudo cp ./*.py /usr/lib/cgi-bin
 sudo chmod 755 /usr/lib/cgi-bin/*
-sudo cp ../datadir/* /tmp
+sudo cp -p ../datadir/* /tmp
+

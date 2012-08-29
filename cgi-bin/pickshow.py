@@ -5,25 +5,15 @@ import cgitb
 
 cgitb.enable()
 
-form = cgi.FieldStorage() # instantiate only once!
-setTime = form.getfirst('name', 'empty')
-
-# Avoid script injection escaping the user input
-setTime = cgi.escape(setTime)
-
-settings = {'time': setTime,
-    'name': 'JustMe'
-}
-output = open('/tmp/settings.pkl', 'wb')
-# Pickle dictionary using protocol 0.
-pickle.dump(settings, output)
-output.close()
 
 
 data=pickle.load(open("/tmp/data.pkl","rb"))
 myname = data['me']
 time=data['t']
 status=data['status']
+
+settings=pickle.load(open("/tmp/settings.pkl","rb"))
+setTime=settings['time']
 print "Content-Type: text/html"
 print
 print '<META HTTP-EQUIV="REFRESH" CONTENT="5">'

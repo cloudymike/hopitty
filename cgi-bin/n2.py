@@ -14,7 +14,7 @@ print "Content-Type: text/html"
 print
 print """\
 <html><body>
-<form method="get" action="pickshow.py">
+<form method="get" action="settings.py">
 Time: <input type="text" name="name" value="%s">
 <input type="submit" value="Set">
 </form>
