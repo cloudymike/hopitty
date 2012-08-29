@@ -1,10 +1,10 @@
 (dp0
-S'name'
+S'temperature'
 p1
-S'JustMe'
+S'22'
 p2
-sS'time'
+sS'name'
 p3
-S'124'
+S'JustMe'
 p4
 s.

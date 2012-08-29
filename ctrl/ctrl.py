@@ -10,6 +10,7 @@ import getopt
 import sys
 
 from x10.controllers.cm11 import CM11
+simTemp=70
 
 def usage():
    print 'usage:'
@@ -48,17 +49,24 @@ if not simulation:
     dev = CM11('/dev/ttyUSB0')
     dev.open()
     hotWaterTun = dev.actuator("H14")
+    status = 'Off'
+else:
+    currTemp = simTemp
+    status = 'Off'
 
 while True:
-    lt=time.localtime(time.time())
     settings=pickle.load(open("/tmp/settings.pkl","rb"))
     setTemp=int(settings['temperature'])
     ret=subprocess.check_output('./mytemp')
     if not simulation:
         currTemp=int(ret)
     else:
-        currTemp=123
+        if status == 'On':
+            currTemp=currTemp+1
+        else:
+            currTemp=currTemp-1
     print setTemp
+    #lt=time.localtime(time.time())
     #secs=lt.tm_sec
     me=getpass.getuser()
     if currTemp < setTemp:
