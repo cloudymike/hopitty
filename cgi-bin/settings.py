@@ -6,12 +6,12 @@ import cgitb
 cgitb.enable()
 
 form = cgi.FieldStorage() # instantiate only once!
-setTime = form.getfirst('name', 'empty')
+setTemp = form.getfirst('name', 'empty')
 
 # Avoid script injection escaping the user input
-setTime = cgi.escape(setTime)
+setTemp = cgi.escape(setTemp)
 
-settings = {'time': setTime,
+settings = {'temperature': setTemp,
     'name': 'JustMe'
 }
 output = open('/tmp/settings.pkl', 'wb')

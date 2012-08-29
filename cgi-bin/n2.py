@@ -5,10 +5,10 @@ import cgitb
 
 cgitb.enable()
 form = cgi.FieldStorage() # instantiate only once!
-time = form.getfirst('name', 'empty')
+setTemp = form.getfirst('name', 'empty')
 
 # Avoid script injection escaping the user input
-time = cgi.escape(time)
+setTemp = cgi.escape(setTemp)
 
 print "Content-Type: text/html"
 print
@@ -19,4 +19,4 @@ Time: <input type="text" name="name" value="%s">
 <input type="submit" value="Set">
 </form>
 </body></html>
-""" % time
+""" % setTemp
