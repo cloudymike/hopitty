@@ -8,9 +8,16 @@ import time
 import subprocess
 import getopt
 import sys
+import hotWaterTun
 
 from x10.controllers.cm11 import CM11
 simTemp=70
+
+mytun=hotWaterTun.hwt()
+print mytun.status()
+print mytun.temperature()
+
+#sys.exit(0)
 
 def usage():
    print 'usage:'
