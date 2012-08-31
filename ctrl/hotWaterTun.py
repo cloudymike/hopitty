@@ -15,7 +15,11 @@ class hwt:
     def __init__(self):
         self.powerOn=False
         self.currTemp=70
-        self.setTemp=70
+        self.presetTemp=70
+
+    def __del__(self):
+        self.powerOn=False
+        print 'Powering down'
 
     def temperature(self):
         return(self.currTemp)
@@ -26,14 +30,14 @@ class hwt:
         else:
             return 'Off'
 
-    def setTemp(self,temperature):
-        self.setTemp=temperature
+    def setTemp(self,preset):
+        self.presetTemp=preset
 
     def thermostat(self):
-        if self.powerOn:
-            self.currTemp = self.currTemp+1
+        if self.temperature() < self.presetTemp:
+            self.on()
         else:
-            self.currTemp = self.currTemp-1
+            self.off()
 
     def on(self):
         self.powerOn = True
@@ -43,15 +47,18 @@ class hwt:
 
 class hwtsim(hwt):
 
-    def thermostat(self):
+    def temperature(self):
         if self.powerOn:
-            self.currTemp = self.currTemp+3
+            self.currTemp = self.currTemp+2
         else:
             self.currTemp = self.currTemp-1
+        return(self.currTemp)
+
 
 class hwtHW(hwt):
     def __init__(self):
         print "Initializing hardware"
+        self.powerOn=False
         
 #        logger = logging.getLogger()
 #        hdlr = logging.StreamHandler() # Console
@@ -60,18 +67,22 @@ class hwtHW(hwt):
 #        logger.addHandler(hdlr) 
 #        logger.setLevel(logging.DEBUG)
 
-        if False:
+        if True:
             self.dev = CM11('/dev/ttyUSB0')
-            dev.open()
-            self.hotWaterTun = dev.actuator("H14")
-            status = 'Off'
+            self.dev.open()
+            self.hotWaterTun = self.dev.actuator("H14")
+            self.powerOn=False
+            self.hotWaterTun.off()
 
     def temperature(self):
-        return subprocess.check_output('./mytemp')
-
+        currTempStr=subprocess.check_output('./mytemp')
+        currTemp=int(currTempStr)
+        return currTemp
 
     def on(self):
         self.hotWaterTun.on()
+        self.powerOn = True
     def off(self):
         self.hotWaterTun.off()
+        self.powerOff = False
 

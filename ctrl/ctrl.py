@@ -11,7 +11,7 @@ import sys
 import hotWaterTun
 
 simTemp=70
-
+shutdown=False
 #sys.exit(0)
 
 def usage():
@@ -50,22 +50,27 @@ currTemp = mytun.temperature()
 status = mytun.status()
 
 while True:
-    settings=pickle.load(open("/tmp/settings.pkl","rb"))
-    setTemp=int(settings['temperature'])
-    currTemp = mytun.temperature()
     #lt=time.localtime(time.time())
     #secs=lt.tm_sec
     me=getpass.getuser()
+
+    settings=pickle.load(open("/tmp/settings.pkl","rb"))
+    presetTemp=int(settings['temperature'])
+    mytun.setTemp(presetTemp)
+    currTemp = mytun.temperature()
     mytun.thermostat()
     status = mytun.status()
     data1 = {'t': currTemp,
              'me': me,
              'status': status,
-             'setTemp': setTemp
+             'setTemp': presetTemp
     }
     print data1
     output = open('/tmp/data.pkl', 'wb')
     # Pickle dictionary using protocol 0.
     pickle.dump(data1, output)
     output.close()
+    if shutdown:
+        del mytun
+        break
     time.sleep(1)

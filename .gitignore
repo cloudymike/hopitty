@@ -1,6 +1,11 @@
 # FIles to ignore
 
+# Python artifacts #
+###################
+*.pyc
+
 # editor backup files
+###################
 *~
 
 # Compiled source #
