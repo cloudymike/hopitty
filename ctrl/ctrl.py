@@ -10,12 +10,7 @@ import getopt
 import sys
 import hotWaterTun
 
-from x10.controllers.cm11 import CM11
 simTemp=70
-
-mytun=hotWaterTun.hwt()
-print mytun.status()
-print mytun.temperature()
 
 #sys.exit(0)
 
@@ -47,51 +42,30 @@ if verbose:
 
 # X10 setup. Logger logs to screen
 if not simulation:
-    logger = logging.getLogger()
-    hdlr = logging.StreamHandler() # Console
-    formatter = logging.Formatter('%(module)s - %(asctime)s %(levelname)s %(message)s')
-    hdlr.setFormatter(formatter)
-    logger.addHandler(hdlr) 
-    logger.setLevel(logging.DEBUG)
-    dev = CM11('/dev/ttyUSB0')
-    dev.open()
-    hotWaterTun = dev.actuator("H14")
-    status = 'Off'
+    mytun=hotWaterTun.hwtHW()
 else:
-    currTemp = simTemp
-    status = 'Off'
+    mytun=hotWaterTun.hwtsim()
+    
+currTemp = mytun.temperature()
+status = mytun.status()
 
 while True:
     settings=pickle.load(open("/tmp/settings.pkl","rb"))
     setTemp=int(settings['temperature'])
-    ret=subprocess.check_output('./mytemp')
-    if not simulation:
-        currTemp=int(ret)
-    else:
-        if status == 'On':
-            currTemp=currTemp+1
-        else:
-            currTemp=currTemp-1
-    print setTemp
+    currTemp = mytun.temperature()
     #lt=time.localtime(time.time())
     #secs=lt.tm_sec
     me=getpass.getuser()
-    if currTemp < setTemp:
-        status='On'
-        if not simulation:
-            hotWaterTun.on()
-    else:
-        status='Off'
-        if not simulation:
-            hotWaterTun.off()
+    mytun.thermostat()
+    status = mytun.status()
     data1 = {'t': currTemp,
              'me': me,
              'status': status,
-             'setSec': setTemp
+             'setTemp': setTemp
     }
     print data1
     output = open('/tmp/data.pkl', 'wb')
     # Pickle dictionary using protocol 0.
     pickle.dump(data1, output)
     output.close()
-    time.sleep(5)
+    time.sleep(1)
