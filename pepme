@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pep8 -r */*.py
+

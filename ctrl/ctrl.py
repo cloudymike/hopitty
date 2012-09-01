@@ -10,12 +10,13 @@ import getopt
 import sys
 import hotWaterTun
 
-simTemp=70
-shutdown=False
-#sys.exit(0)
 
 def usage():
-   print 'usage:'
+    print 'usage:'
+
+simTemp = 70
+shutdown = False
+#sys.exit(0)
 
 options, remainder = getopt.getopt(sys.argv[1:], 'hsv', [
                                                          'help',
@@ -23,8 +24,8 @@ options, remainder = getopt.getopt(sys.argv[1:], 'hsv', [
                                                          'verbose',
                                                          'version=',
                                                         ])
-verbose=False
-simulation=False
+verbose = False
+simulation = False
 for opt, arg in options:
     if opt in ('-h', '--help'):
         usage()
@@ -40,37 +41,50 @@ if verbose:
     if simulation:
         print 'Simulation mode'
 
+# Initially for debugging
+#lt=time.localtime(time.time())
+#secs=lt.tm_sec
+me = getpass.getuser()
+
 # X10 setup. Logger logs to screen
 if not simulation:
-    mytun=hotWaterTun.hwtHW()
+    mytun = hotWaterTun.hwtHW()
 else:
-    mytun=hotWaterTun.hwtsim()
-    
+    mytun = hotWaterTun.hwtsim()
+
 currTemp = mytun.temperature()
 status = mytun.status()
 
 while True:
-    #lt=time.localtime(time.time())
-    #secs=lt.tm_sec
-    me=getpass.getuser()
+    # get data
+    settings = pickle.load(open("/tmp/settings.pkl", "rb"))
+    stage = settings['stage']
 
-    settings=pickle.load(open("/tmp/settings.pkl","rb"))
-    presetTemp=int(settings['temperature'])
-    mytun.setTemp(presetTemp)
+    if stage == 'shutdown':
+        del mytun
+        break
+
+    if stage == 'stop':
+        mytun.stop()
+
+    if stage == 'run':
+        # process
+        mytun.setTemp(int(settings['temperature']))
+        mytun.thermostat()
+
+    # Thins to always do
     currTemp = mytun.temperature()
-    mytun.thermostat()
+
+    # Save data
     status = mytun.status()
     data1 = {'t': currTemp,
              'me': me,
              'status': status,
-             'setTemp': presetTemp
+             'setTemp': int(settings['temperature'])
     }
     print data1
     output = open('/tmp/data.pkl', 'wb')
     # Pickle dictionary using protocol 0.
     pickle.dump(data1, output)
     output.close()
-    if shutdown:
-        del mytun
-        break
     time.sleep(1)
