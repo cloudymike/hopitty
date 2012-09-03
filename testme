@@ -1,0 +1,14 @@
+#!/bin/bash
+
+pushd ctrl > /dev/null
+echo -n "=========================" 
+pwd | cut -d "/" -f ` pwd | sed 's/\//x /g' | wc -w`
+nosetests
+popd > /dev/null
+
+pushd cgi-bin > /dev/null
+echo -n "=========================" 
+pwd | cut -d "/" -f ` pwd | sed 's/\//x /g' | wc -w`
+nosetests
+popd > /dev/null
+
