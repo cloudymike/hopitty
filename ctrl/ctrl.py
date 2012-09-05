@@ -54,6 +54,7 @@ else:
 
 currTemp = mytun.temperature()
 status = mytun.status()
+watchdog = 0
 
 while True:
     # get data
@@ -75,10 +76,12 @@ while True:
     # Thins to always do
     currTemp = mytun.temperature()
 
+    watchdog=int(time.time())
     # Save data
     status = mytun.status()
     data1 = {'t': currTemp,
              'me': me,
+             'watchdog':watchdog,
              'status': status,
              'setTemp': int(settings['temperature'])
     }

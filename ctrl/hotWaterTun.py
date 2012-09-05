@@ -62,7 +62,6 @@ class hwtsim(hwt):
 class hwtHW(hwt):
     def __init__(self):
         print "Initializing hardware"
-        self.powerOn = False
 
         if True:
             self.dev = CM11('/dev/ttyUSB0')
@@ -73,7 +72,10 @@ class hwtHW(hwt):
 
     def temperature(self):
         currTempStr = subprocess.check_output('./mytemp')
-        currTemp = int(currTempStr)
+        try:
+            currTemp = int(currTempStr)
+        except:
+            currTemp = 999
         return currTemp
 
     def on(self):

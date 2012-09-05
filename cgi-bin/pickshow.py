@@ -2,6 +2,7 @@
 import pickle
 import cgi
 import cgitb
+import time
 
 cgitb.enable()
 
@@ -9,10 +10,13 @@ data = pickle.load(open("/tmp/data.pkl", "rb"))
 myname = data['me']
 currentTemp = data['t']
 status = data['status']
+watchdog = data['watchdog']
+checkwatchdog=int(time.time())
 
 settings = pickle.load(open("/tmp/settings.pkl", "rb"))
 setTemp = settings['temperature']
 setStage = settings['stage']
+
 print "Content-Type: text/html"
 print
 print '<META HTTP-EQUIV="REFRESH" CONTENT="5">'
@@ -31,6 +35,9 @@ print """\
 <input type="submit" value="Settings">
 </form>
 """ % setTemp
+
+if abs(watchdog - checkwatchdog) > 10:
+    print "<h1>Controller Crashed</h1>"
 print """\
 </body>
 </html>

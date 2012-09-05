@@ -19,7 +19,7 @@ print
 print """\
 <html><body>
 <form method="get" action="settings.py">
-Time: <input type="text" name="name" value="%s">
+Temperature: <input type="text" name="name" value="%s">
 
 """ % setTemp
 
