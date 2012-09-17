@@ -9,6 +9,7 @@ import subprocess
 import getopt
 import sys
 import hotWaterTun
+import hoptimer
 
 
 def usage():
@@ -45,6 +46,9 @@ if verbose:
 #lt=time.localtime(time.time())
 #secs=lt.tm_sec
 me = getpass.getuser()
+
+starttime=hoptimer.hoptimer()
+starttime.set(9999)
 
 # X10 setup. Logger logs to screen
 if not simulation:
@@ -83,7 +87,8 @@ while True:
              'me': me,
              'watchdog':watchdog,
              'status': status,
-             'setTemp': int(settings['temperature'])
+             'setTemp': int(settings['temperature']),
+             'starttime': starttime.get()
     }
     print data1
     output = open('/tmp/data.pkl', 'wb')
