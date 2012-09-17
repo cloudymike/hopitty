@@ -11,6 +11,7 @@ myname = data['me']
 currentTemp = data['t']
 status = data['status']
 watchdog = data['watchdog']
+startTime = data['starttime']
 checkwatchdog=int(time.time())
 
 settings = pickle.load(open("/tmp/settings.pkl", "rb"))
@@ -28,6 +29,7 @@ print """\
 print """<h1>Temp: %s F</h1>""" % currentTemp
 print """<p>Set Temp: %s F</p>""" % setTemp
 print """<p>Hot Plate: %s </p>""" % status
+print """<h1>Time to start: %s s</h1>""" % startTime
 print """<p>Stage: %s </p>""" % setStage
 print """\
 <form method="get" action="n2.py">

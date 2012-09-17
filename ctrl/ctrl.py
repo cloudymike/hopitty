@@ -48,7 +48,7 @@ if verbose:
 me = getpass.getuser()
 
 starttime=hoptimer.hoptimer()
-starttime.set(9999)
+starttime.set(0)
 
 # X10 setup. Logger logs to screen
 if not simulation:

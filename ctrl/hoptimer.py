@@ -22,6 +22,8 @@ class hoptimer():
             deltamin=deltamin+60
         self.absminutes=currmin
         self.minutes=self.minutes-deltamin
+        if self.minutes < 0:
+            self.minutes = 0;
 
 
     def set(self, minutes):
