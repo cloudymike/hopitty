@@ -47,8 +47,8 @@ if verbose:
 #secs=lt.tm_sec
 me = getpass.getuser()
 
-starttime=hoptimer.hoptimer()
-starttime.set(0)
+delayTime=hoptimer.hoptimer()
+delayTime.set(0)
 
 # X10 setup. Logger logs to screen
 if not simulation:
@@ -71,6 +71,7 @@ while True:
 
     if stage == 'stop':
         mytun.stop()
+        delayTime.set(int(settings['setTime']))
 
     if stage == 'run':
         # process
@@ -88,7 +89,7 @@ while True:
              'watchdog':watchdog,
              'status': status,
              'setTemp': int(settings['temperature']),
-             'starttime': starttime.get()
+             'delayTime': delayTime.get()
     }
     print data1
     output = open('/tmp/data.pkl', 'wb')

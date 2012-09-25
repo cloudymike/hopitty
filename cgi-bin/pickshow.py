@@ -11,12 +11,13 @@ myname = data['me']
 currentTemp = data['t']
 status = data['status']
 watchdog = data['watchdog']
-startTime = data['starttime']
+currentTime = data['delayTime']
 checkwatchdog=int(time.time())
 
 settings = pickle.load(open("/tmp/settings.pkl", "rb"))
 setTemp = settings['temperature']
 setStage = settings['stage']
+setTime = settings['setTime']
 
 print "Content-Type: text/html"
 print
@@ -26,10 +27,25 @@ print """\
 <body>
 <h2>Hi %s</h2>
 """ % myname
-print """<h1>Temp: %s F</h1>""" % currentTemp
-print """<p>Set Temp: %s F</p>""" % setTemp
+
+print """\
+<table border="1">
+<tr>
+<td><b>Value</td>
+<td><b>Set Value</td>
+<td><b>Actual Value</td>
+</tr>
+"""
+print """<tr><td>Temp</td>"""
+print """<td> %s F</td>""" % setTemp
+print """<td> %s F</td></tr>""" % currentTemp
+
+print """<tr><td>Time</td>"""
+print """<td> %s min</td>""" % setTime
+print """<td> %s min</td></tr>""" % currentTime
+print "</table>"
+
 print """<p>Hot Plate: %s </p>""" % status
-print """<h1>Time to start: %s s</h1>""" % startTime
 print """<p>Stage: %s </p>""" % setStage
 print """\
 <form method="get" action="n2.py">

@@ -18,6 +18,7 @@
 *.so
 *.lo
 *.la
+*.Plo
 
 # GoIO generated files
 mytemp

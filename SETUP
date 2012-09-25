@@ -27,6 +27,11 @@ rm -rf python-x10
 
 sudo apt-get install python-nose
 
+sudo apt-get install apache2
+cd $HOMEDIR
+cd cgi-bin
+sudo ./INSTALL
+
 cd $HOMEDIR
 ./testme
 

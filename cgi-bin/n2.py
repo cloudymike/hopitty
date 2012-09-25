@@ -13,6 +13,7 @@ setTemp = cgi.escape(setTemp)
 settings = pickle.load(open("/tmp/settings.pkl", "rb"))
 setTemp = settings['temperature']
 setStage = settings['stage']
+setTime = settings['setTime']
 
 print "Content-Type: text/html"
 print
@@ -22,6 +23,13 @@ print """\
 Temperature: <input type="text" name="name" value="%s">
 
 """ % setTemp
+
+
+print """\
+<br>
+Delay Time    : <input type="text" name="setTime" value="%s">
+<br>
+""" % setTime
 
 stopchk = ""
 runchk = ""

@@ -39,6 +39,13 @@ class hwt:
         else:
             self.off()
 
+    def done(self):
+        if self.temperature() < self.presetTemp:
+            return(False)
+        else:
+            return(True)
+
+
     def on(self):
         self.powerOn = True
 

@@ -8,15 +8,18 @@ cgitb.enable()
 
 form = cgi.FieldStorage()  # instantiate only once!
 setTemp = form.getvalue('name', "0")
+setTime = form.getvalue('setTime', "0")
 setStage = form.getvalue('stage', 'stop')
 
 # Avoid script injection escaping the user input
 setTemp = cgi.escape(setTemp)
+setTime = cgi.escape(setTime)
 setStage = cgi.escape(setStage)
 
 settings = {'temperature': setTemp,
     'stage': setStage,
-    'name': 'JustMe'
+    'name': 'JustMe',
+    'setTime': setTime
 }
 output = open('/tmp/settings.pkl', 'wb')
 # Pickle dictionary using protocol 0.
