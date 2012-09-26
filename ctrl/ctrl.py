@@ -47,18 +47,16 @@ if verbose:
 #secs=lt.tm_sec
 me = getpass.getuser()
 
-delayTime=hoptimer.hoptimer()
-delayTime.set(0)
-
-# X10 setup. Logger logs to screen
 if not simulation:
+    delayTime=hoptimer.hoptimer()
     mytun = hotWaterTun.hwtHW()
 else:
+    delayTime=hoptimer.hoptimersim()
     mytun = hotWaterTun.hwtsim()
 
 currTemp = mytun.temperature()
 status = mytun.status()
-watchdog = 0
+#watchdog = 0
 
 while True:
     # get data
@@ -69,27 +67,24 @@ while True:
         del mytun
         break
 
+# Shut everything down
     if stage == 'stop':
         mytun.stop()
-        delayTime.set(int(settings['setTime']))
+        delayTime.stop()
 
     if stage == 'run':
         # process
         mytun.setTemp(int(settings['temperature']))
         mytun.thermostat()
+        delayTime.set(int(settings['setTime']))
 
-    # Thins to always do
-    currTemp = mytun.temperature()
-
-    watchdog=int(time.time())
-    # Save data
-    status = mytun.status()
-    data1 = {'t': currTemp,
+    data1 = {'t': mytun.temperature(),
              'me': me,
-             'watchdog':watchdog,
-             'status': status,
-             'setTemp': int(settings['temperature']),
-             'delayTime': delayTime.get()
+             'watchdog':int(time.time()),
+             'status': mytun.status(),
+             'delayTime': delayTime.get(),
+             'hwtDone': mytun.done(),
+             'delayTimeDone': delayTime.done()
     }
     print data1
     output = open('/tmp/data.pkl', 'wb')

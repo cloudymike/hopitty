@@ -4,6 +4,12 @@ import cgi
 import cgitb
 import time
 
+def yn(status):
+    if status:
+        return("y")
+    else:
+        return("n")
+
 cgitb.enable()
 
 data = pickle.load(open("/tmp/data.pkl", "rb"))
@@ -34,18 +40,23 @@ print """\
 <td><b>Value</td>
 <td><b>Set Value</td>
 <td><b>Actual Value</td>
+<td><b>Done</td>
 </tr>
 """
 print """<tr><td>Temp</td>"""
 print """<td> %s F</td>""" % setTemp
-print """<td> %s F</td></tr>""" % currentTemp
+print """<td> %s F</td>""" % currentTemp
+print """<td>%s</td>""" % yn(data['hwtDone'])
+print "</tr>"
 
 print """<tr><td>Time</td>"""
 print """<td> %s min</td>""" % setTime
-print """<td> %s min</td></tr>""" % currentTime
+print """<td> %s min</td>""" % currentTime
+print """<td>%s</td>""" % yn(data['delayTimeDone'])
+print "</tr>"
 print "</table>"
 
-print """<p>Hot Plate: %s </p>""" % status
+print """<p>Hot Water Tun Heater: %s </p>""" % status
 print """<p>Stage: %s </p>""" % setStage
 print """\
 <form method="get" action="n2.py">
