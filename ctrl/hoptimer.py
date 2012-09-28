@@ -18,7 +18,7 @@ class hoptimer(genctrl.genctrl):
         self.active=False
         self.absminutes=time.localtime(time.time()).tm_min
 
-    def update(self):
+    def measure(self):
         currmin=time.localtime(time.time()).tm_min
         deltamin=currmin-self.absminutes
         if deltamin < 0:
@@ -27,7 +27,7 @@ class hoptimer(genctrl.genctrl):
         if self.target > 0:
             self.actual=self.actual+deltamin
 
-class hoptimersim(hoptimer):
+class hoptimer_sim(hoptimer):
     """
     The simulation version of the class
     Should do the same but increment every second instead
@@ -40,7 +40,8 @@ class hoptimersim(hoptimer):
         self.active=False
         self.absminutes=time.localtime(time.time()).tm_sec
 
-    def update(self):
+
+    def measure(self):
         currmin=time.localtime(time.time()).tm_sec
         deltamin=currmin-self.absminutes
         if deltamin < 0:

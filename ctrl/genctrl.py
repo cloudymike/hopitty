@@ -22,16 +22,28 @@ class genctrl():
     def __del__(self):
         self.stop()
 
+    def measure(self):
+        """
+        Measure what is controlled. This dummy function is simulating
+        Something trying to reach a target value, and stay there.
+        Others (like pumps and time) will just go in one direction
+
+        This functions MUST be rewritten for every controller!
+        """
+        if self.targetMet():
+            self.actual = self.actual + 1
+        else:
+            self.actual = self.actual - 1
+
     def update(self):
         """
-        Updates the measured value AND updates controller status
+        Updates controller status
         meaning turning off or on power
+        Probably a good idea to do a self.measure() first 
         """
+        self.measure()
         if self.active:
-            if self.targetMet():
-                self.actual = self.actual + 1
-            else:
-                self.actual = self.actual - 1
+            pass
 
     def targetMet(self):
         """ Function for target met. Rewrite for each implementation"""
@@ -50,11 +62,9 @@ class genctrl():
     def get(self):
         """
         Get the actual measured value.
-        As a side effect runs the update command (is this not bad?)
-        Maybe better to break up into measure and control.
-        get could do measure. (and so will control)
+        As a side effect runs the measure command 
         """
-        self.update()
+        self.measure()
         return(self.actual)
 
     def stop(self):

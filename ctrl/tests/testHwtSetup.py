@@ -21,9 +21,9 @@ def testHwtThermostat():
     mytun = hotWaterTun.hwtsim()
     status=mytun.status()
     assert status == 'Off'
-    T = mytun.temperature()
+    T = mytun.get()
     mytun.setTemp(T + 5)
-    mytun.thermostat()
+    mytun.update()
     status=mytun.status()
     assert status == 'On'
     

@@ -22,7 +22,7 @@ class hwt(genctrl.genctrl):
         self.powerOn = False
         print 'Powering down'
 
-    def temperature(self):
+    def measure(self):
         return(self.currTemp)
 
     def status(self):
@@ -35,19 +35,19 @@ class hwt(genctrl.genctrl):
         self.presetTemp = preset
 
     def update(self):
-        if self.temperature() < self.presetTemp:
+        if self.measure() < self.presetTemp:
             self.on()
         else:
             self.off()
 
     def targetMet(self):
-        if self.temperature() < self.presetTemp:
+        if self.measure() < self.presetTemp:
             return(False)
         else:
             return(True)
 
     def get(self):
-        return(self.temperature())
+        return(self.measure())
 
     def on(self):
         self.powerOn = True
@@ -62,9 +62,9 @@ class hwt(genctrl.genctrl):
 
 class hwtsim(hwt):
 
-    def temperature(self):
+    def measure(self):
         if self.powerOn:
-            self.currTemp = self.currTemp + 2
+            self.currTemp = self.currTemp + 1
         else:
             self.currTemp = self.currTemp - 1
         return(self.currTemp)
@@ -82,7 +82,7 @@ class hwtHW(hwt):
             self.hotWaterTun.off()
             self.active=False
 
-    def temperature(self):
+    def measure(self):
         currTempStr = subprocess.check_output('./mytemp')
         try:
             currTemp = int(currTempStr)

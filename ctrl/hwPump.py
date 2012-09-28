@@ -21,7 +21,8 @@ class hwPump(genctrl.genctrl):
         self.absSec=time.time()
         self.SEC_PER_QUART=41.0
 
-    def update(self):
+
+    def measure(self):
         currSec=time.time()
         deltaSec=currSec-self.absSec
         deltavol=deltaSec/self.SEC_PER_QUART
@@ -29,6 +30,10 @@ class hwPump(genctrl.genctrl):
         if self.pumpRunning:
             self.actual=self.actual+deltavol
             self.totalVol=self.actual+deltavol
+
+
+    def update(self):
+        self.measure()
         if self.targetMet():
             self.pumpOff()
 

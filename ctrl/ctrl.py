@@ -53,11 +53,11 @@ if not simulation:
     mytun = hotWaterTun.hwtHW()
     gentst = genctrl.genctrl()
 else:
-    delayTime=hoptimer.hoptimersim()
+    delayTime=hoptimer.hoptimer_sim()
     mytun = hotWaterTun.hwtsim()
     gentst = genctrl.genctrl()
 
-currTemp = mytun.temperature()
+#currTemp = mytun.temperature()
 status = mytun.status()
 #watchdog = 0
 
@@ -80,8 +80,9 @@ while True:
         mytun.setTemp(int(settings['temperature']))
         mytun.update()
         delayTime.set(int(settings['setTime']))
+        delayTime.update()
 
-    data1 = {'t': mytun.temperature(),
+    data1 = {'t': mytun.get(),
              'me': me,
              'watchdog':int(time.time()),
              'status': mytun.status(),
