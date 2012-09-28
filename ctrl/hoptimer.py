@@ -15,6 +15,7 @@ class hoptimer(genctrl.genctrl):
     def __init__(self):
         self.actual=0
         self.target=0
+        self.active=False
         self.absminutes=time.localtime(time.time()).tm_min
 
     def update(self):
@@ -36,6 +37,7 @@ class hoptimersim(hoptimer):
     def __init__(self):
         self.actual=0
         self.target=0
+        self.active=False
         self.absminutes=time.localtime(time.time()).tm_sec
 
     def update(self):

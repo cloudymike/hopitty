@@ -86,9 +86,10 @@ while True:
              'watchdog':int(time.time()),
              'status': mytun.status(),
              'delayTime': delayTime.get(),
-             'hwtDone': mytun.done(),
+             'hwtDone': mytun.targetMet(),
              'delayTimeDone': delayTime.targetMet()
     }
+    print delayTime.isActive()
     if verbose:
         print "================================"
         print "Target: ", settings

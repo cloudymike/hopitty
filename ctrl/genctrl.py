@@ -31,7 +31,14 @@ class genctrl():
         return(self.actual >= self.target)
 
     def set(self, value):
+        """ Sets a target value and start controller.
+        if value is 0, deactivate and stop controller
+        """
         self.target=value
+        if value == 0:
+            self.stop()
+        else:
+            self.start()
 
     def get(self):
         self.update()
@@ -44,6 +51,9 @@ class genctrl():
 
     def start(self):
         self.active = True
+
+    def isActive(self):
+        return(self.active)
 
 
 

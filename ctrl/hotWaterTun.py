@@ -9,9 +9,9 @@ import subprocess
 import getopt
 import sys
 from x10.controllers.cm11 import CM11
+import genctrl
 
-
-class hwt:
+class hwt(genctrl.genctrl):
     def __init__(self):
         self.powerOn = False
         self.currTemp = 70
@@ -39,7 +39,7 @@ class hwt:
         else:
             self.off()
 
-    def done(self):
+    def targetMet(self):
         if self.temperature() < self.presetTemp:
             return(False)
         else:
