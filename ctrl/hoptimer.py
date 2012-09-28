@@ -46,7 +46,7 @@ class hoptimersim(hoptimer):
         if deltamin < 0:
             deltamin=deltamin+60
         self.absminutes=currmin
-        if self.target > 0:
+        if self.isActive():
             self.actual=self.actual+deltamin
 
 

@@ -16,6 +16,7 @@ class hwt(genctrl.genctrl):
         self.powerOn = False
         self.currTemp = 70
         self.presetTemp = 70
+        self.active=False
 
     def __del__(self):
         self.powerOn = False
@@ -33,7 +34,7 @@ class hwt(genctrl.genctrl):
     def setTemp(self, preset):
         self.presetTemp = preset
 
-    def thermostat(self):
+    def update(self):
         if self.temperature() < self.presetTemp:
             self.on()
         else:
@@ -45,6 +46,8 @@ class hwt(genctrl.genctrl):
         else:
             return(True)
 
+    def get(self):
+        return(self.temperature())
 
     def on(self):
         self.powerOn = True
@@ -53,6 +56,7 @@ class hwt(genctrl.genctrl):
         self.powerOn = False
 
     def stop(self):
+        self.active = False
         self.off()
 
 
@@ -76,6 +80,7 @@ class hwtHW(hwt):
             self.hotWaterTun = self.dev.actuator("H14")
             self.powerOn = False
             self.hotWaterTun.off()
+            self.active=False
 
     def temperature(self):
         currTempStr = subprocess.check_output('./mytemp')

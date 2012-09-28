@@ -12,15 +12,22 @@ import sys
 class genctrl():
     
     def __init__(self):
-        self.actual=0
-        self.target=0
-        self.active=False
+        self.actual=0     # Actual measured value, ex temp
+        self.target=0     # Target value
+        self.active=False # Controller is running
+                          # Note, controller can run but power
+                          # could be off, as example, heater goes
+                          # on and off, while controller is active
 
     def __del__(self):
         self.stop()
 
     def update(self):
-        if self.Active:
+        """
+        Updates the measured value AND updates controller status
+        meaning turning off or on power
+        """
+        if self.active:
             if self.targetMet():
                 self.actual = self.actual + 1
             else:
@@ -41,12 +48,22 @@ class genctrl():
             self.start()
 
     def get(self):
+        """
+        Get the actual measured value.
+        As a side effect runs the update command (is this not bad?)
+        Maybe better to break up into measure and control.
+        get could do measure. (and so will control)
+        """
         self.update()
         return(self.actual)
 
     def stop(self):
-        self.targetMinutes = 0
-        self.minutes = 0
+        """
+        Stops the controller. Should shut down all power as well
+        to ensure that all is safe after stop
+        """
+        self.target = 0
+        self.actual = 0
         self.active = False
 
     def start(self):

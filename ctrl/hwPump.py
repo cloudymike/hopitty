@@ -13,39 +13,40 @@ import genctrl
 class hwPump(genctrl.genctrl):
     
     def __init__(self):
-        self.actual=0
+        self.actual=0.000
         self.target=0
         self.active=False
-
-    def __del__(self):
-        self.stop()
+        self.totalVol = 0
+        self.pumpRunning=False
+        self.absSec=time.time()
+        self.SEC_PER_QUART=41.0
 
     def update(self):
-        if self.Active:
-            if self.targetMet():
-                self.actual = self.actual + 1
-            else:
-                self.actual = self.actual - 1
+        currSec=time.time()
+        deltaSec=currSec-self.absSec
+        deltavol=deltaSec/self.SEC_PER_QUART
+        self.absminutes=currSec
+        if self.pumpRunning:
+            self.actual=self.actual+deltavol
+            self.totalVol=self.actual+deltavol
+        if self.targetMet():
+            self.pumpOff()
 
-    def targetMet(self):
-        """ Function for target met. Rewrite for each implementation"""
-        return(self.actual >= self.target)
+    def pumpOn(self):
+        self.pumpRunning=True
 
-    def set(self, value):
-        self.target=value
-
-    def get(self):
-        self.update()
-        return(self.actual)
+    def pumpOff(self):
+        self.pumpRunning=False
 
     def stop(self):
-        self.targetMinutes = 0
-        self.minutes = 0
+        self.target = 0
+        self.actual = 0
         self.active = False
+        self.pumpOff()
 
     def start(self):
         self.active = True
-
+        self.pumpOn()
 
 
 

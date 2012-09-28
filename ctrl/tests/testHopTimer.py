@@ -11,14 +11,14 @@ def testSetGetTime():
     m=hoptimer.hoptimer()
     m.set(5)
     assert m.get() == 0   
-    assert m.done() == False
+    assert m.targetMet() == False
 
 def testwaitamin():
     m=hoptimer.hoptimersim()
     m.set(1)
     time.sleep(1)
     assert m.get() > 0 
-    assert m.done() == True  
+    assert m.targetMet() == True  
    
 def testStop():
     m=hoptimer.hoptimersim()

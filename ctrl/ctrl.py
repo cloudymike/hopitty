@@ -78,7 +78,7 @@ while True:
     if stage == 'run':
         # process
         mytun.setTemp(int(settings['temperature']))
-        mytun.thermostat()
+        mytun.update()
         delayTime.set(int(settings['setTime']))
 
     data1 = {'t': mytun.temperature(),
@@ -89,13 +89,14 @@ while True:
              'hwtDone': mytun.targetMet(),
              'delayTimeDone': delayTime.targetMet()
     }
-    print delayTime.isActive()
     if verbose:
         print "================================"
         print "Target: ", settings
         print "Actual: ", data1
     else:
-        print "."
+        sys.stdout.write(".")
+        sys.stdout.flush()
+
     output = open('/tmp/data.pkl', 'wb')
     # Pickle dictionary using protocol 0.
     pickle.dump(data1, output)
