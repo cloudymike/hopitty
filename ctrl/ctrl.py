@@ -8,9 +8,10 @@ import time
 import subprocess
 import getopt
 import sys
+import genctrl
 import hotWaterTun
 import hoptimer
-
+import hwPump
 
 def usage():
     print 'usage:'
@@ -50,9 +51,11 @@ me = getpass.getuser()
 if not simulation:
     delayTime=hoptimer.hoptimer()
     mytun = hotWaterTun.hwtHW()
+    gentst = genctrl.genctrl()
 else:
     delayTime=hoptimer.hoptimersim()
     mytun = hotWaterTun.hwtsim()
+    gentst = genctrl.genctrl()
 
 currTemp = mytun.temperature()
 status = mytun.status()
@@ -84,9 +87,14 @@ while True:
              'status': mytun.status(),
              'delayTime': delayTime.get(),
              'hwtDone': mytun.done(),
-             'delayTimeDone': delayTime.done()
+             'delayTimeDone': delayTime.targetMet()
     }
-    print data1
+    if verbose:
+        print "================================"
+        print "Target: ", settings
+        print "Actual: ", data1
+    else:
+        print "."
     output = open('/tmp/data.pkl', 'wb')
     # Pickle dictionary using protocol 0.
     pickle.dump(data1, output)

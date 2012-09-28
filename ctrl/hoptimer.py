@@ -8,44 +8,23 @@ import time
 import subprocess
 import getopt
 import sys
+import genctrl
 
-class hoptimer():
+class hoptimer(genctrl.genctrl):
     
     def __init__(self):
-        self.minutes=0
-        self.targetMinutes=0
+        self.actual=0
+        self.target=0
         self.absminutes=time.localtime(time.time()).tm_min
 
-    def __del__(self):
-        self.stop()
-
-    def checkmins(self):
+    def update(self):
         currmin=time.localtime(time.time()).tm_min
         deltamin=currmin-self.absminutes
-        print self.targetMinutes
         if deltamin < 0:
             deltamin=deltamin+60
         self.absminutes=currmin
-        if self.targetMinutes > 0:
-            self.minutes=self.minutes+deltamin
-
-
-    def done(self):
-        if self.minutes >= self.targetMinutes:
-           return(True)
-        else:
-           return(False)
-
-    def set(self, minutes):
-        self.targetMinutes=minutes
-
-    def get(self):
-        self.checkmins()
-        return(self.minutes)
-
-    def stop(self):
-        self.targetMinutes=0
-        self.minutes=0
+        if self.target > 0:
+            self.actual=self.actual+deltamin
 
 class hoptimersim(hoptimer):
     """
@@ -55,19 +34,18 @@ class hoptimersim(hoptimer):
     speeds up the simulation to make it more useful
     """
     def __init__(self):
-        self.minutes=0
-        self.targetMinutes=0
+        self.actual=0
+        self.target=0
         self.absminutes=time.localtime(time.time()).tm_sec
 
-    def checkmins(self):
+    def update(self):
         currmin=time.localtime(time.time()).tm_sec
         deltamin=currmin-self.absminutes
-        print self.targetMinutes
         if deltamin < 0:
             deltamin=deltamin+60
         self.absminutes=currmin
-        if self.targetMinutes > 0:
-            self.minutes=self.minutes+deltamin
+        if self.target > 0:
+            self.actual=self.actual+deltamin
 
 
 
