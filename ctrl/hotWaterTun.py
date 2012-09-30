@@ -35,10 +35,10 @@ class hwt(genctrl.genctrl):
         self.presetTemp = preset
 
     def update(self):
-        if self.measure() < self.presetTemp:
-            self.on()
-        else:
+        if self.targetMet():
             self.off()
+        else:
+            self.on()
 
     def targetMet(self):
         if self.measure() < self.presetTemp:
@@ -71,19 +71,15 @@ class hwtsim(hwt):
 
 
 class hwtHW(hwt):
-    def __init__(self):
-        print "Initializing hardware"
-
-        if True:
-            self.dev = CM11('/dev/ttyUSB0')
-            self.dev.open()
-            self.hotWaterTun = self.dev.actuator("H14")
-            self.powerOn = False
-            self.hotWaterTun.off()
-            self.active=False
+    def __init__(self,switch):
+        self.hotWaterTun=switch
+        self.powerOn = False
+        self.hotWaterTun.off()
+        self.active=False
+        self.presetTemp = 70
 
     def measure(self):
-        currTempStr = subprocess.check_output('./mytemp')
+        currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')
         try:
             currTemp = int(currTempStr)
         except:

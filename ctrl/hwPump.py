@@ -9,6 +9,8 @@ import subprocess
 import getopt
 import sys
 import genctrl
+from x10.controllers.cm11 import CM11
+
 
 class hwPump(genctrl.genctrl):
     
@@ -26,7 +28,7 @@ class hwPump(genctrl.genctrl):
         currSec=time.time()
         deltaSec=currSec-self.absSec
         deltavol=deltaSec/self.SEC_PER_QUART
-        self.absminutes=currSec
+        self.absSec=currSec
         if self.pumpRunning:
             self.actual=self.actual+deltavol
             self.totalVol=self.actual+deltavol
@@ -38,7 +40,8 @@ class hwPump(genctrl.genctrl):
             self.pumpOff()
 
     def pumpOn(self):
-        self.pumpRunning=True
+        if not self.targetMet():
+            self.pumpRunning=True
 
     def pumpOff(self):
         self.pumpRunning=False
@@ -52,6 +55,37 @@ class hwPump(genctrl.genctrl):
     def start(self):
         self.active = True
         self.pumpOn()
+
+
+class hwPump_sim(hwPump):
+    pass
+
+
+class hwPump_hw(hwPump):
+
+    def __init__(self,switch):
+        self.actual=0.000
+        self.target=0
+        self.active=False
+        self.totalVol = 0
+        self.pumpRunning=False
+        self.absSec=time.time()
+        self.SEC_PER_QUART=39.0
+
+        self.pumpMotor = switch
+        self.pumpMotor.off()
+
+    def pumpOn(self):
+        if not self.targetMet():
+            self.pumpRunning=True
+            self.pumpMotor.on()
+            print "Pump motor on"
+
+    def pumpOff(self):
+        self.pumpRunning=False
+        self.pumpMotor.off()
+        print "Pump motor off"
+
 
 
 

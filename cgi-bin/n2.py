@@ -14,6 +14,7 @@ settings = pickle.load(open("/tmp/settings.pkl", "rb"))
 setTemp = settings['temperature']
 setStage = settings['stage']
 setTime = settings['setTime']
+setHwVolume = settings['setHwVolume']
 
 print "Content-Type: text/html"
 print
@@ -30,6 +31,11 @@ print """\
 Delay Time    : <input type="text" name="setTime" value="%s">
 <br>
 """ % setTime
+print """\
+<br>
+Hot Water Volume: <input type="text" name="setHwVolume" value="%s">
+<br>
+""" % setHwVolume
 
 stopchk = ""
 runchk = ""

@@ -9,17 +9,20 @@ cgitb.enable()
 form = cgi.FieldStorage()  # instantiate only once!
 setTemp = form.getvalue('name', "0")
 setTime = form.getvalue('setTime', "0")
+setHwVolume = form.getvalue('setHwVolume', "0")
 setStage = form.getvalue('stage', 'stop')
 
 # Avoid script injection escaping the user input
 setTemp = cgi.escape(setTemp)
 setTime = cgi.escape(setTime)
+setHwVolume = cgi.escape(setHwVolume)
 setStage = cgi.escape(setStage)
 
 settings = {'temperature': setTemp,
     'stage': setStage,
-    'name': 'JustMe',
-    'setTime': setTime
+    'name': 'Manual',
+    'setTime': setTime,
+    'setHwVolume': setHwVolume
 }
 output = open('/tmp/settings.pkl', 'wb')
 # Pickle dictionary using protocol 0.
@@ -28,12 +31,19 @@ output.close()
 
 print "Content-Type: text/html"
 print
+print """<html>"""
+print """<meta HTTP-EQUIV="REFRESH" content="0; url=pickshow.py">"""
 print """\
-<html>
-<meta HTTP-EQUIV="REFRESH" content="0; url=pickshow.py">
 <body><h1>Settings</h1>
 <p>This is the page that should redirect</p>
 <p>The purpose of this page is to read form data and update data files.</p>
+"""
+print """<p>Temp: %s</p>""" % setTemp
+print """<p>Time: %s</p>""" % setTime
+print """<p>HwVol: %s</p>""" % setHwVolume
+print """<p>Stage: %s</p>""" % setStage
+print """\
+<a href="./pickshow.py">Show Page</a> 
 </body>
 </html>
 """

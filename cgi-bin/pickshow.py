@@ -54,6 +54,13 @@ print """<td> %s min</td>""" % setTime
 print """<td> %s min</td>""" % currentTime
 print """<td>%s</td>""" % yn(data['delayTimeDone'])
 print "</tr>"
+
+print """<tr><td>HW Vol</td>"""
+print """<td> %s Qt</td>""" % settings['setHwVolume']
+print """<td> %s Qt</td>""" % data['hwPumpVolume']
+print """<td>%s</td>""" % yn(data['hwPumpDone'])
+print "</tr>"
+
 print "</table>"
 
 print """<p>Hot Water Tun Heater: %s </p>""" % status

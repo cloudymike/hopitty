@@ -12,6 +12,8 @@ import genctrl
 import hotWaterTun
 import hoptimer
 import hwPump
+from x10.controllers.cm11 import CM11
+
 
 def usage():
     print 'usage:'
@@ -49,13 +51,19 @@ if verbose:
 me = getpass.getuser()
 
 if not simulation:
+    print "Initializing hardware"
+    x10 = CM11('/dev/ttyUSB0')
+    x10.open()
+    hwTunSwitch = x10.actuator("H14")
+    hwPumpSwitch = x10.actuator("I12")
+
     delayTime=hoptimer.hoptimer()
-    mytun = hotWaterTun.hwtHW()
-    gentst = genctrl.genctrl()
+    mytun = hotWaterTun.hwtHW(hwTunSwitch)
+    hwPump = hwPump.hwPump_hw(hwPumpSwitch)
 else:
     delayTime=hoptimer.hoptimer_sim()
     mytun = hotWaterTun.hwtsim()
-    gentst = genctrl.genctrl()
+    hwPump = hwPump.hwPump_sim()
 
 #currTemp = mytun.temperature()
 status = mytun.status()
@@ -81,6 +89,8 @@ while True:
         mytun.update()
         delayTime.set(int(settings['setTime']))
         delayTime.update()
+        hwPump.set(float(settings['setHwVolume']))
+        hwPump.update()
 
     data1 = {'t': mytun.get(),
              'me': me,
@@ -88,7 +98,9 @@ while True:
              'status': mytun.status(),
              'delayTime': delayTime.get(),
              'hwtDone': mytun.targetMet(),
-             'delayTimeDone': delayTime.targetMet()
+             'delayTimeDone': delayTime.targetMet(),
+             'hwPumpVolume' : hwPump.get(),
+             'hwPumpDone' : hwPump.targetMet(),
     }
     if verbose:
         print "================================"
