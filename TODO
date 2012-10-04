@@ -19,7 +19,11 @@ Use conventions to enable finding what version is in current list
   is easier to derive both from a single version
   No other underscores are allowed in the name for this to work (easily)
   
-
+Make PKL files auto creates
+Maybe in controller? If not exist, write them first?
+Binary is not good for ARM, as it is different than X86
+ALso add exception handling for reading the files, so it does not crash
+Keep old value but indicate that it is not updated
 
 
 watch dogs? Water checks?

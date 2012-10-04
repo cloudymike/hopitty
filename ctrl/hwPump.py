@@ -19,9 +19,10 @@ class hwPump(genctrl.genctrl):
         self.target=0
         self.active=False
         self.totalVol = 0
-        self.pumpRunning=False
+        self.powerOn=False
         self.absSec=time.time()
         self.SEC_PER_QUART=41.0
+        self.unit='Qt'
 
 
     def measure(self):
@@ -29,7 +30,7 @@ class hwPump(genctrl.genctrl):
         deltaSec=currSec-self.absSec
         deltavol=deltaSec/self.SEC_PER_QUART
         self.absSec=currSec
-        if self.pumpRunning:
+        if self.powerOn:
             self.actual=self.actual+deltavol
             self.totalVol=self.actual+deltavol
 
@@ -41,10 +42,10 @@ class hwPump(genctrl.genctrl):
 
     def pumpOn(self):
         if not self.targetMet():
-            self.pumpRunning=True
+            self.powerOn=True
 
     def pumpOff(self):
-        self.pumpRunning=False
+        self.powerOn=False
 
     def stop(self):
         self.target = 0
@@ -68,21 +69,22 @@ class hwPump_hw(hwPump):
         self.target=0
         self.active=False
         self.totalVol = 0
-        self.pumpRunning=False
+        self.powerOn=False
         self.absSec=time.time()
         self.SEC_PER_QUART=39.0
+        self.unit='Qt'
 
         self.pumpMotor = switch
         self.pumpMotor.off()
 
     def pumpOn(self):
         if not self.targetMet():
-            self.pumpRunning=True
+            self.powerOn=True
             self.pumpMotor.on()
             print "Pump motor on"
 
     def pumpOff(self):
-        self.pumpRunning=False
+        self.powerOn=False
         self.pumpMotor.off()
         print "Pump motor off"
 

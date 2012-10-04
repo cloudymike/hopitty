@@ -25,3 +25,6 @@ mytemp
 GoIO-2.28.0/GoIO_DLL/.libs/
 GoIO-2.28.0/GoIO_cpp/.libs/
 GoIO-2.28.0/GoIO_cpp/Linux/.libs/
+
+# python X10 is dowloaded from github and unmodified
+python-x10

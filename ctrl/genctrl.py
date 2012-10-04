@@ -9,15 +9,18 @@ import subprocess
 import getopt
 import sys
 
+
 class genctrl():
-    
+
     def __init__(self):
-        self.actual=0     # Actual measured value, ex temp
-        self.target=0     # Target value
-        self.active=False # Controller is running
-                          # Note, controller can run but power
-                          # could be off, as example, heater goes
-                          # on and off, while controller is active
+        self.actual = 0      # Actual measured value, ex temp
+        self.target = 0      # Target value
+        self.unit = 'U'      # Unit of measure
+        self.powerOn = False # If the power is on heater/pump etc
+        self.active = False  # Controller is running
+                             # Note, controller can run but power
+                             # could be off, as example, heater goes
+                             # on and off, while controller is active
 
     def __del__(self):
         self.stop()
@@ -39,7 +42,7 @@ class genctrl():
         """
         Updates controller status
         meaning turning off or on power
-        Probably a good idea to do a self.measure() first 
+        Probably a good idea to do a self.measure() first
         """
         self.measure()
         if self.active:
@@ -53,7 +56,7 @@ class genctrl():
         """ Sets a target value and start controller.
         if value is 0, deactivate and stop controller
         """
-        self.target=value
+        self.target = value
         if value == 0:
             self.stop()
         else:
@@ -62,10 +65,28 @@ class genctrl():
     def get(self):
         """
         Get the actual measured value.
-        As a side effect runs the measure command 
+        As a side effect runs the measure command
         """
         self.measure()
         return(self.actual)
+
+    def getTarget(self):
+        """
+        Get the target value.
+        """
+        return(self.target)
+
+    def getUnit(self):
+        """
+        Get the unit of measure.
+        """
+        return(self.unit)
+
+    def getPowerOn(self):
+        """
+        Get the unit of measure.
+        """
+        return(self.powerOn)
 
     def stop(self):
         """
@@ -81,7 +102,3 @@ class genctrl():
 
     def isActive(self):
         return(self.active)
-
-
-
-

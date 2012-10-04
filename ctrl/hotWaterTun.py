@@ -17,6 +17,7 @@ class hwt(genctrl.genctrl):
         self.currTemp = 70
         self.presetTemp = 70
         self.active=False
+        self.unit='F'
 
     def __del__(self):
         self.powerOn = False
@@ -49,6 +50,9 @@ class hwt(genctrl.genctrl):
     def get(self):
         return(self.measure())
 
+    def getTarget(self):
+        return(self.presetTemp)
+
     def on(self):
         self.powerOn = True
 
@@ -77,6 +81,7 @@ class hwtHW(hwt):
         self.hotWaterTun.off()
         self.active=False
         self.presetTemp = 70
+        self.unit = 'F'
 
     def measure(self):
         currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')
