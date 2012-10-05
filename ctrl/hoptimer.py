@@ -48,9 +48,9 @@ class hoptimer_sim(hoptimer):
 
     def measure(self):
         currmin = time.localtime(time.time()).tm_sec
-        deltamin = currmin-self.absminutes
+        deltamin = currmin - self.absminutes
         if deltamin < 0:
-            deltamin = deltamin+60
+            deltamin = deltamin + 60
         self.absminutes = currmin
         if self.isActive():
-            self.actual = self.actual+deltamin
+            self.actual = self.actual + deltamin

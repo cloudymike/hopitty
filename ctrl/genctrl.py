@@ -13,14 +13,14 @@ import sys
 class genctrl():
 
     def __init__(self):
-        self.actual = 0      # Actual measured value, ex temp
-        self.target = 0      # Target value
-        self.unit = 'U'      # Unit of measure
-        self.powerOn = False # If the power is on heater/pump etc
-        self.active = False  # Controller is running
-                             # Note, controller can run but power
-                             # could be off, as example, heater goes
-                             # on and off, while controller is active
+        self.actual = 0       # Actual measured value, ex temp
+        self.target = 0       # Target value
+        self.unit = 'U'       # Unit of measure
+        self.powerOn = False  # If the power is on heater/pump etc
+        self.active = False   # Controller is running
+                              # Note, controller can run but power
+                              # could be off, as example, heater goes
+                              # on and off, while controller is active
 
     def __del__(self):
         self.stop()

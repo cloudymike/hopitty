@@ -20,7 +20,7 @@ def usage():
 
 simTemp = 70
 shutdown = False
-controllers={}
+controllers = {}
 #sys.exit(0)
 
 options, remainder = getopt.getopt(sys.argv[1:], 'hsv', [
@@ -96,7 +96,7 @@ while True:
 # Shut everything down
     if runStop == 'stop':
         for c in controllers.itervalues():
-          c.stop()
+            c.stop()
 
     if runStop == 'run':
         # process
@@ -105,7 +105,6 @@ while True:
         controllers['hwPump'].set(float(settings['setHwVolume']))
         for c in controllers.itervalues():
             c.update()
-
 
 #    data1 = {'t': mytun.get(),
 #             'me': me,
@@ -121,14 +120,10 @@ while True:
 #    # Pickle dictionary using protocol 0.
 #    pickle.dump(data1, output)
 #    output.close()
-
-       
-
-
     # New status dump more in json like format
     stat = {}
     ctrlStat = {}
-    for key,c in controllers.items():
+    for key, c in controllers.items():
         curr = {}
         curr['actual'] = c.get()
         curr['target'] = c.getTarget()
@@ -144,7 +139,7 @@ while True:
     # Pickle dictionary using protocol 0.
     pickle.dump(stat, statout)
     statout.close()
-        
+
     if verbose:
         print "================================"
         print "Target: ", settings
@@ -152,7 +147,5 @@ while True:
     else:
         sys.stdout.write(".")
         sys.stdout.flush()
-
-
 
     time.sleep(1)

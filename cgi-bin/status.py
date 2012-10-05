@@ -4,6 +4,7 @@ import cgi
 import cgitb
 import time
 
+
 def yn(status):
     if status:
         return("y")
@@ -28,7 +29,7 @@ print """\
 <html>
 <body>
 <h2>Status</h2>
-""" 
+"""
 
 print """\
 <table border="1">
@@ -40,10 +41,10 @@ print """\
 <td><b>Done</td>
 </tr>
 """
-for key,c in controllers.items():
+for key, c in controllers.items():
     print """<tr><td> %s </td>""" % key
-    print """<td> %s %s</td>""" % (c['target'],c['unit']) 
-    print """<td> %s %s</td>""" % (c['actual'],c['unit'])
+    print """<td> %s %s</td>""" % (c['target'], c['unit'])
+    print """<td> %s %s</td>""" % (c['actual'], c['unit'])
     print """<td> %s </td>""" % yn(c['powerOn'])
     print """<td>%s</td>""" % yn(c['targetMet'])
     print "</tr>"
@@ -52,7 +53,7 @@ for key,c in controllers.items():
 
 print "</table>"
 print "<br>"
-checkwatchdog=int(time.time())
+checkwatchdog = int(time.time())
 watchdog = status['watchDog']
 if abs(watchdog - checkwatchdog) > 10:
     print "<h1>Controller Crashed</h1>"
@@ -64,7 +65,7 @@ print """\
 <form method="get" action="n2.py">
 <input type="submit" value="Settings">
 </form>
-""" 
+"""
 
 print """\
 </body>

@@ -43,7 +43,7 @@ print """<p>Time: %s</p>""" % setTime
 print """<p>HwVol: %s</p>""" % setHwVolume
 print """<p>Stage: %s</p>""" % setStage
 print """\
-<a href="./status.py">Show Page</a> 
+<a href="./status.py">Show Page</a>
 </body>
 </html>
 """

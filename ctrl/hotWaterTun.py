@@ -11,13 +11,14 @@ import sys
 from x10.controllers.cm11 import CM11
 import genctrl
 
+
 class hwt(genctrl.genctrl):
     def __init__(self):
         self.powerOn = False
         self.currTemp = 70
         self.presetTemp = 70
-        self.active=False
-        self.unit='F'
+        self.active = False
+        self.unit = 'F'
 
     def __del__(self):
         self.powerOn = False
@@ -75,11 +76,11 @@ class hwtsim(hwt):
 
 
 class hwtHW(hwt):
-    def __init__(self,switch):
-        self.hotWaterTun=switch
+    def __init__(self, switch):
+        self.hotWaterTun = switch
         self.powerOn = False
         self.hotWaterTun.off()
-        self.active=False
+        self.active = False
         self.presetTemp = 70
         self.unit = 'F'
 
