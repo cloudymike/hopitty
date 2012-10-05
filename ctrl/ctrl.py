@@ -95,43 +95,35 @@ while True:
 
 # Shut everything down
     if runStop == 'stop':
-        mytun.stop()
-        delayTime.stop()
+        for c in controllers.itervalues():
+          c.stop()
 
     if runStop == 'run':
         # process
-        mytun.setTemp(int(settings['temperature']))
-        mytun.update()
-        delayTime.set(int(settings['setTime']))
-        delayTime.update()
-        hwPump.set(float(settings['setHwVolume']))
-        hwPump.update()
+        controllers['hotWaterTun'].setTemp(int(settings['temperature']))
+        controllers['delayTime'].set(int(settings['setTime']))
+        controllers['hwPump'].set(float(settings['setHwVolume']))
+        for c in controllers.itervalues():
+            c.update()
 
-    data1 = {'t': mytun.get(),
-             'me': me,
-             'watchdog': int(time.time()),
-             'status': mytun.status(),
-             'delayTime': delayTime.get(),
-             'hwtDone': mytun.targetMet(),
-             'delayTimeDone': delayTime.targetMet(),
-             'hwPumpVolume': hwPump.get(),
-             'hwPumpDone': hwPump.targetMet(),
-    }
+
+#    data1 = {'t': mytun.get(),
+#             'me': me,
+#             'watchdog': int(time.time()),
+#             'status': mytun.status(),
+#             'delayTime': delayTime.get(),
+#             'hwtDone': mytun.targetMet(),
+#             'delayTimeDone': delayTime.targetMet(),
+#             'hwPumpVolume': hwPump.get(),
+#             'hwPumpDone': hwPump.targetMet(),
+#    }
+#    output = open('/tmp/data.pkl', 'wb')
+#    # Pickle dictionary using protocol 0.
+#    pickle.dump(data1, output)
+#    output.close()
 
        
 
-    if verbose:
-        print "================================"
-        print "Target: ", settings
-        print "Actual: ", data1
-    else:
-        sys.stdout.write(".")
-        sys.stdout.flush()
-
-    output = open('/tmp/data.pkl', 'wb')
-    # Pickle dictionary using protocol 0.
-    pickle.dump(data1, output)
-    output.close()
 
     # New status dump more in json like format
     stat = {}
@@ -153,6 +145,14 @@ while True:
     pickle.dump(stat, statout)
     statout.close()
         
+    if verbose:
+        print "================================"
+        print "Target: ", settings
+        print "Actual: ", stat
+    else:
+        sys.stdout.write(".")
+        sys.stdout.flush()
+
 
 
     time.sleep(1)

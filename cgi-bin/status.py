@@ -47,6 +47,7 @@ for key,c in controllers.items():
     print """<td>%s</td>""" % yn(c['targetMet'])
     print "</tr>"
 
+#dict_.get('key2', "Key doesn't exist")
 
 print "</table>"
 print "<br>"

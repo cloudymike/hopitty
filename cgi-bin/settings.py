@@ -32,7 +32,7 @@ output.close()
 print "Content-Type: text/html"
 print
 print """<html>"""
-print """<meta HTTP-EQUIV="REFRESH" content="0; url=pickshow.py">"""
+print """<meta HTTP-EQUIV="REFRESH" content="0; url=status.py">"""
 print """\
 <body><h1>Settings</h1>
 <p>This is the page that should redirect</p>
@@ -43,7 +43,7 @@ print """<p>Time: %s</p>""" % setTime
 print """<p>HwVol: %s</p>""" % setHwVolume
 print """<p>Stage: %s</p>""" % setStage
 print """\
-<a href="./pickshow.py">Show Page</a> 
+<a href="./status.py">Show Page</a> 
 </body>
 </html>
 """
