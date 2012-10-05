@@ -11,10 +11,10 @@ setTemp = form.getfirst('name', 'empty')
 setTemp = cgi.escape(setTemp)
 
 settings = pickle.load(open("/tmp/settings.pkl", "rb"))
-setTemp = settings['temperature']
+setTemp = settings['hotWaterTun']
 setStage = settings['stage']
-setTime = settings['setTime']
-setHwVolume = settings['setHwVolume']
+setTime = settings['delayTime']
+setHwVolume = settings['hwPump']
 
 print "Content-Type: text/html"
 print

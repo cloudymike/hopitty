@@ -100,10 +100,11 @@ while True:
 
     if runStop == 'run':
         # process
-        controllers['hotWaterTun'].setTemp(int(settings['temperature']))
-        controllers['delayTime'].set(int(settings['setTime']))
-        controllers['hwPump'].set(float(settings['setHwVolume']))
-        for c in controllers.itervalues():
+        #controllers['hotWaterTun'].set(float(settings['hotWaterTun']))
+        #controllers['delayTime'].set(float(settings['delayTime']))
+        #controllers['hwPump'].set(float(settings['hwPump']))
+        for key, c in controllers.items():
+            c.set(float(settings[key]))
             c.update()
 
 #    data1 = {'t': mytun.get(),

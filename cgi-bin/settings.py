@@ -18,11 +18,12 @@ setTime = cgi.escape(setTime)
 setHwVolume = cgi.escape(setHwVolume)
 setStage = cgi.escape(setStage)
 
-settings = {'temperature': setTemp,
+settings = {
     'stage': setStage,
     'name': 'Manual',
-    'setTime': setTime,
-    'setHwVolume': setHwVolume
+    'hotWaterTun': setTemp,
+    'delayTime': setTime,
+    'hwPump': setHwVolume
 }
 output = open('/tmp/settings.pkl', 'wb')
 # Pickle dictionary using protocol 0.

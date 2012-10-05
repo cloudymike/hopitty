@@ -36,6 +36,9 @@ class hwt(genctrl.genctrl):
     def setTemp(self, preset):
         self.presetTemp = preset
 
+    def set(self, preset):
+        self.presetTemp = preset
+
     def update(self):
         if self.targetMet():
             self.off()

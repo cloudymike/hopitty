@@ -1,12 +1,12 @@
 (dp0
-S'setHwVolume'
+S'hotWaterTun'
 p1
 S'0'
 p2
-sS'setTime'
+sS'hwPump'
 p3
 g2
-sS'temperature'
+sS'delayTime'
 p4
 g2
 sS'name'
