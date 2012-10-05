@@ -14,6 +14,7 @@ cgitb.enable()
 try:
     status = pickle.load(open("/tmp/status.pkl", "r"))
 except:
+    status = []
     status['controller'] = []
     status['runStop'] = 'Unknown'
     status['watchDog'] = 0
