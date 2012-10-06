@@ -15,10 +15,11 @@ import genctrl
 class hwt(genctrl.genctrl):
     def __init__(self):
         self.powerOn = False
-        self.currTemp = 70
-        self.presetTemp = 70
+        self.currTemp = 0
+        self.presetTemp = 999.99
         self.active = False
         self.unit = 'F'
+        print "hwt setup ", self.presetTemp
 
     def __del__(self):
         self.powerOn = False
@@ -35,9 +36,10 @@ class hwt(genctrl.genctrl):
 
     def setTemp(self, preset):
         self.presetTemp = preset
+        print "Setting to ", self.presetTemp
 
     def set(self, preset):
-        self.presetTemp = preset
+        self.setTemp(preset)
 
     def update(self):
         if self.targetMet():
@@ -46,7 +48,8 @@ class hwt(genctrl.genctrl):
             self.on()
 
     def targetMet(self):
-        if self.measure() < self.presetTemp:
+        print self.measure(), self.presetTemp
+        if self.measure() < self.getTarget():
             return(False)
         else:
             return(True)

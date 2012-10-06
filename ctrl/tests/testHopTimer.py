@@ -16,6 +16,7 @@ def testSetGetTime():
 def testwaitamin():
     m=hoptimer.hoptimer_sim()
     m.set(1)
+    m.start()
     time.sleep(1)
     assert m.get() > 0 
     assert m.targetMet() == True  

@@ -57,10 +57,10 @@ class genctrl():
         if value is 0, deactivate and stop controller
         """
         self.target = value
-        if value == 0:
-            self.stop()
-        else:
-            self.start()
+#        if value == 0:
+#            self.stop()
+#        else:
+#            self.start()
 
     def get(self):
         """

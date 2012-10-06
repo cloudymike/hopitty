@@ -104,6 +104,7 @@ while True:
         #controllers['delayTime'].set(float(settings['delayTime']))
         #controllers['hwPump'].set(float(settings['hwPump']))
         for key, c in controllers.items():
+            c.start()
             c.set(float(settings[key]))
             c.update()
 

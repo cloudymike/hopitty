@@ -10,8 +10,8 @@ def createList():
     ctrlList = []
     ctrlList.append(genctrl.genctrl())
     ctrlList.append(hoptimer.hoptimer_sim())
-    ctrlList.append(hotWaterTun.hwtsim())
     ctrlList.append(hwPump.hwPump())
+    ctrlList.append(hotWaterTun.hwtsim())
     return(ctrlList)
 
 def testInitialValues():
@@ -30,6 +30,8 @@ def testRunNotComplete():
     assert len(ctrlList) > 0
     for ctrl in ctrlList:
         ctrl.set(5)
+        ctrl.start()
+        print ctrl.__class__.__name__
         assert ctrl.targetMet() == False
         assert ctrl.isActive() == True
 
@@ -41,6 +43,7 @@ def testStartStop():
     assert len(ctrlList) > 0
     for ctrl in ctrlList:
         ctrl.set(5)
+        ctrl.start()
         assert ctrl.isActive() == True
         ctrl.stop()
         assert ctrl.isActive() == False
@@ -55,6 +58,7 @@ def testRunChanges():
     valuelist=[]
     for ctrl in ctrlList:
         ctrl.set(5)
+        ctrl.start()
         valuelist.append(ctrl.get())
         assert ctrl.targetMet() == False
         assert ctrl.isActive() == True

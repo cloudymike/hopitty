@@ -62,7 +62,7 @@ else:
 
 print """\
 <br><br>
-<form method="get" action="n2.py">
+<form method="get" action="ctrlform.py">
 <input type="submit" value="Settings">
 </form>
 """
