@@ -37,7 +37,7 @@ print """\
 <td><b>Controller</td>
 <td><b>Set Value</td>
 <td><b>Actual Value</td>
-<td><b>On</td>
+<td><b>Active</td>
 <td><b>Done</td>
 </tr>
 """
