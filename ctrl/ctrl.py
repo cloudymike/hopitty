@@ -87,41 +87,28 @@ while True:
             'setHwVolume': 0
         }
 
-    runStop = settings['stage']
+    runStop = settings['runStop']
 
+    # Shut everything down
     if runStop == 'shutdown':
-        del mytun
+        for key, c in controllers.items():
+            del c
         break
 
-# Shut everything down
     if runStop == 'stop':
         for c in controllers.itervalues():
             c.stop()
 
     if runStop == 'run':
-        # process
-        #controllers['hotWaterTun'].set(float(settings['hotWaterTun']))
-        #controllers['delayTime'].set(float(settings['delayTime']))
-        #controllers['hwPump'].set(float(settings['hwPump']))
         for key, c in controllers.items():
-            c.start()
-            c.set(float(settings[key]))
-            c.update()
+            s=settings[key]
+            c.set(s['targetValue'])
+            if s['active']:
+                c.start()
+                c.update()
+            else:
+                c.stop()
 
-#    data1 = {'t': mytun.get(),
-#             'me': me,
-#             'watchdog': int(time.time()),
-#             'status': mytun.status(),
-#             'delayTime': delayTime.get(),
-#             'hwtDone': mytun.targetMet(),
-#             'delayTimeDone': delayTime.targetMet(),
-#             'hwPumpVolume': hwPump.get(),
-#             'hwPumpDone': hwPump.targetMet(),
-#    }
-#    output = open('/tmp/data.pkl', 'wb')
-#    # Pickle dictionary using protocol 0.
-#    pickle.dump(data1, output)
-#    output.close()
     # New status dump more in json like format
     stat = {}
     ctrlStat = {}

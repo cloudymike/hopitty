@@ -5,6 +5,12 @@ import cgitb
 
 cgitb.enable()
 
+def TrueY(s):
+    if s == 'y':
+        return True
+    if s == 'Y':
+        return True
+    return False
 
 form = cgi.FieldStorage()  # instantiate only once!
 try:
@@ -67,8 +73,8 @@ dumpsettings['runStop']=runStop
 
 for key, c in controllers.items():
     dumpdict = {}
-    dumpdict['tagetValue'] = settings[key]
-    dumpdict['active'] = active[key]
+    dumpdict['targetValue'] = settings[key]
+    dumpdict['active'] = TrueY(active[key])
     dumpsettings[key]=dumpdict
 
 output = open('/tmp/settings.pkl', 'wb')

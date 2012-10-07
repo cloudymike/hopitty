@@ -19,7 +19,6 @@ class hwt(genctrl.genctrl):
         self.presetTemp = 999.99
         self.active = False
         self.unit = 'F'
-        print "hwt setup ", self.presetTemp
 
     def __del__(self):
         self.powerOn = False
@@ -36,7 +35,6 @@ class hwt(genctrl.genctrl):
 
     def setTemp(self, preset):
         self.presetTemp = preset
-        print "Setting to ", self.presetTemp
 
     def set(self, preset):
         self.setTemp(preset)
@@ -48,7 +46,6 @@ class hwt(genctrl.genctrl):
             self.on()
 
     def targetMet(self):
-        print self.measure(), self.presetTemp
         if self.measure() < self.getTarget():
             return(False)
         else:
