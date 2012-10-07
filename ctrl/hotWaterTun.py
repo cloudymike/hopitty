@@ -15,7 +15,7 @@ import genctrl
 class hwt(genctrl.genctrl):
     def __init__(self):
         self.powerOn = False
-        self.currTemp = 0
+        self.currTemp = 50.0
         self.presetTemp = 999.99
         self.active = False
         self.unit = 'F'
@@ -33,11 +33,8 @@ class hwt(genctrl.genctrl):
         else:
             return 'Off'
 
-    def setTemp(self, preset):
-        self.presetTemp = preset
-
     def set(self, preset):
-        self.setTemp(preset)
+        self.presetTemp = float(preset)
 
     def update(self):
         if self.targetMet():
@@ -46,7 +43,7 @@ class hwt(genctrl.genctrl):
             self.on()
 
     def targetMet(self):
-        if self.measure() < self.getTarget():
+        if self.currTemp < self.presetTemp:
             return(False)
         else:
             return(True)
@@ -72,9 +69,9 @@ class hwtsim(hwt):
 
     def measure(self):
         if self.powerOn:
-            self.currTemp = self.currTemp + 1
+            self.currTemp = self.currTemp + 1.0
         else:
-            self.currTemp = self.currTemp - 1
+            self.currTemp = self.currTemp - 1.0
         return(self.currTemp)
 
 
@@ -84,16 +81,17 @@ class hwtHW(hwt):
         self.powerOn = False
         self.hotWaterTun.off()
         self.active = False
-        self.presetTemp = 70
+        self.presetTemp = 70.0
         self.unit = 'F'
+        self.currTemp = 70.0
 
     def measure(self):
         currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')
         try:
-            currTemp = int(currTempStr)
+            self.currTemp = float(currTempStr)
         except:
-            currTemp = 999
-        return currTemp
+            self.currTemp = 999.99
+        return self.currTemp
 
     def on(self):
         self.hotWaterTun.on()
@@ -101,4 +99,4 @@ class hwtHW(hwt):
 
     def off(self):
         self.hotWaterTun.off()
-        self.powerOff = False
+        self.powerOn = False
