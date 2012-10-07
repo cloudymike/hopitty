@@ -5,6 +5,7 @@ import cgitb
 
 cgitb.enable()
 
+
 def TrueY(s):
     if s == 'y':
         return True
@@ -25,11 +26,11 @@ controllers = status['controllers']
 settings = {}
 active = {}
 for key, c in controllers.items():
-    settings[key]=form.getvalue(key,"0")
+    settings[key] = form.getvalue(key, "0")
     activekey = key + "_active"
-    active[key] = form.getvalue(activekey,"n")
+    active[key] = form.getvalue(activekey, "n")
 
-runStop=form.getvalue('RunStop','stop')
+runStop = form.getvalue('RunStop', 'stop')
 #setTemp = form.getvalue('name', "0")
 
 # Avoid script injection escaping the user input
@@ -69,13 +70,13 @@ print "</table>"
 print "<br>"
 
 dumpsettings = {}
-dumpsettings['runStop']=runStop
+dumpsettings['runStop'] = runStop
 
 for key, c in controllers.items():
     dumpdict = {}
     dumpdict['targetValue'] = settings[key]
     dumpdict['active'] = TrueY(active[key])
-    dumpsettings[key]=dumpdict
+    dumpsettings[key] = dumpdict
 
 output = open('/tmp/settings.pkl', 'wb')
 # Pickle dictionary using protocol 0.

@@ -79,8 +79,7 @@ class hwPump_hw(hwPump):
         if not self.targetMet():
             self.powerOn = True
             self.pumpMotor.on()
- 
+
     def pumpOff(self):
         self.powerOn = False
         self.pumpMotor.off()
-

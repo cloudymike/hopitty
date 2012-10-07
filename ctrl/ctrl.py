@@ -63,7 +63,7 @@ if not simulation:
     hwPump = hwPump.hwPump_hw(hwPumpSwitch)
 else:
     delayTime = hoptimer.hoptimer_sim()
-    mytun = hotWaterTun.hwtsim()
+    mytun = hotWaterTun.hwtsim(None)
     hwPump = hwPump.hwPump_sim()
 
 controllers['delayTime'] = delayTime
@@ -101,7 +101,7 @@ while True:
 
     if runStop == 'run':
         for key, c in controllers.items():
-            s=settings[key]
+            s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.start()

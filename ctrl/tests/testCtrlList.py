@@ -11,7 +11,7 @@ def createList():
     ctrlList.append(genctrl.genctrl())
     ctrlList.append(hoptimer.hoptimer_sim())
     ctrlList.append(hwPump.hwPump())
-    ctrlList.append(hotWaterTun.hwtsim())
+    ctrlList.append(hotWaterTun.hwtsim(None))
     return(ctrlList)
 
 def testInitialValues():

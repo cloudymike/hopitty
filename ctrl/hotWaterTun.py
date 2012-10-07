@@ -13,12 +13,13 @@ import genctrl
 
 
 class hwt(genctrl.genctrl):
-    def __init__(self):
+    def __init__(self, switch):
+        self.hotWaterTun = switch
         self.powerOn = False
-        self.currTemp = 50.0
-        self.presetTemp = 999.99
         self.active = False
+        self.presetTemp = 70.0
         self.unit = 'F'
+        self.currTemp = 0.0
 
     def __del__(self):
         self.powerOn = False
@@ -76,14 +77,6 @@ class hwtsim(hwt):
 
 
 class hwtHW(hwt):
-    def __init__(self, switch):
-        self.hotWaterTun = switch
-        self.powerOn = False
-        self.hotWaterTun.off()
-        self.active = False
-        self.presetTemp = 70.0
-        self.unit = 'F'
-        self.currTemp = 70.0
 
     def measure(self):
         currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')

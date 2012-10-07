@@ -1,6 +1,3 @@
-ctrl.py to read settings from ctrlset.py
-
-change controller to loop over controller dictionary
 
 Create internal data structure for recipe
 Create loop over recipe data structure
