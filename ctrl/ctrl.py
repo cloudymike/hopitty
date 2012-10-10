@@ -12,15 +12,18 @@ import genctrl
 import hotWaterTun
 import hoptimer
 import hwPump
+import controllers
 from x10.controllers.cm11 import CM11
 
 
 def usage():
     print 'usage:'
 
+
+
 simTemp = 70
 shutdown = False
-controllers = {}
+controllers = controllers.controllers()
 #sys.exit(0)
 
 options, remainder = getopt.getopt(sys.argv[1:], 'hsv', [
@@ -66,9 +69,9 @@ else:
     mytun = hotWaterTun.hwtsim(None)
     hwPump = hwPump.hwPump_sim()
 
-controllers['delayTime'] = delayTime
-controllers['hotWaterTun'] = mytun
-controllers['hwPump'] = hwPump
+controllers.addController(delayTime)
+controllers.addController(mytun)
+controllers.addController(hwPump)
 
 #currTemp = mytun.temperature()
 status = mytun.status()
@@ -79,48 +82,24 @@ while True:
     try:
         settings = pickle.load(open("/tmp/settings.pkl", "rb"))
     except:
-        settings = {
-            'temperature': 0,
-            'stage': 'stop',
-            'name': 'Manual',
-            'setTime': 0,
-            'setHwVolume': 0
-        }
+        settings['runStop'] = 'stop'
 
     runStop = settings['runStop']
 
     # Shut everything down
     if runStop == 'shutdown':
-        for key, c in controllers.items():
-            del c
+        controllers.shutdown()
         break
 
     if runStop == 'stop':
-        for c in controllers.itervalues():
-            c.stop()
+        controllers.stop()
 
     if runStop == 'run':
-        for key, c in controllers.items():
-            s = settings[key]
-            c.set(s['targetValue'])
-            if s['active']:
-                c.start()
-                c.update()
-            else:
-                c.stop()
+        controllers.run(settings)
 
-    # New status dump more in json like format
+    ctrlStat = controllers.status()
+
     stat = {}
-    ctrlStat = {}
-    for key, c in controllers.items():
-        curr = {}
-        curr['actual'] = c.get()
-        curr['target'] = c.getTarget()
-        curr['unit'] = c.getUnit()
-        curr['powerOn'] = c.getPowerOn()
-        curr['targetMet'] = c.targetMet()
-        ctrlStat[key] = curr
-
     stat['controllers'] = ctrlStat
     stat['runStop'] = runStop
     stat['watchDog'] = int(time.time())

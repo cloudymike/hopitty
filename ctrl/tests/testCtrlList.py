@@ -4,6 +4,7 @@ import genctrl
 import hoptimer
 import hotWaterTun
 import hwPump
+import controllers
 
 def createList():
     """Instantiate a list of all controllers"""
@@ -69,5 +70,4 @@ def testRunChanges():
         b=i.next()
         print a,b
         assert a != b
-
 
