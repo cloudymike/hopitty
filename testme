@@ -4,11 +4,13 @@ pushd ctrl > /dev/null
 echo -n "=========================" 
 pwd | cut -d "/" -f ` pwd | sed 's/\//x /g' | wc -w`
 nosetests
+if [ "$?" != "0" ]; then popd; exit 1; fi
 popd > /dev/null
 
 pushd cgi-bin > /dev/null
 echo -n "=========================" 
 pwd | cut -d "/" -f ` pwd | sed 's/\//x /g' | wc -w`
 nosetests
+if [ "$?" != "0" ]; then popd; exit 1; fi
 popd > /dev/null
 
