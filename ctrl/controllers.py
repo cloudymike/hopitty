@@ -1,13 +1,13 @@
 #!/usr/bin/python
-    
-    
+
+
 class controllers(dict):
     def __init__(self):
-        pass  
+        pass
 
-    def addController(self,ctrl):
+    def addController(self, ctrl):
         self[ctrl.__class__.__name__] = ctrl
-    
+
     def shutdown(self):
         """
         Shutdown the controllers
@@ -18,14 +18,12 @@ class controllers(dict):
             c.stop()
             del self[key]
             del c
-    
-    
+
     def stop(self):
         """Stop all controllers"""
         for c in self.itervalues():
             c.stop()
-    
-    
+
     def run(self, settings):
         """
         Run all controllers
@@ -39,8 +37,7 @@ class controllers(dict):
                 c.update()
             else:
                 c.stop()
-    
-    
+
     def status(self):
         """
         Save the status of the controller in a dictionary
@@ -55,6 +52,6 @@ class controllers(dict):
             curr['targetMet'] = c.targetMet()
             ctrlStat[key] = curr
         return ctrlStat
-    
- 
-c = controllers()   
+
+
+c = controllers()

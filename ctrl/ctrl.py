@@ -19,8 +19,6 @@ from x10.controllers.cm11 import CM11
 def usage():
     print 'usage:'
 
-
-
 simTemp = 70
 shutdown = False
 controllers = controllers.controllers()
