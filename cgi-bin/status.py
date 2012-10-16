@@ -19,6 +19,7 @@ except:
     status['controller'] = {}
     status['runStop'] = 'Unknown'
     status['watchDog'] = 0
+    status['stage'] = 'Unknown'
 
 controllers = status['controllers']
 
@@ -29,7 +30,8 @@ print """\
 <html>
 <body>
 <h2>Status</h2>
-"""
+<p>Stage: %s</p>
+""" % status['stage']
 
 print """\
 <table border="1">
@@ -38,6 +40,7 @@ print """\
 <td><b>Set Value</td>
 <td><b>Actual Value</td>
 <td><b>Active</td>
+<td><b>Power</td>
 <td><b>Done</td>
 </tr>
 """
@@ -45,6 +48,7 @@ for key, c in controllers.items():
     print """<tr><td> %s </td>""" % key
     print """<td> %s %s</td>""" % (c['target'], c['unit'])
     print """<td> %s %s</td>""" % (c['actual'], c['unit'])
+    print """<td> %s </td>""" % yn(c['active'])
     print """<td> %s </td>""" % yn(c['powerOn'])
     print """<td>%s</td>""" % yn(c['targetMet'])
     print "</tr>"

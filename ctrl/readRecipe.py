@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import json
+from collections import OrderedDict
 from pprint import pprint
 import time
 import genctrl
@@ -15,8 +16,6 @@ def readRecipe(jsonFile, controllers):
 
     data = json.load(json_data)
     json_data.close()
-
-    # print "Recipe name:", data['name']
 
     stages = {}
     recipe = data['recipe']

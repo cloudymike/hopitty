@@ -45,6 +45,7 @@ class controllers(dict):
         ctrlStat = {}
         for key, c in self.items():
             curr = {}
+            curr['active'] = c.isActive()
             curr['actual'] = c.get()
             curr['target'] = c.getTarget()
             curr['unit'] = c.getUnit()
@@ -53,5 +54,9 @@ class controllers(dict):
             ctrlStat[key] = curr
         return ctrlStat
 
-
-c = controllers()
+    def done(self):
+        alldone = True
+        for key, c in self.items():
+            if c.isActive():
+                alldone = alldone and c.targetMet()
+        return(alldone)
