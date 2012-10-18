@@ -19,6 +19,8 @@
 *.lo
 *.la
 *.Plo
+.project
+.pydevproject
 
 # GoIO generated files
 mytemp

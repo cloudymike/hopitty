@@ -1,0 +1,15 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "HeatWater":{
+      "hwtsim":162
+    },
+    "MashWater": {
+      "hwPump":4.2
+    },
+    "Mash":{
+      "hoptimer_sim":61
+    }
+  }
+
+}
