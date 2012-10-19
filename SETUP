@@ -33,6 +33,20 @@ sudo python setup.py install
 cd $HOMEDIR
 rm -rf python-x10
 
+# phidgets
+sudo apt-get install libusb-1.0-0-dev
+
+pushd /tmp
+wget http://www.phidgets.com/downloads/libraries/libphidget.tar.gz
+tar xvzf libphidget.tar.gz
+#cd libphidget-2.1.8.20120912
+cd libphidget-*
+./configure 
+make 
+sudo make install 
+popd
+
+
 sudo apt-get install python-nose
 
 sudo apt-get install apache2
