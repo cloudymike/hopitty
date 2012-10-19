@@ -46,6 +46,12 @@ make
 sudo make install 
 popd
 
+pushd /tmp
+wget http://www.phidgets.com/downloads/libraries/PhidgetsPython.zip
+unzip PhidgetsPython.zip
+cd PhidgetsPython/
+sudo python setup.py install
+popd
 
 sudo apt-get install python-nose
 
