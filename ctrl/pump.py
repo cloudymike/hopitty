@@ -9,6 +9,7 @@ import subprocess
 import getopt
 import sys
 import genctrl
+import pumpUSB
 from x10.controllers.cm11 import CM11
 
 
@@ -57,7 +58,16 @@ class hwPump(genctrl.genctrl):
 
 
 class hwPump_sim(hwPump):
-    pass
+    
+     def __init__(self):
+        self.actual = 0.000
+        self.target = 0
+        self.active = False
+        self.totalVol = 0
+        self.powerOn = False
+        self.absSec = time.time()
+        self.SEC_PER_QUART = 41.0
+        self.unit = 'Qt'
 
 
 class hwPump_hw(hwPump):
@@ -83,3 +93,27 @@ class hwPump_hw(hwPump):
     def pumpOff(self):
         self.powerOn = False
         self.pumpMotor.off()
+
+class hwPump_usb(hwPump):
+    def __init__(self, pumpUSBswitch):
+        self.actual = 0.000
+        self.target = 0
+        self.active = False
+        self.totalVol = 0
+        self.powerOn = False
+        self.absSec = time.time()
+        self.SEC_PER_QUART = 39.0
+        self.unit = 'Qt'
+ 
+        self.pumpMotor = pumpUSBswitch
+        self.pumpMotor.off()
+
+    def pumpOn(self):
+        if not self.targetMet():
+            self.powerOn = True
+            self.pumpMotor.on()
+
+    def pumpOff(self):
+        self.powerOn = False
+        self.pumpMotor.off()
+        

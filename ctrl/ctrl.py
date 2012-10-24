@@ -11,9 +11,10 @@ import sys
 import genctrl
 import hotWaterTun
 import hoptimer
-import hwPump
+import pump
 import controllers
 import readRecipe
+import pumpUSB
 from x10.controllers.cm11 import CM11
 
 
@@ -46,6 +47,7 @@ def writeStatus(controllers, settings, stage, runStop, verbose):
 def runManual(controllers, verbose):
     while True:
         # get data
+        settings = {}
         try:
             settings = pickle.load(open("/tmp/settings.pkl", "rb"))
         except:
@@ -120,19 +122,33 @@ if __name__ == "__main__":
         x10 = CM11('/dev/ttyUSB0')
         x10.open()
         hwTunSwitch = x10.actuator("H14")
-        hwPumpSwitch = x10.actuator("I12")
+#        hwPumpSwitch = x10.actuator("I12")
 
         delayTime = hoptimer.hoptimer()
         mytun = hotWaterTun.hwtHW(hwTunSwitch)
-        hwPump = hwPump.hwPump_hw(hwPumpSwitch)
+        usbPumps = pumpUSB.pumpUSB()
+        hotWaterPumpSwitch = pumpUSB.pumpUSB(usbPumps, 0)
+        hwCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 1)
+        wortSwitch = pumpUSB.pumpUSB(usbPumps, 2)
+        mashCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 3)
+
+        hotWaterPump = hwPump.hwPump_hw(hotWaterPumpSwitch)
+        hwCirculationPump = hwPump.hwPump_hw(hwCirculationSwitch)
+        wortPump = hwPump.hwPump_hw(wortSwitch)
+        mashCirculationPump = hwPump.hwPump_hw(mashCirculationSwitch)
+        
+        
     else:
         delayTime = hoptimer.hoptimer_sim()
         mytun = hotWaterTun.hwtsim(None)
-        hwPump = hwPump.hwPump_sim()
-
+        hotWaterPump = pump.hwPump_sim()
+        hwCirculationPump = pump.hwPump_sim()
+        wortPump = pump.hwPump_sim()
+        mashCirculationPump = pump.hwPump_sim()
+ 
     controllers.addController(delayTime)
     controllers.addController(mytun)
-    controllers.addController(hwPump)
+    controllers.addController(hotWaterPump)
 
     status = mytun.status()
 

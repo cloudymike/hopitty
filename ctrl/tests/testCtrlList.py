@@ -3,7 +3,7 @@ import time
 import genctrl
 import hoptimer
 import hotWaterTun
-import hwPump
+import pump
 import controllers
 
 def createList():
@@ -11,7 +11,7 @@ def createList():
     ctrlList = []
     ctrlList.append(genctrl.genctrl())
     ctrlList.append(hoptimer.hoptimer_sim())
-    ctrlList.append(hwPump.hwPump())
+    ctrlList.append(pump.hwPump_sim())
     ctrlList.append(hotWaterTun.hwtsim(None))
     return(ctrlList)
 

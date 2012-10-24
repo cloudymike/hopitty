@@ -5,7 +5,7 @@ import time
 import genctrl
 import hoptimer
 import hotWaterTun
-import hwPump
+import pump
 import controllers
 import readRecipe
 
@@ -15,14 +15,21 @@ def createCtrl():
     ctrl = controllers.controllers()
     ctrl.addController(genctrl.genctrl())
     ctrl.addController(hoptimer.hoptimer_sim())
-    ctrl.addController(hwPump.hwPump())
+    ctrl.addController(pump.hwPump_sim())
     ctrl.addController(hotWaterTun.hwtsim(None))
     return(ctrl)
 
 
 def testReadStages():
     ctrl=createCtrl()
-    stages = readRecipe.readRecipe('tests/json_data',ctrl)
+    try:
+        stages = readRecipe.readRecipe('ctrl/tests/json_data',ctrl)
+    except:
+        try:
+            stages = readRecipe.readRecipe('tests/json_data',ctrl)
+        except:
+            stages = {}
+            print 'Could not find recipe'
     assert len(stages) > 0
     pprint(stages)
     ctrlCount = len(ctrl)

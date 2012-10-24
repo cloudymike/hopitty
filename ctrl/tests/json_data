@@ -5,7 +5,7 @@
       "hwtsim":162
     },
     "MashWater": {
-      "hwPump":4.2
+      "hwPump_sim":4.2
     },
     "Mash":{
       "hoptimer_sim":61
