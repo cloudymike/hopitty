@@ -1,0 +1,23 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "1":{
+      "hwtsim":8
+    },
+    "2": {
+      "hwPump_sim":0.1
+    },
+    "3":{
+      "hoptimer_sim":9
+    },
+    "4":{
+      "hwtsim":12,
+      "hoptimer_sim":20
+    },
+    "5":{
+      "hwt_sim":12,
+      "hoptimer_sim":20
+    }
+  }
+
+}

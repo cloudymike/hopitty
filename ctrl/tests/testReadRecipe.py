@@ -13,10 +13,10 @@ import readRecipe
 def createCtrl():
     """Instantiate a list of all controllers"""
     ctrl = controllers.controllers()
-    ctrl.addController(genctrl.genctrl())
-    ctrl.addController(hoptimer.hoptimer_sim())
-    ctrl.addController(pump.hwPump_sim())
-    ctrl.addController(hotWaterTun.hwtsim(None))
+    ctrl.addController('generic', genctrl.genctrl())
+    ctrl.addController('timer', hoptimer.hoptimer_sim())
+    ctrl.addController('pump', pump.hwPump_sim())
+    ctrl.addController('heater', hotWaterTun.hwtsim(None))
     return(ctrl)
 
 

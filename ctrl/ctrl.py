@@ -70,6 +70,13 @@ def runManual(controllers, verbose):
 
         time.sleep(1)
 
+def checkRecipe(controllers, recipe, verbose):
+    """
+    Go through all the stages in the recipe and see
+    that the controllers match the controllers available
+    """
+    for r_key, settings in sorted(recipe.items()):
+        controllers.check(settings)
 
 def runRecipe(controllers, recipe, verbose):
     runStop = 'run'
@@ -139,19 +146,13 @@ if __name__ == "__main__":
         
         
     else:
-        delayTime = hoptimer.hoptimer_sim()
-        mytun = hotWaterTun.hwtsim(None)
-        hotWaterPump = pump.hwPump_sim()
-        hwCirculationPump = pump.hwPump_sim()
-        wortPump = pump.hwPump_sim()
-        mashCirculationPump = pump.hwPump_sim()
+        controllers.addController('delayTimer', hoptimer.hoptimer_sim())
+        controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
+        controllers.addController('hotWaterPump', pump.hwPump_sim())
+        controllers.addController('waterCirculationPump', pump.circulationPump_sim())
+        controllers.addController('wortPump', pump.hwPump_sim())
+        controllers.addController('mashCirculationPump', pump.circulationPump_sim())
  
-    controllers.addController(delayTime)
-    controllers.addController(mytun)
-    controllers.addController(hotWaterPump)
-
-    status = mytun.status()
-
     if file != "":
         recipe = readRecipe.readRecipe(file, controllers)
     else:
@@ -162,4 +163,5 @@ if __name__ == "__main__":
     if recipe == {}:
         runManual(controllers, verbose)
     else:
+        checkRecipe(controllers, recipe, verbose)
         runRecipe(controllers, recipe, verbose)

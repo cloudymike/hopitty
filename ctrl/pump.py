@@ -69,6 +69,35 @@ class hwPump_sim(hwPump):
         self.SEC_PER_QUART = 41.0
         self.unit = 'Qt'
 
+class circulationPump_sim(hwPump):
+    """
+    The pump is just controller by explicit on and off
+    The target is always met
+    The pump will not change status on update
+    """
+    def __init__(self):
+        self.actual = 0
+        self.target = 0
+        self.active = False
+        self.totalVol = 0
+        self.powerOn = False
+        self.absSec = time.time()
+        self.SEC_PER_QUART = 41.0
+        self.unit = 'Qt'
+        
+    def measure(self):
+        self.actual = 0
+        
+    def targetMet(self):
+        return(True)
+    
+    def update(self):
+        pass
+    
+    def pumpOn(self):
+        """ Pump on regardless of target"""
+        self.powerOn = True
+
 
 class hwPump_hw(hwPump):
 
