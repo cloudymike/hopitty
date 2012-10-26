@@ -1,31 +1,13 @@
+use same class for sim and hw
+pass object HW or sim to class above
+  switch
+  sensor
 
-Create internal data structure for recipe
-Create loop over recipe data structure
-Read in json file for data structure from ctrl.py command line
-Read in json file from web page (?)
-Cleanup variable names, make consistent
-
-mutex (link to other controller that should NOT be activated at same time)
-Have list of controller (for each controller..)
- deactivate
-
-if key == key in stage list....
-To get name you can use
-        print ctrl.__class__.__name__
-Use conventions to enable finding what version is in current list
-  _sim for simulation version
-  _hw for version that requires special hardware to run
-  No extentions for master version. Could be HW or SIM or other, if it 
-  is easier to derive both from a single version
-  No other underscores are allowed in the name for this to work (easily)
-  
-Make PKL files auto creates
-Maybe in controller? If not exist, write them first?
-Binary is not good for ARM, as it is different than X86
-ALso add exception handling for reading the files, so it does not crash
-Keep old value but indicate that it is not updated
-
-
-watch dogs? Water checks?
+Checks
+  mutex (link to other controller that should NOT be activated at same time)
+  max values (as pump volume)
+  Timeouts?
+  watch dogs? Water checks?
 
 dict_.get('key2', "Key doesn't exist")
+

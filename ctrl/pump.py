@@ -123,7 +123,8 @@ class hwPump_hw(hwPump):
         self.powerOn = False
         self.pumpMotor.off()
 
-class hwPump_usb(hwPump):
+
+class circulationPump_usb(hwPump):
     def __init__(self, pumpUSBswitch):
         self.actual = 0.000
         self.target = 0
@@ -138,11 +139,21 @@ class hwPump_usb(hwPump):
         self.pumpMotor.off()
 
     def pumpOn(self):
-        if not self.targetMet():
-            self.powerOn = True
-            self.pumpMotor.on()
+        self.powerOn = True
+        self.pumpMotor.on()
 
     def pumpOff(self):
+        """ Pump on regardless of target"""
         self.powerOn = False
         self.pumpMotor.off()
+              
+    def measure(self):
+        self.actual = 0
         
+    def targetMet(self):
+        return(True)
+    
+    def update(self):
+        pass
+    
+

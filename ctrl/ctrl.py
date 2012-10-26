@@ -129,28 +129,33 @@ if __name__ == "__main__":
         x10 = CM11('/dev/ttyUSB0')
         x10.open()
         hwTunSwitch = x10.actuator("H14")
-#        hwPumpSwitch = x10.actuator("I12")
-
-        delayTime = hoptimer.hoptimer()
-        mytun = hotWaterTun.hwtHW(hwTunSwitch)
+        boilerSwitch = x10.actuator("I12")
+        
         usbPumps = pumpUSB.pumpUSB()
         hotWaterPumpSwitch = pumpUSB.pumpUSB(usbPumps, 0)
         hwCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 1)
         wortSwitch = pumpUSB.pumpUSB(usbPumps, 2)
         mashCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 3)
 
-        hotWaterPump = hwPump.hwPump_hw(hotWaterPumpSwitch)
-        hwCirculationPump = hwPump.hwPump_hw(hwCirculationSwitch)
-        wortPump = hwPump.hwPump_hw(wortSwitch)
-        mashCirculationPump = hwPump.hwPump_hw(mashCirculationSwitch)
+        controllers.addController('delayTimer', hoptimer.hoptimer())
+        controllers.addController('waterHeater', hotWaterTun.hwtHW(hwTunSwitch))
+        controllers.addController('hotWaterPump', hwPump.hwPump_hw(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump', hwPump.hwPump_hw(hwCirculationSwitch))
+        controllers.addController('wortPump', hwPump.hwPump_hw(wortSwitch))
+        controllers.addController('mashCirculationPump', hwPump.hwPump_hw(mashCirculationSwitch))
         
         
     else:
+        hotWaterPumpSwitch = simswitch.simSwitch()
+        hwCirculationSwitch = simswitch.simSwitch()
+        wortSwitch = simswitch.simSwitch()
+        mashCirculationSwitch = simswitch.simSwitch()
+
         controllers.addController('delayTimer', hoptimer.hoptimer_sim())
         controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
-        controllers.addController('hotWaterPump', pump.hwPump_sim())
+        controllers.addController('hotWaterPump', pump.hwPump_hw(hotWaterPumpSwitch))
         controllers.addController('waterCirculationPump', pump.circulationPump_sim())
-        controllers.addController('wortPump', pump.hwPump_sim())
+        controllers.addController('wortPump', pump.hwPump_hw(wortSwitch))
         controllers.addController('mashCirculationPump', pump.circulationPump_sim())
  
     if file != "":
