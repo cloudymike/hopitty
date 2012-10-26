@@ -8,10 +8,10 @@ import ctrl.controllers
 def createCtrl():
     """Instantiate a list of all controllers"""
     ctrl1 = ctrl.controllers.controllers()
-    ctrl1.addController(ctrl.genctrl.genctrl())
-    ctrl1.addController(ctrl.hoptimer.hoptimer_sim())
-    ctrl1.addController(ctrl.hwPump.hwPump())
-    ctrl1.addController(ctrl.hotWaterTun.hwtsim(None))
+    ctrl1.addController('genctrl', ctrl.genctrl.genctrl())
+    ctrl1.addController('timer', ctrl.hoptimer.hoptimer_sim())
+    ctrl1.addController('pump', ctrl.hwPump.hwPump())
+    ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
     return(ctrl1)
 
 

@@ -1,14 +1,22 @@
 #!/usr/bin/python
 
-import time
 import pickle
+import time
+import getpass
+import logging
+import time
+import subprocess
 import getopt
 import sys
+import simswitch
+import genctrl
 import hotWaterTun
 import hoptimer
 import hwPump
+import circulationPump
 import controllers
 import readRecipe
+import pumpUSB
 from x10.controllers.cm11 import CM11
 
 
@@ -39,9 +47,9 @@ def writeStatus(controllers, settings, stage, runStop, verbose):
 
 
 def runManual(controllers, verbose):
-    settings = {}
     while True:
         # get data
+        settings = {}
         try:
             settings = pickle.load(open("/tmp/settings.pkl", "rb"))
         except:
@@ -64,6 +72,13 @@ def runManual(controllers, verbose):
 
         time.sleep(1)
 
+def checkRecipe(controllers, recipe, verbose):
+    """
+    Go through all the stages in the recipe and see
+    that the controllers match the controllers available
+    """
+    for r_key, settings in sorted(recipe.items()):
+        controllers.check(settings)
 
 def runRecipe(controllers, recipe, verbose):
     runStop = 'run'
@@ -116,22 +131,35 @@ if __name__ == "__main__":
         x10 = CM11('/dev/ttyUSB0')
         x10.open()
         hwTunSwitch = x10.actuator("H14")
-        hwPumpSwitch = x10.actuator("I12")
+        boilerSwitch = x10.actuator("I12")
+        
+        usbPumps = pumpUSB.pumpUSB()
+        hotWaterPumpSwitch = pumpUSB.pumpUSB(usbPumps, 0)
+        hwCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 1)
+        wortSwitch = pumpUSB.pumpUSB(usbPumps, 2)
+        mashCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 3)
 
-        delayTime = hoptimer.hoptimer()
-        mytun = hotWaterTun.hwtHW(hwTunSwitch)
-        hwPump = hwPump.hwPump_hw(hwPumpSwitch)
+        controllers.addController('delayTimer', hoptimer.hoptimer())
+        controllers.addController('waterHeater', hotWaterTun.hwtHW(hwTunSwitch))
+        controllers.addController('hotWaterPump', hwPump.hwPump_hw(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump', hwPump.hwPump_hw(hwCirculationSwitch))
+        controllers.addController('wortPump', hwPump.hwPump_hw(wortSwitch))
+        controllers.addController('mashCirculationPump', hwPump.hwPump_hw(mashCirculationSwitch))
+        
+        
     else:
-        delayTime = hoptimer.hoptimer_sim()
-        mytun = hotWaterTun.hwtsim(None)
-        hwPump = hwPump.hwPump_sim()
+        hotWaterPumpSwitch = simswitch.simSwitch()
+        hwCirculationSwitch = simswitch.simSwitch()
+        wortSwitch = simswitch.simSwitch()
+        mashCirculationSwitch = simswitch.simSwitch()
 
-    controllers.addController(delayTime)
-    controllers.addController(mytun)
-    controllers.addController(hwPump)
-
-    status = mytun.status()
-
+        controllers.addController('delayTimer', hoptimer.hoptimer_sim())
+        controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
+        controllers.addController('hotWaterPump', hwPump.hwPump_hw(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump', circulationPump.circulationPump_sim())
+        controllers.addController('wortPump', hwPump.hwPump_hw(wortSwitch))
+        controllers.addController('mashCirculationPump', circulationPump.circulationPump_sim())
+ 
     if file != "":
         recipe = readRecipe.readRecipe(file, controllers)
     else:
@@ -142,4 +170,5 @@ if __name__ == "__main__":
     if recipe == {}:
         runManual(controllers, verbose)
     else:
+        checkRecipe(controllers, recipe, verbose)
         runRecipe(controllers, recipe, verbose)
