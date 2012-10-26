@@ -1,22 +1,26 @@
 
 import os
-import json
 from pprint import pprint
-import time
 import ctrl.genctrl
 import ctrl.hoptimer
 import ctrl.hotWaterTun
 import ctrl.hwPump
 import ctrl.controllers
 import ctrl.readRecipe
+import ctrl.simswitch
+import ctrl.circulationPump
 
 
 def createCtrl():
     """Instantiate a list of all controllers"""
+    cirsw = ctrl.simswitch.simSwitch()
+    pumpsw = ctrl.simswitch.simSwitch()
+
     ctrl1 = ctrl.controllers.controllers()
     ctrl1.addController('genctrl', ctrl.genctrl.genctrl())
     ctrl1.addController('timer', ctrl.hoptimer.hoptimer_sim())
-    ctrl1.addController('pump', ctrl.hwPump.hwPump())
+    ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
+    ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
     ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
     return(ctrl1)
 
@@ -40,5 +44,6 @@ def testReadStages():
     ctrlCount = len(ctrl1)
     print ctrlCount
     for s_key, s_val in stages.items():
+        print s_key
         assert ctrlCount == len(s_val)
 

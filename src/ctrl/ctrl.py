@@ -2,14 +2,9 @@
 
 import pickle
 import time
-import getpass
-import logging
-import time
-import subprocess
 import getopt
 import sys
 import simswitch
-import genctrl
 import hotWaterTun
 import hoptimer
 import hwPump
@@ -108,12 +103,12 @@ if __name__ == "__main__":
                          ])
     verbose = False
     simulation = False
-    file = ""
+    recipeFile = ""
     for opt, arg in options:
         if opt in ('-h', '--help'):
             usage()
         if opt in ('-f', '--file'):
-            file = arg
+            recipeFile = arg
         elif opt in ('-s', '--simulate'):
             simulation = True
         elif opt in ('-v', '--verbose'):
@@ -141,10 +136,10 @@ if __name__ == "__main__":
 
         controllers.addController('delayTimer', hoptimer.hoptimer())
         controllers.addController('waterHeater', hotWaterTun.hwtHW(hwTunSwitch))
-        controllers.addController('hotWaterPump', hwPump.hwPump_hw(hotWaterPumpSwitch))
-        controllers.addController('waterCirculationPump', hwPump.hwPump_hw(hwCirculationSwitch))
-        controllers.addController('wortPump', hwPump.hwPump_hw(wortSwitch))
-        controllers.addController('mashCirculationPump', hwPump.hwPump_hw(mashCirculationSwitch))
+        controllers.addController('hotWaterPump', hwPump.hwPump(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump', circulationPump.circulationPump(hwCirculationSwitch))
+        controllers.addController('wortPump', hwPump.hwPump(wortSwitch))
+        controllers.addController('mashCirculationPump', circulationPump.circulationPump(mashCirculationSwitch))
         
         
     else:
@@ -155,13 +150,15 @@ if __name__ == "__main__":
 
         controllers.addController('delayTimer', hoptimer.hoptimer_sim())
         controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
-        controllers.addController('hotWaterPump', hwPump.hwPump_hw(hotWaterPumpSwitch))
-        controllers.addController('waterCirculationPump', circulationPump.circulationPump_sim())
-        controllers.addController('wortPump', hwPump.hwPump_hw(wortSwitch))
-        controllers.addController('mashCirculationPump', circulationPump.circulationPump_sim())
+        controllers.addController('hotWaterPump', hwPump.hwPump(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump', 
+                                  circulationPump.circulationPump(hwCirculationSwitch))
+        controllers.addController('wortPump', hwPump.hwPump(wortSwitch))
+        controllers.addController('mashCirculationPump', 
+                                  circulationPump.circulationPump(mashCirculationSwitch))
  
-    if file != "":
-        recipe = readRecipe.readRecipe(file, controllers)
+    if recipeFile != "":
+        recipe = readRecipe.readRecipe(recipeFile, controllers)
     else:
         recipe = {}
     if verbose:

@@ -1,15 +1,5 @@
-#!/usr/bin/python
-
-import pickle
 import time
-import getpass
-import logging
-import time
-import subprocess
-import getopt
-import sys
 import genctrl
-
 
 class hoptimer(genctrl.genctrl):
 

@@ -1,28 +1,21 @@
-#!/usr/bin/python
-
-import pickle
 import time
-import getpass
-import logging
-import time
-import subprocess
-import getopt
-import sys
 import genctrl
-from x10.controllers.cm11 import CM11
-
 
 class hwPump(genctrl.genctrl):
 
-    def __init__(self):
+    def __init__(self, switch):
         self.actual = 0.000
         self.target = 0
         self.active = False
         self.totalVol = 0
         self.powerOn = False
         self.absSec = time.time()
-        self.SEC_PER_QUART = 41.0
+        self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
+
+        self.pumpMotor = switch
+        self.pumpMotor.off()
+
 
     def measure(self):
         currSec = time.time()
@@ -41,9 +34,11 @@ class hwPump(genctrl.genctrl):
     def pumpOn(self):
         if not self.targetMet():
             self.powerOn = True
+            self.pumpMotor.on()
 
     def pumpOff(self):
         self.powerOn = False
+        self.pumpMotor.off()
 
     def stop(self):
         self.target = 0
@@ -54,32 +49,3 @@ class hwPump(genctrl.genctrl):
     def start(self):
         self.active = True
         self.pumpOn()
-
-
-class hwPump_sim(hwPump):
-    pass
-
-
-class hwPump_hw(hwPump):
-
-    def __init__(self, switch):
-        self.actual = 0.000
-        self.target = 0
-        self.active = False
-        self.totalVol = 0
-        self.powerOn = False
-        self.absSec = time.time()
-        self.SEC_PER_QUART = 39.0
-        self.unit = 'Qt'
-
-        self.pumpMotor = switch
-        self.pumpMotor.off()
-
-    def pumpOn(self):
-        if not self.targetMet():
-            self.powerOn = True
-            self.pumpMotor.on()
-
-    def pumpOff(self):
-        self.powerOn = False
-        self.pumpMotor.off()

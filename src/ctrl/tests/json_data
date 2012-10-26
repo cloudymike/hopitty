@@ -2,7 +2,8 @@
 "name":"IPA",
   "recipe":   {
     "HeatWater":{
-      "heater":162
+      "heater":162,
+      "circulationPump":1
     },
     "MashWater": {
       "pump":4.2

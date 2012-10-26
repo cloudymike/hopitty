@@ -1,14 +1,4 @@
-#!/usr/bin/python
-
-import pickle
-import time
-import getpass
-import logging
-import time
 import subprocess
-import getopt
-import sys
-from x10.controllers.cm11 import CM11
 import genctrl
 
 
