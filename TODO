@@ -1,3 +1,7 @@
+Breakout classses and defs from ctrl.py
+
+
+
 use same class for sim and hw
 pass object HW or sim to class above
   switch
