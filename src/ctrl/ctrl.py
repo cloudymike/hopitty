@@ -42,8 +42,24 @@ def writeStatus(controllers, settings, stage, runStop, verbose):
             sys.stdout.write(".")
             sys.stdout.flush()
 
+def checkHardware(controllers):
+    """
+    Checks hardware conditions that should be me
+    If any is false return false
+    Default is true
+    """
+    hardwareOK=True
+    
+    # Hot water pump and wort pump should not be active at the same time
+    if controllers['hotWaterPump'].getPowerOn() and controllers['wortPump'].getPowerOn():
+        hardwareOK=False
+        print "HotWater pump and wort pump on at same time"
+    
+    
+    return(hardwareOK)
 
 def runManual(controllers, verbose):
+    print "manual"
     while True:
         # get data
         settings = {}
@@ -52,6 +68,11 @@ def runManual(controllers, verbose):
         except:
             settings['runStop'] = 'stop'
         runStop = settings['runStop']
+
+        # Shut everything down if hardware check shows failure
+        if not checkHardware(controllers):
+            controllers.shutdown()
+            break
 
         # Shut everything down
         if runStop == 'shutdown':
@@ -88,6 +109,11 @@ def runRecipe(controllers, recipe, verbose):
                 print "Stage: ", r_key
 
             writeStatus(controllers, settings, r_key, runStop, verbose)
+            # Shut everything down if hardware check shows failure
+            if not checkHardware(controllers):
+                controllers.shutdown()
+                break
+
             time.sleep(1)
 
 if __name__ == "__main__":
@@ -171,3 +197,4 @@ if __name__ == "__main__":
     else:
         checkRecipe(controllers, recipe, verbose)
         runRecipe(controllers, recipe, verbose)
+    
