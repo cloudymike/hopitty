@@ -19,6 +19,7 @@ from x10.controllers.cm11 import CM11
 
 def usage():
     print 'usage:'
+    sys.exit
 
 
 def writeStatus(controllers, settings, stage, runStop, verbose):
@@ -102,11 +103,11 @@ def runRecipe(controllers, recipe, verbose):
     runStop = 'run'
     for r_key, settings in sorted(recipe.items()):
         controllers.run(settings)
+        if True:
+            print ""
+            print "Stage: ", r_key
         while not controllers.done():
             controllers.run(settings)
-            if verbose:
-                print "================================"
-                print "Stage: ", r_key
 
             writeStatus(controllers, settings, r_key, runStop, verbose)
             # Shut everything down if hardware check shows failure
@@ -122,21 +123,25 @@ if __name__ == "__main__":
     controllers = controllers.controllers()
     #sys.exit(0)
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'f:hsv', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'f:hpsv', [
                          'file',
                          'help',
+                         'permissive'
                          'simulate',
                          'verbose',
                          'version=',
                          ])
     verbose = False
     simulation = False
+    permissive = False
     recipeFile = ""
     for opt, arg in options:
         if opt in ('-h', '--help'):
             usage()
         if opt in ('-f', '--file'):
             recipeFile = arg
+        elif opt in ('-p', '--permissive'):
+            permissive = True
         elif opt in ('-s', '--simulate'):
             simulation = True
         elif opt in ('-v', '--verbose'):
@@ -149,25 +154,52 @@ if __name__ == "__main__":
         if simulation:
             print 'Simulation mode'
 
+
     if not simulation:
+        simX10 = False
         print "Initializing hardware"
-        x10 = CM11('/dev/ttyUSB0')
-        x10.open()
-        hwTunSwitch = x10.actuator("H14")
-        boilerSwitch = x10.actuator("I12")
+        try:
+            x10 = CM11('/dev/ttyUSB0')
+            x10.open()
+            hwTunSwitch = x10.actuator("H14")
+            boilerSwitch = x10.actuator("I12")
+        except:
+            if permissive:
+                print "Permissive mode, switch X10 to simulation"
+                simX10 = True
+            else:
+                print "X10 not available"
+                sys.exit()
         
-        usbPumps = pumpUSB.pumpUSB()
-        hotWaterPumpSwitch = pumpUSB.pumpUSB(usbPumps, 0)
-        hwCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 1)
-        wortSwitch = pumpUSB.pumpUSB(usbPumps, 2)
-        mashCirculationSwitch = pumpUSB.pumpUSB(usbPumps, 3)
+        if simX10:
+            controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
+        else:
+            controllers.addController('waterHeater', hotWaterTun.hwtHW(hwTunSwitch))
+           
+        try:
+            usbPumps = pumpUSB.pumpUSB()
+            hotWaterPumpSwitch = usbPumps.getPump(1)
+            hwCirculationSwitch = usbPumps.getPump(0)
+            wortSwitch = usbPumps.getPump(2)
+            mashCirculationSwitch = usbPumps.getPump(3)
+
+        except:
+            if permissive:
+                print "Permissive mode switching USB to simulation"
+                hotWaterPumpSwitch = simswitch.simSwitch()
+                hwCirculationSwitch = simswitch.simSwitch()
+                wortSwitch = simswitch.simSwitch()
+                mashCirculationSwitch = simswitch.simSwitch()
+            else:
+                raise Exception( "USB pumps not available")
+                
 
         controllers.addController('delayTimer', hoptimer.hoptimer())
-        controllers.addController('waterHeater', hotWaterTun.hwtHW(hwTunSwitch))
         controllers.addController('hotWaterPump', hwPump.hwPump(hotWaterPumpSwitch))
         controllers.addController('waterCirculationPump', circulationPump.circulationPump(hwCirculationSwitch))
         controllers.addController('wortPump', hwPump.hwPump(wortSwitch))
         controllers.addController('mashCirculationPump', circulationPump.circulationPump(mashCirculationSwitch))
+#        controllers.addController('wortBoiler', wortBoiler.boiler(boilerSwitch))
         
         
     else:

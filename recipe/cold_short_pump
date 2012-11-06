@@ -1,0 +1,20 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "1":{
+      "waterCirculationPump":1,
+      "delayTimer":0.2
+    },
+    "2": {
+      "hotWaterPump":0.25
+    },
+    "3": {
+      "mashCirculationPump":1,
+      "delayTimer":0.2
+    },
+    "4":{
+      "wortPump":0.25
+    }
+  }
+
+}

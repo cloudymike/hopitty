@@ -1,4 +1,4 @@
 #!/bin/bash
 
-pep8 -r */*.py
+pep8 -r src/*/*.py
 

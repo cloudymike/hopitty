@@ -20,61 +20,63 @@ class onePump():
     def __init__(self,usb,index):
         self.usb=usb
         self.index=index
-        
+
     def on(self):
         self.usb.setOutputState(self.index, True)
-    
+
     def off(self):
         self.usb.setOutputState(self.index, False)
-    
+
+
 class pumpUSB():
     def __init__(self):
+        print("Initiating pumps")
         try:
             self.interfaceKit = InterfaceKit()
         except RuntimeError as e:
-            print("Runtime Exception: %s" % e.details)
+            print("Runtime Exception a: %s" % e.details)
             print("Exiting....")
             exit(1)
         try:
             self.interfaceKit.openPhidget()
         except PhidgetException as e:
-            print("Phidget Exception %i: %s" % (e.code, e.details))
+            print("Phidget Exception b %i: %s" % (e.code, e.details))
             print("Exiting....")
             exit(1)
 
         try:
             self.interfaceKit.waitForAttach(1000)
         except PhidgetException as e:
-            print("Phidget Exception %i: %s" % (e.code, e.details))
+            print("Phidget Exception c %i: %s" % (e.code, e.details))
+            raise Exception("Timeout")
             try:
                 self.interfaceKit.closePhidget()
             except PhidgetException as e:
-                print("Phidget Exception %i: %s" % (e.code, e.details))
+                print("Phidget Exception d %i: %s" % (e.code, e.details))
                 print("Exiting....")
                 exit(1)
         self.pumplist = []        
         for i in range(0,4):
             self.pumplist.append(onePump(self.interfaceKit,i))
- 
- 
+        print("Pumps ready")
+
     def getPump(self,index):
         return(self.pumplist[index])
-               
- 
+
     def close(self):
         self.interfaceKit.closePhidget()
- 
-if __name__ == "__main__": 
+
+if __name__ == "__main__":
 
 #Create an interfacekit object
 
     print("Opening phidget object....")
     pu = pumpUSB()
-    pump0=pu.getPump(0)
-    pump1=pu.getPump(1)
-    pump2=pu.getPump(2)
-    pump3=pu.getPump(3)
-    
+    pump0 = pu.getPump(0)
+    pump1 = pu.getPump(1)
+    pump2 = pu.getPump(2)
+    pump3 = pu.getPump(3)
+
     print("Pump 0 off")
     pump0.off()
     time.sleep(5)
@@ -86,6 +88,6 @@ if __name__ == "__main__":
 
     print("Closing...")
     pu.close()
-    
+
     print("Done.")
     exit(0)

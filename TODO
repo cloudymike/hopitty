@@ -1,6 +1,16 @@
+write boiler class
+
+run with partial hardware, in particular without the x10 on
+
+Measure all in seconds or allow fraction of minutes
+
+Allow hardware to fail in permissive mode, and switch to simulation mode
+
 Breakout classses and defs from ctrl.py
 
+Break out getop and use an options dictionary
 
+Make hwtun sim a true subclass of hwhw. Cleanup ctrl permissive mode
 
 use same class for sim and hw
 pass object HW or sim to class above

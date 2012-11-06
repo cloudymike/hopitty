@@ -25,7 +25,7 @@ controllers = status['controllers']
 
 print "Content-Type: text/html"
 print
-print '<META HTTP-EQUIV="REFRESH" CONTENT="5">'
+print '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
 print """\
 <html>
 <body>
@@ -60,7 +60,7 @@ print "<br>"
 checkwatchdog = int(time.time())
 watchdog = status['watchDog']
 if abs(watchdog - checkwatchdog) > 10:
-    print "<h1>Controller Crashed</h1>"
+    print "<h1>Controller Stopped Running</h1>"
 else:
     print "Controller status: ", status['runStop']
 

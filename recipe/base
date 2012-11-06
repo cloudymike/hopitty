@@ -1,0 +1,44 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "1":{
+      "waterCirculationPump":1,
+      "waterHeater":172
+    },
+    "2": {
+      "waterCirculationPump":1,
+      "waterHeater":172,
+      "hotWaterPump":3.0
+    },
+    "3": {
+      "waterCirculationPump":1,
+      "waterHeater":168,
+      "delayTimer":55
+    },
+    "4": {
+      "waterCirculationPump":1,
+      "waterHeater":168,
+      "mashCirculationPump":1,
+      "delayTimer":5
+    },
+    "5":{
+      "waterCirculationPump":1,
+      "waterHeater":168,
+      "hotWaterPump":3.0
+    }
+    "6":{
+      "waterCirculationPump":1,
+      "waterHeater":168,
+      "wortPump":1.0
+    }
+    "7":{
+      "waterCirculationPump":1,
+      "waterHeater":168,
+      "hotWaterPump":3.0
+    }
+    "8":{
+      "wortPump":1.0
+    }
+  }
+
+}
