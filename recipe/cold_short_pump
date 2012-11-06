@@ -3,14 +3,14 @@
   "recipe":   {
     "1":{
       "waterCirculationPump":1,
-      "delayTimer":0.2
+      "delayTimer":0.167
     },
     "2": {
       "hotWaterPump":0.25
     },
     "3": {
       "mashCirculationPump":1,
-      "delayTimer":0.2
+      "delayTimer":0.167
     },
     "4":{
       "wortPump":0.25

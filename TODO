@@ -1,12 +1,14 @@
+On timefractions branch
+  combine simulation and real class in hoptime now that 
+  fractions are used in hoptimer class
+
 write boiler class
 
 run with partial hardware, in particular without the x10 on
 
-Measure all in seconds or allow fraction of minutes
-
 Allow hardware to fail in permissive mode, and switch to simulation mode
 
-Breakout classses and defs from ctrl.py
+Breakout classes and defs from ctrl.py
 
 Break out getop and use an options dictionary
 
