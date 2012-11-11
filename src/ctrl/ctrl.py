@@ -208,7 +208,7 @@ if __name__ == "__main__":
         wortSwitch = simswitch.simSwitch()
         mashCirculationSwitch = simswitch.simSwitch()
 
-        controllers.addController('delayTimer', hoptimer.hoptimer_sim())
+        controllers.addController('delayTimer', hoptimer.hoptimer())
         controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
         controllers.addController('hotWaterPump', hwPump.hwPump(hotWaterPumpSwitch))
         controllers.addController('waterCirculationPump', 

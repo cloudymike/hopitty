@@ -18,7 +18,7 @@ def createCtrl():
 
     ctrl1 = ctrl.controllers.controllers()
     ctrl1.addController('genctrl', ctrl.genctrl.genctrl())
-    ctrl1.addController('timer', ctrl.hoptimer.hoptimer_sim())
+    ctrl1.addController('timer', ctrl.hoptimer.hoptimer())
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
     ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
     ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
@@ -30,7 +30,7 @@ def testReadStages():
     
     print os.getcwd()
     try:
-        stages = ctrl.readRecipe.readRecipe('hopitty/src/ctrl/tests/json_data',ctrl1)
+        stages = ctrl.readRecipe.readRecipe('src/ctrl/tests/json_data',ctrl1)
     except:
         try:
             stages = ctrl.readRecipe.readRecipe('ctrl/tests/json_data',ctrl1)

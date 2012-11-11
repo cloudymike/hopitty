@@ -14,15 +14,15 @@ def testSetGetTime():
     assert m.targetMet() == False
 
 def testwaitamin():
-    m=ctrl.hoptimer.hoptimer_sim()
-    m.set(1)
+    m=ctrl.hoptimer.hoptimer()
+    m.set(0.01)
     m.start()
     time.sleep(1)
     assert m.get() > 0 
     assert m.targetMet() == True  
    
 def testStop():
-    m=ctrl.hoptimer.hoptimer_sim()
+    m=ctrl.hoptimer.hoptimer()
     m.set(1)
     time.sleep(1)
     m.stop()

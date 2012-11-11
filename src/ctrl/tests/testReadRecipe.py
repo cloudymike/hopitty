@@ -1,4 +1,4 @@
-
+import os
 from pprint import pprint
 import ctrl.genctrl
 import ctrl.hoptimer
@@ -17,7 +17,7 @@ def createCtrl():
 
     ctrl1 = ctrl.controllers.controllers()
     ctrl1.addController('generic', ctrl.genctrl.genctrl())
-    ctrl1.addController('timer', ctrl.hoptimer.hoptimer_sim())
+    ctrl1.addController('timer', ctrl.hoptimer.hoptimer())
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
     ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
     ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
@@ -26,14 +26,19 @@ def createCtrl():
 
 def testReadStages():
     ctrl1=createCtrl()
+    here=os.getcwd()
+    print here
     try:
-        stages = ctrl.readRecipe.readRecipe('ctrl/tests/json_data',ctrl1)
+        stages = ctrl.readRecipe.readRecipe('src/ctrl/tests/json_data',ctrl1)
     except:
         try:
-            stages = ctrl.readRecipe.readRecipe('tests/json_data',ctrl1)
+            stages = ctrl.readRecipe.readRecipe('ctrl/tests/json_data',ctrl1)
         except:
-            stages = ctrl.readRecipe.readRecipe('json_data',ctrl1)
-            print 'Could not find recipe'
+            try:
+                stages = ctrl.readRecipe.readRecipe('tests/json_data',ctrl1)
+            except:
+                stages = ctrl.readRecipe.readRecipe('json_data',ctrl1)
+                print 'Could not find recipe'
     assert len(stages) > 0
     pprint(stages)
     ctrlCount = len(ctrl1)
