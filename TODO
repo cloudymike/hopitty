@@ -2,10 +2,6 @@ usage on ctrl.py
 
 write boiler class
 
-run with partial hardware, in particular without the x10 on
-
-Allow hardware to fail in permissive mode, and switch to simulation mode
-
 Breakout classes and defs from ctrl.py
 
 Break out getop and use an options dictionary

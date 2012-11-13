@@ -1,8 +1,8 @@
-#!/usr/bin/env python
-
 """Copyright 2010 Phidgets Inc.
-This work is licensed under the Creative Commons Attribution 2.5 Canada License. 
-To view a copy of this license, visit http://creativecommons.org/licenses/by/2.5/ca/
+This work is licensed under the Creative Commons
+Attribution 2.5 Canada License.
+To view a copy of this license, visit
+http://creativecommons.org/licenses/by/2.5/ca/
 """
 
 __author__ = 'Adam Stelmack'
@@ -13,13 +13,16 @@ __date__ = 'May 17 2010'
 import time
 #Phidget specific imports
 from Phidgets.PhidgetException import PhidgetErrorCodes, PhidgetException
-from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs, ErrorEventArgs, InputChangeEventArgs, OutputChangeEventArgs, SensorChangeEventArgs
+from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs
+from Phidgets.Events.Events import ErrorEventArgs, InputChangeEventArgs
+from Phidgets.Events.Events import OutputChangeEventArgs, SensorChangeEventArgs
 from Phidgets.Devices.InterfaceKit import InterfaceKit
 
+
 class onePump():
-    def __init__(self,usb,index):
-        self.usb=usb
-        self.index=index
+    def __init__(self, usb, index):
+        self.usb = usb
+        self.index = index
 
     def on(self):
         self.usb.setOutputState(self.index, True)
@@ -55,12 +58,12 @@ class pumpUSB():
                 print("Phidget Exception d %i: %s" % (e.code, e.details))
                 print("Exiting....")
                 exit(1)
-        self.pumplist = []        
-        for i in range(0,4):
-            self.pumplist.append(onePump(self.interfaceKit,i))
+        self.pumplist = []
+        for i in range(0, 4):
+            self.pumplist.append(onePump(self.interfaceKit, i))
         print("Pumps ready")
 
-    def getPump(self,index):
+    def getPump(self, index):
         return(self.pumplist[index])
 
     def close(self):

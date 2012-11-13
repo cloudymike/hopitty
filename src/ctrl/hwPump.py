@@ -1,6 +1,7 @@
 import time
 import genctrl
 
+
 class hwPump(genctrl.genctrl):
 
     def __init__(self, switch):
@@ -15,7 +16,6 @@ class hwPump(genctrl.genctrl):
 
         self.pumpMotor = switch
         self.pumpMotor.off()
-
 
     def measure(self):
         currSec = time.time()

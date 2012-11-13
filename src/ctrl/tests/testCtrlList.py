@@ -9,6 +9,7 @@ import ctrl.controllers
 import ctrl.readRecipe
 import ctrl.simswitch
 import ctrl.circulationPump
+import ctrl.boiler
 
 
 def createCtrl():
@@ -22,6 +23,7 @@ def createCtrl():
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
     ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
     ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
+    ctrl1.addController('boiler', ctrl.boiler.boiler(None))
     return(ctrl1)
 
 

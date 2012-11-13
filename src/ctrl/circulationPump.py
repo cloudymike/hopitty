@@ -20,19 +20,19 @@ class circulationPump(genctrl.genctrl):
         self.absSec = time.time()
         self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
- 
+
         self.pumpMotor = pumpUSBswitch
         self.pumpMotor.off()
 
     def measure(self):
         self.actual = 0
-        
+
     def targetMet(self):
         return(True)
 
     def update(self):
         pass
- 
+
     def pumpOn(self):
         self.powerOn = True
         self.pumpMotor.on()

@@ -4,6 +4,7 @@ Created on Oct 17, 2012
 @author: mikael
 '''
 
+
 class genctrl():
     '''
     classdocs
@@ -21,7 +22,7 @@ class genctrl():
         self.unit = 'U'       # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False   # Controller is running
- 
+
     def __del__(self):
         self.stop()
 

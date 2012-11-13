@@ -1,5 +1,5 @@
-#!/usr/bin/python
 import sys
+
 
 class controllers(dict):
     def __init__(self):
@@ -29,8 +29,8 @@ class controllers(dict):
         Run all controllers
         Take a measure, check settings and update controllers
         """
-        ctrl_lst=[]
-        recipe_lst=[]
+        ctrl_lst = []
+        recipe_lst = []
         for key, c in self.items():
             ctrl_lst.append(key)
         for key, c in settings.items():
@@ -38,10 +38,9 @@ class controllers(dict):
             try:
                 index = ctrl_lst.index(key)
             except:
-                print "Recipe asks for missing controller",key
+                print "Recipe asks for missing controller", key
                 print "Stopping"
                 sys.exit(1)
-        
 
     def run(self, settings):
         """

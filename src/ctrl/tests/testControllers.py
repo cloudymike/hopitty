@@ -5,6 +5,7 @@ import ctrl.hwPump
 import ctrl.controllers
 import ctrl.circulationPump
 import ctrl.simswitch
+import ctrl.boiler
 
 def createCtrl():
     """Instantiate a list of all controllers"""
@@ -17,6 +18,7 @@ def createCtrl():
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
     ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
     ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
+    ctrl1.addController('boiler', ctrl.boiler.boiler(None))
     return(ctrl1)
 
 

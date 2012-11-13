@@ -14,6 +14,7 @@ import circulationPump
 import controllers
 import readRecipe
 import pumpUSB
+import boiler
 from x10.controllers.cm11 import CM11
 
 
@@ -43,21 +44,23 @@ def writeStatus(controllers, settings, stage, runStop, verbose):
             sys.stdout.write(".")
             sys.stdout.flush()
 
+
 def checkHardware(controllers):
     """
     Checks hardware conditions that should be me
     If any is false return false
     Default is true
     """
-    hardwareOK=True
-    
+    hardwareOK = True
+
     # Hot water pump and wort pump should not be active at the same time
-    if controllers['hotWaterPump'].getPowerOn() and controllers['wortPump'].getPowerOn():
-        hardwareOK=False
+    if controllers['hotWaterPump'].getPowerOn() and
+    controllers['wortPump'].getPowerOn():
+        hardwareOK = False
         print "HotWater pump and wort pump on at same time"
-    
-    
+
     return(hardwareOK)
+
 
 def runManual(controllers, verbose):
     print "manual"
@@ -91,6 +94,7 @@ def runManual(controllers, verbose):
 
         time.sleep(1)
 
+
 def checkRecipe(controllers, recipe, verbose):
     """
     Go through all the stages in the recipe and see
@@ -98,6 +102,7 @@ def checkRecipe(controllers, recipe, verbose):
     """
     for r_key, settings in sorted(recipe.items()):
         controllers.check(settings)
+
 
 def runRecipe(controllers, recipe, verbose):
     runStop = 'run'
@@ -154,7 +159,6 @@ if __name__ == "__main__":
         if simulation:
             print 'Simulation mode'
 
-
     if not simulation:
         simX10 = False
         print "Initializing hardware"
@@ -170,12 +174,15 @@ if __name__ == "__main__":
             else:
                 print "X10 not available"
                 sys.exit()
-        
+
         if simX10:
             controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
+            controllers.addController('boiler', boiler.boiler(None))
         else:
-            controllers.addController('waterHeater', hotWaterTun.hwtHW(hwTunSwitch))
-           
+            controllers.addController('waterHeater',
+                                      hotWaterTun.hwtHW(hwTunSwitch))
+            controllers.addController('boiler', boiler.boiler(boilerSwitch))
+
         try:
             usbPumps = pumpUSB.pumpUSB()
             hotWaterPumpSwitch = usbPumps.getPump(1)
@@ -191,17 +198,17 @@ if __name__ == "__main__":
                 wortSwitch = simswitch.simSwitch()
                 mashCirculationSwitch = simswitch.simSwitch()
             else:
-                raise Exception( "USB pumps not available")
-                
+                raise Exception("USB pumps not available")
 
         controllers.addController('delayTimer', hoptimer.hoptimer())
-        controllers.addController('hotWaterPump', hwPump.hwPump(hotWaterPumpSwitch))
-        controllers.addController('waterCirculationPump', circulationPump.circulationPump(hwCirculationSwitch))
+        controllers.addController('hotWaterPump',
+                    hwPump.hwPump(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump',
+                    circulationPump.circulationPump(hwCirculationSwitch))
         controllers.addController('wortPump', hwPump.hwPump(wortSwitch))
-        controllers.addController('mashCirculationPump', circulationPump.circulationPump(mashCirculationSwitch))
-#        controllers.addController('wortBoiler', wortBoiler.boiler(boilerSwitch))
-        
-        
+        controllers.addController('mashCirculationPump',
+                    circulationPump.circulationPump(mashCirculationSwitch))
+
     else:
         hotWaterPumpSwitch = simswitch.simSwitch()
         hwCirculationSwitch = simswitch.simSwitch()
@@ -210,13 +217,15 @@ if __name__ == "__main__":
 
         controllers.addController('delayTimer', hoptimer.hoptimer())
         controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
-        controllers.addController('hotWaterPump', hwPump.hwPump(hotWaterPumpSwitch))
-        controllers.addController('waterCirculationPump', 
-                                  circulationPump.circulationPump(hwCirculationSwitch))
+        controllers.addController('hotWaterPump',
+                    hwPump.hwPump(hotWaterPumpSwitch))
+        controllers.addController('waterCirculationPump',
+                    circulationPump.circulationPump(hwCirculationSwitch))
         controllers.addController('wortPump', hwPump.hwPump(wortSwitch))
-        controllers.addController('mashCirculationPump', 
-                                  circulationPump.circulationPump(mashCirculationSwitch))
- 
+        controllers.addController('mashCirculationPump',
+                    circulationPump.circulationPump(mashCirculationSwitch))
+        controllers.addController('boiler', boiler.boiler(None))
+
     if recipeFile != "":
         recipe = readRecipe.readRecipe(recipeFile, controllers)
     else:
@@ -229,4 +238,3 @@ if __name__ == "__main__":
     else:
         checkRecipe(controllers, recipe, verbose)
         runRecipe(controllers, recipe, verbose)
-    

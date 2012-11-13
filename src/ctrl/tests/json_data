@@ -10,6 +10,9 @@
     },
     "Mash":{
       "timer":61
+    },
+    "boiling":{
+      "boiler":61
     }
   }
 
