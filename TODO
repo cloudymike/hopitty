@@ -1,7 +1,5 @@
 usage on ctrl.py
 
-write boiler class
-
 Breakout classes and defs from ctrl.py
 
 Break out getop and use an options dictionary

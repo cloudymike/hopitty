@@ -3,8 +3,8 @@ import genctrl
 
 
 class boiler(genctrl.genctrl):
-    def __init__(self, switch):
-        self.boilerSwitch = switch
+    def __init__(self):
+        self.boilerSwitch = None
         self.powerOn = False
         self.active = False
         self.unit = 'None'
@@ -12,6 +12,9 @@ class boiler(genctrl.genctrl):
     def __del__(self):
         self.powerOn = False
         print 'Powering down'
+
+    def connectSwitch(self,switch):
+        self.boilerSwitch = switch
 
     def measure(self):
         return(1)

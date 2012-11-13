@@ -17,8 +17,8 @@ def createCtrl():
     ctrl1.addController('timer', ctrl.hoptimer.hoptimer())
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
     ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
-    ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim(None))
-    ctrl1.addController('boiler', ctrl.boiler.boiler(None))
+    ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim())
+    ctrl1.addController('boiler', ctrl.boiler.boiler())
     return(ctrl1)
 
 

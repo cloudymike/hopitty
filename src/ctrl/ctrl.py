@@ -54,7 +54,7 @@ def checkHardware(controllers):
     hardwareOK = True
 
     # Hot water pump and wort pump should not be active at the same time
-    if controllers['hotWaterPump'].getPowerOn() and
+    if controllers['hotWaterPump'].getPowerOn() and \
     controllers['wortPump'].getPowerOn():
         hardwareOK = False
         print "HotWater pump and wort pump on at same time"
@@ -176,12 +176,13 @@ if __name__ == "__main__":
                 sys.exit()
 
         if simX10:
-            controllers.addController('waterHeater', hotWaterTun.hwtsim(None))
-            controllers.addController('boiler', boiler.boiler(None))
+            controllers.addController('waterHeater',hotWaterTun.hwtsim())
+            controllers.addController('boiler', boiler.boiler())
         else:
-            controllers.addController('waterHeater',
-                                      hotWaterTun.hwtHW(hwTunSwitch))
-            controllers.addController('boiler', boiler.boiler(boilerSwitch))
+            controllers.addController('waterHeater',hotWaterTun.hwtHW())
+            controllers['waterHeater'].connectSwitch(hwTunSwitch)
+            controllers.addController('boiler', boiler.boiler())
+            controllers['boiler'].connectSwitch(boilerSwitch)
 
         try:
             usbPumps = pumpUSB.pumpUSB()

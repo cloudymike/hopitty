@@ -3,8 +3,9 @@ import genctrl
 
 
 class hwt(genctrl.genctrl):
-    def __init__(self, switch):
-        self.hotWaterTun = switch
+    def __init__(self):
+#        self.hotWaterTun = switch
+        self.hotWaterTun = None
         self.powerOn = False
         self.active = False
         self.presetTemp = 70.0
@@ -14,6 +15,9 @@ class hwt(genctrl.genctrl):
     def __del__(self):
         self.powerOn = False
         print 'Powering down'
+        
+    def connectSwitch(self,switch):
+        self.hotWaterTun = switch
 
     def measure(self):
         return(self.currTemp)
@@ -45,15 +49,19 @@ class hwt(genctrl.genctrl):
     def getTarget(self):
         return(self.presetTemp)
 
-    def on(self):
-        self.powerOn = True
-
-    def off(self):
-        self.powerOn = False
-
     def stop(self):
         self.active = False
         self.off()
+
+    def on(self):
+        if self.hotWaterTun != None:
+            self.hotWaterTun.on()
+        self.powerOn = True
+
+    def off(self):
+        if self.hotWaterTun != None:
+            self.hotWaterTun.off()
+        self.powerOn = False
 
 
 class hwtsim(hwt):
@@ -76,10 +84,3 @@ class hwtHW(hwt):
             self.currTemp = 999.99
         return self.currTemp
 
-    def on(self):
-        self.hotWaterTun.on()
-        self.powerOn = True
-
-    def off(self):
-        self.hotWaterTun.off()
-        self.powerOn = False
