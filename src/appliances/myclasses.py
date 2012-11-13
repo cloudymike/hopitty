@@ -3,14 +3,14 @@
 
 class mikael():
     def __init__(self):
-        self.initial = 'm'
+        self.initial = 1
 
     def get(self):
         return(self.initial)
 
 class hakansson():
     def __init__(self):
-        self.initial = 'h'
+        self.initial = 2.0
 
     def get(self):
         return(self.initial)

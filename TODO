@@ -1,3 +1,16 @@
+Move all tests to src/tests
+
+Move all appliance controller modules to appliances
+
+Test all basic functions of appliances
+get
+set
+measure
+...
+
+add connectSensor, similar to connectSwitch
+
+
 usage on ctrl.py
 
 Breakout classes and defs from ctrl.py

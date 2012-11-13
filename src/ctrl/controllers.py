@@ -1,4 +1,5 @@
 import sys
+import appliances.myloader
 
 
 class controllers(dict):
@@ -7,6 +8,19 @@ class controllers(dict):
 
     def addController(self, name, ctrl):
         self[name] = ctrl
+
+    def addControllerList(self, l):
+        for className, instance in l.iteritems():
+            self.addController(className, instance)
+            
+    def load(self):
+        """
+        This should really be init, but is left as a function until all other calls
+        to controllers are rewritten
+        """
+        l = appliances.myloader.myQuickLoader()
+        l.build()
+        self.addControllerList(l.instances())
 
     def shutdown(self):
         """

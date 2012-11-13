@@ -9,7 +9,7 @@ def testPass():
 
 
 def testHwtOnOff():
-    mytun = hotWaterTun.hwtsim(None)
+    mytun = hotWaterTun.hwtsim()
     status = mytun.status()
     assert status == 'Off'
     mytun.on()
@@ -21,7 +21,7 @@ def testHwtOnOff():
 
 
 def testHwtThermostat():
-    mytun = hotWaterTun.hwtsim(None)
+    mytun = hotWaterTun.hwtsim()
     status = mytun.status()
     assert status == 'Off'
     T = mytun.get()

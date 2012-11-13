@@ -17,7 +17,7 @@ def createCtrl():
     cirsw = ctrl.simswitch.simSwitch()
     pumpsw = ctrl.simswitch.simSwitch()
 
-    ctrl1 = ctrl.controllers.controllers()
+    ctrl1 = ctrl.controllers()
     ctrl1.addController('genctrl', ctrl.genctrl.genctrl())
     ctrl1.addController('timer', ctrl.hoptimer.hoptimer())
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
