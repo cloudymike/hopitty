@@ -14,7 +14,7 @@ import circulationPump
 import controllers
 import readRecipe
 import pumpUSB
-import boiler
+import appliances.boiler
 from x10.controllers.cm11 import CM11
 
 
@@ -177,11 +177,11 @@ if __name__ == "__main__":
 
         if simX10:
             controllers.addController('waterHeater',hotWaterTun.hwtsim())
-            controllers.addController('boiler', boiler.boiler())
+            controllers.addController('boiler', appliances.boiler())
         else:
             controllers.addController('waterHeater',hotWaterTun.hwtHW())
             controllers['waterHeater'].connectSwitch(hwTunSwitch)
-            controllers.addController('boiler', boiler.boiler())
+            controllers.addController('boiler', appliances.boiler())
             controllers['boiler'].connectSwitch(boilerSwitch)
 
         try:
@@ -225,7 +225,7 @@ if __name__ == "__main__":
         controllers.addController('wortPump', hwPump.hwPump(wortSwitch))
         controllers.addController('mashCirculationPump',
                     circulationPump.circulationPump(mashCirculationSwitch))
-        controllers.addController('boiler', boiler.boiler(None))
+        controllers.addController('boiler', appliances.boiler(None))
 
     if recipeFile != "":
         recipe = readRecipe.readRecipe(recipeFile, controllers)

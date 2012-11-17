@@ -24,6 +24,7 @@ def testloadcontroller():
     l = appliances.myloader.myQuickLoader()
     l.build()
     for className, instance in l.instances().iteritems():
+        print className
         c.addController(className, instance)
     assert len(c) > 0
     

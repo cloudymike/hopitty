@@ -1,7 +1,7 @@
+import appliances.boiler
 
 import os
 from pprint import pprint
-import ctrl.genctrl
 import ctrl.hoptimer
 import ctrl.hotWaterTun
 import ctrl.hwPump
@@ -9,7 +9,6 @@ import ctrl.controllers
 import ctrl.readRecipe
 import ctrl.simswitch
 import ctrl.circulationPump
-import ctrl.boiler
 
 
 def createCtrl():
@@ -18,12 +17,12 @@ def createCtrl():
     pumpsw = ctrl.simswitch.simSwitch()
 
     ctrl1 = ctrl.controllers()
-    ctrl1.addController('genctrl', ctrl.genctrl.genctrl())
+    ctrl1.addController('genctrl', ctrl.genctrl())
     ctrl1.addController('timer', ctrl.hoptimer.hoptimer())
     ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
     ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
     ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim())
-    ctrl1.addController('boiler', ctrl.boiler.boiler())
+    ctrl1.addController('boiler', appliances.boiler())
     return(ctrl1)
 
 
