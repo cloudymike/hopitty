@@ -14,3 +14,4 @@ nosetests
 if [ "$?" != "0" ]; then popd; exit 1; fi
 popd > /dev/null
 
+echo "===========All Tests Passed================"

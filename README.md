@@ -22,3 +22,7 @@ cd GoIO-2.28.0
 cd mytemp
 make
 
+
+Notes on pumps
+===============
+Four gallon => 3.5 gallons

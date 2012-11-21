@@ -2,27 +2,25 @@ import appliances.boiler
 
 import os
 from pprint import pprint
-import ctrl.genctrl
-import ctrl.hoptimer
-import ctrl.hotWaterTun
-import ctrl.hwPump
+import appliances.genctrl
+import appliances.hoptimer
+import appliances.hotWaterTun
+import appliances.hwPump
 import ctrl.controllers
 import ctrl.readRecipe
 import ctrl.simswitch
-import ctrl.circulationPump
+import appliances.circulationPump
 
 
 def createCtrl():
     """Instantiate a list of all controllers"""
-    cirsw = ctrl.simswitch.simSwitch()
-    pumpsw = ctrl.simswitch.simSwitch()
 
     ctrl1 = ctrl.controllers()
-    ctrl1.addController('generic', ctrl.genctrl())
-    ctrl1.addController('timer', ctrl.hoptimer.hoptimer())
-    ctrl1.addController('pump', ctrl.hwPump.hwPump(pumpsw))
-    ctrl1.addController('circulationPump', ctrl.circulationPump.circulationPump(cirsw))
-    ctrl1.addController('heater', ctrl.hotWaterTun.hwtsim())
+    ctrl1.addController('generic', appliances.genctrl())
+    ctrl1.addController('timer', appliances.hoptimer())
+    ctrl1.addController('pump', appliances.hwPump())
+    ctrl1.addController('circulationPump', appliances.circulationPump())
+    ctrl1.addController('heater', appliances.hotWaterTun.hwtsim())
     ctrl1.addController('boiler', appliances.boiler())
     return(ctrl1)
 

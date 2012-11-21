@@ -1,8 +1,8 @@
 import subprocess
-import ctrl.genctrl
+import appliances.genctrl
 
 
-class boiler(ctrl.genctrl):
+class boiler(appliances.genctrl):
     def __init__(self):
         self.boilerSwitch = None
         self.powerOn = False

@@ -2,13 +2,13 @@
 # things are not messed up as code is added
 
 # import hotWaterTun
-import ctrl.hotWaterTun
+import appliances.hotWaterTun
 
 def testPass():
     pass
 
 def testHwtOnOff():
-    mytun = ctrl.hotWaterTun.hwtsim()
+    mytun = appliances.hotWaterTun.hwtsim()
     status=mytun.status()
     assert status == 'Off'
     mytun.on()
@@ -19,7 +19,7 @@ def testHwtOnOff():
     assert status == 'Off'
 
 def testHwtThermostat():
-    mytun = ctrl.hotWaterTun.hwtsim()
+    mytun = appliances.hotWaterTun.hwtsim()
     status=mytun.status()
     assert status == 'Off'
     T = mytun.get()

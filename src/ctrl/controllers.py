@@ -54,7 +54,8 @@ class controllers(dict):
             except:
                 print "Recipe asks for missing controller", key
                 print "Stopping"
-                sys.exit(1)
+                return(False)
+        return(True)
 
     def run(self, settings):
         """

@@ -1,8 +1,8 @@
 import subprocess
-import genctrl
+import appliances.genctrl
 
 
-class hwt(genctrl.genctrl):
+class hwt(appliances.genctrl):
     def __init__(self):
 #        self.hotWaterTun = switch
         self.hotWaterTun = None
@@ -77,7 +77,17 @@ class hwtsim(hwt):
 class hwtHW(hwt):
 
     def measure(self):
-        currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')
+        try:
+            currTempStr = subprocess.check_output('GoIO-2.28.0/mytemp/mytemp')
+        except:
+            try:
+                currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')               
+            except:
+                try:
+                    currTempStr = subprocess.check_output('../../GoIO-2.28.0/mytemp/mytemp')    
+                except:
+                    currTempStr = subprocess.check_output('../../../GoIO-2.28.0/mytemp/mytemp')
+
         try:
             self.currTemp = float(currTempStr)
         except:

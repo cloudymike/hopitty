@@ -1,10 +1,10 @@
 import time
-import genctrl
+import appliances.genctrl
 
 
-class hwPump(genctrl.genctrl):
+class hwPump(appliances.genctrl):
 
-    def __init__(self, switch):
+    def __init__(self):
         self.actual = 0.000
         self.target = 0
         self.active = False
@@ -13,9 +13,14 @@ class hwPump(genctrl.genctrl):
         self.absSec = time.time()
         self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
+        self.pumpMotor = None
 
+    def connectSwitch(self,switch):
+        """
+        If a switch is required, this will connect it with the devices
+        The switch object needs to have a method on and a method off.
+        """
         self.pumpMotor = switch
-        self.pumpMotor.off()
 
     def measure(self):
         currSec = time.time()
@@ -34,11 +39,13 @@ class hwPump(genctrl.genctrl):
     def pumpOn(self):
         if not self.targetMet():
             self.powerOn = True
-            self.pumpMotor.on()
+            if self.pumpMotor != None:
+                self.pumpMotor.on()
 
     def pumpOff(self):
         self.powerOn = False
-        self.pumpMotor.off()
+        if self.pumpMotor != None:
+            self.pumpMotor.off()
 
     def stop(self):
         self.target = 0

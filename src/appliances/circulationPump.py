@@ -1,17 +1,17 @@
 #!/usr/bin/python
 
 import time
-import genctrl
+import appliances.genctrl
 
 
-class circulationPump(genctrl.genctrl):
+class circulationPump(appliances.genctrl):
     """
     The circulation pump is just controller by explicit on and off
     The target is always met
     The circulation pump will not change status on update
     """
 
-    def __init__(self, pumpUSBswitch):
+    def __init__(self):
         self.actual = 0.000
         self.target = 0
         self.active = False
@@ -20,9 +20,14 @@ class circulationPump(genctrl.genctrl):
         self.absSec = time.time()
         self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
+        self.pumpMotor = None
 
-        self.pumpMotor = pumpUSBswitch
-        self.pumpMotor.off()
+    def connectSwitch(self,switch):
+        """
+        If a switch is required, this will connect it with the devices
+        The switch object needs to have a method on and a method off.
+        """
+        self.pumpMotor = switch
 
     def measure(self):
         self.actual = 0
@@ -35,12 +40,14 @@ class circulationPump(genctrl.genctrl):
 
     def pumpOn(self):
         self.powerOn = True
-        self.pumpMotor.on()
+        if self.pumpMotor != None:
+            self.pumpMotor.on()
 
     def pumpOff(self):
         """ Pump on regardless of target"""
         self.powerOn = False
-        self.pumpMotor.off()
+        if self.pumpMotor != None:
+            self.pumpMotor.off()
 
     def stop(self):
         self.target = 0

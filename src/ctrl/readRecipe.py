@@ -4,10 +4,10 @@ import json
 from collections import OrderedDict
 from pprint import pprint
 import time
-import genctrl
-import hoptimer
-import hotWaterTun
-import hwPump
+import appliances.genctrl
+import appliances.hoptimer
+import appliances.hotWaterTun
+import appliances.hwPump
 import controllers
 
 

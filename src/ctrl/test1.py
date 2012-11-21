@@ -1,7 +1,7 @@
 # Basic smoke tests to make sure that
 # things are not messed up as code is added
 
-import hotWaterTun
+import appliances.hotWaterTun
 
 
 def testPass():
@@ -9,7 +9,7 @@ def testPass():
 
 
 def testHwtOnOff():
-    mytun = hotWaterTun.hwtsim()
+    mytun = appliances.hwtsim()
     status = mytun.status()
     assert status == 'Off'
     mytun.on()
@@ -21,7 +21,7 @@ def testHwtOnOff():
 
 
 def testHwtThermostat():
-    mytun = hotWaterTun.hwtsim()
+    mytun = appliances.hotWaterTun.hwtsim()
     status = mytun.status()
     assert status == 'Off'
     T = mytun.get()

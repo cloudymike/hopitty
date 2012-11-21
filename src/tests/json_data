@@ -1,0 +1,19 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "HeatWater":{
+      "hwt":162,
+      "circulationPump":1
+    },
+    "MashWater": {
+      "hwPump":4.2
+    },
+    "Mash":{
+      "hoptimer":61
+    },
+    "boiling":{
+      "boiler":61
+    }
+  }
+
+}

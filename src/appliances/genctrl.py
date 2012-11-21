@@ -13,6 +13,7 @@ class genctrl():
     def __init__(self):
         '''
         Constructor
+        multiple devices may require same switch collection
         Note, controller can run but power
         could be off, as example, heater goes
         on and off, while controller is active
@@ -22,9 +23,17 @@ class genctrl():
         self.unit = 'U'       # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False   # Controller is running
+        self.switch = None    # Switch object. Should have method on and off
 
     def __del__(self):
         self.stop()
+        
+    def connectSwitch(self,switch):
+        """
+        If a switch is required, this will connect it with the devices
+        The switch object needs to have a method on and a method off.
+        """
+        self.switch = switch
 
     def measure(self):
         """
@@ -85,7 +94,7 @@ class genctrl():
 
     def getPowerOn(self):
         """
-        Get the unit of measure.
+        Get the status of power.
         """
         return(self.powerOn)
 

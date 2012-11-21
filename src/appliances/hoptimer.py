@@ -1,10 +1,13 @@
 import time
-import genctrl
+import appliances.genctrl
 
 
-class hoptimer(genctrl.genctrl):
+class hoptimer(appliances.genctrl):
 
     def __init__(self):
+        """
+        Switch is not used, just to be consistent with other modules
+        """
         self.actual = 0.0
         self.target = 0.0
         self.active = False
