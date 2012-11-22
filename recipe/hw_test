@@ -1,0 +1,22 @@
+{
+"name":"Hardware Test",
+  "recipe":   {
+    "01 water heater":{
+      "waterHeater":80
+    },
+    "02 hot water pump": {
+      "hotWaterPump":0.2
+    },
+    "03 water circulation": {
+      "waterCirculationPump":1,
+      "delayTimer":0.3
+    },
+    "04 worth pump":{
+      "wortPump":0.2
+    },
+    "05 mash circulation": {
+      "mashCirculationPump":1,
+      "delayTimer":0.3
+    }
+  }
+}

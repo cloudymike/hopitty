@@ -2,7 +2,7 @@
 "name":"SilverDollarPorter",
   "recipe":   {
     "01":{
-      "hwtHW":150,
+      "waterHeater":150,
       "waterCirculationPump":1,
       "delayTimer":0.167
     },

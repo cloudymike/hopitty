@@ -101,13 +101,17 @@ def runRecipe(controllers, recipe, verbose):
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(controllers):
                 controllers.shutdown()
-                break
+                return(False)
 
             time.sleep(1)
+    return(True)
             
 def quickRecipe(controllers, recipe, verbose):
     """
     Runs through the recipe without any delay to just check it is OK
+    This is different from check recipe in that it will also run
+    each controller, thus test hardware if connected and not
+    permissive
     """
     runStop = 'run'
     for r_key, settings in sorted(recipe.items()):
@@ -117,9 +121,9 @@ def quickRecipe(controllers, recipe, verbose):
             print "Stage: ", r_key
         if not ctrl.checkHardware(controllers):
             controllers.shutdown()
-            break
-
+            return(False)
 #            time.sleep(1)
+    return(True)
 
 if __name__ == "__main__":
     simTemp = 70
@@ -139,7 +143,7 @@ if __name__ == "__main__":
     verbose = False
     simulation = False
     permissive = False
-    quick = True
+    quick = False
     recipeFile = ""
     for opt, arg in options:
         if opt in ('-h', '--help'):
@@ -240,9 +244,21 @@ if __name__ == "__main__":
 
     if recipe == {}:
         runManual(controllers, verbose)
+        runOK = True
     else:
-        ctrl.checkers.checkRecipe(controllers, recipe, verbose)
+        if not ctrl.checkers.checkRecipe(controllers, recipe, verbose):
+            print "ERROR: Recipe check failed"
+            sys.exit(1)
+            
         if quick:
-            quickRecipe(controllers, recipe, verbose)
+            print "Quick run"
+            runOK = quickRecipe(controllers, recipe, verbose)
         else:
-            runRecipe(controllers, recipe, verbose)
+            print "Running recipe"
+            runOK = runRecipe(controllers, recipe, verbose)
+    if not runOK:
+        print "ERROR: Run of controller failed"
+        sys.exit(1)
+        
+    print " "
+    print "OK"

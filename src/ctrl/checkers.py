@@ -23,7 +23,7 @@ def checkRecipe(mycontrollers, recipe, verbose):
     that the controllers match the controllers available
     """
     for r_key, settings in sorted(recipe.items()):
-        print r_key
+#        print r_key
         if not mycontrollers.check(settings):
             return(False)
     return(True)

@@ -2,13 +2,13 @@
 "name":"IPA",
   "recipe":   {
     "1":{
-      "hwtsim":162
+      "waterHeater":162
     },
     "2": {
-      "hwPump":4.2
+      "hotWaterPump":4.2
     },
     "3":{
-      "hoptimer_sim":61
+      "delayTimer":61
     }
   }
 

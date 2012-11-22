@@ -10,7 +10,7 @@ class hwt(appliances.genctrl):
         self.active = False
         self.presetTemp = 70.0
         self.unit = 'F'
-        self.currTemp = 0.0
+        self.currTemp = 70.0
 
     def __del__(self):
         self.powerOn = False
