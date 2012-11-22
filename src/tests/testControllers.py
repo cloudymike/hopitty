@@ -12,7 +12,7 @@ def createCtrl():
     cirsw = ctrl.simswitch.simSwitch()
     pumpsw = ctrl.simswitch.simSwitch()
 
-    ctrl1 = ctrl.controllers()
+    ctrl1 = ctrl.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('pump', appliances.hwPump())

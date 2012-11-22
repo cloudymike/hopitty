@@ -13,7 +13,6 @@ import controllers
 
 def readRecipe(jsonFile, controllers):
     json_data = open(jsonFile)
-
     data = json.load(json_data)
     json_data.close()
 

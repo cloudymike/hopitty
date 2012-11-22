@@ -2,7 +2,7 @@ import sys
 import appliances.myloader
 
 
-class controllers(dict):
+class controllerList(dict):
     def __init__(self):
         pass
 

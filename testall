@@ -1,0 +1,4 @@
+#!/bin/bash
+./testunit
+./testrecipe
+echo "===========All Tests Passed================"

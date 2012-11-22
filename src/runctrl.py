@@ -2,11 +2,9 @@
 
 # branch t1
 import sys
-print sys.path
 sys.path.append("/home/mikael/workspace/hoppity/src") 
 sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
-print sys.path
 
 import pickle
 import time
@@ -126,7 +124,7 @@ def quickRecipe(controllers, recipe, verbose):
 if __name__ == "__main__":
     simTemp = 70
     shutdown = False
-    controllers = ctrl.controllers.controllers()
+    controllers = ctrl.controllerList()
     #sys.exit(0)
 
     options, remainder = getopt.getopt(sys.argv[1:], 'f:hpqsv', [

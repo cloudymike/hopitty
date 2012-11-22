@@ -7,7 +7,7 @@ import ctrl.checkers
 
 
 def testRecipeCheck():
-    ctrl1=ctrl.controllers()
+    ctrl1=ctrl.controllerList()
     ctrl1.load()
     print len(ctrl1)
     for key, c in ctrl1.items():
@@ -16,15 +16,15 @@ def testRecipeCheck():
     here=os.getcwd()
     print here
     try:
-        stages = ctrl.readRecipe.readRecipe('src/tests/json_data',ctrl1)
+        stages = ctrl.readRecipe('src/tests/json_data',ctrl1)
     except:
         try:
-            stages = ctrl.readRecipe.readRecipe('tests/json_data',ctrl1)
+            stages = ctrl.readRecipe('tests/json_data',ctrl1)
         except:
             try:
-                stages = ctrl.readRecipe.readRecipe('tests/json_data',ctrl1)
+                stages = ctrl.readRecipe('tests/json_data',ctrl1)
             except:
-                stages = ctrl.readRecipe.readRecipe('json_data',ctrl1)
+                stages = ctrl.readRecipe('json_data',ctrl1)
                 print 'Could not find recipe'
     assert len(stages) > 0
     pprint(stages)
@@ -32,6 +32,6 @@ def testRecipeCheck():
 
 
 def testcheck2():
-    c = ctrl.controllers()
+    c = ctrl.controllerList()
     c.load()
     assert len(c) > 0
