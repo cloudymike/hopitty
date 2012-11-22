@@ -13,7 +13,7 @@ class boiler(appliances.genctrl):
         self.powerOn = False
         print 'Powering down'
 
-    def connectSwitch(self,switch):
+    def connectSwitch(self, switch):
         self.boilerSwitch = switch
 
     def measure(self):

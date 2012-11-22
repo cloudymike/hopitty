@@ -16,6 +16,7 @@ def checkHardware(controllers):
 
     return(hardwareOK)
 
+
 def checkRecipe(mycontrollers, recipe, verbose):
     """
     Go through all the stages in the recipe and see
@@ -26,5 +27,3 @@ def checkRecipe(mycontrollers, recipe, verbose):
         if not mycontrollers.check(settings):
             return(False)
     return(True)
-
-

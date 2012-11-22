@@ -15,8 +15,8 @@ class hwt(appliances.genctrl):
     def __del__(self):
         self.powerOn = False
         print 'Powering down'
-        
-    def connectSwitch(self,switch):
+
+    def connectSwitch(self, switch):
         self.hotWaterTun = switch
 
     def measure(self):
@@ -78,19 +78,23 @@ class hwtHW(hwt):
 
     def measure(self):
         try:
-            currTempStr = subprocess.check_output('GoIO-2.28.0/mytemp/mytemp')
+            currTempStr = \
+            subprocess.check_output('GoIO-2.28.0/mytemp/mytemp')
         except:
             try:
-                currTempStr = subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')               
+                currTempStr = \
+                subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')
             except:
                 try:
-                    currTempStr = subprocess.check_output('../../GoIO-2.28.0/mytemp/mytemp')    
+                    currTempStr = \
+                    subprocess.check_output('../../GoIO-2.28.0/mytemp/mytemp')
                 except:
-                    currTempStr = subprocess.check_output('../../../GoIO-2.28.0/mytemp/mytemp')
+                    currTempStr = \
+                    subprocess.check_output(\
+                    '../../../GoIO-2.28.0/mytemp/mytemp')
 
         try:
             self.currTemp = float(currTempStr)
         except:
             self.currTemp = 999.99
         return self.currTemp
-

@@ -12,11 +12,11 @@ class controllerList(dict):
     def addControllerList(self, l):
         for className, instance in l.iteritems():
             self.addController(className, instance)
-            
+
     def load(self):
         """
-        This should really be init, but is left as a function until all other calls
-        to controllers are rewritten
+        This should really be init, but is left as a function until all
+        other calls to controllers are rewritten
         """
         l = appliances.myloader.myQuickLoader()
         l.build()

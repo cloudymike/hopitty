@@ -1,4 +1,20 @@
 #!/bin/bash
-./testunit
-./testrecipe
-echo "===========All Tests Passed================"
+echo "Unit test..."
+./testunit > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Unit Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+echo "Recipe test.."
+./testrecipe > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Recipe Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+echo "Lint (pep8).."
+./pepme > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Lint (pepme) Failed !!!!!!!!!!"
+    exit 1
+fi
+echo "=========== Everything is OK! ================"

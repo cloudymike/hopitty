@@ -7,6 +7,7 @@ import ctrl.controllers
 import appliances.circulationPump
 import ctrl.simswitch
 
+
 def createCtrl():
     """Instantiate a list of all controllers"""
     cirsw = ctrl.simswitch.simSwitch()
@@ -23,16 +24,18 @@ def createCtrl():
 
 
 def testss():
-    ctrl1=createCtrl()
+    ctrl1 = createCtrl()
     assert len(ctrl1) > 0
     ctrl1.shutdown()
     assert len(ctrl1) == 0
 
+
 def testStatus():
-    ctrl1=createCtrl()
+    ctrl1 = createCtrl()
     assert len(ctrl1) > 0
     status = ctrl1.status()
     assert len(status) > 0
+
 
 def testStartStop():
     ctrl1 = createCtrl()
@@ -48,6 +51,3 @@ def testStartStop():
     ctrl1.run(settings)
     for key, c in ctrl1.items():
         assert c.isActive()
-
-
-

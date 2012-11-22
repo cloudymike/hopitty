@@ -27,8 +27,8 @@ class genctrl():
 
     def __del__(self):
         self.stop()
-        
-    def connectSwitch(self,switch):
+
+    def connectSwitch(self, switch):
         """
         If a switch is required, this will connect it with the devices
         The switch object needs to have a method on and a method off.

@@ -1,5 +1,6 @@
 import os
 
+
 class   myQuickLoader:
     """
     This is a better version that figures out what is a class and then
@@ -14,8 +15,8 @@ class   myQuickLoader:
 
     def __init__(self):
         """
-        Creates a list of all the classes, as defined in modules in package mymods
-        Modules are defined in __init__.py
+        Creates a list of all the classes, as defined in modules in
+        package mymods. Modules are defined in __init__.py
         Any class within those modules are collected
         """
         module = __import__("appliances", fromlist="*")
@@ -31,14 +32,14 @@ class   myQuickLoader:
 
     def classes(self):
         return(self.myClassCollection)
-    
+
     def instances(self):
         return(self.myInstances)
 
     def build(self):
         """
-        This will instantiate one copy of each class found and adding them to the 
-        myInstances dictionary.
+        This will instantiate one copy of each class found and adding them
+        to the myInstances dictionary.
         """
         for className, aClass in self.myClassCollection.iteritems():
             self.myInstances[className] = aClass()
@@ -48,7 +49,6 @@ class   myQuickLoader:
         This will list all instanticated classes in the myInstances dictionary
         and try one call to them, just for test
         """
-        print "================== Listing instantiated classes =================="
+        print "============= Listing instantiated classes ============="
         for className, anInstance in self.myInstances.iteritems():
-            print 'Instance of Class',className, 'has initial',anInstance.get()
-        
+            print 'Instance of Class', className, 'has', anInstance.get()

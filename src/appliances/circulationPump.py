@@ -22,7 +22,7 @@ class circulationPump(appliances.genctrl):
         self.unit = 'Qt'
         self.pumpMotor = None
 
-    def connectSwitch(self,switch):
+    def connectSwitch(self, switch):
         """
         If a switch is required, this will connect it with the devices
         The switch object needs to have a method on and a method off.
