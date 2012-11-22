@@ -1,4 +1,5 @@
 use controller.load for ctrlmain
+  Requires derived classes for alternative appliance modules
 
 Test all basic functions of appliances
 get

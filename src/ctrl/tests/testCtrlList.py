@@ -13,8 +13,8 @@ import appliances.circulationPump
 
 def createCtrl():
     """Instantiate a list of all controllers"""
-    cirsw = ctrl.simswitch.simSwitch()
-    pumpsw = ctrl.simswitch.simSwitch()
+    #cirsw = ctrl.simswitch.simSwitch()
+    #pumpsw = ctrl.simswitch.simSwitch()
 
     ctrl1 = ctrl.controllers()
     ctrl1.addController('genctrl', appliances.genctrl())
@@ -27,6 +27,7 @@ def createCtrl():
 
 
 def testReadStages():
+
     ctrl1=createCtrl()
     
     print os.getcwd()

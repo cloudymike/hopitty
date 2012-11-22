@@ -12,18 +12,20 @@ import pickle
 import time
 import getopt
 import sys
-import simswitch
 import appliances
+import ctrl
 #import appliances.hoptimer
 #import appliances.hwt
 #import appliances.hwPump
 #import appliances.circulationPump
-import controllers
-import readRecipe
-import pumpUSB
+import ctrl.simswitch
+import ctrl.controllers
+import ctrl.readRecipe
+import ctrl.pumpUSB
+import ctrl.checkers
 import appliances.boiler
 from x10.controllers.cm11 import CM11
-import checkers
+import ctrl.checkers
 
 
 def usage():
@@ -66,7 +68,7 @@ def runManual(controllers, verbose):
         runStop = settings['runStop']
 
         # Shut everything down if hardware check shows failure
-        if not checkers.checkHardware(controllers):
+        if not ctrl.checkers.checkHardware(controllers):
             controllers.shutdown()
             break
 
@@ -99,7 +101,7 @@ def runRecipe(controllers, recipe, verbose):
 
             writeStatus(controllers, settings, r_key, runStop, verbose)
             # Shut everything down if hardware check shows failure
-            if not checkers.checkHardware(controllers):
+            if not ctrl.checkHardware(controllers):
                 controllers.shutdown()
                 break
 
@@ -115,7 +117,7 @@ def quickRecipe(controllers, recipe, verbose):
         if True:
             print ""
             print "Stage: ", r_key
-        if not checkers.checkHardware(controllers):
+        if not ctrl.checkHardware(controllers):
             controllers.shutdown()
             break
 
@@ -124,7 +126,7 @@ def quickRecipe(controllers, recipe, verbose):
 if __name__ == "__main__":
     simTemp = 70
     shutdown = False
-    controllers = controllers.controllers()
+    controllers = ctrl.controllers.controllers()
     #sys.exit(0)
 
     options, remainder = getopt.getopt(sys.argv[1:], 'f:hpqsv', [
@@ -188,7 +190,7 @@ if __name__ == "__main__":
             controllers['boiler'].connectSwitch(boilerSwitch)
 
         try:
-            usbPumps = pumpUSB.pumpUSB()
+            usbPumps = ctrl.pumpUSB()
             hotWaterPumpSwitch = usbPumps.getPump(1)
             hwCirculationSwitch = usbPumps.getPump(0)
             wortSwitch = usbPumps.getPump(2)
@@ -197,10 +199,10 @@ if __name__ == "__main__":
         except:
             if permissive:
                 print "Permissive mode switching USB to simulation"
-                hotWaterPumpSwitch = simswitch.simSwitch()
-                hwCirculationSwitch = simswitch.simSwitch()
-                wortSwitch = simswitch.simSwitch()
-                mashCirculationSwitch = simswitch.simSwitch()
+                hotWaterPumpSwitch = ctrl.simswitch.simSwitch()
+                hwCirculationSwitch = ctrl.simswitch.simSwitch()
+                wortSwitch = ctrl.simswitch.simSwitch()
+                mashCirculationSwitch = ctrl.simswitch.simSwitch()
             else:
                 raise Exception("USB pumps not available")
 
@@ -215,10 +217,10 @@ if __name__ == "__main__":
         controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
 
     else:
-        hotWaterPumpSwitch = simswitch.simSwitch()
-        hwCirculationSwitch = simswitch.simSwitch()
-        wortSwitch = simswitch.simSwitch()
-        mashCirculationSwitch = simswitch.simSwitch()
+        hotWaterPumpSwitch = ctrl.simSwitch()
+        hwCirculationSwitch = ctrl.simSwitch()
+        wortSwitch = ctrl.simSwitch()
+        mashCirculationSwitch = ctrl.simSwitch()
 
         controllers.addController('delayTimer', appliances.hoptimer())
         controllers.addController('waterHeater', appliances.hwtsim())
@@ -232,7 +234,7 @@ if __name__ == "__main__":
         controllers.addController('boiler', appliances.boiler())
 
     if recipeFile != "":
-        recipe = readRecipe.readRecipe(recipeFile, controllers)
+        recipe = ctrl.readRecipe(recipeFile, controllers)
     else:
         recipe = {}
     if verbose:
@@ -241,7 +243,7 @@ if __name__ == "__main__":
     if recipe == {}:
         runManual(controllers, verbose)
     else:
-        checkers.checkRecipe(controllers, recipe, verbose)
+        ctrl.checkers.checkRecipe(controllers, recipe, verbose)
         if quick:
             quickRecipe(controllers, recipe, verbose)
         else:
