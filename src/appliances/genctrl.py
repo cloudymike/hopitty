@@ -7,8 +7,21 @@ Created on Oct 17, 2012
 
 class genctrl():
     '''
-    classdocs
+    Generic controller
+    Use this baseclass to derive the actual controllers
+    
+    The controller has a generic sensor and switch class as well.
+    
     '''
+    class gensensor():
+        def __init__(self):
+            pass
+            
+        def getID(self):
+            return('myid')
+        
+        def getValue(self):
+            return(42)
 
     def __init__(self):
         '''
@@ -24,6 +37,7 @@ class genctrl():
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False   # Controller is running
         self.switch = None    # Switch object. Should have method on and off
+        self.sensor = genctrl.gensensor()
 
     def __del__(self):
         self.stop()

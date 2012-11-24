@@ -14,6 +14,7 @@ class hwPump(appliances.genctrl):
         self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
         self.pumpMotor = None
+        self.sensor = hwPump.gensensor()
 
     def connectSwitch(self, switch):
         """

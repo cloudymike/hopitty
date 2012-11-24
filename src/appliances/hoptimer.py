@@ -14,6 +14,7 @@ class hoptimer(appliances.genctrl):
         self.absminutes = time.localtime(time.time()).tm_sec / 60.0
         self.unit = 'min'
         self.powerOn = 'False'
+        self.sensor = hoptimer.gensensor()
 
     def measure(self):
         currmin = time.localtime(time.time()).tm_sec / 60.0

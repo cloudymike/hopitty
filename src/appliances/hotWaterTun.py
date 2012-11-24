@@ -11,6 +11,7 @@ class hwt(appliances.genctrl):
         self.presetTemp = 70.0
         self.unit = 'F'
         self.currTemp = 70.0
+        self.sensor = hwt.gensensor()
 
     def __del__(self):
         self.powerOn = False
