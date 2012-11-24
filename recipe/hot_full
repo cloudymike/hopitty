@@ -2,24 +2,25 @@
 "name":"SilverDollarPorter",
   "recipe":   {
     "01":{
-      "waterHeater":150,
-      "waterCirculationPump":1,
-      "delayTimer":0.167
+      "waterHeater":165,
+      "waterCirculationPump":1
     },
     "02": {
-      "waterCirculationPump":1,
       "hotWaterPump":8
     },
     "03": {
+      "waterHeater":165,
       "waterCirculationPump":1,
       "mashCirculationPump":1,
-      "delayTimer":0.167
+      "delayTimer":0.30
     },
     "04":{
+      "waterHeater":165,
       "waterCirculationPump":1,
       "wortPump":4
     },
     "05": {
+      "waterHeater":165,
       "waterCirculationPump":1,
       "hotWaterPump":4
     },
@@ -28,7 +29,6 @@
       "wortPump":4
     },
     "07": {
-      "waterCirculationPump":1,
       "hotWaterPump":4
     },
     "08":{

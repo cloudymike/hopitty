@@ -1,0 +1,21 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "1 05s":{
+      "delayTimer":0.08
+    },
+    "2 10s": {
+     "delayTimer":0.167
+    },
+    "3 05s": {
+      "delayTimer":0.08
+    },
+    "4 15s": {
+      "delayTimer":0.25
+    },
+    "5 60s":{
+      "delayTimer":1.0
+    }
+  }
+
+}

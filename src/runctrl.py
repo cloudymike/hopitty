@@ -88,8 +88,13 @@ def runManual(controllers, verbose):
 
 
 def runRecipe(controllers, recipe, verbose):
+    """
+    Goes through all stages of the recipe and runs all controllers
+    Reset controllers by stopping them before starting each stage
+    """
     runStop = 'run'
     for r_key, settings in sorted(recipe.items()):
+        controllers.stop()
         controllers.run(settings)
         if True:
             print ""
@@ -115,6 +120,7 @@ def quickRecipe(controllers, recipe, verbose):
     """
     runStop = 'run'
     for r_key, settings in sorted(recipe.items()):
+        controllers.stop()
         controllers.run(settings)
         if True:
             print ""

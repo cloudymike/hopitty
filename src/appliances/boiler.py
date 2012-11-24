@@ -10,7 +10,6 @@ class boiler(appliances.genctrl):
         self.unit = 'None'
         self.sensor = boiler.gensensor()
 
-
     def __del__(self):
         self.powerOn = False
         print 'Powering down'

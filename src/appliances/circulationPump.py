@@ -23,7 +23,6 @@ class circulationPump(appliances.genctrl):
         self.pumpMotor = None
         self.sensor = circulationPump.gensensor()
 
-
     def connectSwitch(self, switch):
         """
         If a switch is required, this will connect it with the devices

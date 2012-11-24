@@ -9,17 +9,15 @@ class genctrl():
     '''
     Generic controller
     Use this baseclass to derive the actual controllers
-    
     The controller has a generic sensor and switch class as well.
-    
     '''
     class gensensor():
         def __init__(self):
             pass
-            
+
         def getID(self):
             return('myid')
-        
+
         def getValue(self):
             return(42)
 
@@ -114,7 +112,9 @@ class genctrl():
 
     def stop(self):
         """
-        Stops the controller. Should shut down all power as well
+        Stops the controller. Reset all count values, as timers.
+        De-activate the controller
+        Should shut down all power as well
         to ensure that all is safe after stop
         """
         self.target = 0
