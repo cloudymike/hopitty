@@ -20,7 +20,7 @@ class hoptimer(appliances.genctrl):
         currmin = time.localtime(time.time()).tm_sec / 60.0
         deltamin = currmin - self.absminutes
         if deltamin < 0:
-            deltamin = deltamin + 60.0
+            deltamin = deltamin + 1.0
         self.absminutes = currmin
         if self.target > 0:
             self.actual = self.actual + deltamin

@@ -6,8 +6,6 @@
       "waterHeater":172
     },
     "2": {
-      "waterCirculationPump":1,
-      "waterHeater":172,
       "hotWaterPump":3.0
     },
     "3": {
@@ -22,7 +20,6 @@
       "delayTimer":5
     },
     "5":{
-      "waterCirculationPump":1,
       "waterHeater":168,
       "hotWaterPump":3.0
     },
@@ -32,7 +29,6 @@
       "wortPump":1.0
     },
     "7":{
-      "waterCirculationPump":1,
       "waterHeater":168,
       "hotWaterPump":3.0
     },

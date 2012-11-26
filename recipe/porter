@@ -1,46 +1,44 @@
 {
 "name":"SilverDollarPorter",
   "recipe":   {
-    "01":{
-      "waterCirculationPump":1,
-      "delayTimer":0.167
+    "01 Heating":{
+      "waterHeater":167,
+      "waterCirculationPump":1
     },
-    "02": {
-      "waterCirculationPump":1,
-      "hotWaterPump":6.56
+    "02 Pump rest": {
+      "delayTimer":0.30
     },
-    "03": {
+    "03 Mash water": {
+      "hotWaterPump":8.01
+    },
+    "04 Mashing": {
+      "waterCirculationPump":1,
+      "waterHeater":168,
+      "delayTimer":60.0
+    },
+    "05 Mash recirculate": {
+      "waterHeater":168,
       "waterCirculationPump":1,
       "mashCirculationPump":1,
-      "delayTimer":0.167
+      "delayTimer":0.30
     },
-    "04":{
+    "06 Wort pump 1":{
       "waterCirculationPump":1,
-      "wortPump":3
+      "waterHeater":168,
+      "wortPump":6
     },
     "05": {
-      "waterCirculationPump":1,
-      "hotWaterPump":4.12
+      "hotWaterPump":2.72
     },
     "06":{
       "waterCirculationPump":1,
-      "wortPump":4.12
+      "wortPump":4
     },
     "07": {
-      "waterCirculationPump":1,
-      "hotWaterPump":4.16
+      "hotWaterPump":7.76
     },
     "08":{
-      "waterCirculationPump":1,
-      "wortPump":4.16
-    },
-    "09": {
-      "waterCirculationPump":1,
-      "hotWaterPump":4
-    },
-    "10":{
-      "waterCirculationPump":1,
-      "wortPump":4.04
+      "wortPump":5.32
     }
   }
 

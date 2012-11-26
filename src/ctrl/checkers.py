@@ -14,6 +14,16 @@ def checkHardware(controllers):
         hardwareOK = False
         print "HotWater pump and wort pump on at same time"
 
+    if controllers['mashCirculationPump'].getPowerOn() and \
+    controllers['wortPump'].getPowerOn():
+        hardwareOK = False
+        print "Mash circulation pump and wort pump on at same time"
+
+    if controllers['hotWaterPump'].getPowerOn() and \
+    controllers['waterCirculationPump'].getPowerOn():
+        hardwareOK = False
+        print "HotWater pump and Hot Water circulation pump on at same time"
+
     return(hardwareOK)
 
 

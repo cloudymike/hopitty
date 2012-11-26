@@ -6,7 +6,6 @@
       "delayTimer":0.167
     },
     "02": {
-      "waterCirculationPump":1,
       "hotWaterPump":8
     },
     "03": {
@@ -19,7 +18,6 @@
       "wortPump":4
     },
     "05": {
-      "waterCirculationPump":1,
       "hotWaterPump":4
     },
     "06":{
@@ -27,11 +25,9 @@
       "wortPump":4
     },
     "07": {
-      "waterCirculationPump":1,
       "hotWaterPump":4
     },
     "08":{
-      "waterCirculationPump":1,
       "wortPump":4
     }
   }

@@ -10,11 +10,17 @@
     "3 05s": {
       "delayTimer":0.08
     },
-    "4 15s": {
-      "delayTimer":0.25
+    "4 1 min": {
+      "delayTimer":1
     },
-    "5 60s":{
-      "delayTimer":1.0
+    "5 2 min":{
+      "delayTimer":2
+    },
+    "6 5 min":{
+      "delayTimer":5
+    },
+    "7 1 min":{
+      "delayTimer":1
     }
   }
 
