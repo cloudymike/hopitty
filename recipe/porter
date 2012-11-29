@@ -27,17 +27,17 @@
       "waterHeater":168,
       "wortPump":6
     },
-    "05": {
+    "07": {
       "hotWaterPump":2.72
     },
-    "06":{
+    "08":{
       "waterCirculationPump":1,
       "wortPump":4
     },
-    "07": {
+    "09": {
       "hotWaterPump":7.76
     },
-    "08":{
+    "10":{
       "wortPump":5.32
     }
   }
