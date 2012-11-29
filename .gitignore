@@ -21,6 +21,7 @@
 *.Plo
 .project
 .pydevproject
+a.out
 
 # GoIO generated files
 mytemp
