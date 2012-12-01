@@ -120,6 +120,7 @@ class genctrl():
         self.target = 0
         self.actual = 0
         self.active = False
+        self.powerOn = False
 
     def start(self):
         self.active = True

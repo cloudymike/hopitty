@@ -9,6 +9,7 @@ class boiler(appliances.genctrl):
         self.active = False
         self.unit = 'None'
         self.sensor = boiler.gensensor()
+        self.target = 0
 
     def __del__(self):
         self.powerOn = False
@@ -26,8 +27,8 @@ class boiler(appliances.genctrl):
         else:
             return 'Off'
 
-    def set(self, preset):
-        pass
+#    def set(self, preset):
+#        pass
 
     def update(self):
         if self.isActive():
@@ -41,8 +42,8 @@ class boiler(appliances.genctrl):
     def get(self):
         return(self.measure())
 
-    def getTarget(self):
-        return(1)
+#    def getTarget(self):
+#       return(1)
 
     def stop(self):
         self.active = False
