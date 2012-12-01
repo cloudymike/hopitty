@@ -137,8 +137,9 @@ if __name__ == "__main__":
     controllers = ctrl.controllerList()
     #sys.exit(0)
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'f:hpqsv', [
-                         'file',
+    options, remainder = getopt.getopt(sys.argv[1:], 'b:f:hpqsv', [
+                         'bsmx=',
+                         'file=',
                          'help',
                          'permissive',
                          'quick',
@@ -151,11 +152,14 @@ if __name__ == "__main__":
     permissive = False
     quick = False
     recipeFile = ""
+    bsmxFile = ""
     for opt, arg in options:
         if opt in ('-h', '--help'):
             usage()
         if opt in ('-f', '--file'):
             recipeFile = arg
+        if opt in ('-b', '--bsmx'):
+            bsmxFile = arg
         elif opt in ('-p', '--permissive'):
             permissive = True
         elif opt in ('-q', '--quick'):
@@ -169,6 +173,7 @@ if __name__ == "__main__":
 
     if verbose:
         print 'Verbose'
+        print "bsmxFile:", bsmxFile
         if simulation:
             print 'Simulation mode'
 
@@ -243,10 +248,12 @@ if __name__ == "__main__":
 
     if recipeFile != "":
         recipe = ctrl.readRecipe(recipeFile, controllers)
-    else:
+    elif bsmxFile != "":
+        recipe = ctrl.bsmxReadRecipe(bsmxFile, controllers)
+    else:   
         recipe = {}
     if verbose:
-        print recipe
+        ctrl.prettyPrintStages(recipe)
 
     if recipe == {}:
         runManual(controllers, verbose)
