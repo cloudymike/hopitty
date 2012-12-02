@@ -1,3 +1,6 @@
+Pump needs to stop between change of volume to reset. Check that pump does not run through two stages
+This should be done in checker
+
 use controller.load for ctrlmain
   Requires derived classes for alternative appliance modules
 
