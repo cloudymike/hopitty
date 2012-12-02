@@ -4,6 +4,21 @@ Created on Oct 17, 2012
 @author: mikael
 '''
 
+class genExtSensor():
+    def __init__(self):
+        self.id = 'nobody'
+            
+    def getID(self):
+        return(self.id)
+        
+    def setID(self, newID):
+        self.id = newID
+        
+    def getValue(self):
+        return(42)
+
+
+
 
 class genctrl():
     '''
@@ -15,10 +30,13 @@ class genctrl():
     '''
     class gensensor():
         def __init__(self):
-            pass
+            self.id = 'nobody'
             
         def getID(self):
-            return('myid')
+            return(self.id)
+        
+        def setID(self, newID):
+            self.id = newID
         
         def getValue(self):
             return(42)
@@ -126,3 +144,7 @@ class genctrl():
 
     def isActive(self):
         return(self.active)
+
+    def findOrAddSensor(self, clist):
+        pass
+
