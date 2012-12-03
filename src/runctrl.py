@@ -224,7 +224,7 @@ if __name__ == "__main__":
         controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
         controllers.addController('waterCirculationPump', appliances.circulationPump())
         controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
-        controllers.addController('wortPump', appliances.hwPump())
+        controllers.addController('wortPump', appliances.wortPump())
         controllers['wortPump'].connectSwitch(wortSwitch)
         controllers.addController('mashCirculationPump', appliances.circulationPump())
         controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
@@ -241,10 +241,14 @@ if __name__ == "__main__":
                     appliances.hwPump(hotWaterPumpSwitch))
         controllers.addController('waterCirculationPump',
                     appliances.circulationPump(hwCirculationSwitch))
-        controllers.addController('wortPump', appliances.hwPump(wortSwitch))
+        controllers.addController('wortPump', appliances.wortPump(wortSwitch))
         controllers.addController('mashCirculationPump',
                     appliances.circulationPump(mashCirculationSwitch))
         controllers.addController('boiler', appliances.boiler())
+        
+    # Testing of sensor object Remove me later
+    for key, c1 in controllers.items():
+        c1.findOrAddSensor(controllers)
 
     if recipeFile != "":
         recipe = ctrl.readRecipe(recipeFile, controllers)

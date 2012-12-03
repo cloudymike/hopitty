@@ -1,15 +1,14 @@
 {
-"name":"SilverDollarPorter",
+"name":"IPA",
   "recipe":   {
-    "01":{
+    "1":{
       "waterCirculationPump":1,
       "delayTimer":0.167
     },
     "02": {
       "hotWaterPump":8
     },
-    "03": {
-      "waterCirculationPump":1,
+    "3": {
       "mashCirculationPump":1,
       "delayTimer":0.167
     },
