@@ -4,20 +4,7 @@ Created on Oct 17, 2012
 @author: mikael
 '''
 
-class genExtSensor():
-    def __init__(self):
-        self.id = 'nobody'
-            
-    def getID(self):
-        return(self.id)
-        
-    def setID(self, newID):
-        self.id = newID
-        
-    def getValue(self):
-        return(42)
-
-
+import sensors
 
 
 class genctrl():
@@ -28,18 +15,6 @@ class genctrl():
     The controller has a generic sensor and switch class as well.
     
     '''
-    class gensensor():
-        def __init__(self):
-            self.id = 'nobody'
-            
-        def getID(self):
-            return(self.id)
-        
-        def setID(self, newID):
-            self.id = newID
-        
-        def getValue(self):
-            return(42)
 
     def __init__(self):
         '''
@@ -55,7 +30,7 @@ class genctrl():
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False   # Controller is running
         self.switch = None    # Switch object. Should have method on and off
-        self.sensor = genctrl.gensensor()
+        self.sensor = sensors.genericSensor()
 
     def __del__(self):
         self.stop()

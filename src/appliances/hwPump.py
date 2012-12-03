@@ -1,27 +1,10 @@
 import time
 import appliances.genctrl
+import sensors
 
-class mashScaleSensor(appliances.genExtSensor):
-    def __init__(self):
-        self.id = 'mashScale'
-        self.val = 0
-            
-    def getID(self):
-        return(self.id)
-        
-    def setID(self, newID):
-        self.id = newID
-        
-    def getValue(self):
-        return(self.val)
-    
-    def setValue(self,val):
-        self.val = val
-        #print "Mash Water Volume:", int(self.val * 100) 
 
 
 class hwPump(appliances.genctrl):
-    
 
     def __init__(self):
         self.actual = 0.000
@@ -34,7 +17,8 @@ class hwPump(appliances.genctrl):
         self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
         self.pumpMotor = None
-        self.sensor = hwPump.gensensor()
+        self.sensor = sensors.mashScaleSensor()
+        # print "==========",self.sensor.getID()
 
     def connectSwitch(self, switch):
         """
@@ -87,7 +71,7 @@ class hwPump(appliances.genctrl):
                 self.sensor = c1.sensor
                 #print "Found mashScale sensor on", key
         if not foundSensor:
-            self.sensor = mashScaleSensor()
+            self.sensor = sensors.mashScaleSensor()
             #print "Created mashScale sensor"
 
 

@@ -1,6 +1,6 @@
 import subprocess
 import appliances.genctrl
-
+import sensors
 
 class hwt(appliances.genctrl):
     def __init__(self):
@@ -11,7 +11,7 @@ class hwt(appliances.genctrl):
         self.presetTemp = 70.0
         self.unit = 'F'
         self.currTemp = 70.0
-        self.sensor = hwt.gensensor()
+        self.sensor = sensors.genericSensor()
 
     def __del__(self):
         self.powerOn = False

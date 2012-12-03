@@ -1,5 +1,6 @@
 import subprocess
 import appliances.genctrl
+import sensors
 
 
 class boiler(appliances.genctrl):
@@ -8,7 +9,7 @@ class boiler(appliances.genctrl):
         self.powerOn = False
         self.active = False
         self.unit = 'None'
-        self.sensor = boiler.gensensor()
+        self.sensor = sensors.genericSensor()
 
 
     def __del__(self):
