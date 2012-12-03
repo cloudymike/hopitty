@@ -2,18 +2,18 @@ import sensors
 import subprocess
 import os
 
-class mashScaleSensor(sensors.genericSensor):
+class thermometer(sensors.genericSensor):
     def __init__(self):
-        self.id = 'mashScale'
+        self.id = 'thermometer'
         self.simulation = False
         scriptdir = os.path.dirname(os.path.abspath(__file__))
-        self.exedir = scriptdir + '/../../DigiWeight/usbscale'
+        self.exedir = scriptdir + '/../../GoIO-2.28.0/mytemp/mytemp'
         try:
             scaleStr = subprocess.check_output(self.exedir)
         except:
             self.simulation = True
             self.val = 0
-            print "******************Scale not found, entering simulation mode"
+            print "******************Thermometer not found, entering simulation mode"
             
     def getID(self):
         return(self.id)
@@ -26,8 +26,8 @@ class mashScaleSensor(sensors.genericSensor):
             return(self.val)
         else:
             scaleStr = subprocess.check_output(self.exedir)
-            qt = float(scaleStr) / 320
-            return(qt)
+            t = float(scaleStr)
+            return(t)
     
     def setValue(self,val):
         if self.simulation:
