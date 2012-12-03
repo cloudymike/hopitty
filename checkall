@@ -11,6 +11,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Recipe Tests Failed !!!!!!!!!!"
     exit 1
 fi
+echo "BeerSmith bsmx test.."
+./testbsmx > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Recipe Tests Failed !!!!!!!!!!"
+    exit 1
+fi
 echo "Lint (pep8).."
 ./pepme > /dev/null
 if [ "$?" != "0" ]; then

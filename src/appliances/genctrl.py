@@ -123,4 +123,3 @@ class genctrl():
 
     def findOrAddSensor(self, clist):
         pass
-

@@ -2,6 +2,7 @@ import time
 import appliances.genctrl
 import sensors
 
+
 class hoptimer(appliances.genctrl):
 
     def __init__(self):

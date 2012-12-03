@@ -2,7 +2,9 @@ import sensors
 import subprocess
 import os
 
+
 class thermometer(sensors.genericSensor):
+
     def __init__(self):
         self.id = 'thermometer'
         self.simulation = False
@@ -13,14 +15,14 @@ class thermometer(sensors.genericSensor):
         except:
             self.simulation = True
             self.val = 0
-            print "******************Thermometer not found, entering simulation mode"
-            
+            print "*****Thermometer not found, entering simulation mode"
+
     def getID(self):
         return(self.id)
-        
+
     def setID(self, newID):
         self.id = newID
-        
+
     def getValue(self):
         if self.simulation:
             return(self.val)
@@ -28,7 +30,7 @@ class thermometer(sensors.genericSensor):
             scaleStr = subprocess.check_output(self.exedir)
             t = float(scaleStr)
             return(t)
-    
-    def setValue(self,val):
+
+    def setValue(self, val):
         if self.simulation:
             self.val = val

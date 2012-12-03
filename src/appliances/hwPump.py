@@ -3,7 +3,6 @@ import appliances.genctrl
 import sensors
 
 
-
 class hwPump(appliances.genctrl):
 
     def __init__(self):
@@ -85,4 +84,3 @@ class wortPump(hwPump):
         if self.powerOn:
             self.sensor.setValue(self.sensor.getValue() - deltavol)
             self.actual = self.startVol - self.sensor.getValue()
-

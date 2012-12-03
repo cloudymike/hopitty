@@ -2,6 +2,7 @@ import subprocess
 import appliances.genctrl
 import sensors
 
+
 class hwt(appliances.genctrl):
     def __init__(self):
 #        self.hotWaterTun = switch
