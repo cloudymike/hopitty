@@ -65,17 +65,3 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun != None:
             self.hotWaterTun.off()
         self.powerOn = False
-
-
-class hwtsim(hwt):
-
-    def measure(self):
-        self.sensor.setValue(self.powerOn)
-        return(self.sensor.getValue())
-
-
-class hwtHW(hwt):
-
-    def measure(self):
-        self.sensor.setValue(self.powerOn)
-        return(self.sensor.getValue())

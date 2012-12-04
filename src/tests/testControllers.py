@@ -18,7 +18,7 @@ def createCtrl():
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('pump', appliances.hwPump())
     ctrl1.addController('circulationPump', appliances.circulationPump())
-    ctrl1.addController('heater', appliances.hwtsim())
+    ctrl1.addController('heater', appliances.hwt())
     ctrl1.addController('boiler', appliances.boiler())
     return(ctrl1)
 

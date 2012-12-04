@@ -194,10 +194,10 @@ if __name__ == "__main__":
                 sys.exit()
 
         if simX10:
-            controllers.addController('waterHeater',appliances.hwtsim())
+            controllers.addController('waterHeater',appliances.hwt())
             controllers.addController('boiler', appliances.boiler())
         else:
-            controllers.addController('waterHeater',appliances.hwtHW())
+            controllers.addController('waterHeater',appliances.hwt())
             controllers['waterHeater'].connectSwitch(hwTunSwitch)
             controllers.addController('boiler', appliances.boiler())
             controllers['boiler'].connectSwitch(boilerSwitch)
