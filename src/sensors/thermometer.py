@@ -12,9 +12,13 @@ class thermometer(sensors.genericSensor):
         self.exedir = scriptdir + '/../../GoIO-2.28.0/mytemp/mytemp'
         try:
             scaleStr = subprocess.check_output(self.exedir)
+            if scaleStr == 'No Go devices found.\n':
+                self.simulation = True
         except:
             self.simulation = True
-            self.val = 0
+
+        if self.simulation:
+            self.val = 70.0
             print "*****Thermometer not found, entering simulation mode"
 
     def getID(self):
@@ -31,6 +35,9 @@ class thermometer(sensors.genericSensor):
             t = float(scaleStr)
             return(t)
 
-    def setValue(self, val):
+    def setValue(self, powerOn):
         if self.simulation:
-            self.val = val
+            if powerOn:
+                self.val = self.val + 1.3
+            else:
+                self.val = self.val - 1.1

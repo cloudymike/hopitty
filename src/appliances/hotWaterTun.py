@@ -11,8 +11,8 @@ class hwt(appliances.genctrl):
         self.active = False
         self.presetTemp = 70.0
         self.unit = 'F'
-        self.currTemp = 70.0
-        self.sensor = sensors.genericSensor()
+#        self.currTemp = 70.0
+        self.sensor = sensors.thermometer()
 
     def __del__(self):
         self.powerOn = False
@@ -22,7 +22,8 @@ class hwt(appliances.genctrl):
         self.hotWaterTun = switch
 
     def measure(self):
-        return(self.currTemp)
+        self.sensor.setValue(self.powerOn)
+        return(self.sensor.getValue())
 
     def status(self):
         if self.powerOn:
@@ -40,7 +41,7 @@ class hwt(appliances.genctrl):
             self.on()
 
     def targetMet(self):
-        if self.currTemp < self.presetTemp:
+        if self.sensor.getValue() < self.presetTemp:
             return(False)
         else:
             return(True)
@@ -69,34 +70,12 @@ class hwt(appliances.genctrl):
 class hwtsim(hwt):
 
     def measure(self):
-        if self.powerOn:
-            self.currTemp = self.currTemp + 1.0
-        else:
-            self.currTemp = self.currTemp - 1.0
-        return(self.currTemp)
+        self.sensor.setValue(self.powerOn)
+        return(self.sensor.getValue())
 
 
 class hwtHW(hwt):
 
     def measure(self):
-        try:
-            currTempStr = \
-            subprocess.check_output('GoIO-2.28.0/mytemp/mytemp')
-        except:
-            try:
-                currTempStr = \
-                subprocess.check_output('../GoIO-2.28.0/mytemp/mytemp')
-            except:
-                try:
-                    currTempStr = \
-                    subprocess.check_output('../../GoIO-2.28.0/mytemp/mytemp')
-                except:
-                    currTempStr = \
-                    subprocess.check_output(\
-                    '../../../GoIO-2.28.0/mytemp/mytemp')
-
-        try:
-            self.currTemp = float(currTempStr)
-        except:
-            self.currTemp = 999.99
-        return self.currTemp
+        self.sensor.setValue(self.powerOn)
+        return(self.sensor.getValue())
