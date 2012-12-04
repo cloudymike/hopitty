@@ -7,7 +7,7 @@
 pushd beersmith
 for recipe in *; do
   echo ".......................$recipe"
-  ../src/runctrl.py -p -q -b $recipe
+  ../src/runctrl.py -q -b $recipe
   if [ "$?" != "0" ] ; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1

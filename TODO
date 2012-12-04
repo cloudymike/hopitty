@@ -1,33 +1,15 @@
 
-Pump needs to stop between change of volume to reset. Check that pump does not run through two stages
-This should be done in checker
-
 use controller.load for ctrlmain
   Requires derived classes for alternative appliance modules
 
-Test all basic functions of appliances
-get
-set
-measure
-...
-
-add connectSensor, similar to connectSwitch
-
-
 usage on ctrl.py
 
-Move all tests to src/tests
-
-Breakout classes and defs from ctrl.py
 
 Break out getop and use an options dictionary
 
-Make hwtun sim a true subclass of hwhw. Cleanup ctrl permissive mode
-
-use same class for sim and hw
 pass object HW or sim to class above
   switch
-  sensor
+
 
 Checks
   mutex (link to other controller that should NOT be activated at same time)

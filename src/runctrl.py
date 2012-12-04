@@ -135,21 +135,17 @@ if __name__ == "__main__":
     simTemp = 70
     shutdown = False
     controllers = ctrl.controllerList()
-    #sys.exit(0)
-
-    options, remainder = getopt.getopt(sys.argv[1:], 'b:f:hpqsv', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'b:f:hqv', [
                          'bsmx=',
                          'file=',
                          'help',
-                         'permissive',
                          'quick',
-                         'simulate',
                          'verbose',
                          'version=',
                          ])
     verbose = False
     simulation = False
-    permissive = False
+    permissive = True
     quick = False
     recipeFile = ""
     bsmxFile = ""
@@ -160,12 +156,8 @@ if __name__ == "__main__":
             recipeFile = arg
         if opt in ('-b', '--bsmx'):
             bsmxFile = arg
-        elif opt in ('-p', '--permissive'):
-            permissive = True
         elif opt in ('-q', '--quick'):
             quick = True
-        elif opt in ('-s', '--simulate'):
-            simulation = True
         elif opt in ('-v', '--verbose'):
             verbose = True
         elif opt == '--version':
@@ -174,8 +166,6 @@ if __name__ == "__main__":
     if verbose:
         print 'Verbose'
         print "bsmxFile:", bsmxFile
-        if simulation:
-            print 'Simulation mode'
 
     if not simulation:
         simX10 = False
@@ -236,7 +226,7 @@ if __name__ == "__main__":
         mashCirculationSwitch = ctrl.simSwitch()
 
         controllers.addController('delayTimer', appliances.hoptimer())
-        controllers.addController('waterHeater', appliances.hwtsim())
+        controllers.addController('waterHeater', appliances.hwt())
         controllers.addController('hotWaterPump',
                     appliances.hwPump(hotWaterPumpSwitch))
         controllers.addController('waterCirculationPump',

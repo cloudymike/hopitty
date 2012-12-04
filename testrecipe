@@ -7,7 +7,7 @@
 pushd recipe
 for recipe in *; do
   echo ".......................$recipe"
-  ../src/runctrl.py -p -q -f $recipe
+  ../src/runctrl.py -q -f $recipe
   if [ "$?" != "0" ] ; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
