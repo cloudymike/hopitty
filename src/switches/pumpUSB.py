@@ -66,6 +66,10 @@ class pumpUSB():
     def getPump(self, index):
         return(self.pumplist[index])
 
+    def getSwitch(self, index):
+        """ yes it is the same as getPump, standard name use """
+        return(self.pumplist[index])
+
     def close(self):
         self.interfaceKit.closePhidget()
 

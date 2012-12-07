@@ -19,12 +19,10 @@ import ctrl
 import ctrl.simswitch
 import ctrl.controllers
 import ctrl.readRecipe
-import ctrl.pumpUSB
 import ctrl.checkers
 import appliances.boiler
-from x10.controllers.cm11 import CM11
 import ctrl.checkers
-
+import switches
 
 def usage():
     print 'usage:'
@@ -167,75 +165,56 @@ if __name__ == "__main__":
         print 'Verbose'
         print "bsmxFile:", bsmxFile
 
+    # Try to find hw switches
     if not simulation:
-        simX10 = False
         print "Initializing hardware"
         try:
-            x10 = CM11('/dev/ttyUSB0')
+            x10 = myX10('/dev/ttyUSB0')
             x10.open()
-            hwTunSwitch = x10.actuator("H14")
-            boilerSwitch = x10.actuator("I12")
         except:
             if permissive:
                 print "Permissive mode, switch X10 to simulation"
+                x10 = ctrl.simSwitchList()
                 simX10 = True
             else:
                 print "X10 not available"
                 sys.exit()
-
-        if simX10:
-            controllers.addController('waterHeater',appliances.hwt())
-            controllers.addController('boiler', appliances.boiler())
-        else:
-            controllers.addController('waterHeater',appliances.hwt())
-            controllers['waterHeater'].connectSwitch(hwTunSwitch)
-            controllers.addController('boiler', appliances.boiler())
-            controllers['boiler'].connectSwitch(boilerSwitch)
-
+                
         try:
             usbPumps = ctrl.pumpUSB()
-            hotWaterPumpSwitch = usbPumps.getPump(1)
-            hwCirculationSwitch = usbPumps.getPump(0)
-            wortSwitch = usbPumps.getPump(2)
-            mashCirculationSwitch = usbPumps.getPump(3)
-
         except:
             if permissive:
                 print "Permissive mode switching USB to simulation"
-                hotWaterPumpSwitch = ctrl.simswitch.simSwitch()
-                hwCirculationSwitch = ctrl.simswitch.simSwitch()
-                wortSwitch = ctrl.simswitch.simSwitch()
-                mashCirculationSwitch = ctrl.simswitch.simSwitch()
+                usbPumps = ctrl.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
-
-        controllers.addController('delayTimer', appliances.hoptimer())
-        controllers.addController('hotWaterPump', appliances.hwPump())
-        controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
-        controllers.addController('waterCirculationPump', appliances.circulationPump())
-        controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
-        controllers.addController('wortPump', appliances.wortPump())
-        controllers['wortPump'].connectSwitch(wortSwitch)
-        controllers.addController('mashCirculationPump', appliances.circulationPump())
-        controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
-
+               
     else:
-        hotWaterPumpSwitch = ctrl.simSwitch()
-        hwCirculationSwitch = ctrl.simSwitch()
-        wortSwitch = ctrl.simSwitch()
-        mashCirculationSwitch = ctrl.simSwitch()
-
-        controllers.addController('delayTimer', appliances.hoptimer())
-        controllers.addController('waterHeater', appliances.hwt())
-        controllers.addController('hotWaterPump',
-                    appliances.hwPump(hotWaterPumpSwitch))
-        controllers.addController('waterCirculationPump',
-                    appliances.circulationPump(hwCirculationSwitch))
-        controllers.addController('wortPump', appliances.wortPump(wortSwitch))
-        controllers.addController('mashCirculationPump',
-                    appliances.circulationPump(mashCirculationSwitch))
-        controllers.addController('boiler', appliances.boiler())
+        x10 = ctrl.simSwitchList()        
+        usbPumps = ctrl.simSwitchList()
         
+    hwTunSwitch = x10.getSwitch("H14")
+    boilerSwitch = x10.getSwitch("I12")
+    hotWaterPumpSwitch = usbPumps.getSwitch(1)
+    hwCirculationSwitch = usbPumps.getSwitch(0)
+    wortSwitch = usbPumps.getSwitch(2)
+    mashCirculationSwitch = usbPumps.getSwitch(3)
+
+    controllers.addController('waterHeater',appliances.hwt())
+    controllers['waterHeater'].connectSwitch(hwTunSwitch)
+    controllers.addController('boiler', appliances.boiler())
+    controllers['boiler'].connectSwitch(boilerSwitch)
+    controllers.addController('delayTimer', appliances.hoptimer())
+    controllers.addController('hotWaterPump', appliances.hwPump())
+    controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
+    controllers.addController('waterCirculationPump', appliances.circulationPump())
+    controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
+    controllers.addController('wortPump', appliances.wortPump())
+    controllers['wortPump'].connectSwitch(wortSwitch)
+    controllers.addController('mashCirculationPump', appliances.circulationPump())
+    controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
+
+
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)

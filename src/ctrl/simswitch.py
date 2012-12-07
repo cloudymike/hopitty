@@ -22,3 +22,12 @@ class simSwitch(object):
 
     def off(self):
         pass
+
+
+# Similar dummy function if a list of switches are required
+class simSwitchList():
+    def __init__(self):
+        pass
+
+    def getSwitch(self, value):
+        return(simSwitch())
