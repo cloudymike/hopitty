@@ -7,14 +7,11 @@ import appliances.hotWaterTun
 import appliances.hwPump
 import ctrl.controllers
 import ctrl.readRecipe
-import ctrl.simswitch
 import appliances.circulationPump
 
 
 def createCtrl():
     """Instantiate a list of all controllers"""
-    #cirsw = ctrl.simswitch.simSwitch()
-    #pumpsw = ctrl.simswitch.simSwitch()
 
     ctrl1 = ctrl.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())

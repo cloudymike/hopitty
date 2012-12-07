@@ -12,16 +12,11 @@ import getopt
 import sys
 import appliances
 import ctrl
-#import appliances.hoptimer
-#import appliances.hwt
-#import appliances.hwPump
-#import appliances.circulationPump
-import ctrl.simswitch
-import ctrl.controllers
+#import ctrl.controllers
 import ctrl.readRecipe
-import ctrl.checkers
+#import ctrl.checkers
 import appliances.boiler
-import ctrl.checkers
+#import ctrl.checkers
 import switches
 
 def usage():
@@ -169,29 +164,29 @@ if __name__ == "__main__":
     if not simulation:
         print "Initializing hardware"
         try:
-            x10 = myX10('/dev/ttyUSB0')
+            x10 = switches.myX10('/dev/ttyUSB0')
             x10.open()
         except:
             if permissive:
                 print "Permissive mode, switch X10 to simulation"
-                x10 = ctrl.simSwitchList()
+                x10 = switches.simSwitchList()
                 simX10 = True
             else:
                 print "X10 not available"
                 sys.exit()
                 
         try:
-            usbPumps = ctrl.pumpUSB()
+            usbPumps = switches.pumpUSB()
         except:
             if permissive:
                 print "Permissive mode switching USB to simulation"
-                usbPumps = ctrl.simSwitchList()
+                usbPumps = switches.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
                
     else:
-        x10 = ctrl.simSwitchList()        
-        usbPumps = ctrl.simSwitchList()
+        x10 = switches.simSwitchList()        
+        usbPumps = switches.simSwitchList()
         
     hwTunSwitch = x10.getSwitch("H14")
     boilerSwitch = x10.getSwitch("I12")

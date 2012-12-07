@@ -8,7 +8,6 @@ import appliances.hotWaterTun
 import appliances.hwPump
 import ctrl.controllers
 import ctrl.readRecipe
-import ctrl.simswitch
 import appliances.circulationPump
 
 
