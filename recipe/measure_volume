@@ -4,9 +4,6 @@
     "1": {
       "hotWaterPump":4.0
     },
-    "2": {
-      "delayTimer":60
-    },
     "4":{
       "wortPump":1.0
     }

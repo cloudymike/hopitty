@@ -1,16 +1,16 @@
 import appliances.boiler
 import appliances.hoptimer
-import appliances.hotWaterTun
+#import appliances.hotWaterTun
 import appliances.hwPump
-import ctrl.controllers
+import ctrl
 import appliances.circulationPump
-import switches
+#import switches
 
 
 def createCtrl():
     """Instantiate a list of all controllers"""
-    cirsw = switches.simSwitch()
-    pumpsw = switches.simSwitch()
+    #cirsw = switches.simSwitch()
+    #pumpsw = switches.simSwitch()
 
     ctrl1 = ctrl.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())

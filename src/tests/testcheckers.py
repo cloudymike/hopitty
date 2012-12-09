@@ -1,7 +1,7 @@
 import os
 from pprint import pprint
-import appliances.myloader
-import ctrl.controllers
+#import appliances.myloader
+#import ctrl.controllers
 import ctrl.readRecipe
 import ctrl.checkers
 

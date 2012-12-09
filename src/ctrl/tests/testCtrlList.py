@@ -5,7 +5,7 @@ from pprint import pprint
 import appliances.hoptimer
 import appliances.hotWaterTun
 import appliances.hwPump
-import ctrl.controllers
+#import ctrl.controllers
 import ctrl.readRecipe
 import appliances.circulationPump
 

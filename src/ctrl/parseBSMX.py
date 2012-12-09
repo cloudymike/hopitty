@@ -1,6 +1,6 @@
-import sys
+#import sys
 import xml.dom.minidom
-import xml.etree.ElementTree as ET
+#import xml.etree.ElementTree as ET
 import ctrl
 
 

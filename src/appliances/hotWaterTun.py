@@ -1,4 +1,4 @@
-import subprocess
+#import subprocess
 import appliances.genctrl
 import sensors
 
