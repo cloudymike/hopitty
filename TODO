@@ -19,3 +19,22 @@ Checks
 
 dict_.get('key2', "Key doesn't exist")
 
+ERROR
+Hangs on this sometimes
+  File "./runctrl.py", line 265, in <module>
+    runOK = runRecipe(controllers, recipe, verbose)
+  File "./runctrl.py", line 103, in runRecipe
+    controllers.run(settings)
+  File "/home/mikael/workspace/hopitty/src/ctrl/controllers.py", line 72, in run
+    c.stop()
+  File "/home/mikael/workspace/hopitty/src/appliances/hwPump.py", line 57, in stop
+    self.startVol = self.sensor.getValue()
+  File "/home/mikael/workspace/hopitty/src/sensors/mashScaleSensor.py", line 30, in getValue
+    scaleStr = subprocess.check_output(self.exedir)
+  File "/usr/lib/python2.7/subprocess.py", line 538, in check_output
+    output, unused_err = process.communicate()
+
+Watchdog to shut all down?
+
+
+X10 controller hangs at startup

@@ -15,7 +15,7 @@ class hwt(appliances.genctrl):
         self.sensor = sensors.thermometer()
 
     def __del__(self):
-        self.powerOn = False
+        self.stop()
         print 'Powering down'
 
     def connectSwitch(self, switch):
