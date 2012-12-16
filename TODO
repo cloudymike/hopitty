@@ -6,8 +6,6 @@ Missing watchdog field in status
 use controller.load for ctrlmain
   Requires derived classes for alternative appliance modules
   
-turn off heater during sparging so you can swap power at first pump
-
 round numbers to two decimals on status display
 
 usage on ctrl.py

@@ -106,7 +106,7 @@ def bsmxReadRecipe(bsmxFile, controllers):
     stages["08 Sparge in 2"] = s8
 
     s9 = stageCtrl(controllers)
-    s9["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+    #s9["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     s9["waterCirculationPump"] = setDict(1)
     s9["mashCirculationPump"] = setDict(1)
     s9["delayTimer"] = setDict(2)
