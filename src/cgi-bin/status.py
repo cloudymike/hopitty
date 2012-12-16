@@ -16,7 +16,7 @@ try:
     status = pickle.load(open("/tmp/status.pkl", "r"))
 except:
     status = {}
-    status['controller'] = {}
+    status['controllers'] = {}
     status['runStop'] = 'Unknown'
     status['watchDog'] = 0
     status['stage'] = 'Unknown'

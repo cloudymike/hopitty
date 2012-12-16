@@ -3,7 +3,12 @@
   "recipe":   {
     "01":{
       "waterHeater":160
+     },
+     "02":{
+      "waterHeater":160,
+      "delayTimer": 0.1
      }
+     
   }
 
 }

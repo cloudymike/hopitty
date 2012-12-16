@@ -1,6 +1,14 @@
-
+Add name of recipe to statue panel
+Missing watchdog field in status 
+  Check all fields that are read so there are
+  default values if misread 
+  
 use controller.load for ctrlmain
   Requires derived classes for alternative appliance modules
+  
+turn off heater during sparging so you can swap power at first pump
+
+round numbers to two decimals on status display
 
 usage on ctrl.py
 
@@ -19,3 +27,22 @@ Checks
 
 dict_.get('key2', "Key doesn't exist")
 
+ERROR
+Hangs on this sometimes
+  File "./runctrl.py", line 265, in <module>
+    runOK = runRecipe(controllers, recipe, verbose)
+  File "./runctrl.py", line 103, in runRecipe
+    controllers.run(settings)
+  File "/home/mikael/workspace/hopitty/src/ctrl/controllers.py", line 72, in run
+    c.stop()
+  File "/home/mikael/workspace/hopitty/src/appliances/hwPump.py", line 57, in stop
+    self.startVol = self.sensor.getValue()
+  File "/home/mikael/workspace/hopitty/src/sensors/mashScaleSensor.py", line 30, in getValue
+    scaleStr = subprocess.check_output(self.exedir)
+  File "/usr/lib/python2.7/subprocess.py", line 538, in check_output
+    output, unused_err = process.communicate()
+
+Watchdog to shut all down?
+
+
+X10 controller hangs at startup

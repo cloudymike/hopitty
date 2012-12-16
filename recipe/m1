@@ -1,0 +1,9 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "4":{
+      "wortPump":1.0
+    }
+  }
+
+}

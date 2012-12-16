@@ -1,0 +1,15 @@
+{
+"name":"IPA",
+  "recipe":   {
+    "1": {
+      "hotWaterPump":2.0
+    },
+    "2": {
+      "delayTimer":0.2
+    },
+    "4":{
+      "wortPump":1.5
+    }
+  }
+
+}

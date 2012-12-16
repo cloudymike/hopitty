@@ -1,0 +1,20 @@
+{
+"name":"precleaning",
+  "recipe":   {
+    "01":{
+      "waterCirculationPump":1,
+      "delayTimer":1
+    },
+    "02": {
+      "hotWaterPump":2
+    },
+    "03": {
+      "mashCirculationPump":1,
+      "delayTimer":1
+    },
+    "04":{
+      "wortPump":1
+    }
+  }
+
+}

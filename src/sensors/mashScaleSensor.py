@@ -1,7 +1,7 @@
 import sensors
 import subprocess
 import os
-
+import signal
 
 class mashScaleSensor(sensors.genericSensor):
 
@@ -11,7 +11,8 @@ class mashScaleSensor(sensors.genericSensor):
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exedir = scriptdir + '/../../DigiWeight/usbscale'
         try:
-            scaleStr = subprocess.check_output(self.exedir)
+            #print 'Fake scale check'
+            self.scaleStr = subprocess.check_output(self.exedir)
         except:
             self.simulation = True
             self.val = 0
@@ -27,8 +28,14 @@ class mashScaleSensor(sensors.genericSensor):
         if self.simulation:
             return(self.val)
         else:
-            scaleStr = subprocess.check_output(self.exedir)
-            qt = float(scaleStr) / 320
+            execstring = 'timeout 1 ' + self.exedir
+            try:
+                self.scaleStr = subprocess.check_output(execstring, shell=True)
+            except:
+                print "Scale read error"
+            #scaleStr = subprocess.check_output(self.exedir)
+            #scaleStr = subprocess.check_output('timeout 1 sleep 1; echo 1', shell=True)
+            qt = float(self.scaleStr) / 320
             return(qt)
 
     def setValue(self, val):
