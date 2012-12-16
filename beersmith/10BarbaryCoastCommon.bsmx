@@ -1,8 +1,8 @@
-<Recipes><_MOD_>1975-05-26</_MOD_>
+<Recipes><_MOD_>2012-12-15</_MOD_>
 <Name>Recipes</Name>
 <Type>7372</Type>
 <Owndata>0</Owndata>
-<TID>123</TID>
+<TID>100</TID>
 <Size>1</Size>
 <_XName>Recipes</_XName>
 <Allocinc>16</Allocinc>
@@ -21,7 +21,7 @@
 <Image></Image>
 <F_R_IMAGE_X>0</F_R_IMAGE_X>
 <F_R_IMAGE_Y>0</F_R_IMAGE_Y>
-<F_R_EQUIPMENT><_MOD_>1969-12-31</_MOD_>
+<F_R_EQUIPMENT><_MOD_>2012-12-15</_MOD_>
 <F_E_NAME>Grain 2.5G, 5Gcooler 4Gpot</F_E_NAME>
 <F_E_MASH_VOL>640.0000000</F_E_MASH_VOL>
 <F_E_TUN_MASS>160.0000000</F_E_TUN_MASS>
@@ -73,12 +73,12 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <F_S_EXAMPLES>Anchor Steam, Southampton Steem Beer, Flying Dog Old Scratch Amber Lager</F_S_EXAMPLES>
 <F_S_WEB_LINK>http://www.bjcp.org</F_S_WEB_LINK>
 </F_R_STYLE>
-<F_R_MASH><_MOD_>1969-12-31</_MOD_>
+<F_R_MASH><_MOD_>2012-12-15</_MOD_>
 <F_MH_NAME>Single Infusion, Medium Body, Batch Sparge</F_MH_NAME>
 <F_MH_GRAIN_WEIGHT>100.0000000</F_MH_GRAIN_WEIGHT>
-<F_MH_GRAIN_TEMP>72.0000000</F_MH_GRAIN_TEMP>
+<F_MH_GRAIN_TEMP>56.0000000</F_MH_GRAIN_TEMP>
 <F_MH_BOIL_TEMP>212.0000000</F_MH_BOIL_TEMP>
-<F_MH_TUN_TEMP>72.0000000</F_MH_TUN_TEMP>
+<F_MH_TUN_TEMP>56.0000000</F_MH_TUN_TEMP>
 <F_MH_PH>5.4000000</F_MH_PH>
 <F_MH_SPARGE_TEMP>168.0000000</F_MH_SPARGE_TEMP>
 <F_MH_BATCH>1</F_MH_BATCH>
@@ -98,7 +98,7 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <Size>1</Size>
 <_XName>steps</_XName>
 <Allocinc>16</Allocinc>
-<Data><MashStep><_MOD_>1969-12-31</_MOD_>
+<Data><MashStep><_MOD_>2012-12-15</_MOD_>
 <F_MS_NAME>Mash In</F_MS_NAME>
 <F_MS_TYPE>0</F_MS_TYPE>
 <F_MS_INFUSION>250.0000000</F_MS_INFUSION>
@@ -108,13 +108,13 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <F_MS_TUN_ADDITION>0.0000000</F_MS_TUN_ADDITION>
 <F_MS_TUN_HC>0.3000000</F_MS_TUN_HC>
 <F_MS_TUN_VOL>640.0000000</F_MS_TUN_VOL>
-<F_MS_TUN_TEMP>72.0000000</F_MS_TUN_TEMP>
+<F_MS_TUN_TEMP>56.0000000</F_MS_TUN_TEMP>
 <F_MS_TUN_MASS>160.0000000</F_MS_TUN_MASS>
 <F_MS_START_TEMP>0.0000000</F_MS_START_TEMP>
-<F_MS_GRAIN_TEMP>72.0000000</F_MS_GRAIN_TEMP>
+<F_MS_GRAIN_TEMP>56.0000000</F_MS_GRAIN_TEMP>
 <F_MS_START_VOL>0.0000000</F_MS_START_VOL>
 <F_MS_GRAIN_WEIGHT>100.0000000</F_MS_GRAIN_WEIGHT>
-<F_MS_INFUSION_TEMP>172.6435914</F_MS_INFUSION_TEMP>
+<F_MS_INFUSION_TEMP>176.7723097</F_MS_INFUSION_TEMP>
 <F_MS_DECOCTION_AMT>0.0000000</F_MS_DECOCTION_AMT>
 </MashStep>
 </Data>
@@ -151,7 +151,7 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <F_G_PRICE>1.5000000</F_G_PRICE>
 <F_G_CONVERT_GRAIN></F_G_CONVERT_GRAIN>
 </F_R_BASE_GRAIN>
-<F_R_CARB><_MOD_>1969-12-31</_MOD_>
+<F_R_CARB><_MOD_>2012-12-15</_MOD_>
 <F_C_NAME>Corn Sugar</F_C_NAME>
 <F_C_TEMPERATURE>70.0000000</F_C_TEMPERATURE>
 <F_C_TYPE>0</F_C_TYPE>
@@ -159,7 +159,7 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <F_C_CARB_RATE>100.0000000</F_C_CARB_RATE>
 <F_C_NOTES>Use corn sugar for priming the beer</F_C_NOTES>
 </F_R_CARB>
-<F_R_AGE><_MOD_>1969-12-31</_MOD_>
+<F_R_AGE><_MOD_>2012-12-15</_MOD_>
 <F_A_NAME>Steam Beer (California Common), Two stage</F_A_NAME>
 <F_A_PRIM_TEMP>66.0000000</F_A_PRIM_TEMP>
 <F_A_PRIM_END_TEMP>66.0000000</F_A_PRIM_END_TEMP>
@@ -185,7 +185,7 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <Size>6</Size>
 <_XName>Ingredients</_XName>
 <Allocinc>16</Allocinc>
-<Data><Grain><_MOD_>1975-05-22</_MOD_>
+<Data><Grain><_MOD_>1975-05-12</_MOD_>
 <F_G_NAME>Pale Malt (2 Row) US</F_G_NAME>
 <F_G_ORIGIN>US</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -211,7 +211,7 @@ Mouthfeel: Medium-bodied. Medium to medium-high carbonation.</F_S_PROFILE>
 <F_G_PRICE>0.0781250</F_G_PRICE>
 <F_G_CONVERT_GRAIN>Pale Liquid Extract</F_G_CONVERT_GRAIN>
 </Grain>
-<Grain><_MOD_>1975-05-22</_MOD_>
+<Grain><_MOD_>2012-12-15</_MOD_>
 <F_G_NAME>Vienna Malt</F_G_NAME>
 <F_G_ORIGIN>Germany</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -238,7 +238,7 @@ Imparts a golden to orange color to the beer.</F_G_NOTES>
 <F_G_PRICE>0.0781250</F_G_PRICE>
 <F_G_CONVERT_GRAIN>Pale Liquid Extract</F_G_CONVERT_GRAIN>
 </Grain>
-<Grain><_MOD_>1975-05-22</_MOD_>
+<Grain><_MOD_>1975-05-01</_MOD_>
 <F_G_NAME>Caramel/Crystal Malt - 30L</F_G_NAME>
 <F_G_ORIGIN>US</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -265,7 +265,7 @@ Also called &quot;Crystal&quot; malt.</F_G_NOTES>
 <F_G_PRICE>0.0800000</F_G_PRICE>
 <F_G_CONVERT_GRAIN></F_G_CONVERT_GRAIN>
 </Grain>
-<Hops><_MOD_>1975-05-25</_MOD_>
+<Hops><_MOD_>1975-06-22</_MOD_>
 <F_H_NAME>Northern Brewer</F_H_NAME>
 <F_H_ORIGIN>Germany</F_H_ORIGIN>
 <F_H_TYPE>2</F_H_TYPE>
@@ -289,7 +289,7 @@ Examples: Anchor Steam, Old Peculiar, </F_H_NOTES>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Hops><_MOD_>1975-05-13</_MOD_>
+<Hops><_MOD_>2012-12-15</_MOD_>
 <F_H_NAME>Northern Brewer</F_H_NAME>
 <F_H_ORIGIN>Germany</F_H_ORIGIN>
 <F_H_TYPE>2</F_H_TYPE>
@@ -313,7 +313,7 @@ Examples: Anchor Steam, Old Peculiar, </F_H_NOTES>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Yeast><_MOD_>1975-05-22</_MOD_>
+<Yeast><_MOD_>2012-12-15</_MOD_>
 <F_Y_NAME>California Lager</F_Y_NAME>
 <F_Y_LAB>Wyeast Labs</F_Y_LAB>
 <F_Y_PRODUCT_ID>2112</F_Y_PRODUCT_ID>

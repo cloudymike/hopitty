@@ -1,6 +1,14 @@
-
+Add name of recipe to statue panel
+Missing watchdog field in status 
+  Check all fields that are read so there are
+  default values if misread 
+  
 use controller.load for ctrlmain
   Requires derived classes for alternative appliance modules
+  
+turn off heater during sparging so you can swap power at first pump
+
+round numbers to two decimals on status display
 
 usage on ctrl.py
 
