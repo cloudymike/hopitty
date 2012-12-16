@@ -3,6 +3,7 @@ import subprocess
 import os
 import signal
 
+
 class mashScaleSensor(sensors.genericSensor):
 
     def __init__(self):
@@ -33,8 +34,6 @@ class mashScaleSensor(sensors.genericSensor):
                 self.scaleStr = subprocess.check_output(execstring, shell=True)
             except:
                 print "Scale read error"
-            #scaleStr = subprocess.check_output(self.exedir)
-            #scaleStr = subprocess.check_output('timeout 1 sleep 1; echo 1', shell=True)
             qt = float(self.scaleStr) / 320
             return(qt)
 
