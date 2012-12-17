@@ -47,14 +47,22 @@ def stageCtrl(controllers):
     return(settings)
 
 
-def bsmxReadRecipe(bsmxFile, controllers):
+def bsmxReadFile(bsmxFile):
     bsmxFD = open(bsmxFile)
     bsmxRawData = bsmxFD.read()
     bsmxFD.close()
 
     bsmxCleanData = bsmxRawData.replace('&', 'AMP')
     doc = xml.dom.minidom.parseString(bsmxCleanData)
+    return(doc)
 
+
+def bsmxReadName(doc):
+    name = bsmxReadString(doc, "F_R_NAME")
+    return(name)
+
+
+def bsmxReadRecipe(doc, controllers):
     # TODO if Mash Method ==
     stages = {}
     # recipe = bsmxReadString(doc, "F_R_NAME")

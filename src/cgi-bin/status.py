@@ -20,6 +20,7 @@ except:
     status['runStop'] = 'Unknown'
     status['watchDog'] = 0
     status['stage'] = 'Unknown'
+    status['name'] = 'Unknown'
 
 controllers = status['controllers']
 
@@ -29,26 +30,35 @@ print '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
 print """\
 <html>
 <body>
-<h2>Status</h2>
-<p>Stage: %s</p>
-""" % status['stage']
+<h1>Brewing Status Display</h1>
+<h2>%s</h2>
+""" % status['name']
+print """<h3>Stage: %s</h3>""" % status['stage']
 
 print """\
 <table border="1">
 <tr>
 <td><b>Controller</td>
+<td><b>Active</td>
 <td><b>Set Value</td>
 <td><b>Actual Value</td>
-<td><b>Active</td>
 <td><b>Power</td>
 <td><b>Done</td>
 </tr>
 """
 for key, c in controllers.items():
-    print """<tr><td> %s </td>""" % key
-    print """<td> %s %s</td>""" % (c['target'], c['unit'])
-    print """<td> %s %s</td>""" % (c['actual'], c['unit'])
-    print """<td> %s </td>""" % yn(c['active'])
+    if c['active']:
+        print """<tr style="background-color:green;color:white;">"""
+    else:
+        print """<tr style="background-color:white;color:gray;">"""
+    print """<td> %s </td>""" % key
+    print """<td>  %s  </td>""" % yn(c['active'])
+    if c['unit'] == None:
+        print """<td> </td>"""
+        print """<td> </td>"""
+    else:
+        print """<td> %.2f %s</td>""" % (c['target'], c['unit'])
+        print """<td> %.2f %s</td>""" % (c['actual'], c['unit'])
     print """<td> %s </td>""" % yn(c['powerOn'])
     print """<td>%s</td>""" % yn(c['targetMet'])
     print "</tr>"

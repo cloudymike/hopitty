@@ -8,7 +8,7 @@ class boiler(appliances.genctrl):
         self.boilerSwitch = None
         self.powerOn = False
         self.active = False
-        self.unit = 'None'
+        self.unit = None
         self.target = 0
         self.sensor = sensors.genericSensor()
 

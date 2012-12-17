@@ -99,8 +99,9 @@ def testUnit():
     ctrl1.load()
     for key, c in ctrl1.items():
         s = c.getUnit()
-        assert isinstance(s, str)
-        assert len(s) > 0
+        assert isinstance(s, str) or (s == None)
+        if s != None:
+            assert len(s) > 0
 
 
 def testVal():

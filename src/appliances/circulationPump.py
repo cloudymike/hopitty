@@ -20,7 +20,7 @@ class circulationPump(appliances.genctrl):
         self.powerOn = False
         self.absSec = time.time()
         self.SEC_PER_QUART = 39.0
-        self.unit = 'Qt'
+        self.unit = None
         self.pumpMotor = None
         self.sensor = sensors.genericSensor()
 

@@ -40,4 +40,4 @@ class thermometer(sensors.genericSensor):
             if powerOn:
                 self.val = self.val + 1.3
             else:
-                self.val = self.val - 1.1
+                self.val = self.val - 0.3

@@ -1,21 +1,22 @@
 #!/usr/bin/python
 
 import json
-#from collections import OrderedDict
-#from pprint import pprint
-#import time
-#import appliances.genctrl
-#import appliances.hoptimer
-#import appliances.hotWaterTun
-#import appliances.hwPump
-#import controllers
 
 
-def readRecipe(jsonFile, controllers):
+def readJson(jsonFile):
     json_data = open(jsonFile)
     data = json.load(json_data)
     json_data.close()
+    return(data)
 
+
+def readName(data):
+    name = data['name']
+    print 'Name', name
+    return(name)
+
+
+def readRecipe(data, controllers):
     stages = {}
     recipe = data['recipe']
     for stage, step in recipe.items():

@@ -24,10 +24,11 @@ def usage():
     sys.exit
 
 
-def writeStatus(controllers, settings, stage, runStop, verbose):
+def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         ctrlStat = controllers.status()
 
         stat = {}
+        stat['name'] = currentRecipe
         stat['controllers'] = ctrlStat
         stat['runStop'] = runStop
         stat['watchDog'] = int(time.time())
@@ -75,12 +76,12 @@ def runManual(controllers, verbose):
             controllers.run(settings)
 
         stage = 'Manual'
-        writeStatus(controllers, settings, stage, runStop, verbose)
+        writeStatus(controllers, settings, stage, runStop, 'Manual run', verbose)
 
         time.sleep(1)
 
 
-def runRecipe(controllers, recipe, verbose):
+def runRecipe(controllers, recipe, currentRecipe, verbose):
     """
     Goes through all stages of the recipe and runs all controllers
     Reset controllers by stopping them before starting each stage
@@ -95,7 +96,7 @@ def runRecipe(controllers, recipe, verbose):
         while not controllers.done():
             controllers.run(settings)
 
-            writeStatus(controllers, settings, r_key, runStop, verbose)
+            writeStatus(controllers, settings, r_key, runStop, currentRecipe, verbose)
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(controllers):
                 controllers.shutdown()
@@ -215,9 +216,13 @@ if __name__ == "__main__":
         c1.findOrAddSensor(controllers)
 
     if recipeFile != "":
-        recipe = ctrl.readRecipe(recipeFile, controllers)
+        data = ctrl.readJson(recipeFile)
+        recipe = ctrl.readRecipe(data, controllers)
+        recipeName = ctrl.readName(data)
     elif bsmxFile != "":
-        recipe = ctrl.bsmxReadRecipe(bsmxFile, controllers)
+        data = ctrl.bsmxReadFile(bsmxFile)
+        recipe = ctrl.bsmxReadRecipe(data, controllers)
+        recipeName = ctrl.bsmxReadName(data)
     else:   
         recipe = {}
     if verbose:
@@ -235,8 +240,9 @@ if __name__ == "__main__":
             print "Quick run"
             runOK = quickRecipe(controllers, recipe, verbose)
         else:
-            print "Running recipe"
-            runOK = runRecipe(controllers, recipe, verbose)
+            
+            print "===== Running recipe:", recipeName, "====="
+            runOK = runRecipe(controllers, recipe, recipeName, verbose)
     if not runOK:
         print "ERROR: Run of controller failed"
         sys.exit(1)

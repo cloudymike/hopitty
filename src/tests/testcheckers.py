@@ -16,19 +16,24 @@ def testRecipeCheck():
     here = os.getcwd()
     print here
     try:
-        stages = ctrl.readRecipe('src/tests/json_data', ctrl1)
+        data = ctrl.readJson('src/tests/json_data')
     except:
         try:
-            stages = ctrl.readRecipe('tests/json_data', ctrl1)
+            data = ctrl.readJson('tests/json_data')
         except:
             try:
-                stages = ctrl.readRecipe('tests/json_data', ctrl1)
+                data = ctrl.readJson('tests/json_data')
             except:
-                stages = ctrl.readRecipe('json_data', ctrl1)
+                data = ctrl.readJson('json_data')
                 print 'Could not find recipe'
+    stages = ctrl.readRecipe(data, ctrl1)
     assert len(stages) > 0
     pprint(stages)
     assert ctrl.checkers.checkRecipe(ctrl1, stages, True)
+    name = ctrl.readName(data)
+    print 'Name:', name
+    assert len(name) > 0
+#    assert isinstance(name, str)
 
 
 def testcheck2():
