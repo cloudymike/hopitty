@@ -2,7 +2,7 @@
 "name":"wort_pump_test",
   "recipe":   {
     "01":{
-      "wortPump":1.4
+      "wortPump":0.2
     }
   }
 

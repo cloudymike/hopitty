@@ -1,3 +1,10 @@
+after brew 121229
+
+Create alternative programs, start with multiple sparges, say 4 times
+Start with checking that the mash recipe is a match in the bsmx recipe
+
+Create a HW check mode, that will fail if not all hardware sensors and controllers are OK
+
 usage on ctrl.py
 
 

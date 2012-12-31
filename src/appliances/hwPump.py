@@ -82,5 +82,6 @@ class wortPump(hwPump):
         deltavol = deltaSec / self.SEC_PER_QUART
         self.absSec = currSec
         if self.powerOn:
-            self.sensor.setValue(self.sensor.getValue() - deltavol)
-            self.actual = self.startVol - self.sensor.getValue()
+            sensorValue = self.sensor.getValue()
+            self.sensor.setValue(sensorValue - deltavol)
+            self.actual = self.startVol - sensorValue

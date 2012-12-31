@@ -2,6 +2,7 @@
 import xml.dom.minidom
 #import xml.etree.ElementTree as ET
 import ctrl
+import sys
 
 
 def bsmxReadString(doc, tagName):
@@ -64,7 +65,21 @@ def bsmxReadName(doc):
 
 def bsmxReadRecipe(doc, controllers):
     # TODO if Mash Method ==
+
     stages = {}
+
+    equipmentName = bsmxReadString(doc, "F_E_NAME")
+    print "Equipment:", equipmentName
+    validEquipment = [
+                    'Pot and Cooler ( 5 Gal/19 L) - All Grain',
+                    'Grain 2.5G, 5Gcooler 4Gpot'
+                    ]
+    if equipmentName in validEquipment:
+        print "Equipment selected is OK"
+    else:
+        print "Equipment selected is not available"
+        sys.exit(1)
+
     # recipe = bsmxReadString(doc, "F_R_NAME")
 
     s1 = stageCtrl(controllers)
@@ -90,22 +105,22 @@ def bsmxReadRecipe(doc, controllers):
     stages["04 Mashing"] = s4
 
     s5 = stageCtrl(controllers)
-    grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
-    preboilVol = bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-    s5["hotWaterPump"] = setDict(preboilVol / 2 + grainAbsorption - \
-                         strikeVolTot)
-    stages["05 Sparge in 1"] = s5
+    s5["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+    s5["waterCirculationPump"] = setDict(1)
+    s5["mashCirculationPump"] = setDict(1)
+    s5["delayTimer"] = setDict(2)
+    stages["05 Mash recirculate"] = s5
 
     s6 = stageCtrl(controllers)
-    s6["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s6["waterCirculationPump"] = setDict(1)
-    s6["mashCirculationPump"] = setDict(1)
-    s6["delayTimer"] = setDict(2)
-    stages["06 Mash recirculate"] = s6
+    grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
+    preboilVol = bsmxReadVolQt(doc, "F_E_BOIL_VOL")
+    s6["hotWaterPump"] = setDict(preboilVol / 2 + grainAbsorption - \
+                         strikeVolTot)
+    stages["06 Sparge in 1"] = s6
 
     s7 = stageCtrl(controllers)
-    s7["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s7["waterCirculationPump"] = setDict(1)
+    #s7["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+    #s7["waterCirculationPump"] = setDict(1)
     s7["wortPump"] = setDict(preboilVol / 2)
     stages["07 Wort out 1"] = s7
 
@@ -113,12 +128,12 @@ def bsmxReadRecipe(doc, controllers):
     s8["hotWaterPump"] = setDict(preboilVol / 2)
     stages["08 Sparge in 2"] = s8
 
-    s9 = stageCtrl(controllers)
+    #s9 = stageCtrl(controllers)
     #s9["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s9["waterCirculationPump"] = setDict(1)
-    s9["mashCirculationPump"] = setDict(1)
-    s9["delayTimer"] = setDict(2)
-    stages["09 Mash recirculate"] = s9
+    #s9["waterCirculationPump"] = setDict(1)
+    #s9["mashCirculationPump"] = setDict(1)
+    #s9["delayTimer"] = setDict(2)
+    #stages["09 Mash recirculate"] = s9
 
     s10 = stageCtrl(controllers)
     s10["wortPump"] = setDict(preboilVol / 2)
