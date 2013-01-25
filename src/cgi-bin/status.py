@@ -3,6 +3,8 @@ import pickle
 import cgi
 import cgitb
 import time
+import memcache
+#@PydevCodeAnalysisIgnore
 
 
 def yn(status):
@@ -12,15 +14,18 @@ def yn(status):
         return("n")
 
 cgitb.enable()
-try:
-    status = pickle.load(open("/tmp/status.pkl", "r"))
-except:
-    status = {}
-    status['controllers'] = {}
-    status['runStop'] = 'Unknown'
-    status['watchDog'] = 0
-    status['stage'] = 'Unknown'
-    status['name'] = 'Unknown'
+mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+status = mc.get("hopitty_run_key")
+if not status:
+    try:
+        status = pickle.load(open("/tmp/status.pkl", "r"))
+    except:
+        status = {}
+        status['controllers'] = {}
+        status['runStop'] = 'Unknown'
+        status['watchDog'] = 0
+        status['stage'] = 'Unknown'
+        status['name'] = 'Unknown'
 
 controllers = status['controllers']
 

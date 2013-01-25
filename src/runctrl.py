@@ -18,6 +18,8 @@ import ctrl.readRecipe
 import appliances.boiler
 #import ctrl.checkers
 import switches
+import memcache
+#@PydevCodeAnalysisIgnore
 
 def usage():
     print 'usage:'
@@ -33,6 +35,13 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         stat['runStop'] = runStop
         stat['watchDog'] = int(time.time())
         stat['stage'] = stage
+
+        # If memcache is available, use it
+        # ignore error in eclipe on next line
+        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+        mc.set("hopitty_run_key", stat,10)
+
+        #As alternative, save to pickle file
         statout = open('/tmp/status.pkl', 'w')
         # Pickle dictionary using protocol 0.
         pickle.dump(stat, statout)

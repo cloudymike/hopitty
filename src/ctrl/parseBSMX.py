@@ -3,6 +3,7 @@ import xml.dom.minidom
 #import xml.etree.ElementTree as ET
 import ctrl
 import sys
+import mashProfiles
 
 
 def bsmxReadString(doc, tagName):
@@ -66,8 +67,6 @@ def bsmxReadName(doc):
 def bsmxReadRecipe(doc, controllers):
     # TODO if Mash Method ==
 
-    stages = {}
-
     equipmentName = bsmxReadString(doc, "F_E_NAME")
     print "Equipment:", equipmentName
     validEquipment = [
@@ -81,64 +80,14 @@ def bsmxReadRecipe(doc, controllers):
         sys.exit(1)
 
     # recipe = bsmxReadString(doc, "F_R_NAME")
+    mashProfile = bsmxReadString(doc, "F_MH_NAME")
+    stages = None
+    if mashProfile == 'Single Infusion, Medium Body, Batch Sparge':
+        stages = mashProfiles.SingleInfusionBatch(doc, controllers)
 
-    s1 = stageCtrl(controllers)
-    s1["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
-    s1["waterCirculationPump"] = setDict(1)
-    stages["01 Heating"] = s1
-
-    s2 = stageCtrl(controllers)
-    s2["delayTimer"] = setDict(0.30)
-    stages["02 Pump rest"] = s2
-
-    s3 = stageCtrl(controllers)
-    strikeVolNet = bsmxReadVolQt(doc, "F_MS_INFUSION")
-    deadSpaceVol = bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
-    strikeVolTot = strikeVolNet + deadSpaceVol
-    s3["hotWaterPump"] = setDict(strikeVolTot)
-    stages["03 StrikeWater"] = s3
-
-    s4 = stageCtrl(controllers)
-    s4["delayTimer"] = setDict(bsmxReadTimeMin(doc, "F_MS_STEP_TIME"))
-    s4["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s4["waterCirculationPump"] = setDict(1)
-    stages["04 Mashing"] = s4
-
-    s5 = stageCtrl(controllers)
-    s5["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s5["waterCirculationPump"] = setDict(1)
-    s5["mashCirculationPump"] = setDict(1)
-    s5["delayTimer"] = setDict(2)
-    stages["05 Mash recirculate"] = s5
-
-    s6 = stageCtrl(controllers)
-    grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
-    preboilVol = bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-    s6["hotWaterPump"] = setDict(preboilVol / 2 + grainAbsorption - \
-                         strikeVolTot)
-    stages["06 Sparge in 1"] = s6
-
-    s7 = stageCtrl(controllers)
-    #s7["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    #s7["waterCirculationPump"] = setDict(1)
-    s7["wortPump"] = setDict(preboilVol / 2)
-    stages["07 Wort out 1"] = s7
-
-    s8 = stageCtrl(controllers)
-    s8["hotWaterPump"] = setDict(preboilVol / 2)
-    stages["08 Sparge in 2"] = s8
-
-    #s9 = stageCtrl(controllers)
-    #s9["waterHeater"] = setDict(bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    #s9["waterCirculationPump"] = setDict(1)
-    #s9["mashCirculationPump"] = setDict(1)
-    #s9["delayTimer"] = setDict(2)
-    #stages["09 Mash recirculate"] = s9
-
-    s10 = stageCtrl(controllers)
-    s10["wortPump"] = setDict(preboilVol / 2)
-    stages["10 Wort out 2"] = s10
-
+    if stages == None:
+        print "ERROR Invalid mash profile"
+        sys.exit(1)
     return(stages)
 
 
@@ -241,8 +190,8 @@ if __name__ == "__main__":
     c.load()
 
     #filename = "../../beersmith/SilverDollarPorter.bsmx"
-    filename = "../../beersmith/anchor-porter-clone.bsmx"
+    filename = "../../beersmith/10BarbaryCoastCommon.bsmx"
     #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
-    myStages = bsmxReadRecipe(filename, c)
+    myStages = bsmxReadRecipe(bsmxReadFile(filename), c)
     prettyPrintStages(myStages)
-    printSomeBsmx(filename)
+    #printSomeBsmx(filename)

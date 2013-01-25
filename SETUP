@@ -13,6 +13,12 @@ sudo easy_install pyusb
 sudo easy_install pyserial
 sudo apt-get install pep8
 
+# Potential futures
+#sudo apt-get install memcached
+#sudo easy_install python-memcached
+#sudo apt-get install python-sqlalchemy
+
+
 # GoIO
 sudo apt-get install pkg-config
 

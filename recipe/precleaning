@@ -6,7 +6,7 @@
       "delayTimer":1
     },
     "02": {
-      "hotWaterPump":2
+      "hotWaterPump":4
     },
     "03": {
       "mashCirculationPump":1,
