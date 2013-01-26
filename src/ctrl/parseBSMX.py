@@ -83,7 +83,8 @@ def bsmxReadRecipe(doc, controllers):
     mashProfile = bsmxReadString(doc, "F_MH_NAME")
     stages = None
     if mashProfile == 'Single Infusion, Medium Body, Batch Sparge':
-        stages = mashProfiles.SingleInfusionBatch(doc, controllers)
+        #stages = mashProfiles.SingleInfusionBatch(doc, controllers)
+        stages = mashProfiles.SingleBatchRecycleMash(doc, controllers)
 
     if stages == None:
         print "ERROR Invalid mash profile"
