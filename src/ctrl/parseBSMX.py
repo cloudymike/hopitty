@@ -82,12 +82,21 @@ def bsmxReadRecipe(doc, controllers):
     # recipe = bsmxReadString(doc, "F_R_NAME")
     mashProfile = bsmxReadString(doc, "F_MH_NAME")
     stages = None
-    if mashProfile == 'Single Infusion, Medium Body, Batch Sparge':
+    if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
+                       'Single Infusion, Medium Body, Batch Sparge',
+                       'Single Infusion, Full Body, Batch Sparge'
+                       ]:
         #stages = mashProfiles.SingleInfusionBatch(doc, controllers)
         stages = mashProfiles.SingleBatchRecycleMash(doc, controllers)
 
+    if mashProfile in ['Single Infusion, Light Body, No Mash Out',
+                       'Single Infusion, Medium Body, No Mash Out',
+                       'Single Infusion, Full Body, No Mash Out',
+                       ]:
+        stages = mashProfiles.MultiBatchRecycleMash(doc, controllers)
+
     if stages == None:
-        print "ERROR Invalid mash profile"
+        print "ERROR could not find a valid mash profile"
         sys.exit(1)
     return(stages)
 
@@ -126,8 +135,10 @@ def printSomeBsmx(filename):
 
     print "Recipe:", bsmxReadString(doc, "F_R_NAME")
 
+    print "================ Equipment and Mash profile ================"
     equipmentName = bsmxReadString(doc, "F_E_NAME")
     print "Equipment:", equipmentName
+
     validEquipment = [
                     'Pot and Cooler ( 5 Gal/19 L) - All Grain'
                     ]
@@ -136,63 +147,111 @@ def printSomeBsmx(filename):
     else:
         print "Equipment selected is not available"
 
-    print "Infusion temperature:", \
-           bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"), "F"
-
-    print "Mash Time:", bsmxReadTimeMin(doc, "F_MS_STEP_TIME"), "min"
-
-    print "Infusion Volume Net:", bsmxReadVolQt(doc, "F_MS_INFUSION"), "qt", \
-                                  bsmxReadVolG(doc, "F_MS_INFUSION"), "Gallons"
-
-    infuseVolTot = bsmxReadVolQt(doc, "F_MS_INFUSION") + \
-                   bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
-    print "Infusion Volume Total:", infuseVolTot, "qt", \
-                                    infuseVolTot / 4, "Gallons"
-
     mashMethod = bsmxReadString(doc, "F_MH_NAME")
     print "Mash method:", mashMethod
     validMethods = [
                     'Single Infusion, Light Body, Batch Sparge',
                     'Single Infusion, Medium Body, Batch Sparge',
-                    'Single Infusion, Full Body, Batch Sparge'
+                    'Single Infusion, Full Body, Batch Sparge',
+                    'Single Infusion, Medium Body, No Mash Out'
                     ]
     if mashMethod in validMethods:
         print "Mash Method OK"
     else:
         print "Mash Method not supported"
 
-    print "Sparge Temperature:", bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
+    print "================ Sparge raw data ================"
+
+    print "Infusion temperature:", \
+           bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"), "F"
+
+    print "Mash Time:", bsmxReadTimeMin(doc, "F_MS_STEP_TIME"), "min"
+
+    infuseVolNet = bsmxReadVolQt(doc, "F_MS_INFUSION")
+
+    print "Infusion Volume Net:", infuseVolNet, "qt", \
+                                  infuseVolNet, "Gallons"
+
+    infuseVolTot = bsmxReadVolQt(doc, "F_MS_INFUSION") + \
+                   bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
+    print "Infusion Volume Total:", infuseVolTot, "qt", \
+                                    infuseVolTot / 4, "Gallons"
+    tunDeadSpace = bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
+    print "Tun dead space:", tunDeadSpace, "qt", \
+                             tunDeadSpace / 4, "Gallons"
+
+    grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
     preboilVol = bsmxReadVolQt(doc, "F_E_BOIL_VOL")
+
+    print "Sparge Temperature:", bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
     print "Est Pre-boil volume:", preboilVol, 'qt,', preboilVol / 4, 'Gal'
 
     print "Grain weight: ", bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT"), "lb"
 
-    grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
     print "Grain absorption:", grainAbsorption, "qt", \
                                grainAbsorption / 4, "Gallons"
 
-    sparge1 = preboilVol / 2 + grainAbsorption - infuseVolTot
+    totSparge = preboilVol + grainAbsorption - infuseVolNet
+    print "Total Sparge vol:", totSparge, "qt", totSparge / 4, "Gallons"
+    print "Pre-boil volume:", preboilVol, "qt", preboilVol / 4, "Gallons"
+
+    print "================ Factor Summary================"
+    print "Infusion", infuseVolTot, "qt", infuseVolTot / 4, "Gallons"
+    print "Sparge", totSparge, "qt", totSparge / 4, "Gallons"
+    print "Loss Grain", grainAbsorption, "qt", grainAbsorption / 4, "Gallons"
+    print "Dead Space", tunDeadSpace, "qt", tunDeadSpace / 4, "Gallons"
+    print "Boil", preboilVol, "qt", preboilVol / 4, "Gallons"
+    print "================ Math check ================"
+    print "Vol in +", infuseVolTot + totSparge
+    print "Loss -", grainAbsorption - tunDeadSpace
+    print "Remainder=", infuseVolTot + totSparge \
+                        - grainAbsorption - tunDeadSpace
+    print "Pre Boil Volume", preboilVol
+
+    print "================ Batch Sparge ================"
+    sparge1 = preboilVol / 2 + grainAbsorption - infuseVolNet
     sparge2 = preboilVol / 2
     print "Sparge volume 1:", sparge1, "qt", sparge1 / 4, "Gallons"
     print "Sparge volume 2:", sparge2, "qt", sparge2 / 4, "Gallons"
 
-    boilVol1 = bsmxReadVolQt(doc, "F_MS_TUN_ADDITION") - grainAbsorption
-    boilVol2 = sparge1
-    boilVol3 = sparge2
-    print "Boiler pump1", boilVol1, "qt", boilVol1 / 4, "Gallons"
-    print "Boiler pump1", boilVol2, "qt", boilVol2 / 4, "Gallons"
-    print "Boiler pump1", boilVol3, "qt", boilVol3 / 4, "Gallons"
+    boilVol1 = preboilVol / 2
+    boilVol2 = preboilVol / 2
+    print "Wort pump1", boilVol1, "qt", boilVol1 / 4, "Gallons"
+    print "Wort pump1", boilVol2, "qt", boilVol2 / 4, "Gallons"
 
-    print "Total boil pumped is ", boilVol1 + boilVol2 + boilVol3, "qt", \
-           (boilVol1 + boilVol2 + boilVol3) / 4, "Gallons"
+    print "Total boil pumped is ", boilVol1 + boilVol2, "qt", \
+           (boilVol1 + boilVol2) / 4, "Gallons"
+
+    print "Math Check in", sparge1 + sparge2 + infuseVolTot - \
+           grainAbsorption - tunDeadSpace
+    print "Math Check out:", boilVol1 + boilVol2
+
+    print "================ Almost Fly Sparge ================"
+    print "Inital available wort:", infuseVolTot - grainAbsorption
+    flySteps = 8
+    flySpargeIn = totSparge / flySteps
+    flyWortOut = flySpargeIn
+    lastWortOut = preboilVol - (flySteps * flyWortOut)
+
+    if flyWortOut > infuseVolNet - grainAbsorption:
+        print "ERROR: First with out step too big"
+
+    print "Steps:", flySteps
+    print "Sparge volumes:", flySpargeIn, "qt", flySpargeIn / 4, "Gallons"
+    print "Wort volumes:", flyWortOut, "qt", flyWortOut / 4, "Gallons"
+    print "Last Wort volumes:", lastWortOut, "qt", lastWortOut / 4, "Gallons"
+    print "Math Check in", flySteps * flySpargeIn + infuseVolTot \
+           - grainAbsorption - tunDeadSpace
+    print "Math Check out:", flySteps * flyWortOut + lastWortOut
 
 if __name__ == "__main__":
     c = ctrl.controllerList()
     c.load()
 
     #filename = "../../beersmith/SilverDollarPorter.bsmx"
-    filename = "../../beersmith/10BarbaryCoastCommon.bsmx"
+    filename = "../../beersmith/spargetest.bsmx"
     #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
+    #printSomeBsmx(filename)
+
     myStages = bsmxReadRecipe(bsmxReadFile(filename), c)
     prettyPrintStages(myStages)
-    #printSomeBsmx(filename)
