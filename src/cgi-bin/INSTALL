@@ -8,4 +8,6 @@ sudo cp ./*.py /usr/lib/cgi-bin
 sudo chmod 755 /usr/lib/cgi-bin/*
 sudo cp -p ../../datadir/* /tmp
 chmod 666 /tmp/*.pkl
+sudo cp -p ../html/*.html /var/www
+chmod 755 /var/www/*.html
 popd
