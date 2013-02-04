@@ -256,6 +256,11 @@ def MultiBatchRecycleMash(doc, controllers):
         stages[mkSname("Wort out", stageCount)] = sOut
         stageCount = stageCount + 1
 
+        sHold = parseBSMX.stageCtrl(controllers)
+        sHold["delayTimer"] = parseBSMX.setDict(2)
+        stages[mkSname("Sparge hold", stageCount)] = sHold
+        stageCount = stageCount + 1
+
         sIn = parseBSMX.stageCtrl(controllers)
         sIn["hotWaterPump"] = parseBSMX.setDict(volSpargeIn)
         totVolIn = totVolIn + volSpargeIn
