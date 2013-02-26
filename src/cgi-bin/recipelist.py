@@ -5,9 +5,13 @@ import cgitb
 import time
 import memcache
 #@PydevCodeAnalysisIgnore
+import recipelist
+from recipelist import recipeListClass
 
 
 if __name__ == "__main__":
+    myrecipe = recipelist.recipeListClass()
+    sys.exit(1)
     """
     This is an example file, reading some useful value in a recipe file
     Mostly for debugging

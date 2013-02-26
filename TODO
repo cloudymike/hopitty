@@ -1,3 +1,15 @@
+Where to start
+===============
+Currently working on package recipelist
+Refactor the cloudrecipes.py into classes
+When OK try cgi-bin/recipelist.py and import classes
+Create a recipe reader loop program as well
+also break out the test functions into a nose test file
+
+
+
+To Fix
+=======
 after brew 130202
 Post cleaning not working as it relies on scale.
 
