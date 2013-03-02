@@ -44,6 +44,16 @@ class recipeListClass():
         for key, recipe in self.list.items():
             print key
 
+    def nameListToMemcache(self):
+        """ A list of all the recipe names to memcache"""
+        nameList = []
+        for key, recipe in self.list.items():
+            nameList.append(key)
+        print nameList
+        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+        mc.set("recipeNameList", nameList)
+
+
     def printAll(self):
         """ Writes a list of all the recipe names"""
         for key, recipe in self.list.items():
@@ -64,6 +74,7 @@ class recipeListClass():
         bsmxFD.close()
 
         bsmxCleanData = bsmxRawData.replace('&', 'AMP')
+        
         doc = xml.dom.minidom.parseString(bsmxCleanData)
         return(doc)
 

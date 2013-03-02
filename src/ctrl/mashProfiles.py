@@ -257,7 +257,7 @@ def MultiBatchRecycleMash(doc, controllers):
         stageCount = stageCount + 1
 
         sHold = parseBSMX.stageCtrl(controllers)
-        sHold["delayTimer"] = parseBSMX.setDict(2)
+        sHold["delayTimer"] = parseBSMX.setDict(1)
         stages[mkSname("Sparge hold", stageCount)] = sHold
         stageCount = stageCount + 1
 

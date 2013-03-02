@@ -23,6 +23,11 @@ import memcache
 
 def usage():
     print 'usage:'
+    print "-h: help"
+    print "-b file: read beersmith file"
+    print "-f file: read JSON file"
+    print "-q: quick check"
+    print "-v: verbose"
     sys.exit
 
 

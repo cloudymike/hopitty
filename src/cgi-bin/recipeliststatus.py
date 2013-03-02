@@ -16,14 +16,13 @@ def objectFromMemcache(key):
     object = pickle.loads(pickledObject)
     return(object)
 
-if __name__ == "__main__":
-    
+def getListFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+    recipeNameList = mc.get(key)
+    return(recipeNameList)
 
-    pickledObject = mc.get("recipeList")
-    #myrecipes = pickle.loads(pickledObject)
-    
-    #mylist = object.getlist()
+if __name__ == "__main__":
+    recipeList = getListFromMemcache('recipeNameList')
     
     """
     This is an example file, reading some useful value in a recipe file
@@ -39,8 +38,8 @@ if __name__ == "__main__":
     <body>
     <h1>Recipe list</h1>
     """
-    #for key, recipe in mylist.items():
-    #    print "<li>",key,"</li>"
+    for recipeName in recipeList:
+        print "<li>",recipeName,"</li>"
    
     print "Yohoo!"
     print """\

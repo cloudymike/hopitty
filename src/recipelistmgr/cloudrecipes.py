@@ -26,6 +26,10 @@ def objectFromMemcache(key):
     object = pickle.loads(pickledObject)
     return(object)
 
+def getListFromMemcache(key):
+    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+    recipeNameList = mc.get(key)
+    return(recipeNameList)
 
 #======================== Nose test defs =============================
 
@@ -37,6 +41,9 @@ if __name__ == "__main__":
         rl.readBeerSmith('/home/mikael/.beersmith2/Cloud.bsmx')
         rl.storeToMemcache()
         #rlPickle = rl.pickleMe()
-
+        rl.nameListToMemcache()
         print rl.len()
         time.sleep(10)
+        rnl = getListFromMemcache('recipeNameList')
+        for rn in rnl:
+            print rn

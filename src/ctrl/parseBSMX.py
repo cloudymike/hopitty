@@ -71,7 +71,8 @@ def bsmxReadRecipe(doc, controllers):
     print "Equipment:", equipmentName
     validEquipment = [
                     'Pot and Cooler ( 5 Gal/19 L) - All Grain',
-                    'Grain 2.5G, 5Gcooler 4Gpot'
+                    'Grain 2.5G, 5Gcooler 4Gpot',
+                    'Grain 2.5G, 5Gcooler, 4Gpot'
                     ]
     if equipmentName in validEquipment:
         print "Equipment selected is OK"
@@ -98,6 +99,8 @@ def bsmxReadRecipe(doc, controllers):
     if stages == None:
         print "ERROR could not find a valid mash profile"
         sys.exit(1)
+    else:
+        print "Mashprofile selected:", mashProfile
     return(stages)
 
 
