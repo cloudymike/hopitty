@@ -4,6 +4,8 @@ import xml.dom.minidom
 import ctrl
 import sys
 import mashProfiles
+import memcache
+#@PydevCodeAnalysisIgnore
 
 
 def bsmxReadString(doc, tagName):
@@ -102,6 +104,12 @@ def bsmxReadRecipe(doc, controllers):
     else:
         print "Mashprofile selected:", mashProfile
     return(stages)
+
+
+def stages2Memcache(stages):
+    """ Stores the stages data into memcache record """
+    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+    mc.set("stagesDict", stages)
 
 
 def prettyPrintStages(stages):

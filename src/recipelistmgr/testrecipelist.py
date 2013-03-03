@@ -8,6 +8,7 @@ To be used by other modules, including web server
 # Use defs from controller...
 
 import sys
+import os
 import pickle
 import xml.dom.minidom
 #import xml.etree.ElementTree as ET
@@ -17,7 +18,6 @@ import memcache
 import ctrl
 import recipelistmgr
 
-#===========================================================
 
 def objectFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -38,8 +38,18 @@ def listEquivalence(list1, list2):
 
 def getTestRecipeList():
     """ Get recipe list in test directory, and return a recipe list"""
-    rl = recipelist.recipeListClass()
-    rl.readBeerSmith('../tests/Cloud.bsmx')
+    rl = recipelistmgr.recipeListClass()
+    try:
+        rl.readBeerSmith('../tests/Cloud.bsmx')
+    except:
+        try:
+            rl.readBeerSmith('./tests/Cloud.bsmx')
+        except:
+            try:
+                rl.readBeerSmith('src/tests/Cloud.bsmx')
+            except:
+                print "Could not find test file"
+                print os.getcwd()
     return(rl)
 
 

@@ -79,8 +79,10 @@ if abs(watchdog - checkwatchdog) > 10:
 else:
     print "Controller status: ", status['runStop']
 
+print '<br><br>'
+print '<a href="/index.html"><button>Home</button></a>'
+print '<a href="stagesstatus.py"><button>Stages</button></a>'
 print """\
-<br><br>
 <form method="get" action="ctrlform.py">
 <input type="submit" value="Settings">
 </form>

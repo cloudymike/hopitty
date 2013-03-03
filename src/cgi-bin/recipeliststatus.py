@@ -5,9 +5,9 @@ import cgitb
 import time
 import sys
 
-
 import memcache
 #@PydevCodeAnalysisIgnore
+
 
 def objectFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -16,6 +16,7 @@ def objectFromMemcache(key):
     object = pickle.loads(pickledObject)
     return(object)
 
+
 def getListFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
     recipeNameList = mc.get(key)
@@ -23,7 +24,7 @@ def getListFromMemcache(key):
 
 if __name__ == "__main__":
     recipeList = getListFromMemcache('recipeNameList')
-    
+
     """
     This is an example file, reading some useful value in a recipe file
     Mostly for debugging
@@ -39,8 +40,8 @@ if __name__ == "__main__":
     <h1>Recipe list</h1>
     """
     for recipeName in recipeList:
-        print "<li>",recipeName,"</li>"
-   
+        print "<li>", recipeName, "</li>"
+
     print "Yohoo!"
     print """\
     </body>

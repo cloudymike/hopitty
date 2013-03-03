@@ -17,7 +17,7 @@ import memcache
 import ctrl
 import recipelistmgr
 
-#===========================================================
+
 class recipeListClass():
     def __init__(self, key=None):
         self.list = {}
@@ -25,7 +25,7 @@ class recipeListClass():
     def newRecipe(self, name):
         self.list[name] = recipelistmgr.recipeClass(name)
         return(self.list[name])
-    
+
     def getlist(self):
         return(self.list)
 
@@ -53,7 +53,6 @@ class recipeListClass():
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
         mc.set("recipeNameList", nameList)
 
-
     def printAll(self):
         """ Writes a list of all the recipe names"""
         for key, recipe in self.list.items():
@@ -74,7 +73,7 @@ class recipeListClass():
         bsmxFD.close()
 
         bsmxCleanData = bsmxRawData.replace('&', 'AMP')
-        
+
         doc = xml.dom.minidom.parseString(bsmxCleanData)
         return(doc)
 

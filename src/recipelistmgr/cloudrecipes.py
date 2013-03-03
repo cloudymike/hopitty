@@ -17,7 +17,6 @@ import memcache
 import recipelistmgr
 import time
 
-#===========================================================
 
 def objectFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -26,12 +25,12 @@ def objectFromMemcache(key):
     object = pickle.loads(pickledObject)
     return(object)
 
+
 def getListFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
     recipeNameList = mc.get(key)
     return(recipeNameList)
 
-#======================== Nose test defs =============================
 
 if __name__ == "__main__":
 

@@ -1,15 +1,20 @@
 Where to start
 ===============
-Currently working on package recipelist
-Refactor the cloudrecipes.py into classes
-When OK try cgi-bin/recipelist.py and import classes
-Create a recipe reader loop program as well
-also break out the test functions into a nose test file
-
+work on recipestatus
+create a schedule status
 
 
 To Fix
 =======
+after brew 130302
+Lower utilization
+Also too high temp during mash 156+
+Change by using more circulation
+   try 4 min rest 1 min circulation
+   module mashProfiles
+   
+ 
+
 after brew 130202
 Post cleaning not working as it relies on scale.
 

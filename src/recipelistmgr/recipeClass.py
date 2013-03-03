@@ -64,5 +64,3 @@ class recipeClass():
 
     def getName(self):
         return self.name
-
-

@@ -101,6 +101,7 @@ def runRecipe(controllers, recipe, currentRecipe, verbose):
     Reset controllers by stopping them before starting each stage
     """
     runStop = 'run'
+    ctrl.stages2Memcache(recipe)
     for r_key, settings in sorted(recipe.items()):
         controllers.stop()
         controllers.run(settings)

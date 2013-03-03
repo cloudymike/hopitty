@@ -203,7 +203,7 @@ def MultiBatchRecycleMash(doc, controllers):
     stages[mkSname("Mash Initial Mix", stageCount)] = step
     stageCount = stageCount + 1
 
-    mixSteps = 4
+    mixSteps = 12
     mixTime = 1
     mashTime = parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME")
     spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
@@ -240,7 +240,7 @@ def MultiBatchRecycleMash(doc, controllers):
     infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
     totSparge = preboilVol + grainAbsorption - infuseVolNet
 
-    spargeSteps = 4
+    spargeSteps = 6
     volSpargeIn = totSparge / spargeSteps
     volWortOut = volSpargeIn
     lastWortOut = preboilVol - (spargeSteps * volWortOut)
