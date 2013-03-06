@@ -1,23 +1,21 @@
 Where to start
 ===============
-In recipeliststatus use form submit to set the 
-current recipe. For now, just set it and then read it back
-Later read it from the actual runner.
+refactoring of runctrl.py
+Consider that we should be able to run each def
+as a separate. Consider how to start and stop as well.
 
-work on recipeliststatus
-   read back current recipe and highligh
-   Create a selector (radio button?) 
-     Is this not the selector then
-     Maybe refresh or revert button to read back current
-   tick mark instead of AMP#..
+====== Post brew issues and observations =======
+after brew 130202
+Post cleaning not working as it relies on scale.
 
-How to start a brew?
+after brew 130126
+Add a link to gravity/temperature calculator on the web
 
-cloudrecipe.py as standalone exec
+Add key mashing data to mash status page from recipe
+  Equipment temperature
+  (mash schedule..)
 
-
-To Fix
-=======
+====== To Fix =======
 refactoring
   stages class ( & module)
 
@@ -25,41 +23,35 @@ refactoring
   runctrl.py, breakout as a def or class
   Should be possible to call (as needed when recipelist is done
 
-after brew 130202
-Post cleaning not working as it relies on scale.
-
-after brew 130126
-Create an index start page to link from
-Add a link to gravity/temperature calculator on the web
-Circulate on short steps 5 min in the begining, a min each 15 min and 2 min at the end
-
-Add key mashing data to mash status page
-  Equipment temperature
-  (mash schedule..)
-  
-Hardware are sometimes failing at startup. Test this in loop.
-
-after brew 121229
-
-Create alternative programs, start with multiple sparges, say 4 times
-Start with checking that the mash recipe is a match in the bsmx recipe
-
-Create a HW check mode, that will fail if not all hardware sensors and controllers are OK
-
-usage on ctrl.py
-
-
 Break out getop and use an options dictionary
 
-Checks
+How to start a brew?
+
+cloudrecipe.py as standalone exec
+
+Add the user for the path to the home dir bsmx file as an input option
+to recipeScanner
+
+===== Hardware Issues =====
+Hardware are sometimes failing at startup. Test this in loop.
+
+X10 controller hangs at startup at times. Debug this. It seems like a reboot
+fixes the problem.
+
+Consider create a HW check mode, that will fail if not all hardware sensors and 
+controllers are OK
+
+
+==== Checks =====
   mutex (link to other controller that should NOT be activated at same time)
   max values (as pump volume)
   Timeouts?
   watch dogs? Water checks?
 
+
+==== Unknown ====
 dict_.get('key2', "Key doesn't exist")
 
 Watchdog to shut all down?
 
 
-X10 controller hangs at startup
