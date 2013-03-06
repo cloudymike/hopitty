@@ -1,3 +1,4 @@
+#!/usr/bin/python
 """
 Handles recipe collection as objects
 Reading from bsmx also included

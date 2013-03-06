@@ -1,19 +1,29 @@
 Where to start
 ===============
-work on recipestatus
-create a schedule status
+In recipeliststatus use form submit to set the 
+current recipe. For now, just set it and then read it back
+Later read it from the actual runner.
+
+work on recipeliststatus
+   read back current recipe and highligh
+   Create a selector (radio button?) 
+     Is this not the selector then
+     Maybe refresh or revert button to read back current
+   tick mark instead of AMP#..
+
+How to start a brew?
+
+cloudrecipe.py as standalone exec
 
 
 To Fix
 =======
-after brew 130302
-Lower utilization
-Also too high temp during mash 156+
-Change by using more circulation
-   try 4 min rest 1 min circulation
-   module mashProfiles
-   
- 
+refactoring
+  stages class ( & module)
+
+refactoring
+  runctrl.py, breakout as a def or class
+  Should be possible to call (as needed when recipelist is done
 
 after brew 130202
 Post cleaning not working as it relies on scale.
