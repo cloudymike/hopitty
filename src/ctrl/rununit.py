@@ -31,7 +31,7 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         # If memcache is available, use it
         # ignore error in eclipe on next line
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-        mc.set("hopitty_run_key", stat,10)
+        mc.set("hopitty_run_key", stat)
 
         #As alternative, save to pickle file
         statout = open('/tmp/status.pkl', 'w')

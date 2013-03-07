@@ -1,8 +1,24 @@
 Where to start
 ===============
-refactoring of runctrl.py
-Consider that we should be able to run each def
-as a separate. Consider how to start and stop as well.
+pep errors should be fixed
+combine runctrl starttst and recipeScanner into one  new module
+
+All data passing into a new module to be shared between cgi-bin and controller
+   Test how modules are handled in cgi-bin
+   Do a little bit of thinking on the data module thus created
+
+Create a maintenance programs module that is similar to recipeliststatus, but
+reading the json files instead.
+
+Better testing
+ Data module read write compare...
+ 
+====== Less immediate =====
+stages should probably be a class
+Look for unused code as includes etc.
+
+
+
 
 ====== Post brew issues and observations =======
 after brew 130202
