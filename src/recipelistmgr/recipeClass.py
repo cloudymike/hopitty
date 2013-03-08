@@ -32,6 +32,7 @@ class recipeClass():
         self.preboilVol = None
         self.spargeTemp = None
         self.grainWeight = None
+        self.doc = {}
 
         # Alternative Data store
         self.recipeDict = {}
@@ -49,6 +50,7 @@ class recipeClass():
             sys.exit(1)
 
     def readBMXdoc(self, doc):
+        self.doc = doc
         self.setEquipment(ctrl.bsmxReadString(doc, "F_E_NAME"))
         self.recipeDict['equipment'] = ctrl.bsmxReadString(doc, "F_E_NAME")
 
@@ -64,3 +66,6 @@ class recipeClass():
 
     def getName(self):
         return self.name
+
+    def getBSMXdoc(self):
+        return(self.doc)

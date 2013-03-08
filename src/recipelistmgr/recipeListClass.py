@@ -29,11 +29,14 @@ class recipeListClass():
     def getlist(self):
         return(self.list)
 
-    def storeToMemcache(self):
-        """ Stores the class data into memcache record """
-        rPickle = self.pickleMe()
-        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-        mc.set("recipeList", rPickle)
+    def getRecipe(self, name):
+        return self.list[name]
+
+#    def storeToMemcache(self):
+#        """ Stores the class data into memcache record """
+#        rPickle = self.pickleMe()
+#        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+#        mc.set("recipeList", rPickle)
 
     def loadFromMemcache(self):
         """ Loads all data from memcache record """

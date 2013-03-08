@@ -4,6 +4,7 @@ import cgi
 import cgitb
 import time
 import sys
+import commonweb
 
 import memcache
 #@PydevCodeAnalysisIgnore
@@ -54,6 +55,7 @@ def getCurrentStatusRecipeFromMemcache():
 if __name__ == "__main__":
     recipeList = getListFromMemcache('recipeNameList')
     recipeList.sort()
+    common = commonweb.commonweb()
 
     """
     This is an example file, reading some useful value in a recipe file
@@ -69,7 +71,7 @@ if __name__ == "__main__":
     <h1>Recipe list</h1>
     """
 
-    print "Current Recipe:", getCurrentRecipeFromMemcache()
+    print "<b>Current Recipe:</b>", getCurrentRecipeFromMemcache(), "<br><br>"
     print '<form method="get" action="recipereader.py">'
     for recipeName in recipeList:
         rnstr = "\"" + recipeName + "\""
@@ -84,10 +86,8 @@ if __name__ == "__main__":
 
     print '</form>'
 
-    print '<a href="/index.html"><button>Home</button></a>'
-    print '<a href="status.py"><button>Status</button></a>'
-    print '<a href="stagesstatus.py"><button>Stages</button></a>'
-    print '<a href="recipeliststatus.py"><button>Refresh</button></a>'
+    print "<br>"
+    common.pagelinks(__file__)
     print """\
     </body>
     </html>

@@ -75,25 +75,6 @@ def testReading():
     print "testReading passed"
 
 
-def testPickle():
-    rOrg = getTestRecipeList()
-    rPickle = rOrg.pickleMe()
-    rNew = pickle.loads(rPickle)
-    listEquivalence(rOrg, rNew)
-    #rNew.printNameList()
-    print "testPickle passed"
-
-
-def testMemcache():
-    rOrg = getTestRecipeList()
-    rOrg.storeToMemcache()
-    rNew = objectFromMemcache("recipeList")
-    #rNew = recipeListClass("recipeList")
-    listEquivalence(rOrg, rNew)
-    #rNew.printNameList()
-    print "testMemcache passed"
-
-
 def testEqualCheck():
     """this is testing the test tools, so should pass"""
     l1 = getTestRecipeList()
