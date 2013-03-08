@@ -10,6 +10,7 @@ import memcache
 
 DEBUG = False
 
+
 def objectFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
@@ -22,6 +23,7 @@ def getListFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
     recipeNameList = mc.get(key)
     return(recipeNameList)
+
 
 def getCurrentRecipeFromMemcache():
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -38,6 +40,7 @@ def getCurrentRecipeFromMemcache():
             recipe = ""
     return(recipe)
 
+
 # Use this in final production
 def getCurrentStatusRecipeFromMemcache():
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -46,6 +49,8 @@ def getCurrentStatusRecipeFromMemcache():
     except:
         recipe = ""
     return(recipe)
+
+
 # Use this in final production
 def getRunStatusFromMemcache():
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -54,6 +59,7 @@ def getRunStatusFromMemcache():
     except:
         runStatus = ""
     return(runStatus)
+
 
 def getStageFromMemcache():
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -78,23 +84,29 @@ if __name__ == "__main__":
     <body>
     <h1>Run Control</h1>
     """
-    
+
     print "Current Recipe: ", getCurrentRecipeFromMemcache(), '<br>'
     print "Current Stage: ", getStageFromMemcache(), '<br>'
     runStatus = getRunStatusFromMemcache()
-    print "Run status: " , runStatus, '<br>'
+    print "Run status: ", runStatus, '<br>'
     print '<form method="get" action="startreader.py">'
     if runStatus != 'run':
         print '<input type="hidden" name="runStatus" value="run">'
-    print '<input type="submit"' 
-    if runStatus == 'run': 
-        print 'style="color: grey; background-color: white; font-size: larger; height:50px;width:80px;" '
+    print '<input type="submit"'
+    if runStatus == 'run':
+        print """
+        style="color: grey; background-color: white; font-size: larger;
+        height:50px;width:80px;"
+        """
     else:
-        print 'style="color: white; background-color: green; font-size: larger; height:50px;width:80px;"'
+        print """
+        style="color: white; background-color: green; font-size: larger;
+        height:50px;width:80px;"
+        """
     print ' value="Start">'
 
     print '</form>'
-    
+
     print '<a href="/index.html"><button>Home</button></a>'
     print '<a href="status.py"><button>Status</button></a>'
     print '<a href="stagesstatus.py"><button>Stages</button></a>'

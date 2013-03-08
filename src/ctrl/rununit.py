@@ -48,7 +48,6 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
             sys.stdout.flush()
 
 
-
 def runManual(controllers, verbose):
     print "manual"
     while True:
@@ -77,7 +76,8 @@ def runManual(controllers, verbose):
             controllers.run(settings)
 
         stage = 'Manual'
-        writeStatus(controllers, settings, stage, runStop, 'Manual run', verbose)
+        writeStatus(controllers, settings, stage, runStop, 'Manual run', \
+                    verbose)
 
         time.sleep(1)
 
@@ -98,7 +98,8 @@ def runRecipe(controllers, recipe, currentRecipe, verbose):
         while not controllers.done():
             controllers.run(settings)
 
-            writeStatus(controllers, settings, r_key, runStop, currentRecipe, verbose)
+            writeStatus(controllers, settings, r_key, runStop, currentRecipe, \
+                        verbose)
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(controllers):
                 controllers.shutdown()
@@ -106,7 +107,8 @@ def runRecipe(controllers, recipe, currentRecipe, verbose):
 
             time.sleep(1)
     return(True)
-            
+
+
 def quickRecipe(controllers, recipe, verbose):
     """
     Runs through the recipe without any delay to just check it is OK
@@ -127,6 +129,7 @@ def quickRecipe(controllers, recipe, verbose):
 #            time.sleep(1)
     return(True)
 
+
 def setupControllers(verbose, simulation, permissive):
     controllers = ctrl.controllerList()
     # Try to find hw switches
@@ -143,7 +146,7 @@ def setupControllers(verbose, simulation, permissive):
             else:
                 print "X10 not available"
                 sys.exit()
-                
+
         try:
             usbPumps = switches.pumpUSB()
         except:
@@ -152,11 +155,10 @@ def setupControllers(verbose, simulation, permissive):
                 usbPumps = switches.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
-               
     else:
-        x10 = switches.simSwitchList()        
+        x10 = switches.simSwitchList()
         usbPumps = switches.simSwitchList()
-        
+
     hwTunSwitch = x10.getSwitch("H14")
     boilerSwitch = x10.getSwitch("I12")
     hotWaterPumpSwitch = usbPumps.getSwitch(1)
@@ -164,34 +166,36 @@ def setupControllers(verbose, simulation, permissive):
     wortSwitch = usbPumps.getSwitch(2)
     mashCirculationSwitch = usbPumps.getSwitch(3)
 
-    controllers.addController('waterHeater',appliances.hwt())
+    controllers.addController('waterHeater', appliances.hwt())
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
     controllers.addController('delayTimer', appliances.hoptimer())
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
-    controllers.addController('waterCirculationPump', appliances.circulationPump())
+    controllers.addController('waterCirculationPump', \
+                              appliances.circulationPump())
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
     controllers.addController('wortPump', appliances.wortPump())
     controllers['wortPump'].connectSwitch(wortSwitch)
-    controllers.addController('mashCirculationPump', appliances.circulationPump())
+    controllers.addController('mashCirculationPump', \
+                              appliances.circulationPump())
     controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
-
 
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
     return(controllers)
 
-def getRecipeName(jsonFile, bsmxFile):  
+
+def getRecipeName(jsonFile, bsmxFile):
     if jsonFile != "":
         data = ctrl.readJson(jsonFile)
         return(ctrl.readName(data))
     elif bsmxFile != "":
         data = ctrl.bsmxReadFile(bsmxFile)
         return(ctrl.bsmxReadName(data))
-    else:   
+    else:
         return('Manual')
 
 
@@ -202,27 +206,29 @@ def getStages(jsonFile, bsmxFile, controllers):
     elif bsmxFile != "":
         data = ctrl.bsmxReadFile(bsmxFile)
         stages = ctrl.bsmxReadRecipe(data, controllers)
-    else:   
+    else:
         stages = {}
     return(stages)
+
 
 class rununit():
     """
     This class will wrap all of the other classes required
     to do a mash run
     """
-    
+
     def __init__(self):
         self.verbose = False
         self.simulation = False
         self.permissive = True
-        self.controllers = setupControllers(self.verbose, self.simulation, self.permissive)
+        self.controllers = setupControllers(self.verbose, self.simulation, \
+                                            self.permissive)
         self.recipeName = ""
         self.stages = {}
-        
+
     def __del__(self):
         self.controllers.shutdown()
-   
+
     def bsmxIn(self, xml):
         """Inputs data from a bsmx doc string"""
         self.recipeName = ctrl.bsmxReadName(xml)
@@ -231,21 +237,23 @@ class rununit():
     def jsonIn(self, json):
         self.recipeName = ctrl.readName(json)
         self.stages = ctrl.readRecipe(json, self.controllers)
-    
+
     def run(self):
         self.check()
-        runOK = runRecipe(self.controllers, self.stages, self.recipeName, self.verbose)
+        runOK = runRecipe(self.controllers, self.stages, \
+                          self.recipeName, self.verbose)
         return(runOK)
-    
+
     def stop(self):
         self.controllers.stop()
-    
+
     def quick(self):
         self.check()
         runOK = quickRecipe(self.controllers, self.stages, self.verbose)
         return(runOK)
-    
+
     def check(self):
-        if not ctrl.checkers.checkRecipe(self.controllers, self.stages, self.verbose):
+        if not ctrl.checkers.checkRecipe(self.controllers, self.stages, \
+                                         self.verbose):
             print "ERROR: Recipe check failed"
             sys.exit(1)

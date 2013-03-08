@@ -10,6 +10,7 @@ import memcache
 
 DEBUG = False
 
+
 def objectFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
 
@@ -22,6 +23,7 @@ def getListFromMemcache(key):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
     recipeNameList = mc.get(key)
     return(recipeNameList)
+
 
 def getCurrentRecipeFromMemcache():
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -37,6 +39,7 @@ def getCurrentRecipeFromMemcache():
         else:
             recipe = ""
     return(recipe)
+
 
 # Use this in final production
 def getCurrentStatusRecipeFromMemcache():
@@ -65,21 +68,22 @@ if __name__ == "__main__":
     <body>
     <h1>Recipe list</h1>
     """
-    
+
     print "Current Recipe:", getCurrentRecipeFromMemcache()
     print '<form method="get" action="recipereader.py">'
     for recipeName in recipeList:
         rnstr = "\"" + recipeName + "\""
         if recipeName == getCurrentRecipeFromMemcache():
-            sel="checked"
+            sel = "checked"
         else:
-            sel=""
-    
-        print '<input type="radio" name="recipe" value=', rnstr, sel, ">",recipeName,'<br>'
+            sel = ""
+
+        print '<input type="radio" name="recipe" value=', rnstr, sel, ">", \
+        recipeName, '<br>'
     print '<input type="submit" value="Set">'
 
     print '</form>'
-    
+
     print '<a href="/index.html"><button>Home</button></a>'
     print '<a href="status.py"><button>Status</button></a>'
     print '<a href="stagesstatus.py"><button>Stages</button></a>'

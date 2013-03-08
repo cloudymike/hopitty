@@ -12,6 +12,7 @@ def writeCurrentRecipe2Memcache(value):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
     mc.set('currentRecipe', value)
 
+
 # This is data that should be sent to controller
 def writeSelectedRecipe2Memcache(value):
     mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -37,6 +38,6 @@ if __name__ == "__main__":
     <p>The purpose of this page is to read form data and update data files.</p>
     <br><br>
     <p>Recipe selected: %s</p>
-    """% setRecipe
+    """ % setRecipe
 
     print "</body></html>"

@@ -22,7 +22,7 @@ if __name__ == "__main__":
     # Avoid script injection escaping the user input
     runStatus = cgi.escape(runStatus)
     writeRunStatus2Memcache(runStatus)
-    
+
     print "Content-Type: text/html"
     print
     print '<html>'
@@ -33,6 +33,6 @@ if __name__ == "__main__":
     <p>The purpose of this page is to read form data and update data files.</p>
     <br><br>
     <p>Run status: %s</p>
-    """% runStatus
+    """ % runStatus
 
     print "</body></html>"
