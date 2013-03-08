@@ -1,0 +1,19 @@
+#!/bin/bash
+HTMLDIR='htmlcov'
+rm -rf $HTMLDIR
+#nosetests --cover-erase  --with-coverage --cover-package=ctrl
+nosetests --cover-erase  --with-coverage 
+
+for recipe in beersmith/*; do
+  python-coverage run -a src/runctrl.py -q -b $recipe
+done
+
+for recipe in recipe/*; do
+  python-coverage run -a src/runctrl.py -q -f $recipe
+done
+
+python-coverage combine
+python-coverage html
+python-coverage report --include=src/*
+
+

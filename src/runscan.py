@@ -53,12 +53,14 @@ def getListFromMemcache(key):
     recipeNameList = mc.get(key)
     return(recipeNameList)
 
-
+def setStop2Memcache():
+    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+    mc.set("runStatus", 'stop')
 if __name__ == "__main__":
 
     print "Alive"
     rl = recipelistmgr.recipeListClass()
-    for n in range(1, 10):
+    while True:
         bsmxfile = "/home/"+user+"/.beersmith2/Cloud.bsmx"
         rl.readBeerSmith(bsmxfile)
         rl.nameListToMemcache()
@@ -74,5 +76,6 @@ if __name__ == "__main__":
                 if not runOK:
                     print "Run failed"
                 del ru
+                setStop2Memcache()
         time.sleep(10)
         

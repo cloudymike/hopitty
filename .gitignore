@@ -23,6 +23,11 @@
 .pydevproject
 a.out
 
+# Coverage data
+################
+.coverage
+htmlcov/
+
 # GoIO generated files
 mytemp
 GoIO-2.28.0/GoIO_DLL/.libs/

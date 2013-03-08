@@ -1,7 +1,9 @@
 Where to start
 ===============
-pep errors should be fixed
-combine runctrl starttst and recipeScanner into one  new module
+commonweb includes all links. Replace link buttons in all cgi-bin files.
+
+coverage
+python-coverage run --source=ctrl runctrl.py -f ../recipe/cold_short_pump -q
 
 All data passing into a new module to be shared between cgi-bin and controller
    Test how modules are handled in cgi-bin
@@ -10,8 +12,23 @@ All data passing into a new module to be shared between cgi-bin and controller
 Create a maintenance programs module that is similar to recipeliststatus, but
 reading the json files instead.
 
+Add test button to runcontrol page. This will do a quick run and reality check of the recipe.
+
 Better testing
- Data module read write compare...
+    Data module, as described above, read write compare...
+    Create test for recipelist module. Take a snapshot of current recipe module and
+        write nosetest.
+    quick scan of all recipes in my homedirectory. This will be a non-required 
+        test so questionable if it is part of checkall.
+
+====== Laidback work =====
+Remove unused code
+    Commented out code
+    import statements with yellow triangle
+    pepme
+    
+    
+    
  
 ====== Less immediate =====
 stages should probably be a class
