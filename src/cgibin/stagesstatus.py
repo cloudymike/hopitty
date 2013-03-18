@@ -23,6 +23,7 @@ def getListFromMemcache(key):
     recipeNameList = mc.get(key)
     return(recipeNameList)
 
+
 def stageStatusMain():
     stages = getListFromMemcache('stagesDict')
     if stages == None:

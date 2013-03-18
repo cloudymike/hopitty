@@ -2,6 +2,11 @@ Where to start
 ===============
 commonweb includes all links. Replace link buttons in all cgi-bin files.
 
+add cgibin/status.py to testallvisible.py
+
+cgibin directory is not clean, in use of modules. Maybe create a new hierarchy
+with modules?
+
 coverage
 python-coverage run --source=ctrl runctrl.py -f ../recipe/cold_short_pump -q
 
@@ -25,8 +30,10 @@ Better testing
 Remove unused code
     Commented out code
     import statements with yellow triangle
-    pepme
-    
+
+pepme
+
+Increase coverage     
     
     
  
@@ -38,6 +45,16 @@ Look for unused code as includes etc.
 
 
 ====== Post brew issues and observations =======
+
+brew 130309
+After brew is done programs exit, where?
+
+stages page has a links for number, why?
+DTHe blue on green does not work.
+
+
+
+
 after brew 130202
 Post cleaning not working as it relies on scale.
 

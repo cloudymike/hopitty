@@ -57,7 +57,7 @@ def getCurrentStatusRecipeFromMemcache():
     return(recipe)
 
 
-if __name__ == "__main__":
+def recipeliststatusMain():
     recipeList = getListFromMemcache('recipeNameList')
     recipeList.sort()
     common = commonweb.commonweb()
@@ -97,3 +97,7 @@ if __name__ == "__main__":
     </body>
     </html>
     """
+
+
+if __name__ == "__main__":
+    recipeliststatusMain()

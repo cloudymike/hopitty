@@ -3,11 +3,12 @@
 
 
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src") 
+sys.path.append("/home/mikael/workspace/hoppity/src")
 sys.path.append("/home/mikael/workspace/hoppity/src/cgi-bin")
 
 import stagesstatus
 import start
+import recipeliststatus
 
 # Leave this one in and uncomment to validate that
 # cgi-bin fails
@@ -23,6 +24,11 @@ def teststageStatus():
 
 def testStart():
     start.startMain()
+
+
+def testRecipeListStatus():
+    recipeliststatus.recipeliststatusMain()
+
 
 if __name__ == "__main__":
     teststageStatus()

@@ -70,6 +70,7 @@ def getStageFromMemcache():
         currentStage = ""
     return(currentStage)
 
+
 def startMain():
     """
     Page to set the run status, i.e. to start the run
