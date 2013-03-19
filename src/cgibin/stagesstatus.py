@@ -8,6 +8,8 @@ import sys
 import memcache
 #@PydevCodeAnalysisIgnore
 
+import commonweb
+
 
 def getControllerList(stages):
     controllerList = []
@@ -25,6 +27,7 @@ def getListFromMemcache(key):
 
 
 def stageStatusMain():
+    common = commonweb.commonweb()
     stages = getListFromMemcache('stagesDict')
     if stages == None:
         stages = {}
@@ -69,8 +72,7 @@ def stageStatusMain():
         print "</tr>"
     print "</table>"
     print '<br><br>'
-    print '<a href="/index.html"><button>Home</button></a>'
-    print '<a href="status.py"><button>Status</button></a>'
+    common.pagelinks(__file__)
     print """\
     </body>
     </html>

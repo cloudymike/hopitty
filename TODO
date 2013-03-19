@@ -1,11 +1,12 @@
 Where to start
 ===============
-commonweb includes all links. Replace link buttons in all cgi-bin files.
-
-add cgibin/status.py to testallvisible.py
-
 cgibin directory is not clean, in use of modules. Maybe create a new hierarchy
 with modules?
+
+Add more cgibin/common modules
+  refresheader
+  closing footer?
+  footer, with closing html and buttons...
 
 coverage
 python-coverage run --source=ctrl runctrl.py -f ../recipe/cold_short_pump -q

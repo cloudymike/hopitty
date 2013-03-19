@@ -9,6 +9,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/cgi-bin")
 import stagesstatus
 import start
 import recipeliststatus
+import status
 
 # Leave this one in and uncomment to validate that
 # cgi-bin fails
@@ -16,6 +17,10 @@ import recipeliststatus
 # Need link or rename
 #def testAllwaysFail():
 #    assert False
+
+
+def testStatus():
+    status.statusMain()
 
 
 def teststageStatus():

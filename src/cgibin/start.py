@@ -8,6 +8,8 @@ import sys
 import memcache
 #@PydevCodeAnalysisIgnore
 
+import commonweb
+
 DEBUG = False
 
 
@@ -76,6 +78,7 @@ def startMain():
     Page to set the run status, i.e. to start the run
     Also prints some useful info about current status
     """
+    common = commonweb.commonweb()
     cgitb.enable()
 
     print "Content-Type: text/html"
@@ -108,11 +111,7 @@ def startMain():
 
     print '</form>'
 
-    print '<a href="/index.html"><button>Home</button></a>'
-    print '<a href="status.py"><button>Status</button></a>'
-    print '<a href="stagesstatus.py"><button>Stages</button></a>'
-    print '<a href="recipeliststatus.py"><button>RecipeList</button></a>'
-    print '<a href="start.py"><button>Refresh</button></a>'
+    common.pagelinks(__file__)
     print """\
     </body>
     </html>
