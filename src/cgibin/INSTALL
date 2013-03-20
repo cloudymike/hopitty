@@ -4,8 +4,13 @@
 DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 pushd $DIR
+
 sudo cp ./*.py /usr/lib/cgi-bin
 sudo chmod 755 /usr/lib/cgi-bin/*
+
+sudo cp -r ../dataMemcache /usr/lib/cgi-bin
+sudo chmod -R 755 /usr/lib/cgi-bin/dataMemcache
+
 sudo cp -p ../../datadir/* /tmp
 chmod 666 /tmp/*.pkl
 sudo cp -p ../html/*.html /var/www

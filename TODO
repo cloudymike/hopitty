@@ -1,19 +1,17 @@
 Where to start
 ===============
-cgibin directory is not clean, in use of modules. Maybe create a new hierarchy
-with modules?
-
-Add more cgibin/common modules
-  refresheader
-  closing footer?
-  footer, with closing html and buttons...
+dataMemcache
+   cgibin files adding data
+   scan for memcache in all other modules
 
 coverage
-python-coverage run --source=ctrl runctrl.py -f ../recipe/cold_short_pump -q
+  covertests
+  Start with all files not listed, should they be removed?
+  Create a nosetests only option of covertests
+  Identify lines not covered, add nosetests or remove or mark as not testable
+     hardware lines. try to minimize the amount
 
-All data passing into a new module to be shared between cgi-bin and controller
-   Test how modules are handled in cgi-bin
-   Do a little bit of thinking on the data module thus created
+python-coverage run --source=ctrl runctrl.py -f ../recipe/cold_short_pump -q
 
 Create a maintenance programs module that is similar to recipeliststatus, but
 reading the json files instead.

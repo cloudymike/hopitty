@@ -1,60 +1,23 @@
 #!/usr/bin/python
-import pickle
-import cgi
 import cgitb
-import time
-import sys
-
-import memcache
-#@PydevCodeAnalysisIgnore
 
 import commonweb
-
-
-def getControllerList(stages):
-    controllerList = []
-    for stage, step in sorted(stages.items()):
-        for ctrl, val in step.items():
-            if ctrl not in controllerList:
-                controllerList.append(ctrl)
-    return(controllerList)
-
-
-def getListFromMemcache(key):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    recipeNameList = mc.get(key)
-    return(recipeNameList)
+import dataMemcache
 
 
 def stageStatusMain():
     common = commonweb.commonweb()
-    stages = getListFromMemcache('stagesDict')
-    if stages == None:
-        stages = {}
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    status = mc.get("hopitty_run_key")
-    try:
-        currentStage = status['stage']
-    except:
-        currentStage = ""
+    myData = dataMemcache.brewData()
+    stages = myData.getStagesList()
+    currentStage = myData.getCurrentStage()
 
-    """
-    This is an example file, reading some useful value in a recipe file
-    Mostly for debugging
-    """
     cgitb.enable()
 
-    print "Content-Type: text/html"
-    print
-    print '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
-    print """\
-    <html>
-    <body>
-    <h1>List of stages in current recipe</h1>
-    """
+    common.header("Brew Stages", True)
+
     print '<table border="1"><tr>'
     print '<td><b> Stage </td></b>'
-    ctrlList = getControllerList(stages)
+    ctrlList = myData.getControllerList()
     for c in ctrlList:
         print "<th>", c, "</th>"
     print '</tr>'
@@ -71,12 +34,8 @@ def stageStatusMain():
                 print "<td> </td>"
         print "</tr>"
     print "</table>"
-    print '<br><br>'
-    common.pagelinks(__file__)
-    print """\
-    </body>
-    </html>
-    """
+
+    common.footer(__file__)
 
 if __name__ == "__main__":
     stageStatusMain()

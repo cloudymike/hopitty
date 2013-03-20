@@ -1,86 +1,26 @@
 #!/usr/bin/python
-import pickle
-import cgi
+
 import cgitb
-import time
-import sys
+
 import commonweb
-
-import memcache
-#@PydevCodeAnalysisIgnore
-
-DEBUG = False
-
-
-def objectFromMemcache(key):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-
-    pickledObject = mc.get(key)
-    object = pickle.loads(pickledObject)
-    return(object)
-
-
-def getListFromMemcache(key):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    try:
-        recipeNameList = mc.get(key)
-    except:
-        recipeNameList = []
-    if recipeNameList == None:
-        recipeNameList = []
-    return(recipeNameList)
-
-
-def getCurrentRecipeFromMemcache():
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    try:
-        stat = mc.get('hopitty_run_key')
-        recipe = stat['name']
-    except:
-        if DEBUG:
-            try:
-                recipe = mc.get('currentRecipe')
-            except:
-                recipe = ""
-        else:
-            recipe = ""
-    return(recipe)
-
-
-# Use this in final production
-def getCurrentStatusRecipeFromMemcache():
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    try:
-        recipe = mc.get('hopitty_run_key')
-    except:
-        recipe = ""
-    return(recipe)
+import dataMemcache
 
 
 def recipeliststatusMain():
-    recipeList = getListFromMemcache('recipeNameList')
-    recipeList.sort()
-    common = commonweb.commonweb()
-
-    """
-    This is an example file, reading some useful value in a recipe file
-    Mostly for debugging
-    """
     cgitb.enable()
 
-    print "Content-Type: text/html"
-    print
-    print """\
-    <html>
-    <body>
-    <h1>Recipe list</h1>
-    """
+    common = commonweb.commonweb()
 
-    print "<b>Current Recipe:</b>", getCurrentRecipeFromMemcache(), "<br><br>"
+    myData = dataMemcache.brewData()
+    recipeList = myData.getRecipeList()
+
+    common.header('Recipe list')
+
+    print "<b>Current Recipe:</b>", myData.getCurrentRecipe(), "<br><br>"
     print '<form method="get" action="recipereader.py">'
     for recipeName in recipeList:
         rnstr = "\"" + recipeName + "\""
-        if recipeName == getCurrentRecipeFromMemcache():
+        if recipeName == myData.getCurrentRecipe():
             sel = "checked"
         else:
             sel = ""
@@ -91,13 +31,7 @@ def recipeliststatusMain():
 
     print '</form>'
 
-    print "<br>"
-    common.pagelinks(__file__)
-    print """\
-    </body>
-    </html>
-    """
-
+    common.footer(__file__)
 
 if __name__ == "__main__":
     recipeliststatusMain()

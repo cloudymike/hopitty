@@ -3,10 +3,9 @@ import pickle
 import cgi
 import cgitb
 import time
-import memcache
-#@PydevCodeAnalysisIgnore
 
 import commonweb
+import dataMemcache
 
 
 def yn(status):
@@ -17,10 +16,12 @@ def yn(status):
 
 
 def statusMain():
-    common = commonweb.commonweb()
     cgitb.enable()
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    status = mc.get("hopitty_run_key")
+
+    common = commonweb.commonweb()
+    myData = dataMemcache.brewData()
+    status = myData.getStatus()
+
     if not status:
         try:
             status = pickle.load(open("/tmp/status.pkl", "r"))
@@ -34,15 +35,9 @@ def statusMain():
 
     controllers = status['controllers']
 
-    print "Content-Type: text/html"
-    print
-    print '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
-    print """\
-    <html>
-    <body>
-    <h1>Brewing Status Display</h1>
-    <h2>%s</h2>
-    """ % status['name']
+    common.header("Brew Stages", True)
+
+    print """<h2>%s</h2>""" % status['name']
     print """<h3>Stage: %s</h3>""" % status['stage']
 
     print """\
@@ -84,18 +79,13 @@ def statusMain():
     else:
         print "Controller status: ", status['runStop']
 
-    print '<br><br>'
-    common.pagelinks(__file__)
-    print """\
-    <form method="get" action="ctrlform.py">
-    <input type="submit" value="Settings">
-    </form>
-    """
+#    print """\
+#    <form method="get" action="ctrlform.py">
+#    <input type="submit" value="Settings">
+#    </form>
+#    """
 
-    print """\
-    </body>
-    </html>
-    """
+    common.footer(__file__)
 
 
 if __name__ == "__main__":
