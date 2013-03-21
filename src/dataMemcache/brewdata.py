@@ -29,6 +29,10 @@ class brewData(object):
             value = None
         return(value)
 
+    def setToMemcache(self, key, value):
+        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
+        mc.set(key, value)
+
     def getStagesList(self):
         stages = self.getFromMemcache('stagesDict')
         if stages == None:
@@ -82,3 +86,7 @@ class brewData(object):
         except:
             recipe = ""
         return(recipe)
+
+    # This is data that should be sent to controller
+    def setRunStatus(self, value):
+        self.setToMemcache('runStatus', value)

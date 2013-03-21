@@ -1,27 +1,19 @@
 #!/usr/bin/python
 import cgi
-import pickle
 import cgitb
-import memcache
-#@PydevCodeAnalysisIgnore
+
+import dataMemcache
 
 
-# This is for debug, set the selected recipe
-# directly in mem cache
-
-# This is data that should be sent to controller
-def writeRunStatus2Memcache(value):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    mc.set('runStatus', value)
-
-if __name__ == "__main__":
+def startreaderMain():
     cgitb.enable()
+    myData = dataMemcache.brewData()
     form = cgi.FieldStorage()  # instantiate only once!
     runStatus = form.getfirst('runStatus', 'empty')
 
     # Avoid script injection escaping the user input
     runStatus = cgi.escape(runStatus)
-    writeRunStatus2Memcache(runStatus)
+    myData.setRunStatus(runStatus)
 
     print "Content-Type: text/html"
     print
@@ -36,3 +28,6 @@ if __name__ == "__main__":
     """ % runStatus
 
     print "</body></html>"
+
+if __name__ == "__main__":
+    startreaderMain()
