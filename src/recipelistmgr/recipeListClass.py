@@ -4,18 +4,12 @@ Reading from bsmx also included
 To be used by other modules, including web server
 """
 
-# TODO
-# Use defs from controller...
-
-import sys
 import pickle
 import xml.dom.minidom
-#import xml.etree.ElementTree as ET
-import types
-import memcache
-#@PydevCodeAnalysisIgnore
 import ctrl
 import recipelistmgr
+
+import dataMemcache
 
 
 class recipeListClass():
@@ -32,16 +26,6 @@ class recipeListClass():
     def getRecipe(self, name):
         return self.list[name]
 
-#    def storeToMemcache(self):
-#        """ Stores the class data into memcache record """
-#        rPickle = self.pickleMe()
-#        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-#        mc.set("recipeList", rPickle)
-
-    def loadFromMemcache(self):
-        """ Loads all data from memcache record """
-        pass
-
     def printNameList(self):
         """ Writes a list of all the recipe names"""
         for key, recipe in self.list.items():
@@ -53,8 +37,8 @@ class recipeListClass():
         for key, recipe in self.list.items():
             nameList.append(key)
         print nameList
-        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-        mc.set("recipeNameList", nameList)
+        myData = dataMemcache.brewData()
+        myData.setRecipeList(nameList)
 
     def printAll(self):
         """ Writes a list of all the recipe names"""

@@ -39,12 +39,20 @@ class brewData(object):
             stages = {}
         return(stages)
 
+    def setStagesList(self, stages):
+        """ Stores the stages data into memcache record """
+        self.setToMemcache("stagesDict", stages)
+
     def getRecipeList(self):
         recipes = self.getFromMemcache('recipeNameList')
         if recipes == None:
             recipes = []
         recipes.sort()
         return(recipes)
+
+    def setRecipeList(self, recipes):
+        """ Stores the status into memcache record """
+        self.setToMemcache('recipeNameList', recipes)
 
     def getStatus(self):
         try:
@@ -54,6 +62,10 @@ class brewData(object):
         if status == None:
             status = []
         return(status)
+
+    def setStatus(self, stages):
+        """ Stores the status into memcache record """
+        self.setToMemcache("hopitty_run_key", stages)
 
     def getRunStatus(self):
         runStatus = self.getFromMemcache('runStatus')

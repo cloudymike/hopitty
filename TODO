@@ -1,16 +1,6 @@
 Where to start
 ===============
 dataMemcache
-   cgibin files adding data
-     startreader Done
-     recipereader
-   remove
-     helloPage
-     n2
-     settings
-     ctrlform (manual)
-     ctrlset (manual)
-   scan for memcache in all other modules
    
    Non cgibin file 
      scan for memcache?

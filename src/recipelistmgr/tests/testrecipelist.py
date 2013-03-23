@@ -1,33 +1,8 @@
-"""
-Handles recipe collection as objects
-Reading from bsmx also included
-To be used by other modules, including web server
-"""
-
-# TODO
-# Use defs from controller...
-
-import sys
 import os
-import pickle
-import xml.dom.minidom
-#import xml.etree.ElementTree as ET
-import types
-import memcache
-#@PydevCodeAnalysisIgnore
-import ctrl
 import recipelistmgr
+import types
 
 
-def objectFromMemcache(key):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-
-    pickledObject = mc.get(key)
-    object = pickle.loads(pickledObject)
-    return(object)
-
-
-#======================== Nose test defs =============================
 def recipeEquivalence(recipe1, recipe2):
     assert recipe1.getName() == recipe2.getName()
 
@@ -76,7 +51,7 @@ def testReading():
 
 
 def testEqualCheck():
-    """this is testing the test tools, so should pass"""
+    """testrecipelist this is testing the test tools, so should pass"""
     l1 = getTestRecipeList()
     l2 = getTestRecipeList()
     listEquivalence(l1, l2)
@@ -89,5 +64,3 @@ if __name__ == "__main__":
     """
     testReading()
     testEqualCheck()
-    testPickle()
-    testMemcache()

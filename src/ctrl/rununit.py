@@ -14,12 +14,15 @@ import ctrl.readRecipe
 import appliances.boiler
 #import ctrl.checkers
 import switches
-import memcache
+#import memcache
 #@PydevCodeAnalysisIgnore
+
+import dataMemcache
 
 
 def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         ctrlStat = controllers.status()
+        myData = dataMemcache.brewData()
 
         stat = {}
         stat['name'] = currentRecipe
@@ -28,10 +31,7 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         stat['watchDog'] = int(time.time())
         stat['stage'] = stage
 
-        # If memcache is available, use it
-        # ignore error in eclipe on next line
-        mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-        mc.set("hopitty_run_key", stat)
+        myData.setStatus(stat)
 
         #As alternative, save to pickle file
         statout = open('/tmp/status.pkl', 'w')
@@ -88,7 +88,8 @@ def runRecipe(controllers, recipe, currentRecipe, verbose):
     Reset controllers by stopping them before starting each stage
     """
     runStop = 'run'
-    ctrl.stages2Memcache(recipe)
+    myData = dataMemcache.brewData()
+    myData.setStagesList(recipe)
     for r_key, settings in sorted(recipe.items()):
         controllers.stop()
         controllers.run(settings)
