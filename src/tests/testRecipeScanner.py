@@ -22,13 +22,12 @@ def getTestRecipeList():
     return(rl)
 
 
-
 def testRecipeScanner(user=None):
     if user == None:
         rl = getTestRecipeList()
     else:
         rl = recipelistmgr.recipeListClass()
-        bsmxfile = "/home/"+user+"/.beersmith2/Cloud.bsmx"
+        bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
         rl.readBeerSmith(bsmxfile)
     rl.nameListToMemcache()
     myData = dataMemcache.brewData()
@@ -43,4 +42,3 @@ if __name__ == "__main__":
         rl = testRecipeScanner(user)
         print rl.len()
         time.sleep(10)
-

@@ -1,22 +1,16 @@
 Where to start
 ===============
-dataMemcache
-   
-   Non cgibin file 
-     scan for memcache?
-     scan for pickle
+starttst.py: Change starttst.py to a nosetests file
+runscan.py: remove all memcache.Client, and use dataMemcache
+
+runscan.py: add quickmode to runscan and create a toplevel test, using file in src/tests/Cloud.bsmx
+
+dataMemcache: create nosetests for all methods. write-read-compare. Validate type of data
 
 Create a maintenance programs module that is similar to recipeliststatus, but
 reading the json files instead.
 
 Add test button to runcontrol page. This will do a quick run and reality check of the recipe.
-
-Better testing
-    Data module, as described above, read write compare...
-    Create test for recipelist module. Take a snapshot of current recipe module and
-        write nosetest.
-    quick scan of all recipes in my homedirectory. This will be a non-required 
-        test so questionable if it is part of checkall.
 
 coverage
   covertests
