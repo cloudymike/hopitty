@@ -9,6 +9,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/cgi-bin")
 import dataMemcache
 
 import startreader
+import recipereader
 
 
 def teststartreader():
@@ -17,6 +18,14 @@ def teststartreader():
     runStatus = myData.getRunStatus()
     assert isinstance(runStatus, str)
     print runStatus
+
+
+def testrecipereader():
+    recipereader.recipereaderMain()
+    myData = dataMemcache.brewData()
+    cr = myData.getSelectedRecipe()
+    assert isinstance(cr, str)
+    print cr
 
 if __name__ == "__main__":
     teststartreader()

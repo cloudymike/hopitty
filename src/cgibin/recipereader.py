@@ -5,29 +5,24 @@ import cgitb
 import memcache
 #@PydevCodeAnalysisIgnore
 
+import dataMemcache
 
 # This is for debug, set the selected recipe
 # directly in mem cache
-def writeCurrentRecipe2Memcache(value):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    mc.set('currentRecipe', value)
 
 
-# This is data that should be sent to controller
-def writeSelectedRecipe2Memcache(value):
-    mc = memcache.Client(['127.0.0.1:11211'], debug=0)
-    mc.set('selectedRecipe', value)
-
-if __name__ == "__main__":
+def recipereaderMain():
     cgitb.enable()
+    myData = dataMemcache.brewData()
+
     form = cgi.FieldStorage()  # instantiate only once!
     setRecipe = form.getfirst('recipe', 'empty')
 
     # Avoid script injection escaping the user input
     setRecipe = cgi.escape(setRecipe)
 
-    writeCurrentRecipe2Memcache(setRecipe)
-    writeSelectedRecipe2Memcache(setRecipe)
+    myData.setCurrentRecipe(setRecipe)
+    myData.setSelectedRecipe(setRecipe)
     print "Content-Type: text/html"
     print
     print '<html>'
@@ -39,5 +34,8 @@ if __name__ == "__main__":
     <br><br>
     <p>Recipe selected: %s</p>
     """ % setRecipe
-
     print "</body></html>"
+
+
+if __name__ == "__main__":
+    recipereaderMain()

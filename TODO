@@ -2,16 +2,19 @@ Where to start
 ===============
 dataMemcache
    cgibin files adding data
+     startreader Done
+     recipereader
+   remove
+     helloPage
+     n2
+     settings
+     ctrlform (manual)
+     ctrlset (manual)
    scan for memcache in all other modules
-
-coverage
-  covertests
-  Start with all files not listed, should they be removed?
-  Create a nosetests only option of covertests
-  Identify lines not covered, add nosetests or remove or mark as not testable
-     hardware lines. try to minimize the amount
-
-python-coverage run --source=ctrl runctrl.py -f ../recipe/cold_short_pump -q
+   
+   Non cgibin file 
+     scan for memcache?
+     scan for pickle
 
 Create a maintenance programs module that is similar to recipeliststatus, but
 reading the json files instead.
@@ -24,6 +27,14 @@ Better testing
         write nosetest.
     quick scan of all recipes in my homedirectory. This will be a non-required 
         test so questionable if it is part of checkall.
+
+coverage
+  covertests
+  Start with all files not listed, should they be removed?
+  Create a nosetests only option of covertests
+  Identify lines not covered, add nosetests or remove or mark as not testable
+     hardware lines. try to minimize the amount
+
 
 ====== Laidback work =====
 Remove unused code
