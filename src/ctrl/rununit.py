@@ -1,21 +1,10 @@
 #!/usr/bin/python
 
-# branch t1
-import sys
 import pickle
 import time
-import getopt
-import sys
-import appliances
-import ctrl
-#import ctrl.controllers
 import ctrl.readRecipe
-#import ctrl.checkers
 import appliances.boiler
-#import ctrl.checkers
 import switches
-#import memcache
-#@PydevCodeAnalysisIgnore
 
 import dataMemcache
 

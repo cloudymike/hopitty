@@ -1,13 +1,7 @@
-#import sys
 import xml.dom.minidom
-#import xml.etree.ElementTree as ET
 import ctrl
 import sys
 import mashProfiles
-#import memcache
-##@PydevCodeAnalysisIgnore
-
-import dataMemcache
 
 
 def bsmxReadString(doc, tagName):

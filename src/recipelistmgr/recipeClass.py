@@ -8,12 +8,6 @@ To be used by other modules, including web server
 # Use defs from controller...
 
 import sys
-import pickle
-import xml.dom.minidom
-#import xml.etree.ElementTree as ET
-import types
-import memcache
-#@PydevCodeAnalysisIgnore
 import ctrl
 
 

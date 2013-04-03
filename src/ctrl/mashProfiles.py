@@ -1,6 +1,3 @@
-import ctrl
-import sys
-from parseBSMX import *
 import parseBSMX
 
 
