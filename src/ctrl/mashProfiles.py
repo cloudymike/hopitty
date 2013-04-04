@@ -1,9 +1,9 @@
 import parseBSMX
+import sys
 
 
 # Each def takes a recipe input and creates a mash profile
 # with stages
-
 def SingleInfusionBatch(doc, controllers):
     stages = {}
     s1 = parseBSMX.stageCtrl(controllers)
@@ -58,6 +58,17 @@ def SingleInfusionBatch(doc, controllers):
     s10 = parseBSMX.stageCtrl(controllers)
     s10["wortPump"] = parseBSMX.setDict(preboilVol / 2)
     stages["10 Wort out 2"] = s10
+
+    s11 = parseBSMX.stageCtrl(controllers)
+    s11["delayTimer"] = parseBSMX.setDict(20)
+    s11["boiler"] = parseBSMX.setDict(1)
+    stages["11 pre-boil"] = s11
+
+    s12 = parseBSMX.stageCtrl(controllers)
+    s12["delayTimer"] = parseBSMX.setDict(\
+                       parseBSMX.bsmxReadTimeMin(doc, "F_E_BOIL_TIME"))
+    s11["boiler"] = parseBSMX.setDict(1)
+    stages["12 pre-boil"] = s12
 
     return(stages)
 
@@ -150,6 +161,19 @@ def SingleBatchRecycleMash(doc, controllers):
     s10 = parseBSMX.stageCtrl(controllers)
     s10["wortPump"] = parseBSMX.setDict(preboilVol / 2)
     stages[mkSname("Wort out 2", stageCount)] = s10
+    stageCount = stageCount + 1
+
+    s11 = parseBSMX.stageCtrl(controllers)
+    s11["delayTimer"] = parseBSMX.setDict(20)
+    s11["boiler"] = parseBSMX.setDict(1)
+    stages[mkSname("Pre boil", stageCount)] = s11
+    stageCount = stageCount + 1
+
+    s12 = parseBSMX.stageCtrl(controllers)
+    s12["delayTimer"] = parseBSMX.setDict(\
+                       parseBSMX.bsmxReadTimeMin(doc, "F_E_BOIL_TIME"))
+    s12["boiler"] = parseBSMX.setDict(1)
+    stages[mkSname("Boil", stageCount)] = s12
     stageCount = stageCount + 1
 
     return(stages)
@@ -268,6 +292,19 @@ def MultiBatchRecycleMash(doc, controllers):
     s30["wortPump"] = parseBSMX.setDict(lastWortOut)
     totVolOut = totVolOut + lastWortOut
     stages[mkSname("Wort out final", stageCount)] = s30
+    stageCount = stageCount + 1
+    s31 = parseBSMX.stageCtrl(controllers)
+    s31["delayTimer"] = parseBSMX.setDict(20)
+    s31["boiler"] = parseBSMX.setDict(1)
+    stages[mkSname("pre-boil", stageCount)] = s31
+    stageCount = stageCount + 1
+
+    s32 = parseBSMX.stageCtrl(controllers)
+    s32["delayTimer"] = parseBSMX.setDict(\
+                       parseBSMX.bsmxReadTimeMin(doc, "F_E_BOIL_TIME"))
+    s32["boiler"] = parseBSMX.setDict(1)
+    stages[mkSname("pre-boil", stageCount)] = s32
+    stageCount = stageCount + 1
 
     # Check and balances
     tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')

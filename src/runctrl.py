@@ -36,10 +36,11 @@ if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'b:f:hqv', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'b:f:hqpv', [
                          'bsmx=',
                          'file=',
                          'help',
+                         'printRecipe',
                          'quick',
                          'verbose',
                          'version=',
@@ -48,6 +49,7 @@ if __name__ == "__main__":
     simulation = False
     permissive = True
     quick = False
+    printRecipe = False
     recipeFile = ""
     bsmxFile = ""
     for opt, arg in options:
@@ -59,6 +61,8 @@ if __name__ == "__main__":
             bsmxFile = arg
         elif opt in ('-q', '--quick'):
             quick = True
+        elif opt in ('-p', '--printRecipe'):
+            printRecipe = True
         elif opt in ('-v', '--verbose'):
             verbose = True
         elif opt == '--version':
@@ -84,6 +88,8 @@ if __name__ == "__main__":
     print " "
     print "OK"
     ru.stop()
+    
+    ctrl.prettyPrintStages(ru.getStages())
     print "Shutting down"
     del ru
 

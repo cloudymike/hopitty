@@ -5,7 +5,7 @@ import time
 import ctrl.readRecipe
 import appliances.boiler
 import switches
-
+import sys
 import dataMemcache
 
 
@@ -175,6 +175,7 @@ def setupControllers(verbose, simulation, permissive):
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
+        print key
     return(controllers)
 
 
@@ -227,6 +228,9 @@ class rununit():
     def jsonIn(self, json):
         self.recipeName = ctrl.readName(json)
         self.stages = ctrl.readRecipe(json, self.controllers)
+
+    def getStages(self):
+        return(self.stages)
 
     def run(self):
         self.check()
