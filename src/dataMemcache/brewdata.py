@@ -105,6 +105,7 @@ class brewData(object):
 
     # This is data that should be sent to controller
     def setRunStatus(self, value):
+        assert value in ['run', 'stop']
         self.setToMemcache('runStatus', value)
 
     def setCurrentRecipe(self, value):

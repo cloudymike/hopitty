@@ -6,20 +6,8 @@ sys.path.append("/home/mikael/workspace/hoppity/src")
 sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
-#import pickle
-#import time
 import getopt
-#import sys
-#import appliances
 import ctrl
-#import ctrl.controllers
-#import ctrl.readRecipe
-#import ctrl.checkers
-#import appliances.boiler
-#import ctrl.checkers
-#import switches
-#import memcache
-#@PydevCodeAnalysisIgnore
 
 def usage():
     print 'usage:'

@@ -1,7 +1,8 @@
 Where to start
 ===============
 starttst.py: Change starttst.py to a nosetests file
-runscan.py: remove all memcache.Client, and use dataMemcache
+
+Add test around runscan.py
 
 runscan.py: add quickmode to runscan and create a toplevel test, using file in src/tests/Cloud.bsmx
 

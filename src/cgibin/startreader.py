@@ -13,6 +13,8 @@ def startreaderMain():
 
     # Avoid script injection escaping the user input
     runStatus = cgi.escape(runStatus)
+    if runStatus != 'run':
+        runStatus = 'stop'
     myData.setRunStatus(runStatus)
 
     print "Content-Type: text/html"
