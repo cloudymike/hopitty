@@ -1,10 +1,7 @@
 Where to start
 ===============
-starttst.py: Change starttst.py to a nosetests file
 
-Add test around runscan.py
-
-runscan.py: add quickmode to runscan and create a toplevel test, using file in src/tests/Cloud.bsmx
+Cleanout debugging comments.Maybe add debug or log
 
 dataMemcache: create nosetests for all methods. write-read-compare. Validate type of data
 
@@ -13,7 +10,12 @@ reading the json files instead.
 
 Add test button to runcontrol page. This will do a quick run and reality check of the recipe.
 
+HW
+---
+boiler cycle, add hardware for hop dispenser, cooler etc.
+
 coverage
+--------
   covertests
   Start with all files not listed, should they be removed?
   Create a nosetests only option of covertests
@@ -41,8 +43,6 @@ Look for unused code as includes etc.
 
 ====== Post brew issues and observations =======
 
-brew 130309
-After brew is done programs exit, where?
 
 stages page has a links for number, why?
 DTHe blue on green does not work.

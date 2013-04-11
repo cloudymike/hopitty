@@ -26,6 +26,9 @@ class recipeListClass():
     def getRecipe(self, name):
         return self.list[name]
 
+    def deleteRecipe(self, name):
+        del self.list[name]
+
     def printNameList(self):
         """ Writes a list of all the recipe names"""
         for key, recipe in self.list.items():
@@ -36,7 +39,7 @@ class recipeListClass():
         nameList = []
         for key, recipe in self.list.items():
             nameList.append(key)
-        print nameList
+
         myData = dataMemcache.brewData()
         myData.setRecipeList(nameList)
 

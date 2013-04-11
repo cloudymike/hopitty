@@ -8,13 +8,15 @@ Also pushes recipe name list to memcache for use by web pages
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src") 
 sys.path.append("/home/mikael/workspace/hoppity/src/recipelistmgr")
-
+import getpass
+import os
 import recipelistmgr
 import time
 import ctrl
 import dataMemcache
 
 user = 'mikael'
+
 
 def run(mydata):
     rs = mydata.getRunStatus()
@@ -57,4 +59,10 @@ def runscan(runOnce = False):
             loop = False
         
 if __name__ == "__main__":
-    runscan()
+    oldstyle = False
+    if oldstyle:
+        runscan()
+    else:
+        daemon = ctrl.scanrun()
+        daemon.loop()
+        

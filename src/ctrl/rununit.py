@@ -219,6 +219,7 @@ class rununit():
 
     def __del__(self):
         self.controllers.shutdown()
+        print "xxxxxxxxxxx2"
 
     def bsmxIn(self, xml):
         """Inputs data from a bsmx doc string"""
@@ -233,21 +234,34 @@ class rununit():
         return(self.stages)
 
     def run(self):
-        self.check()
-        runOK = runRecipe(self.controllers, self.stages, \
+        if self.check():
+            runOK = runRecipe(self.controllers, self.stages, \
                           self.recipeName, self.verbose)
-        return(runOK)
+            return(runOK)
+        else:
+            return(False)
 
     def stop(self):
         self.controllers.stop()
 
     def quick(self):
-        self.check()
-        runOK = quickRecipe(self.controllers, self.stages, self.verbose)
-        return(runOK)
+        if self.check():
+            runOK = quickRecipe(self.controllers, self.stages, self.verbose)
+            return(runOK)
+        else:
+            return(False)
 
     def check(self):
-        if not ctrl.checkers.checkRecipe(self.controllers, self.stages, \
-                                         self.verbose):
-            print "ERROR: Recipe check failed"
-            sys.exit(1)
+        return(ctrl.checkers.checkRecipe(self.controllers, self.stages, \
+                                         self.verbose))
+
+    def checkBSMX(self, xml):
+        """Checks the BSMX recipe against controllers without loading it"""
+        print "yyyyyyyyyyyyyyy2"
+        stages = ctrl.bsmxReadRecipe(xml, self.controllers)
+        if stages != None:
+            print "yyyyyyyyyyyyyyy3"
+            return(ctrl.checkers.checkRecipe(self.controllers, stages, \
+                                         self.verbose))
+        else:
+            return(False)

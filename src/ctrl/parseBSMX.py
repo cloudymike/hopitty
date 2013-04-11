@@ -63,7 +63,13 @@ def bsmxReadName(doc):
 
 
 def bsmxReadRecipe(doc, controllers):
-    # TODO if Mash Method ==
+    """
+    Reads the bsmx file and creates a stages list.
+    The stages list is created based on Equipment name.
+    If no matching Equipemnt name is found, returns None
+
+    Returns None if any error is found and a stages list could not be created
+    """
 
     equipmentName = bsmxReadString(doc, "F_E_NAME")
     print "Equipment:", equipmentName
@@ -72,11 +78,9 @@ def bsmxReadRecipe(doc, controllers):
                     'Grain 2.5G, 5Gcooler 4Gpot',
                     'Grain 2.5G, 5Gcooler, 4Gpot'
                     ]
-    if equipmentName in validEquipment:
-        print "Equipment selected is OK"
-    else:
+    if equipmentName not in validEquipment:
         print "Equipment selected is not available"
-        sys.exit(1)
+        return(None)
 
     # recipe = bsmxReadString(doc, "F_R_NAME")
     mashProfile = bsmxReadString(doc, "F_MH_NAME")
@@ -96,7 +100,6 @@ def bsmxReadRecipe(doc, controllers):
 
     if stages == None:
         print "ERROR could not find a valid mash profile"
-        sys.exit(1)
     else:
         print "Mashprofile selected:", mashProfile
     return(stages)
