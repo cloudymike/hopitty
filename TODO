@@ -3,6 +3,9 @@ Where to start
 
 Cleanout debugging comments.Maybe add debug or log
 
+There is no way to see what recipe is selected until you push the start
+button
+
 dataMemcache: create nosetests for all methods. write-read-compare. Validate type of data
 
 Create a maintenance programs module that is similar to recipeliststatus, but
@@ -10,10 +13,15 @@ reading the json files instead.
 
 Add test button to runcontrol page. This will do a quick run and reality check of the recipe.
 
+
 HW
 ---
 boiler cycle, add hardware for hop dispenser, cooler etc.
 
+Add some simple test that compiled code is available for all installed
+modules that relies on it, even if it fails. As example 
+UscCmd/UscCmd --list
+if [ "$?" != "0"]; then echo "Error"; exit 1; fi
 coverage
 --------
   covertests

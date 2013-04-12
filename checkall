@@ -17,6 +17,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Recipe Tests Failed !!!!!!!!!!"
     exit 1
 fi
+echo "Testing HW specific software..."
+./testHWcode > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! HW specific code failed !!!!!!!!!!"
+    exit 1
+fi
 echo "Lint (pep8).."
 ./pepme > /dev/null
 if [ "$?" != "0" ]; then

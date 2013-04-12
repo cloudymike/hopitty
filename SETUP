@@ -12,6 +12,8 @@ sudo apt-get -y install g++
 sudo easy_install pyusb
 sudo easy_install pyserial
 sudo apt-get install pep8
+sudo apt-get install python-nose
+
 
 # Potential futures
 #sudo apt-get install memcached
@@ -59,15 +61,26 @@ cd PhidgetsPython/
 sudo python setup.py install
 popd
 
-sudo apt-get install python-nose
+#Pololu, servo USB controller
+sudo apt-get install libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
+cd /tmp
+wget http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
+unzip pololu-usb-sdk-120712.zip
+cd pololu-usb-sdk
+# Avoid sudo requirement to access USB port
+sudo cp 99-pololu.rules /etc/udev/rules.d/
 
-sudo apt-get install apache2
-cd $HOMEDIR
-cd cgi-bin
+# Everything is compiled for x86 so you could skip the below two lines
+make clean
+make
+cp Maestro/UscCmd $HOMEDIR
+
+cd $HOMEDIR/src
+cd cgibin
 sudo ./INSTALL
 
 cd $HOMEDIR
-./testme
+./checkall
 
 
 

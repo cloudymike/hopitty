@@ -39,3 +39,6 @@ python-x10
 
 # DigiWeight
 DigiWeight/usbscale
+
+# pololu Maestro USB cmd
+UscCmd
