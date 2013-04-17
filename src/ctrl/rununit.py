@@ -171,6 +171,7 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('mashCirculationPump', \
                               appliances.circulationPump())
     controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
+    controllers.addController('dispenser', appliances.dispenser())
 
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
@@ -219,7 +220,6 @@ class rununit():
 
     def __del__(self):
         self.controllers.shutdown()
-        print "xxxxxxxxxxx2"
 
     def bsmxIn(self, xml):
         """Inputs data from a bsmx doc string"""
@@ -257,10 +257,8 @@ class rununit():
 
     def checkBSMX(self, xml):
         """Checks the BSMX recipe against controllers without loading it"""
-        print "yyyyyyyyyyyyyyy2"
         stages = ctrl.bsmxReadRecipe(xml, self.controllers)
         if stages != None:
-            print "yyyyyyyyyyyyyyy3"
             return(ctrl.checkers.checkRecipe(self.controllers, stages, \
                                          self.verbose))
         else:

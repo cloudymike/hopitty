@@ -54,21 +54,15 @@ class scanrun():
 
     def updateRecipes(self):
         self.rl.readBeerSmith(self.bsmxfile)
-        print "yyyyyyyyyyyyyy1"
         iterlist = self.rl.getlist()
         deleteList = []
         for recipeName in iterlist:
-            print "--", recipeName
             recipeObject = self.rl.getRecipe(recipeName)
             recipeBSMX = recipeObject.getBSMXdoc()
             if not self.runner.checkBSMX(recipeBSMX):
-                print "--------", recipeName, " bad recipe"
                 deleteList.append(recipeName)
-        print "Found bad recipes"
         for deleteName in deleteList:
-            print "Deleting", deleteName
             self.rl.deleteRecipe(deleteName)
-        print "Recipes read and checked"
 
         self.rl.nameListToMemcache()
 
@@ -111,4 +105,3 @@ class scanrun():
                 print "No recipe selected"
         else:
             print "Run not enabled"
-        print "xxxxxxxxxxx3"

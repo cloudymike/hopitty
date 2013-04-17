@@ -3,11 +3,17 @@ Created on Oct 17, 2012
 
 @author: mikael
 '''
+import os
+import subprocess
 
+import appliances.genctrl
 import sensors
 
+empty = 0
+full = 1
 
-class genctrl():
+
+class dispenser(appliances.genctrl):
     '''
     Generic controller
     Use this baseclass to derive the actual controllers
@@ -22,22 +28,20 @@ class genctrl():
         could be off, as example, heater goes
         on and off, while controller is active
         '''
-        self.actual = 0       # Actual measured value, ex temp
-        self.target = 0       # Target value
+        self.actual = full       # Actual measured value, ex temp
+        self.target = full       # Target value
         self.unit = 'U'       # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False   # Controller is running
         self.switch = None    # Switch object. Should have method on and off
         self.sensor = sensors.genericSensor()
+        scriptdir = os.path.dirname(os.path.abspath(__file__))
+        self.exe = scriptdir + '/../../UscCmd/UscCmd'
+        self.exefull = self.exe + ' --servo 0,4000'
+        self.exeempty = self.exe + ' --servo 0,8000'
 
     def __del__(self):
         self.stop()
-
-    def empty(self):
-        pass
-
-    def full(self):
-        pass
 
     def connectSwitch(self, switch):
         """
@@ -54,10 +58,7 @@ class genctrl():
 
         This functions MUST be rewritten for every controller!
         """
-        if self.targetMet():
-            self.actual = self.actual + 1
-        else:
-            self.actual = self.actual - 1
+        pass
 
     def update(self):
         """
@@ -67,11 +68,14 @@ class genctrl():
         """
         self.measure()
         if self.active:
-            pass
+            if self.actual == full:
+                if self.target == empty:
+                    self.empty()
 
     def targetMet(self):
         """ Function for target met. Rewrite for each implementation"""
-        return(self.actual >= self.target)
+        return(self.actual == self.target)
+        #return(True)
 
     def set(self, value):
         """ Sets a target value and start controller.
@@ -116,8 +120,8 @@ class genctrl():
         Should shut down all power as well
         to ensure that all is safe after stop
         """
-        self.target = 0
-        self.actual = 0
+        self.target = full
+        self.actual = full
         self.active = False
         self.powerOn = False
 
@@ -129,3 +133,13 @@ class genctrl():
 
     def findOrAddSensor(self, clist):
         pass
+
+    def full(self):
+        retval = subprocess.check_output(self.exefull, shell=True)
+        self.actual = full
+        print "Dispenser full"
+
+    def empty(self):
+        retval = subprocess.check_output(self.exeempty, shell=True)
+        self.actual = empty
+        print "Dispenser empty"

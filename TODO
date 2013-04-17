@@ -1,7 +1,7 @@
 Where to start
 ===============
 
-Cleanout debugging comments.Maybe add debug or log
+Wrap UscCmd into python. For now just got from one endpoint to another
 
 There is no way to see what recipe is selected until you push the start
 button

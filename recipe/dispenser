@@ -1,0 +1,14 @@
+{
+"name":"DispenserTest",
+  "recipe":   {
+    "1":{
+      "dispenser":1,
+      "delayTimer":0.02
+    },
+    "2": {
+      "dispenser":0,
+      "delayTimer":0.02
+    }
+  }
+
+}
