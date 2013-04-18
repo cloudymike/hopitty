@@ -1,7 +1,12 @@
 Where to start
 ===============
+Function bsmxReadBoilAdds(doc) returns a list of 
+additions. Take the first one from the list and use that
+for dispenser. Rest will have to be added manually
 
-Wrap UscCmd into python. For now just got from one endpoint to another
+In mashProfiles: Split boil time into time before addition and after.
+Make a step with addition and then add remaining build time
+
 
 There is no way to see what recipe is selected until you push the start
 button

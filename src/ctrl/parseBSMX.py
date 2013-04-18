@@ -10,6 +10,31 @@ def bsmxReadString(doc, tagName):
     return(recipeString)
 
 
+def bsmxReadBoilAdds(doc):
+    boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
+    addTimes = []
+
+    # Find hop additions times
+    tagName = "F_H_BOIL_TIME"
+    additions = doc.getElementsByTagName(tagName)
+    for addItem in additions:
+        at = addItem.firstChild.nodeValue
+        if at != boiltime:
+            addTimes.append(float(at))
+
+    # Find misc additions times
+    tagName = "F_M_TIME"
+    additions = doc.getElementsByTagName(tagName)
+    for addItem in additions:
+        at = addItem.firstChild.nodeValue
+        if at != boiltime:
+            addTimes.append(float(at))
+
+    addTimes.sort(reverse=True)
+    print addTimes
+    return(addTimes)
+
+
 def bsmxReadTempF(doc, tagName):
     return(float(bsmxReadString(doc, tagName)))
 
@@ -253,9 +278,12 @@ if __name__ == "__main__":
     c.load()
 
     #filename = "../../beersmith/SilverDollarPorter.bsmx"
-    filename = "../../beersmith/spargetest.bsmx"
+    filename = "../../beersmith/17citra.bsmx"
+    #filename = "../../beersmith/spargetest.bsmx"
     #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
     #printSomeBsmx(filename)
 
-    myStages = bsmxReadRecipe(bsmxReadFile(filename), c)
+    doc = bsmxReadFile(filename)
+    myStages = bsmxReadRecipe(doc, c)
     prettyPrintStages(myStages)
+    bsmxReadBoilAdds(doc)

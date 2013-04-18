@@ -1,5 +1,5 @@
 '''
-Created on Oct 17, 2012
+Created on Apr 17, 2013
 
 @author: mikael
 '''
@@ -37,18 +37,16 @@ class dispenser(appliances.genctrl):
         self.sensor = sensors.genericSensor()
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../UscCmd/UscCmd'
-        self.exefull = self.exe + ' --servo 0,4000'
-        self.exeempty = self.exe + ' --servo 0,8000'
 
-    def __del__(self):
-        self.stop()
+        # If multiple dispensers are added, these values can be set in
+        # connectSwitch
+        self.servo = '2'
+        self.vFull = '8000'
+        self.vEmpty = '4000'
+        self.exeFull = self.exe + ' --servo ' + self.servo + ',' + self.vFull
+        self.exeEmpty = self.exe + ' --servo ' + self.servo + ',' + self.vEmpty
 
-    def connectSwitch(self, switch):
-        """
-        If a switch is required, this will connect it with the devices
-        The switch object needs to have a method on and a method off.
-        """
-        self.switch = switch
+        self.move()
 
     def measure(self):
         """
@@ -66,52 +64,13 @@ class dispenser(appliances.genctrl):
         meaning turning off or on power
         Probably a good idea to do a self.measure() first
         """
-        self.measure()
         if self.active:
-            if self.actual == full:
-                if self.target == empty:
-                    self.empty()
+            self.move()
 
     def targetMet(self):
         """ Function for target met. Rewrite for each implementation"""
         return(self.actual == self.target)
         #return(True)
-
-    def set(self, value):
-        """ Sets a target value and start controller.
-        if value is 0, deactivate and stop controller
-        """
-        self.target = value
-#        if value == 0:
-#            self.stop()
-#        else:
-#            self.start()
-
-    def get(self):
-        """
-        Get the actual measured value.
-        As a side effect runs the measure command
-        """
-        self.measure()
-        return(self.actual)
-
-    def getTarget(self):
-        """
-        Get the target value.
-        """
-        return(self.target)
-
-    def getUnit(self):
-        """
-        Get the unit of measure.
-        """
-        return(self.unit)
-
-    def getPowerOn(self):
-        """
-        Get the status of power.
-        """
-        return(self.powerOn)
 
     def stop(self):
         """
@@ -119,27 +78,22 @@ class dispenser(appliances.genctrl):
         De-activate the controller
         Should shut down all power as well
         to ensure that all is safe after stop
+        In this case return the dispenser to Full value
         """
         self.target = full
-        self.actual = full
+        self.move()
         self.active = False
-        self.powerOn = False
 
-    def start(self):
-        self.active = True
-
-    def isActive(self):
-        return(self.active)
-
-    def findOrAddSensor(self, clist):
-        pass
-
-    def full(self):
-        retval = subprocess.check_output(self.exefull, shell=True)
-        self.actual = full
-        print "Dispenser full"
-
-    def empty(self):
-        retval = subprocess.check_output(self.exeempty, shell=True)
-        self.actual = empty
-        print "Dispenser empty"
+    def move(self):
+        if self.target == empty:
+            try:
+                retval = subprocess.check_output(self.exeEmpty, shell=True)
+            except:
+                pass
+            self.actual = empty
+        else:
+            try:
+                retval = subprocess.check_output(self.exeFull, shell=True)
+            except:
+                pass
+            self.actual = full
