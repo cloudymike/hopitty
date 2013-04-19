@@ -10,7 +10,7 @@ def bsmxReadString(doc, tagName):
     return(recipeString)
 
 
-def bsmxReadBoilAdds(doc):
+def bsmxReadDispense(doc):
     boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
     addTimes = []
 
@@ -277,13 +277,15 @@ if __name__ == "__main__":
     c = ctrl.controllerList()
     c.load()
 
-    #filename = "../../beersmith/SilverDollarPorter.bsmx"
-    filename = "../../beersmith/17citra.bsmx"
     #filename = "../../beersmith/spargetest.bsmx"
-    #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
-    #printSomeBsmx(filename)
 
+    #filename = "../../beersmith/SilverDollarPorter.bsmx"
+    #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
+    #filename = "../../beersmith/17citra.bsmx"
+    filename = "../../beersmith/18StoneRuination.bsmx"
+
+    #printSomeBsmx(filename)
     doc = bsmxReadFile(filename)
     myStages = bsmxReadRecipe(doc, c)
     prettyPrintStages(myStages)
-    bsmxReadBoilAdds(doc)
+    bsmxReadDispense(doc)
