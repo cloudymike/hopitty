@@ -5,6 +5,25 @@ empty = 0
 full = 1
 
 
+def checkVolBSMX(doc):
+    return(True)
+    # Check tunDead Space
+    tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
+    tunDeadSpaceMin = 1
+    if tunDeadSpace < tunDeadSpaceMin:
+        print "Error: Tun dead space:", tunDeadSpace, "requires:", \
+              tunDeadSpaceMin, "qt"
+        return(False)
+
+    # Check boiler volume
+    preBoilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
+    boilerVolumeMax = 14
+    if preBoilVol > boilerVolumeMax:
+        print "Error: ", preBoilVol, "exceeding boiler volume"
+        return(False)
+    return(True)
+
+
 # Each def takes a recipe input and creates a mash profile
 # with stages
 def boiling(doc, controllers, stageCount):
@@ -126,6 +145,7 @@ def SingleBatchRecycleMash(doc, controllers):
     """
     Original single mash, but recirculate mash all through mashing
     """
+    print "====================SingleBatchRecycleMash"
     stages = {}
     stageCount = 1
 
@@ -133,6 +153,7 @@ def SingleBatchRecycleMash(doc, controllers):
     s1["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
+
     stages[mkSname("Heating", stageCount)] = s1
     stageCount = stageCount + 1
 
@@ -228,6 +249,7 @@ def MultiBatchRecycleMash(doc, controllers):
     """
     Multi mash, but recirculate mash all through mashing
     """
+    print "====================MultiBatchRecycleMash"
     stages = {}
 
     totVolIn = 0
@@ -239,6 +261,7 @@ def MultiBatchRecycleMash(doc, controllers):
     s1["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
+
     stages[mkSname("Heating", stageCount)] = s1
     stageCount = stageCount + 1
 

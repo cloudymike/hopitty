@@ -1,4 +1,4 @@
-<Recipes><_MOD_>1975-04-02</_MOD_>
+<Recipes><_MOD_>1969-12-31</_MOD_>
 <Name>Recipes</Name>
 <Type>7372</Type>
 <Owndata>0</Owndata>
@@ -7,12 +7,12 @@
 <_XName>Recipes</_XName>
 <Allocinc>16</Allocinc>
 <Data><Recipe><_MOD_>1975-01-05</_MOD_>
-<F_R_NAME>18 Stone Ruination IPA 2.5G</F_R_NAME>
+<F_R_NAME>18 RuinStone IPA 2.5G</F_R_NAME>
 <F_R_BREWER>From Zymurgy July 2012</F_R_BREWER>
 <F_R_ASST_BREWER></F_R_ASST_BREWER>
-<F_R_DATE>2008-05-16</F_R_DATE>
+<F_R_DATE>2013-04-20</F_R_DATE>
 <F_R_INV_DATE>1992-02-01</F_R_INV_DATE>
-<F_R_VOLUME_MEASURED>640.0000000</F_R_VOLUME_MEASURED>
+<F_R_VOLUME_MEASURED>345.6000000</F_R_VOLUME_MEASURED>
 <F_R_FINAL_VOL_MEASURED>640.0000000</F_R_FINAL_VOL_MEASURED>
 <F_R_MASH_TIMER>0</F_R_MASH_TIMER>
 <F_R_BOIL_TIMER>0</F_R_BOIL_TIMER>
@@ -27,7 +27,7 @@
 <F_E_TUN_MASS>160.0000000</F_E_TUN_MASS>
 <F_E_BOIL_RATE_FLAG>1</F_E_BOIL_RATE_FLAG>
 <F_E_TUN_SPECIFIC_HEAT>0.3000000</F_E_TUN_SPECIFIC_HEAT>
-<F_E_TUN_DEADSPACE>6.4000000</F_E_TUN_DEADSPACE>
+<F_E_TUN_DEADSPACE>64.0000000</F_E_TUN_DEADSPACE>
 <F_E_TUN_ADJ_DEADSPACE>1</F_E_TUN_ADJ_DEADSPACE>
 <F_E_CALC_BOIL>1</F_E_CALC_BOIL>
 <F_E_BOIL_VOL>436.7360000</F_E_BOIL_VOL>
@@ -76,9 +76,9 @@ Mouthfeel: Smooth, medium-light to medium-bodied mouthfeel without hop-derived a
 <F_R_MASH><_MOD_>2013-02-25</_MOD_>
 <F_MH_NAME>Single Infusion, Medium Body, No Mash Out</F_MH_NAME>
 <F_MH_GRAIN_WEIGHT>116.0000000</F_MH_GRAIN_WEIGHT>
-<F_MH_GRAIN_TEMP>68.0000000</F_MH_GRAIN_TEMP>
+<F_MH_GRAIN_TEMP>72.0000000</F_MH_GRAIN_TEMP>
 <F_MH_BOIL_TEMP>212.0000000</F_MH_BOIL_TEMP>
-<F_MH_TUN_TEMP>68.0000000</F_MH_TUN_TEMP>
+<F_MH_TUN_TEMP>72.0000000</F_MH_TUN_TEMP>
 <F_MH_PH>5.4000000</F_MH_PH>
 <F_MH_SPARGE_TEMP>168.0000000</F_MH_SPARGE_TEMP>
 <F_MH_BATCH>0</F_MH_BATCH>
@@ -86,7 +86,7 @@ Mouthfeel: Smooth, medium-light to medium-bodied mouthfeel without hop-derived a
 <F_MH_BATCH_EVEN>0</F_MH_BATCH_EVEN>
 <F_MH_BATCH_DRAIN>0</F_MH_BATCH_DRAIN>
 <F_MASH_39>1</F_MASH_39>
-<F_MH_TUN_DEADSPACE>6.4000000</F_MH_TUN_DEADSPACE>
+<F_MH_TUN_DEADSPACE>64.0000000</F_MH_TUN_DEADSPACE>
 <F_MH_BIAB_VOL>640.0000000</F_MH_BIAB_VOL>
 <F_MH_BIAB>0</F_MH_BIAB>
 <F_MH_NOTES>Simple single infusion mash for use with most modern well modified grains (about 95% of the time).</F_MH_NOTES>
@@ -98,23 +98,23 @@ Mouthfeel: Smooth, medium-light to medium-bodied mouthfeel without hop-derived a
 <Size>1</Size>
 <_XName>steps</_XName>
 <Allocinc>16</Allocinc>
-<Data><MashStep><_MOD_>2013-04-18</_MOD_>
+<Data><MashStep><_MOD_>2027-08-15</_MOD_>
 <F_MS_NAME>Mash In</F_MS_NAME>
 <F_MS_TYPE>0</F_MS_TYPE>
 <F_MS_INFUSION>290.0000000</F_MS_INFUSION>
 <F_MS_STEP_TEMP>152.0000000</F_MS_STEP_TEMP>
 <F_MS_STEP_TIME>60.0000000</F_MS_STEP_TIME>
 <F_MS_RISE_TIME>2.0000000</F_MS_RISE_TIME>
-<F_MS_TUN_ADDITION>6.4000000</F_MS_TUN_ADDITION>
+<F_MS_TUN_ADDITION>64.0000000</F_MS_TUN_ADDITION>
 <F_MS_TUN_HC>0.3000000</F_MS_TUN_HC>
 <F_MS_TUN_VOL>640.0000000</F_MS_TUN_VOL>
-<F_MS_TUN_TEMP>68.0000000</F_MS_TUN_TEMP>
+<F_MS_TUN_TEMP>72.0000000</F_MS_TUN_TEMP>
 <F_MS_TUN_MASS>160.0000000</F_MS_TUN_MASS>
 <F_MS_START_TEMP>0.0000000</F_MS_START_TEMP>
-<F_MS_GRAIN_TEMP>68.0000000</F_MS_GRAIN_TEMP>
+<F_MS_GRAIN_TEMP>72.0000000</F_MS_GRAIN_TEMP>
 <F_MS_START_VOL>0.0000000</F_MS_START_VOL>
 <F_MS_GRAIN_WEIGHT>116.0000000</F_MS_GRAIN_WEIGHT>
-<F_MS_INFUSION_TEMP>173.3707398</F_MS_INFUSION_TEMP>
+<F_MS_INFUSION_TEMP>170.2112202</F_MS_INFUSION_TEMP>
 <F_MS_DECOCTION_AMT>0.0000000</F_MS_DECOCTION_AMT>
 </MashStep>
 </Data>
@@ -185,7 +185,7 @@ Mouthfeel: Smooth, medium-light to medium-bodied mouthfeel without hop-derived a
 <Size>7</Size>
 <_XName>Ingredients</_XName>
 <Allocinc>16</Allocinc>
-<Data><Grain><_MOD_>1975-04-03</_MOD_>
+<Data><Grain><_MOD_>1969-12-31</_MOD_>
 <F_G_NAME>Pale Malt (2 Row) US</F_G_NAME>
 <F_G_ORIGIN>US</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -211,7 +211,7 @@ Mouthfeel: Smooth, medium-light to medium-bodied mouthfeel without hop-derived a
 <F_G_PRICE>0.0800000</F_G_PRICE>
 <F_G_CONVERT_GRAIN>Pale Liquid Extract</F_G_CONVERT_GRAIN>
 </Grain>
-<Grain><_MOD_>1975-02-06</_MOD_>
+<Grain><_MOD_>1975-05-31</_MOD_>
 <F_G_NAME>Caramel/Crystal Malt - 20L</F_G_NAME>
 <F_G_ORIGIN>US</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -261,7 +261,7 @@ Substitutes: Centennial</F_H_NOTES>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Misc><_MOD_>1969-12-31</_MOD_>
+<Misc><_MOD_>2013-04-21</_MOD_>
 <F_M_NAME>Whirlfloc Tablet</F_M_NAME>
 <F_M_TYPE>1</F_M_TYPE>
 <F_M_USE_FOR>Clarity</F_M_USE_FOR>
@@ -279,7 +279,7 @@ Substitutes: Centennial</F_H_NOTES>
 <F_M_IMPORT_UNITS>0</F_M_IMPORT_UNITS>
 <F_ORDER>4</F_ORDER>
 </Misc>
-<Hops><_MOD_>2013-04-18</_MOD_>
+<Hops><_MOD_>1969-12-31</_MOD_>
 <F_H_NAME>Centennial</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>0</F_H_TYPE>
@@ -290,19 +290,19 @@ Substitutes: Centennial</F_H_NOTES>
 <F_H_INVENTORY>0.0000000</F_H_INVENTORY>
 <F_H_AMOUNT>0.4999252</F_H_AMOUNT>
 <F_H_HSI>40.0000000</F_H_HSI>
-<F_H_BOIL_TIME>0.0000000</F_H_BOIL_TIME>
+<F_H_BOIL_TIME>14.0000000</F_H_BOIL_TIME>
 <F_H_DRY_HOP_TIME>0.0000000</F_H_DRY_HOP_TIME>
 <F_H_NOTES>Used for: General purpose bittering, aroma in American ales and Wheats
 Aroma: Floral, citrus aroma, spicy, clean bittering flavor
 Substitutes: Galena, Eroica, Nugget, Bullion
 Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
-<F_H_IBU_CONTRIB>0.0000000</F_H_IBU_CONTRIB>
+<F_H_IBU_CONTRIB>15.4454149</F_H_IBU_CONTRIB>
 <F_ORDER>5</F_ORDER>
 <F_H_USE>0</F_H_USE>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Yeast><_MOD_>1975-01-23</_MOD_>
+<Yeast><_MOD_>1975-05-10</_MOD_>
 <F_Y_NAME>California Ale</F_Y_NAME>
 <F_Y_LAB>White Labs</F_Y_LAB>
 <F_Y_PRODUCT_ID>WLP001</F_Y_PRODUCT_ID>
@@ -315,7 +315,7 @@ Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_Y_PRICE>6.0000000</F_Y_PRICE>
 <F_ORDER>6</F_ORDER>
 <F_Y_IN_RECIPE>1</F_Y_IN_RECIPE>
-<F_Y_BREW_DATE>2008-05-16</F_Y_BREW_DATE>
+<F_Y_BREW_DATE>2013-04-20</F_Y_BREW_DATE>
 <F_Y_PKG_DATE>2011-02-27</F_Y_PKG_DATE>
 <F_Y_CELLS>100.0000000</F_Y_CELLS>
 <F_Y_MIN_ATTENUATION>73.0000000</F_Y_MIN_ATTENUATION>
@@ -331,7 +331,7 @@ Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_Y_NOTES>Very clean flavor, balance and stability.  Accentuates hop flavor
 Versitile - can be used to make any style ale.</F_Y_NOTES>
 </Yeast>
-<Hops><_MOD_>1975-04-18</_MOD_>
+<Hops><_MOD_>1969-12-31</_MOD_>
 <F_H_NAME>Centennial</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>0</F_H_TYPE>
@@ -360,13 +360,14 @@ Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_R_TYPE>2</F_R_TYPE>
 <F_R_OLD_TYPE>0</F_R_OLD_TYPE>
 <F_R_LOCKED>0</F_R_LOCKED>
-<F_R_OG_MEASURED>1.0520000</F_R_OG_MEASURED>
+<F_R_OG_MEASURED>1.0550000</F_R_OG_MEASURED>
 <F_R_FG_MEASURED>1.0040000</F_R_FG_MEASURED>
 <F_R_OG_PRIMARY>1.0180000</F_R_OG_PRIMARY>
 <F_R_OG_SECONDARY>1.0110000</F_R_OG_SECONDARY>
 <F_R_BOIL_VOL_MEASURED>0.0000000</F_R_BOIL_VOL_MEASURED>
 <F_R_OG_BOIL_MEASURED>1.0000000</F_R_OG_BOIL_MEASURED>
-<F_R_NOTES>13.2 brix OG
+<F_R_NOTES>lost probabl y half the yeast as it sprayed out of the container when opened. Had a healthy fermentation within 18hours so probably still OK.
+
 </F_R_NOTES>
 <F_R_RATING>35.0000000</F_R_RATING>
 <F_R_DESCRIPTION></F_R_DESCRIPTION>

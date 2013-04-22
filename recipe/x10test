@@ -1,0 +1,22 @@
+{
+"name":"x10test",
+  "recipe":   {
+    "01":{
+      "boiler":1,
+      "delayTimer": 0.1
+     },
+     "02":{
+      "waterHeater":100
+     },
+    "03":{
+      "boiler":1,
+      "delayTimer": 0.1
+     },
+     "04":{
+      "waterHeater":100,
+      "delayTimer": 0.1
+     }
+     
+  }
+
+}

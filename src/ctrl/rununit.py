@@ -223,6 +223,7 @@ class rununit():
 
     def bsmxIn(self, xml):
         """Inputs data from a bsmx doc string"""
+        print "==================bsmx"
         self.recipeName = ctrl.bsmxReadName(xml)
         self.stages = ctrl.bsmxReadRecipe(xml, self.controllers)
 
@@ -257,6 +258,8 @@ class rununit():
 
     def checkBSMX(self, xml):
         """Checks the BSMX recipe against controllers without loading it"""
+        if not ctrl.checkVolBSMX(xml):
+            return(False)
         stages = ctrl.bsmxReadRecipe(xml, self.controllers)
         if stages != None:
             return(ctrl.checkers.checkRecipe(self.controllers, stages, \

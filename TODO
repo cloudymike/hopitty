@@ -1,12 +1,14 @@
 Where to start
 ===============
-Function bsmxReadBoilAdds(doc) returns a list of 
-additions. Take the first one from the list and use that
-for dispenser. Rest will have to be added manually
 
-In mashProfiles: Split boil time into time before addition and after.
-Make a step with addition and then add remaining build time
+create a minmax water checker using BSMX input.
+There is a start of one in mashProfiles.py. checkVolBsmx
+More in last mach profile
+Break this one out as a def and reuse. Maybe use in ctrl.rununit.checkBSMX.
+Right now it always returns true as tests are failing.
 
+Created a checker for min max water but it is not considering water used by grain.
+Maybe break out function in parseBSMX. Make 18StoneRuination fail. Did not work so remove.
 
 There is no way to see what recipe is selected until you push the start
 button
@@ -55,18 +57,43 @@ Look for unused code as includes etc.
 
 
 ====== Post brew issues and observations =======
+==04/20/2013
+User wehn running as sudo is root, so the reading of the cloud.bsmx file based on user does
+does not work. Hacked this so the default user is mikael, this hack should be removed.
+Instead add an option for user and or file to use. Make this a required option for now.
 
+Get all USB commands to work without sudo
 
+Better holder for hose into boiler pot. The hose must be above the surface so no
+siphoning will be hapening. The platic clip will not work with a 4 gallon pot, but maybe a 
+5 gallon.
+
+Better error messages when a recipe file is not properly provided. Try, as example
+   ./runscan.py ../recipe/x10test
+ This should have been -f but still tries to read a file and then fail
+Also try reading in file with runscan.py from user that does not have one (as root)
+
+On brewstages provide info of recipe in use.
+
+Preboil during sparge. This will save overall save time and energy, as the wort cools down
+during sparging. In this case the different between the estimated time for boil and the 
+actual was just the amount of time spent in sparge, 30min.
+
+Brewstages, as page is larger than one screen, every refresh pops page to top.  Fix for now, 
+slow the page refresh to something like 15s or 30s.
+
+The wort pump was running dry. It was close, was at 5.4 gallon, it should have been 5.47.
+For now raise the volume used for equipment in recipe. Add check for equipment volume and total
+volume in and out in checkers. Move from parseBSMX
+
+== 04/10/2013
 stages page has a links for number, why?
 DTHe blue on green does not work.
 
-
-
-
-after brew 130202
+== after brew 130202
 Post cleaning not working as it relies on scale.
 
-after brew 130126
+== after brew 130126
 Add a link to gravity/temperature calculator on the web
 
 Add key mashing data to mash status page from recipe
@@ -77,15 +104,9 @@ Add key mashing data to mash status page from recipe
 refactoring
   stages class ( & module)
 
-refactoring
-  runctrl.py, breakout as a def or class
-  Should be possible to call (as needed when recipelist is done
-
 Break out getop and use an options dictionary
 
 How to start a brew?
-
-cloudrecipe.py as standalone exec
 
 Add the user for the path to the home dir bsmx file as an input option
 to recipeScanner

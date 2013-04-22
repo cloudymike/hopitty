@@ -38,6 +38,7 @@ def runscan(runOnce = False):
     loop = True
     mydata.setRunStatus('stop')
     while loop:
+        user = 'mikael'
         bsmxfile = "/home/"+user+"/.beersmith2/Cloud.bsmx"
         rl.readBeerSmith(bsmxfile)
         rl.nameListToMemcache()

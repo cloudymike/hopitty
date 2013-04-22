@@ -24,8 +24,9 @@ if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'b:f:hqpv', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'b:cf:hqpv', [
                          'bsmx=',
+                         'checkonly'
                          'file=',
                          'help',
                          'printRecipe',
@@ -37,6 +38,7 @@ if __name__ == "__main__":
     simulation = False
     permissive = True
     quick = False
+    checkonly = False
     printRecipe = False
     recipeFile = ""
     bsmxFile = ""
@@ -49,6 +51,8 @@ if __name__ == "__main__":
             bsmxFile = arg
         elif opt in ('-q', '--quick'):
             quick = True
+        elif opt in ('-c', '--checkonly'):
+            checkonly = True
         elif opt in ('-p', '--printRecipe'):
             printRecipe = True
         elif opt in ('-v', '--verbose'):
@@ -64,10 +68,15 @@ if __name__ == "__main__":
         json = ctrl.readJson(recipeFile)
         ru.jsonIn(json)
 
-    if quick:
-        runOK = ru.quick()
+    if bsmxFile != "":
+        runOK = ru.checkBSMX(xml)
     else:
-        runOK = ru.run()
+        runOK = ru.check()
+    if not checkonly:
+        if quick:
+            runOK = ru.quick()
+        else:
+            runOK = ru.run()
 
     if not runOK:
         print "ERROR: Run of controller failed"

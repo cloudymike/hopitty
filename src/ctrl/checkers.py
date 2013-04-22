@@ -1,3 +1,4 @@
+import sys
 
 
 def checkHardware(controllers):
@@ -28,6 +29,14 @@ def checkHardware(controllers):
 
 
 def checkRecipe(mycontrollers, recipe, verbose):
+    #if checkVolume(mycontrollers, recipe, verbose):
+    if checkRecipeVsController(mycontrollers, recipe, verbose):
+        if checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):
+            return(True)
+    return(False)
+
+
+def checkRecipeVsController(mycontrollers, recipe, verbose):
     """
     Go through all the stages in the recipe and see
     that the controllers match the controllers available
@@ -36,5 +45,24 @@ def checkRecipe(mycontrollers, recipe, verbose):
         if verbose:
             print r_key
         if not mycontrollers.check(settings):
+            return(False)
+    return(True)
+
+
+def checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):
+    """
+    Check that Boiler and WaterHeater is not on in the same step.
+    """
+    for r_key, settings in sorted(recipe.items()):
+        try:
+            waterHeater = int(settings['waterHeater']['targetValue']) != 0
+        except:
+            waterHeater = False
+        try:
+            boiler = int(settings['boiler']['targetValue']) != 0
+        except:
+            boiler = False
+        if waterHeater and boiler:
+            print "Error: water Heater and boiler on in stage", r_key
             return(False)
     return(True)

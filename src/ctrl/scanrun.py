@@ -24,7 +24,7 @@ def run(mydata):
 
 
 class scanrun():
-    def __init__(self, recipefile=None, user=None):
+    def __init__(self, recipefile=None, user='mikael'):
         self.rl = recipelistmgr.recipeListClass()
         self.mydata = dataMemcache.brewData()
         self.runner = ctrl.rununit()
