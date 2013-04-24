@@ -123,14 +123,17 @@ def SingleInfusionBatch(doc, controllers):
 
     s7 = parseBSMX.stageCtrl(controllers)
     s7["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s7["boiler"] = parseBSMX.setDict(1)
     stages["07 Wort out 1"] = s7
 
     s8 = parseBSMX.stageCtrl(controllers)
     s8["hotWaterPump"] = parseBSMX.setDict(preboilVol / 2)
+    s8["boiler"] = parseBSMX.setDict(1)
     stages["08 Sparge in 2"] = s8
 
     s10 = parseBSMX.stageCtrl(controllers)
     s10["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s10["boiler"] = parseBSMX.setDict(1)
     stages["10 Wort out 2"] = s10
 
     try:
@@ -220,16 +223,19 @@ def SingleBatchRecycleMash(doc, controllers):
 
     s7 = parseBSMX.stageCtrl(controllers)
     s7["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s7["boiler"] = parseBSMX.setDict(1)
     stages[mkSname("Wort out 1", stageCount)] = s7
     stageCount = stageCount + 1
 
     s8 = parseBSMX.stageCtrl(controllers)
     s8["hotWaterPump"] = parseBSMX.setDict(preboilVol / 2)
+    s8["boiler"] = parseBSMX.setDict(1)
     stages[mkSname("Sparge in 2", stageCount)] = s8
     stageCount = stageCount + 1
 
     s10 = parseBSMX.stageCtrl(controllers)
     s10["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s10["boiler"] = parseBSMX.setDict(1)
     stages[mkSname("Wort out 2", stageCount)] = s10
     stageCount = stageCount + 1
 
@@ -338,22 +344,26 @@ def MultiBatchRecycleMash(doc, controllers):
         sOut = parseBSMX.stageCtrl(controllers)
         sOut["wortPump"] = parseBSMX.setDict(volWortOut)
         totVolOut = totVolOut + volWortOut
+        sOut["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Wort out", stageCount)] = sOut
         stageCount = stageCount + 1
 
         sHold = parseBSMX.stageCtrl(controllers)
         sHold["delayTimer"] = parseBSMX.setDict(1)
+        sOut["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Sparge hold", stageCount)] = sHold
         stageCount = stageCount + 1
 
         sIn = parseBSMX.stageCtrl(controllers)
         sIn["hotWaterPump"] = parseBSMX.setDict(volSpargeIn)
         totVolIn = totVolIn + volSpargeIn
+        sOut["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Sparge in", stageCount)] = sIn
         stageCount = stageCount + 1
 
     s30 = parseBSMX.stageCtrl(controllers)
     s30["wortPump"] = parseBSMX.setDict(lastWortOut)
+    s30["boiler"] = parseBSMX.setDict(1)
     totVolOut = totVolOut + lastWortOut
     stages[mkSname("Wort out final", stageCount)] = s30
     stageCount = stageCount + 1

@@ -282,7 +282,7 @@ if __name__ == "__main__":
     #filename = "../../beersmith/SilverDollarPorter.bsmx"
     #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
     #filename = "../../beersmith/17citra.bsmx"
-    filename = "../../beersmith/18StoneRuination.bsmx"
+    filename = "../../beersmith/18RuinStone.bsmx"
 
     #printSomeBsmx(filename)
     doc = bsmxReadFile(filename)
