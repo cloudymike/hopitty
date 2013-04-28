@@ -3,6 +3,7 @@ import sys
 
 empty = 0
 full = 1
+dispenserMax = 4
 
 
 def checkVolBSMX(doc):
@@ -40,38 +41,53 @@ def boiling(doc, controllers, stageCount):
     dispenseTimeList = parseBSMX.bsmxReadDispense(doc)
 
     if len(dispenseTimeList) > 0:
-        if dispenseTimeList[0] > boilTime:
-            print "ERROR: bad dispense time"
-            return(None)
+        for dispenseTime in dispenseTimeList:
+            if dispenseTime > boilTime:
+                print "ERROR: bad dispense time"
+                return(None)
 
     if len(dispenseTimeList) > 0:
-        boilTime1 = boilTime - dispenseTimeList[0]
-        boilTime2 = dispenseTimeList[0]
-        step = parseBSMX.stageCtrl(controllers)
-        step["delayTimer"] = parseBSMX.setDict(boilTime1)
-        step["boiler"] = parseBSMX.setDict(1)
-        stages[mkSname("Boil", stageCount)] = step
-        stageCount = stageCount + 1
+
+        bt2 = boilTime
+        dispenser = 0
+        for dispenseTime in dispenseTimeList:
+            bt1 = bt2 - dispenseTime
+            bt2 = dispenseTime
+            step = parseBSMX.stageCtrl(controllers)
+            step["delayTimer"] = parseBSMX.setDict(bt1)
+            step["boiler"] = parseBSMX.setDict(1)
+
+            if dispenser > 0:
+                dispenserDevice = "dispenser%d" % (dispenser)
+                step[dispenserDevice] = parseBSMX.setDict(empty)
+                print "================", bt1, dispenserDevice
+            else:
+                print "================", bt1, "no dispenser"
+
+            stages[mkSname("Boil", stageCount)] = step
+            stageCount = stageCount + 1
+            dispenser = dispenser + 1
+
+        print "================", bt2, dispenserDevice
 
         step = parseBSMX.stageCtrl(controllers)
-        step["delayTimer"] = parseBSMX.setDict(boilTime2)
+        step["delayTimer"] = parseBSMX.setDict(bt2)
         step["boiler"] = parseBSMX.setDict(1)
-        step["dispenser"] = parseBSMX.setDict(empty)
-        stages[mkSname("Boil and Dispense", stageCount)] = step
+        dispenserDevice = "dispenser%d" % (dispenser)
+        step[dispenserDevice] = parseBSMX.setDict(empty)
+        stages[mkSname("Boil", stageCount)] = step
         stageCount = stageCount + 1
 
     else:
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(boilTime)
         step["boiler"] = parseBSMX.setDict(1)
-        step["dispenser"] = parseBSMX.setDict(empty)
         stages[mkSname("Boil", stageCount)] = step
         stageCount = stageCount + 1
 
     step = parseBSMX.stageCtrl(controllers)
     step["delayTimer"] = parseBSMX.setDict(0.1)
     step["boiler"] = parseBSMX.setDict(0)
-    step["dispenser"] = parseBSMX.setDict(full)
     stages[mkSname("Cool down", stageCount)] = step
     stageCount = stageCount + 1
 
@@ -315,9 +331,8 @@ def MultiBatchRecycleMash(doc, controllers):
         stages[mkSname("Mash mix", stageCount)] = step
         stageCount = stageCount + 1
 
+    # Turn off heater to ensure not overlap between heater and boiler
     s5 = parseBSMX.stageCtrl(controllers)
-    s5["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     s5["waterCirculationPump"] = parseBSMX.setDict(1)
     s5["mashCirculationPump"] = parseBSMX.setDict(1)
     s5["delayTimer"] = parseBSMX.setDict(2)
@@ -350,14 +365,14 @@ def MultiBatchRecycleMash(doc, controllers):
 
         sHold = parseBSMX.stageCtrl(controllers)
         sHold["delayTimer"] = parseBSMX.setDict(1)
-        sOut["boiler"] = parseBSMX.setDict(1)
+        sHold["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Sparge hold", stageCount)] = sHold
         stageCount = stageCount + 1
 
         sIn = parseBSMX.stageCtrl(controllers)
         sIn["hotWaterPump"] = parseBSMX.setDict(volSpargeIn)
         totVolIn = totVolIn + volSpargeIn
-        sOut["boiler"] = parseBSMX.setDict(1)
+        sIn["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Sparge in", stageCount)] = sIn
         stageCount = stageCount + 1
 

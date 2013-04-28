@@ -30,9 +30,11 @@ def bsmxReadDispense(doc):
         if at != boiltime:
             addTimes.append(float(at))
 
-    addTimes.sort(reverse=True)
-    print addTimes
-    return(addTimes)
+    dedupedAddTimes = list(set(addTimes))
+    dedupedAddTimes.sort(reverse=True)
+
+    print dedupedAddTimes
+    return(dedupedAddTimes)
 
 
 def bsmxReadTempF(doc, tagName):

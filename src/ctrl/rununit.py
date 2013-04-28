@@ -171,7 +171,10 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('mashCirculationPump', \
                               appliances.circulationPump())
     controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
-    controllers.addController('dispenser', appliances.dispenser())
+    controllers.addController('dispenser1', appliances.dispenser(1))
+    controllers.addController('dispenser2', appliances.dispenser(2))
+    controllers.addController('dispenser3', appliances.dispenser(3))
+    controllers.addController('dispenser4', appliances.dispenser(4))
 
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():

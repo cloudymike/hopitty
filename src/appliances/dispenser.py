@@ -20,7 +20,7 @@ class dispenser(appliances.genctrl):
     The controller has a generic sensor and switch class as well.
     '''
 
-    def __init__(self):
+    def __init__(self, number=1):
         '''
         Constructor
         multiple devices may require same switch collection
@@ -28,6 +28,8 @@ class dispenser(appliances.genctrl):
         could be off, as example, heater goes
         on and off, while controller is active
         '''
+        self.deviceNumber = number
+        self.servo = str(number + 1)
         self.actual = full       # Actual measured value, ex temp
         self.target = full       # Target value
         self.unit = 'U'       # Unit of measure
@@ -40,9 +42,12 @@ class dispenser(appliances.genctrl):
 
         # If multiple dispensers are added, these values can be set in
         # connectSwitch
-        self.servo = '2'
-        self.vFull = '8000'
-        self.vEmpty = '4000'
+        if number % 2 == 1:
+            self.vFull = '8000'
+            self.vEmpty = '4000'
+        else:
+            self.vFull = '4000'
+            self.vEmpty = '8000'
         self.exeFull = self.exe + ' --servo ' + self.servo + ',' + self.vFull
         self.exeEmpty = self.exe + ' --servo ' + self.servo + ',' + self.vEmpty
 
@@ -91,9 +96,11 @@ class dispenser(appliances.genctrl):
             except:
                 pass
             self.actual = empty
+            #print "Dispenser", self.deviceNumber, "empty"
         else:
             try:
                 retval = subprocess.check_output(self.exeFull, shell=True)
             except:
                 pass
             self.actual = full
+            #print "Dispenser", self.deviceNumber, "full"

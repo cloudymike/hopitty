@@ -2,11 +2,19 @@
 "name":"DispenserTest",
   "recipe":   {
     "1":{
-      "dispenser":1,
+      "dispenser1":0,
       "delayTimer":0.02
     },
     "2": {
-      "dispenser":0,
+      "dispenser2":0,
+      "delayTimer":0.02
+    },
+    "3": {
+      "dispenser3":0,
+      "delayTimer":0.02
+    },
+    "4": {
+      "dispenser4":0,
       "delayTimer":0.02
     }
   }

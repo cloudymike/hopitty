@@ -1,6 +1,17 @@
 Where to start
 ===============
 
+Write README in markdown
+Add information about hardware in README
+
+Create a recipe page, that will show what goes into
+each dispenser, the pot, the mashtun etc.
+
+
+Set servo motors speed to 100:
+sudo ./UscCmd --speed 2,30
+In init of class. May have to check if HW is there.
+
 create a minmax water checker using BSMX input.
 There is a start of one in mashProfiles.py. checkVolBsmx
 More in last mach profile
