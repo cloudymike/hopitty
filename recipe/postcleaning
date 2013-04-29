@@ -1,9 +1,6 @@
 {
-"name":"SilverDollarPorter",
+"name":"PostCleaning",
   "recipe":   {
-    "01":{
-      "wortPump":0.7
-    },
     "02": {
       "mashCirculationPump":1,
       "delayTimer":0.30

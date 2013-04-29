@@ -1,8 +1,17 @@
 Where to start
 ===============
 
+Work on the public page or wiki?
+
 Write README in markdown
 Add information about hardware in README
+
+Fix this in the public page
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
 
 Create a recipe page, that will show what goes into
 each dispenser, the pot, the mashtun etc.
@@ -68,6 +77,19 @@ Look for unused code as includes etc.
 
 
 ====== Post brew issues and observations =======
+== 04/28/13
+Added cold water to hot water tun after mashin. This dropped the temperature and added 30 min to the mash cycle.
+
+Siphoning from the mashtun to the boiler during sparging. Ended up with 3.8 gallons preboil so probably 2 quarts too much.
+
+Needed to put this beer on hold, at the boiling stage. The  boil had just started but brought down to 190F (3 on burner) The first hops where however already added.
+
+First use of aluminum pot,  The burner was turning off at setting  5, indicating bad contact between pot and burner. Seems to work OK after I moved the pot. This lead to slow heating to boil.
+
+The new pot does not have a lip so pouring out of the pot lead to spilling about a quart of wort. Changed to siphoning instead.
+
+
+
 ==04/20/2013
 User wehn running as sudo is root, so the reading of the cloud.bsmx file based on user does
 does not work. Hacked this so the default user is mikael, this hack should be removed.
