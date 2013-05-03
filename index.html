@@ -40,60 +40,21 @@
       </nav>
       <section>
         <h3>Welcome to Hopitty, the fully automatic personal brewery</h3>
+<p>
+The goal of this project is to create an automated brewing setup for all grain brewing. The software is mainly python code, that drives the brewing hardware, through USB interfaces. The user interfaces is web bases, so you can check on your brew from any computer, smart phone etc. Feel free to check out more details of the code on the <a href="https://github.com/cloudymike/hopitty">gihub pages</a> Also take a loot at the <a https://github.com/cloudymike/hopitty/blob/master/README.md>Readme file</a> for more details on how to build and run the software.
+</p>
 
-<p>The intention of this project is to create brewing software that enables full grain brewing, and doing so fully automatically. The basic setup assumes an electric hot water tun, cooler mash tun and and a electric boiler. All sensors and controllers are USB based, and in general all USB devices has source code for drivers. Hopitty reads Beersmith recipes directly, (bxml files) but recipes can also be read from json files. The user interfaces is web based, to allow you to check the status of the brew from any web browser, rather than just from the computer running the controller.</p>
-
-<p>The software is written in python. Some USB controllers are provided in other languages, as downloaded from the vendor. The code was written and tested on and Ubuntu PC.</p>
-
-For more details on the project check out these Wiki pages.
-
-<li><a href="https://github.com/cloudymike/hopitty/wiki/Hardware">Hardware</a></li>
+<h4>About the Hardware</h4>
+<p> The brewing equipment consists of an electric hot water tun, cooler mash tun and and a electric boiler. All sensors and controllers are USB based, this allows flexibility to add and replace equipment. The hardware used while writing this software is described in the <a href="https://github.com/cloudymike/hopitty/wiki/Hardware">hardware</a> wiki pages. All controllers and sensors are USB devices. This enables more flexibility, to use just the devices required. This project started, as example with one USB thermometer and and X10 switch to heat the strike water for the mash, and if that is all you have, the software will still work for this.
+</p>
+<p>
+The computer used while developing the software is an Ubuntu (12.04) PC. As the code is in Python it is very portable and and early version was demonstrated working on the RaspberryPI. The USB devices uses code provided by vendors and may be in other languages. All the source code is however included or will be downloaded by the setup script.
 
 
-<h4>One recipe controller</h4>
+<h4>But, does it brew?</h4>
+That is the main objective, right? To get an idea of what you can brew with this setup, check out <a href="http://beersmithrecipes.com/listrecipes/5399/hopsfull"> my recipes on the BeerSmith site</a>. An important feature of the software is that it reads the recipe files from BeerSmith software directly. This allows you to focus on creating a great recipe, and then let the software make it for you.
+</p>
 
-<p>The one recipe controller will run interactively by loading a recipe on the command line. It is great for testing and for running a single recipe.</p>
-
-<h1>How to run</h1>
-
-<p>cd src</p>
-
-<p>For one recipe run:
-./runctrl.py -f ../recipes/something</p>
-
-<p>Reading all beersmith recipes:
-./runscan.py</p>
-
-<p>Got to web page:
-http://localhost</p>
-
-<h1>Web pages</h1>
-
-<p>(This may change)
-The web pages are independent of the controller and communicates
-with memcache</p>
-
-<p>The scripts are mainly status script with addition of, when using runscan.py,
-allowing for selection of recipe and start a run</p>
-
-<p>To install cgi-bin scripts, cd into src/cgibin and type sudo INSTALL</p>
-
-<p>Note cgi-bin is not a valid python module name so the dir needs to be cgibin.
-Otherwise many things will break including nosetests.</p>
-
-<h1>How to build</h1>
-
-<p>The script SETUP in top dir should install all dependencies and run the tests.
-If errors, check the script. It relies on the ability to download from different
-vendors.</p>
-
-<p>This script will also setup the required web pages into /var/www</p>
-
-<h1>Testing</h1>
-
-<p>The script checkall should do a comprehensive test. It will run a number of
-nose tests and then also a set of functional tests as well as a lint. IF any fails
-it will stop the tests.</p>
 
 
 <!-- begin htmlcommentbox.com -->
@@ -103,11 +64,6 @@ it will stop the tests.</p>
 <!-- end htmlcommentbox.com -->
 
 
-<h1>Hardware specific code</h1>
-
-<p>There are some code that is not python, that is required to control the hardware.
-The code is all compiled within the setup script to allow portability. For details
-check the web pages of the vendors. The wget statement in SETUP is a good hint.</p>
       </section>
       <footer>
         <p>Project maintained by <a href="https://github.com/cloudymike">cloudymike</a></p>
