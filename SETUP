@@ -62,7 +62,7 @@ sudo python setup.py install
 popd
 
 #Pololu, servo USB controller
-sudo apt-get install libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
+sudo apt-get install -y libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
 cd /tmp
 wget http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
 unzip pololu-usb-sdk-120712.zip
@@ -71,6 +71,7 @@ cd pololu-usb-sdk
 sudo cp 99-pololu.rules /etc/udev/rules.d/
 
 # Everything is compiled for x86 so you could skip the below two lines
+# on an X86 machine
 make clean
 make
 cp Maestro/UscCmd $HOMEDIR
