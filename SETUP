@@ -4,9 +4,10 @@ HOMEDIR=`pwd`
 
 sudo apt-get -y update
 sudo apt-get install -y apache2
+sudo apt-get install -y unzip
 
 sudo apt-get -y install python-setuptools
-sudo apt-get -y install g++
+sudo apt-get -y install g++ make
 
 # Python packages. May require github downloads
 sudo easy_install pyusb
@@ -14,10 +15,10 @@ sudo easy_install pyserial
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
 
+sudo apt-get install -y memcached
+sudo easy_install python-memcached
 
 # Potential futures
-#sudo apt-get install -y memcached
-#sudo easy_install python-memcached
 #sudo apt-get install -y python-sqlalchemy
 
 
@@ -74,7 +75,7 @@ sudo cp 99-pololu.rules /etc/udev/rules.d/
 # on an X86 machine
 make clean
 make
-cp Maestro/UscCmd $HOMEDIR
+cp -r Maestro/UscCmd $HOMEDIR
 
 cd $HOMEDIR/src
 cd cgibin
