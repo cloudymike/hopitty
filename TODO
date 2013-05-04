@@ -1,6 +1,13 @@
 Where to start
 ===============
-
+try
+{
+listDevices();
+}
+catch
+{
+return;
+}
 Work on the public page or wiki?
 
 Write README in markdown
