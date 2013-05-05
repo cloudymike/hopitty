@@ -5,20 +5,16 @@ Where to start
 UscCmd failing in 64 bit. Add this code in Program.cs:
 try
 {
-listDevices();
+  listDevices();
 }
 catch
 {
-return;
+  return;
 }
-
-Set servo motors speed to 100:
-sudo ./UscCmd --speed 2,30
-In init of class. May have to check if HW is there.
 
 create a minmax water checker using BSMX input.
 There is a start of one in mashProfiles.py. checkVolBsmx
-More in last mach profile
+More in last mash profile
 Break this one out as a def and reuse. Maybe use in ctrl.rununit.checkBSMX.
 Right now it always returns true as tests are failing.
 
@@ -35,15 +31,14 @@ reading the json files instead.
 
 Add test button to runcontrol page. This will do a quick run and reality check of the recipe.
 
+titles on stages page are not ordered, create some basic order, alphabetic OK
 
-HW
----
-boiler cycle, add hardware for hop dispenser, cooler etc.
+====== Less immediate =====
+stages should probably be a class
+Remove unused code
+    Commented out code
+    import statements with yellow triangle
 
-Add some simple test that compiled code is available for all installed
-modules that relies on it, even if it fails. As example 
-UscCmd/UscCmd --list
-if [ "$?" != "0"]; then echo "Error"; exit 1; fi
 coverage
 --------
   covertests
@@ -51,22 +46,6 @@ coverage
   Create a nosetests only option of covertests
   Identify lines not covered, add nosetests or remove or mark as not testable
      hardware lines. try to minimize the amount
-
-
-====== Laidback work =====
-Remove unused code
-    Commented out code
-    import statements with yellow triangle
-
-pepme
-
-Increase coverage     
-    
-    
- 
-====== Less immediate =====
-stages should probably be a class
-Look for unused code as includes etc.
 
 
 
@@ -86,26 +65,16 @@ The new pot does not have a lip so pouring out of the pot lead to spilling about
 
 
 ==04/20/2013
-User wehn running as sudo is root, so the reading of the cloud.bsmx file based on user does
-does not work. Hacked this so the default user is mikael, this hack should be removed.
-Instead add an option for user and or file to use. Make this a required option for now.
 
 Get all USB commands to work without sudo
 
 Better holder for hose into boiler pot. The hose must be above the surface so no
-siphoning will be hapening. The platic clip will not work with a 4 gallon pot, but maybe a 
-5 gallon.
+siphoning will be happening. 
 
 Better error messages when a recipe file is not properly provided. Try, as example
    ./runscan.py ../recipe/x10test
  This should have been -f but still tries to read a file and then fail
 Also try reading in file with runscan.py from user that does not have one (as root)
-
-On brewstages provide info of recipe in use.
-
-Preboil during sparge. This will save overall save time and energy, as the wort cools down
-during sparging. In this case the different between the estimated time for boil and the 
-actual was just the amount of time spent in sparge, 30min.
 
 Brewstages, as page is larger than one screen, every refresh pops page to top.  Fix for now, 
 slow the page refresh to something like 15s or 30s.
@@ -114,7 +83,7 @@ The wort pump was running dry. It was close, was at 5.4 gallon, it should have b
 For now raise the volume used for equipment in recipe. Add check for equipment volume and total
 volume in and out in checkers. Move from parseBSMX
 
-== 04/10/2013
+=== 04/10/2013 
 stages page has a links for number, why?
 DTHe blue on green does not work.
 
@@ -122,26 +91,12 @@ DTHe blue on green does not work.
 Post cleaning not working as it relies on scale.
 
 == after brew 130126
-Add a link to gravity/temperature calculator on the web
 
 Add key mashing data to mash status page from recipe
   Equipment temperature
   (mash schedule..)
 
-====== To Fix =======
-refactoring
-  stages class ( & module)
-
-Break out getop and use an options dictionary
-
-How to start a brew?
-
-Add the user for the path to the home dir bsmx file as an input option
-to recipeScanner
-
 ===== Hardware Issues =====
-Hardware are sometimes failing at startup. Test this in loop.
-
 X10 controller hangs at startup at times. Debug this. It seems like a reboot
 fixes the problem.
 
@@ -154,11 +109,4 @@ controllers are OK
   max values (as pump volume)
   Timeouts?
   watch dogs? Water checks?
-
-
-==== Unknown ====
-dict_.get('key2', "Key doesn't exist")
-
-Watchdog to shut all down?
-
 

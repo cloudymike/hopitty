@@ -9,12 +9,13 @@ def stageStatusMain():
     common = commonweb.commonweb()
     myData = dataMemcache.brewData()
     stages = myData.getStagesList()
+    status = myData.getStatus()
     currentStage = myData.getCurrentStage()
 
     cgitb.enable()
 
     common.header("Brew Stages", True)
-
+    print """<h2>%s</h2>""" % status['name']
     print '<table border="1"><tr>'
     print '<td><b> Stage </td></b>'
     ctrlList = myData.getControllerList()
