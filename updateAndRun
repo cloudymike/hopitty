@@ -7,10 +7,10 @@
 sudo pkill -9 runscan.py
 
 # Update code
-git update
+git pull
 cd src/cgibin
 sudo ./INSTALL
 cd ..
 
 # Restart runscan.py
-sudo ./runscan.py &> /dev/null & 
+sudo ./runscan.py -u $USER &> /dev/null & 

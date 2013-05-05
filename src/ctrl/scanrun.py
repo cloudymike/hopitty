@@ -5,14 +5,15 @@ Also pushes recipe name list to memcache for use by web pages
 """
 
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src")
-sys.path.append("/home/mikael/workspace/hoppity/src/recipelistmgr")
+#sys.path.append("/home/mikael/workspace/hoppity/src")
+#sys.path.append("/home/mikael/workspace/hoppity/src/recipelistmgr")
 import getpass
 import os
 import recipelistmgr
 import time
 import ctrl
 import dataMemcache
+from os import path, access, R_OK  # W_OK for write permission.
 
 
 def run(mydata):
@@ -24,7 +25,7 @@ def run(mydata):
 
 
 class scanrun():
-    def __init__(self, recipefile=None, user='mikael'):
+    def __init__(self, recipefile=None, user=None):
         self.rl = recipelistmgr.recipeListClass()
         self.mydata = dataMemcache.brewData()
         self.runner = ctrl.rununit()
@@ -32,19 +33,19 @@ class scanrun():
         # Try to find a recipe file
         if recipefile != None:
             self.bsmxfile = recipefile
+        elif user != None:
+            self.bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
         else:
-            self.bsmxfile = None
-            if user == None:
-                user = getpass.getuser()
-            try:
-                self.bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
-            except:
-                print "ERROR: not recipe file"
-                sys.exit(1)
-        try:
-            os.path.isfile(self.bsmxfile)
-        except:
-            print "ERROR: BSMX file does not exist"
+            print "ERROR: No data for BSMX file"
+            sys.exit(1)
+
+        print self.bsmxfile
+
+        if path.isfile(self.bsmxfile) and access(self.bsmxfile, R_OK):
+            print "BSMX File", self.bsmxfile, "exists and is readable"
+        else:
+            print "ERROR: BSMX file", self.bsmxfile,\
+                  "is missing or is not readable"
             sys.exit(1)
 
         self.updateRecipes()
