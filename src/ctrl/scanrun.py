@@ -82,7 +82,7 @@ class scanrun():
 
             sys.stdout.write(".")
             sys.stdout.flush()
-            time.sleep(20)
+            time.sleep(10)
 
     def runSelectedRecipe(self, quick=False):
         """

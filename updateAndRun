@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Updates a computer with new software and start the runscan.py
+# program in the background
+
+# Kill any running version of runscan
+sudo pkill -9 runscan.py
+
+# Update code
+git update
+cd src/cgibin
+sudo ./INSTALL
+cd ..
+
+# Restart runscan.py
+sudo ./runscan.py &> /dev/null & 

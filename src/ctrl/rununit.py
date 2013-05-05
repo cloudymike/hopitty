@@ -262,7 +262,8 @@ class rununit():
             if True:
                 print ""
                 print "Stage: ", r_key
-            while not self.controllers.done():
+            while (not self.controllers.done()) and\
+                  (myData.getRunStatus() == 'run'):
                 startTime = datetime.datetime.now()
                 self.controllers.run(settings)
                 writeStatus(self.controllers, settings, r_key, runStop,\
