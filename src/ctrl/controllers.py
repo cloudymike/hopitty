@@ -40,7 +40,7 @@ class controllerList(dict):
 
     def check(self, settings):
         """
-        Run all controllers
+        Check all controllers
         Take a measure, check settings and update controllers
         """
         ctrl_lst = []
@@ -52,8 +52,6 @@ class controllerList(dict):
             try:
                 index = ctrl_lst.index(key)
             except:
-                print "Recipe asks for missing controller", key
-                print "Stopping"
                 return(False)
         return(True)
 

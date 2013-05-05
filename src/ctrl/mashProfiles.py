@@ -68,15 +68,15 @@ def checkVolBSMX(doc):
     tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
     tunDeadSpaceMin = 1
     if tunDeadSpace < tunDeadSpaceMin:
-        print "Error: Tun dead space:", tunDeadSpace, "requires:", \
-              tunDeadSpaceMin, "qt"
+        #print "Error: Tun dead space:", tunDeadSpace, "requires:", \
+        #      tunDeadSpaceMin, "qt"
         return(False)
 
     # Check boiler volume
     preBoilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
     boilerVolumeMax = 14
     if preBoilVol > boilerVolumeMax:
-        print "Error: ", preBoilVol, "exceeding boiler volume"
+        #print "Error: ", preBoilVol, "exceeding boiler volume"
         return(False)
     return(True)
 
@@ -446,11 +446,11 @@ def MultiBatchRecycleMash(doc, controllers):
 
     if round(totVolIn, 4) != \
        round(totVolOut + tunDeadSpace + grainAbsorption, 4):
-        print "Error in/out flow not matching"
-        print "In vol:", round(totVolIn, 4)
-        print "Out Vol:", round(totVolOut, 4)
-        print "Grain absorb and dead space:", \
-              round(tunDeadSpace + grainAbsorption, 4)
+        #print "Error in/out flow not matching"
+        #print "In vol:", round(totVolIn, 4)
+        #print "Out Vol:", round(totVolOut, 4)
+        #print "Grain absorb and dead space:", \
+        #      round(tunDeadSpace + grainAbsorption, 4)
         stages = None
 
     return(stages)
