@@ -1,6 +1,6 @@
 Where to start
 ===============
-5/5/2013
+5/5/2013 15:17
 
 UscCmd failing in 64 bit. Add this code in Program.cs:
 try
