@@ -72,36 +72,6 @@ def runManual(controllers, verbose):
         time.sleep(1)
 
 
-def runRecipe(controllers, recipe, currentRecipe, verbose):
-    """
-    Goes through all stages of the recipe and runs all controllers
-    Reset controllers by stopping them before starting each stage
-    """
-    runStop = 'run'
-    myData = dataMemcache.brewData()
-    myData.setStagesList(recipe)
-    for r_key, settings in sorted(recipe.items()):
-        controllers.stop()
-        controllers.run(settings)
-        if True:
-            print ""
-            print "Stage: ", r_key
-        while not controllers.done():
-            startTime = datetime.datetime.now()
-            controllers.run(settings)
-            writeStatus(controllers, settings, r_key, runStop, currentRecipe, \
-                        verbose)
-            # Shut everything down if hardware check shows failure
-            if not ctrl.checkHardware(controllers):
-                controllers.shutdown()
-                return(False)
-            if verbose:
-                delta = datetime.datetime.now() - startTime
-                print "  Exectime: ", delta.microseconds, "uS"
-            time.sleep(1)
-    return(True)
-
-
 def quickRecipe(controllers, recipe, verbose):
     """
     Runs through the recipe without any delay to just check it is OK
@@ -246,8 +216,8 @@ class rununit():
 
     def run(self):
         if self.check():
-            runOK = runRecipe(self.controllers, self.stages, \
-                          self.recipeName, self.verbose)
+            runOK = self.runRecipe()
+            #(self.controllers, self.stages, self.recipeName, self.verbose)
             return(runOK)
         else:
             return(False)
@@ -276,3 +246,34 @@ class rununit():
                                          self.verbose))
         else:
             return(False)
+
+    def runRecipe(self):
+    #controllers, recipe, currentRecipe, verbose):
+        """
+        Goes through all stages of the recipe and runs all controllers
+        Reset controllers by stopping them before starting each stage
+        """
+        runStop = 'run'
+        myData = dataMemcache.brewData()
+        myData.setStagesList(self.stages)
+        for r_key, settings in sorted(self.stages.items()):
+            self.controllers.stop()
+            self.controllers.run(settings)
+            if True:
+                print ""
+                print "Stage: ", r_key
+            while not self.controllers.done():
+                startTime = datetime.datetime.now()
+                self.controllers.run(settings)
+                writeStatus(self.controllers, settings, r_key, runStop,\
+                            self.recipeName, \
+                            self.verbose)
+                # Shut everything down if hardware check shows failure
+                if not ctrl.checkHardware(self.controllers):
+                    self.controllers.shutdown()
+                    return(False)
+                if self.verbose:
+                    delta = datetime.datetime.now() - startTime
+                    print "  Exectime: ", delta.microseconds, "uS"
+                time.sleep(1)
+        return(True)

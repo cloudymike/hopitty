@@ -22,20 +22,25 @@ def startMain():
     runStatus = myData.getRunStatus()
     print "Run status: ", runStatus, '<br>'
     print '<form method="get" action="startreader.py">'
-    if runStatus != 'run':
-        print '<input type="hidden" name="runStatus" value="run">'
-    print '<input type="submit"'
+#    if runStatus != 'run':
+#        print '<input type="hidden" name="runStatus" value="run">'
+#    print '<input type="submit"'
     if runStatus == 'run':
+        print '<input type="hidden" name="runStatus" value="stop">'
+        print '<input type="submit"'
         print """
-        style="color: grey; background-color: white; font-size: larger;
+        style="color: white; background-color: red; font-size: larger;
         height:50px;width:80px;"
         """
+        print ' value="Stop">'
     else:
+        print '<input type="hidden" name="runStatus" value="run">'
+        print '<input type="submit"'
         print """
         style="color: white; background-color: green; font-size: larger;
         height:50px;width:80px;"
         """
-    print ' value="Start">'
+        print ' value="Start">'
 
     print '</form>'
 

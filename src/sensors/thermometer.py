@@ -41,3 +41,5 @@ class thermometer(sensors.genericSensor):
                 self.val = self.val + 1.3
             else:
                 self.val = self.val - 0.3
+                if self.val < 70:
+                    self.val = 70
