@@ -1,15 +1,8 @@
 Where to start
 ===============
-EIP 54.214.30.248, put into doc
+5/5/2013
 
-Option for user name. Right now in several places, two in runscan.py
-and one in ctrl/scanrun.py. The latter is key
-
-Waterpump is too slow in simulation mode speed up 5-10x
-
-CPU is too high for t1.micro. What is eating CPU?
-
-UscCmd failing in 64 bit:
+UscCmd failing in 64 bit. Add this code in Program.cs:
 try
 {
 listDevices();
@@ -18,23 +11,6 @@ catch
 {
 return;
 }
-
-
-Work on the public page or wiki?
-
-Write README in markdown
-Add information about hardware in README
-
-Fix this in the public page
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
-
-
-Create a recipe page, that will show what goes into
-each dispenser, the pot, the mashtun etc.
-
 
 Set servo motors speed to 100:
 sudo ./UscCmd --speed 2,30
