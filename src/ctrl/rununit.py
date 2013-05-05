@@ -2,6 +2,7 @@
 
 import pickle
 import time
+import datetime
 import ctrl.readRecipe
 import appliances.boiler
 import switches
@@ -23,10 +24,10 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         myData.setStatus(stat)
 
         #As alternative, save to pickle file
-        statout = open('/tmp/status.pkl', 'w')
+        #statout = open('/tmp/status.pkl', 'w')
         # Pickle dictionary using protocol 0.
-        pickle.dump(stat, statout)
-        statout.close()
+        #pickle.dump(stat, statout)
+        #statout.close()
 
         if verbose:
             print "================================"
@@ -86,15 +87,17 @@ def runRecipe(controllers, recipe, currentRecipe, verbose):
             print ""
             print "Stage: ", r_key
         while not controllers.done():
+            startTime = datetime.datetime.now()
             controllers.run(settings)
-
             writeStatus(controllers, settings, r_key, runStop, currentRecipe, \
                         verbose)
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(controllers):
                 controllers.shutdown()
                 return(False)
-
+            if verbose:
+                delta = datetime.datetime.now() - startTime
+                print "  Exectime: ", delta.microseconds, "uS"
             time.sleep(1)
     return(True)
 
@@ -106,9 +109,10 @@ def quickRecipe(controllers, recipe, verbose):
     each controller, thus test hardware if connected and not
     permissive
     """
+    controllers.stop()
     runStop = 'run'
     for r_key, settings in sorted(recipe.items()):
-        controllers.stop()
+        startTime = datetime.datetime.now()
         controllers.run(settings)
         if True:
             print ""
@@ -116,7 +120,10 @@ def quickRecipe(controllers, recipe, verbose):
         if not ctrl.checkHardware(controllers):
             controllers.shutdown()
             return(False)
-#            time.sleep(1)
+        controllers.stopCurrent(settings)
+        if verbose:
+            delta = datetime.datetime.now() - startTime
+            print "  Exectime: ", delta.microseconds, "uS"
     return(True)
 
 

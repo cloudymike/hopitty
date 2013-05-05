@@ -55,7 +55,7 @@ def runscan(runOnce = False):
                     print "Run failed"
                 del ru
                 mydata.setRunStatus('stop')
-        time.sleep(2)
+        time.sleep(20)
         if runOnce:
             loop = False
         

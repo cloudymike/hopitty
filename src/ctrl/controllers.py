@@ -68,7 +68,22 @@ class controllerList(dict):
             if s['active']:
                 c.start()
                 c.update()
-            else:
+            # This is not needed as we stop all controllers at
+            # beginning of each stage. It is also very time
+            # consuming as most controllers are not in use
+            # in each stage
+            #else:
+            #    c.stop()
+
+    def stopCurrent(self, settings):
+        """
+        Stops controllers that are currently in the stage
+        Significant speedup for quickRecipe
+        """
+        for key, c in self.items():
+            s = settings[key]
+            c.set(s['targetValue'])
+            if s['active']:
                 c.stop()
 
     def status(self):
