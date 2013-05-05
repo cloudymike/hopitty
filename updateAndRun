@@ -13,4 +13,4 @@ sudo ./INSTALL
 cd ..
 
 # Restart runscan.py
-./runscan.py -u $USER &> /dev/null & 
+./runscan.py &> /dev/null & 
