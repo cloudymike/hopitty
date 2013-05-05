@@ -33,7 +33,7 @@ def bsmxReadDispense(doc):
     dedupedAddTimes = list(set(addTimes))
     dedupedAddTimes.sort(reverse=True)
 
-    print dedupedAddTimes
+    #print dedupedAddTimes
     return(dedupedAddTimes)
 
 
@@ -96,40 +96,11 @@ def bsmxReadRecipe(doc, controllers):
     If no matching Equipemnt name is found, returns None
 
     Returns None if any error is found and a stages list could not be created
+
+    The bulk of this def is moved into mashProfiles, as this is where
+    customization is kept.
     """
-
-    equipmentName = bsmxReadString(doc, "F_E_NAME")
-    print "Equipment:", equipmentName
-    validEquipment = [
-                    'Pot and Cooler ( 5 Gal/19 L) - All Grain',
-                    'Grain 2.5G, 5Gcooler 4Gpot',
-                    'Grain 2.5G, 5Gcooler, 4Gpot'
-                    ]
-    if equipmentName not in validEquipment:
-        print "Equipment selected is not available"
-        return(None)
-
-    # recipe = bsmxReadString(doc, "F_R_NAME")
-    mashProfile = bsmxReadString(doc, "F_MH_NAME")
-    stages = None
-    if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
-                       'Single Infusion, Medium Body, Batch Sparge',
-                       'Single Infusion, Full Body, Batch Sparge'
-                       ]:
-        #stages = mashProfiles.SingleInfusionBatch(doc, controllers)
-        stages = mashProfiles.SingleBatchRecycleMash(doc, controllers)
-
-    if mashProfile in ['Single Infusion, Light Body, No Mash Out',
-                       'Single Infusion, Medium Body, No Mash Out',
-                       'Single Infusion, Full Body, No Mash Out',
-                       ]:
-        stages = mashProfiles.MultiBatchRecycleMash(doc, controllers)
-
-    if stages == None:
-        print "ERROR could not find a valid mash profile"
-    else:
-        print "Mashprofile selected:", mashProfile
-    return(stages)
+    return(mashProfiles.txBSMXtoStages(doc, controllers))
 
 
 def prettyPrintStages(stages):

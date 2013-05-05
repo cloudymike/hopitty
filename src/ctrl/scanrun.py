@@ -75,11 +75,14 @@ class scanrun():
         while True:
             self.updateRecipes()
             if run(self.mydata):
+                print "+++++++++++++++",\
+                     self.mydata.getCurrentRecipe(),\
+                     "+++++++++++++++"
                 self.runSelectedRecipe()
 
             sys.stdout.write(".")
             sys.stdout.flush()
-            time.sleep(2)
+            time.sleep(20)
 
     def runSelectedRecipe(self, quick=False):
         """

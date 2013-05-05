@@ -1,9 +1,65 @@
+"""
+These defs translates the BSMX recipe to a recipe dictionary that can be
+executed but rununit.run (that translates to def runRecipe)
+
+The def txBSMXtoStages selects the translation def to use based on
+BSMX data on the Equipment Name and Mash Profile. If not recipe translation
+can be found, return None.
+
+All recipe's will be checked in runscan, and only recipes that
+returns a dictionary will be added the the recipe list.
+This ensures that only recipes that can be translated can be
+selected and executed.
+
+If the recipe can not be created, or an error in input data is found
+then return None.
+
+If you like to add another brew schedule, just create a new def describing
+the translation, and then add this def as an alternative in txBSMXtoStages,
+selected based on the Equipment Name, and the Mash Profile Name.
+"""
 import parseBSMX
+import ctrl
 import sys
 
 empty = 0
 full = 1
 dispenserMax = 4
+
+
+def txBSMXtoStages(doc, controllers):
+    """
+    Reads the bsmx file and creates a stages list.
+    The stages list is created based on Equipment name.
+    If no matching Equipment name is found, returns None
+
+    Returns None if any error is found and a stages list could not be created
+    """
+    stages = None
+    equipmentName = parseBSMX.bsmxReadString(doc, "F_E_NAME")
+    #print "Equipment:", equipmentName
+    validEquipment1 = [
+                    'Pot and Cooler ( 5 Gal/19 L) - All Grain',
+                    'Grain 2.5G, 5Gcooler 4Gpot',
+                    'Grain 2.5G, 5Gcooler, 4Gpot'
+                    ]
+
+    if equipmentName in validEquipment1:
+        mashProfile = parseBSMX.bsmxReadString(doc, "F_MH_NAME")
+        if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
+                       'Single Infusion, Medium Body, Batch Sparge',
+                       'Single Infusion, Full Body, Batch Sparge'
+                       ]:
+
+            stages = SingleBatchRecycleMash(doc, controllers)
+
+        if mashProfile in ['Single Infusion, Light Body, No Mash Out',
+                       'Single Infusion, Medium Body, No Mash Out',
+                       'Single Infusion, Full Body, No Mash Out',
+                       ]:
+            stages = MultiBatchRecycleMash(doc, controllers)
+
+    return(stages)
 
 
 def checkVolBSMX(doc):
@@ -43,7 +99,7 @@ def boiling(doc, controllers, stageCount):
     if len(dispenseTimeList) > 0:
         for dispenseTime in dispenseTimeList:
             if dispenseTime > boilTime:
-                print "ERROR: bad dispense time"
+                #print "ERROR: bad dispense time"
                 return(None)
 
     if len(dispenseTimeList) > 0:
@@ -60,15 +116,13 @@ def boiling(doc, controllers, stageCount):
             if dispenser > 0:
                 dispenserDevice = "dispenser%d" % (dispenser)
                 step[dispenserDevice] = parseBSMX.setDict(empty)
-                print "================", bt1, dispenserDevice
-            else:
-                print "================", bt1, "no dispenser"
+                #print "================", bt1, dispenserDevice
 
             stages[mkSname("Boil", stageCount)] = step
             stageCount = stageCount + 1
             dispenser = dispenser + 1
 
-        print "================", bt2, dispenserDevice
+        #print "================", bt2, dispenserDevice
 
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(bt2)
@@ -164,7 +218,7 @@ def SingleBatchRecycleMash(doc, controllers):
     """
     Original single mash, but recirculate mash all through mashing
     """
-    print "====================SingleBatchRecycleMash"
+    #print "====================SingleBatchRecycleMash"
     stages = {}
     stageCount = 1
 
@@ -271,7 +325,7 @@ def MultiBatchRecycleMash(doc, controllers):
     """
     Multi mash, but recirculate mash all through mashing
     """
-    print "====================MultiBatchRecycleMash"
+    #print "====================MultiBatchRecycleMash"
     stages = {}
 
     totVolIn = 0
@@ -352,8 +406,7 @@ def MultiBatchRecycleMash(doc, controllers):
     lastWortOut = preboilVol - (spargeSteps * volWortOut)
 
     if volWortOut > infuseVolNet - grainAbsorption:
-        print "ERROR: First with out step too big"
-        sys.exit(1)
+        return(None)
 
     for i in range(spargeSteps):
         sOut = parseBSMX.stageCtrl(controllers)
