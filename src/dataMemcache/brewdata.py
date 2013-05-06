@@ -74,10 +74,13 @@ class brewData(object):
         return(runStatus)
 
     def getCurrentStage(self):
-        status = self.getStatus()
-        try:
-            currentStage = status['stage']
-        except:
+        if self.getRunStatus() == 'run':
+            status = self.getStatus()
+            try:
+                currentStage = status['stage']
+            except:
+                currentStage = ""
+        else:
             currentStage = ""
         return(currentStage)
 
@@ -93,13 +96,21 @@ class brewData(object):
 # Use this in final production
     def getCurrentRecipe(self):
         stat = self.getStatus()
-        try:
-            recipe = stat['name']
-        except:
-            recipe = ""
+        if self.getRunStatus() == 'run':
+            try:
+                recipe = stat['name']
+            except:
+                recipe = ""
+        else:
+            recipe = self.getFromMemcache('currentRecipe')
         return(recipe)
 
     def getSelectedRecipe(self):
+        """
+        Get the recipe that is selected on recipe lists page.
+        This may differ from current recipe if brew is in progress
+        When brew is stopped it should be the same
+        """
         selected = self.getFromMemcache('selectedRecipe')
         return(selected)
 

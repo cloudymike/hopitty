@@ -15,12 +15,14 @@ def recipeliststatusMain():
     recipeList = myData.getRecipeList()
 
     common.header('Recipe list')
+    #selectedRecipe = myData.getCurrentRecipe()
+    selectedRecipe = myData.getSelectedRecipe()
 
-    print "<b>Current Recipe:</b>", myData.getCurrentRecipe(), "<br><br>"
+    print "<b>Current Recipe:</b>", selectedRecipe, "<br><br>"
     print '<form method="get" action="recipereader.py">'
     for recipeName in recipeList:
         rnstr = "\"" + recipeName + "\""
-        if recipeName == myData.getCurrentRecipe():
+        if recipeName == selectedRecipe:
             sel = "checked"
         else:
             sel = ""

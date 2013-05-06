@@ -16,10 +16,10 @@ def startMain():
     myData = dataMemcache.brewData()
 
     common.header('Run Control')
+    runStatus = myData.getRunStatus()
 
     print "Current Recipe: ", myData.getCurrentRecipe(), '<br>'
     print "Current Stage: ", myData.getCurrentStage(), '<br>'
-    runStatus = myData.getRunStatus()
     print "Run status: ", runStatus, '<br>'
     print '<form method="get" action="startreader.py">'
 #    if runStatus != 'run':

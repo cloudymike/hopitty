@@ -73,17 +73,22 @@ class scanrun():
 
     def loop(self):
         print "starting daemon mode"
+        i = 0
         while True:
-            self.updateRecipes()
+            # Update recipe list every 60 sec
+            # Doing it every second is too expensive
+            i = i + 1
+            if i == 60:
+                self.updateRecipes()
+                i = 0
+
             if run(self.mydata):
-                print "+++++++++++++++",\
-                     self.mydata.getCurrentRecipe(),\
-                     "+++++++++++++++"
                 self.runSelectedRecipe()
+                print "Stopped recipe"
 
             sys.stdout.write(".")
             sys.stdout.flush()
-            time.sleep(10)
+            time.sleep(1)
 
     def runSelectedRecipe(self, quick=False):
         """
@@ -97,6 +102,9 @@ class scanrun():
             if r != None:
                 bsxml = r.getBSMXdoc()
                 self.runner.bsmxIn(bsxml)
+                print "+++++++++++++++",\
+                     self.runner.getRecipeName(),\
+                     "+++++++++++++++"
                 if quick:
                     runOK = self.runner.quick()
                 else:

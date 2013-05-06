@@ -214,6 +214,9 @@ class rununit():
     def getStages(self):
         return(self.stages)
 
+    def getRecipeName(self):
+        return(self.recipeName)
+
     def run(self):
         if self.check():
             runOK = self.runRecipe()
@@ -256,25 +259,28 @@ class rununit():
         runStop = 'run'
         myData = dataMemcache.brewData()
         myData.setStagesList(self.stages)
+
         for r_key, settings in sorted(self.stages.items()):
-            self.controllers.stop()
-            self.controllers.run(settings)
-            if True:
-                print ""
-                print "Stage: ", r_key
-            while (not self.controllers.done()) and\
-                  (myData.getRunStatus() == 'run'):
-                startTime = datetime.datetime.now()
+            if myData.getRunStatus() == 'run':
+                self.controllers.stop()
                 self.controllers.run(settings)
-                writeStatus(self.controllers, settings, r_key, runStop,\
-                            self.recipeName, \
-                            self.verbose)
-                # Shut everything down if hardware check shows failure
-                if not ctrl.checkHardware(self.controllers):
-                    self.controllers.shutdown()
-                    return(False)
-                if self.verbose:
-                    delta = datetime.datetime.now() - startTime
-                    print "  Exectime: ", delta.microseconds, "uS"
-                time.sleep(1)
+                if True:
+                    print ""
+                    print "Stage: ", r_key
+                while (not self.controllers.done()) and\
+                      (myData.getRunStatus() == 'run'):
+                    startTime = datetime.datetime.now()
+                    self.controllers.run(settings)
+                    writeStatus(self.controllers, settings, r_key, runStop,\
+                                self.recipeName, \
+                                self.verbose)
+                    # Shut everything down if hardware check shows failure
+                    if not ctrl.checkHardware(self.controllers):
+                        self.controllers.shutdown()
+                        return(False)
+                    if self.verbose:
+                        delta = datetime.datetime.now() - startTime
+                        print "  Exectime: ", delta.microseconds, "uS"
+                    time.sleep(1)
+        self.controllers.stop()
         return(True)
