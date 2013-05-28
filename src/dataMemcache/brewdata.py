@@ -60,7 +60,7 @@ class brewData(object):
         except:
             status = None
         if status == None:
-            status = []
+            status = {}
         return(status)
 
     def setStatus(self, stages):

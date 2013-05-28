@@ -2,6 +2,14 @@
 import appliances.genctrl
 import sensors
 
+# Manage the wort boiler
+# Checks that a boil is started by checking temp, over 200F is boil
+# This is not completely true, but as this sensor is less accurate
+# it is close enough
+# Consider to not check when boil has started once...
+
+boilTemp = 200
+
 
 class boiler(appliances.genctrl):
     def __init__(self):
@@ -10,7 +18,8 @@ class boiler(appliances.genctrl):
         self.active = False
         self.unit = None
         self.target = 0
-        self.sensor = sensors.genericSensor()
+        self.unit = 'F'
+        self.sensor = sensors.temperSensor()
 
     def __del__(self):
         self.powerOn = False
@@ -18,9 +27,6 @@ class boiler(appliances.genctrl):
 
     def connectSwitch(self, switch):
         self.boilerSwitch = switch
-
-    def measure(self):
-        return(1)
 
     def status(self):
         if self.powerOn:
@@ -38,7 +44,10 @@ class boiler(appliances.genctrl):
             self.off()
 
     def targetMet(self):
-            return(True)
+            return(self.get() >= boilTemp)
+
+    def measure(self):
+        return(self.sensor.getValue())
 
     def get(self):
         return(self.measure())
@@ -59,3 +68,11 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch != None:
             self.boilerSwitch.off()
         self.powerOn = False
+
+if __name__ == '__main__':
+    testBoiler = boiler()
+    testBoiler.on()
+    while not testBoiler.targetMet():
+        print testBoiler.get()
+    for x in range(0, 15):
+        print testBoiler.get()

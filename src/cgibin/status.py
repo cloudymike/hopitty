@@ -23,23 +23,21 @@ def statusMain():
     status = myData.getStatus()
     stage = myData.getCurrentStage()
 
-#    if not status:
-#        try:
-#            status = pickle.load(open("/tmp/status.pkl", "r"))
-#        except:
-#            status = {}
-#            status['controllers'] = {}
-#            status['runStop'] = 'Unknown'
-#            status['watchDog'] = 0
-#            status['stage'] = 'Unknown'
-#            status['name'] = 'Unknown'
+    # If there is not status, set some default vals to
+    # not break but rather show empty values
+    if len(status) == 0:
+            status = {}
+            status['controllers'] = {}
+            status['runStop'] = 'Unknown'
+            status['watchDog'] = 0
+            status['stage'] = 'Unknown'
+            status['name'] = 'Unknown'
 
     controllers = status['controllers']
 
     common.header("Brew Stages", True)
 
     print """<h2>%s</h2>""" % myData.getCurrentRecipe()
-    print """Debug: %s<p>""" % status['name']
     print """<h3>Stage: %s</h3>""" % stage
 
     if myData.getRunStatus() == 'run':

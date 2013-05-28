@@ -1,4 +1,5 @@
-# FIles to ignore
+# Files to ignore
+.settings
 
 # Python artifacts #
 ###################
