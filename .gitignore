@@ -11,7 +11,7 @@
 
 # document files
 ###################
-doc/_build
+docs/_build
 
 
 # Compiled source #

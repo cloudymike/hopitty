@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sphinx-apidoc -o doc -d 4 -f src
+sphinx-apidoc -o docs -d 4 -f src
 pushd docs
 
 # modules list is in index
