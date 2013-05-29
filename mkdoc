@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sphinx-apidoc -o doc -d 4 src
+pushd doc
+make clean
+make html
+popd
+
