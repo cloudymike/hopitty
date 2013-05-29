@@ -1,7 +1,11 @@
 #!/bin/bash
 
 sphinx-apidoc -o doc -d 4 -f src
-pushd doc
+pushd docs
+
+# modules list is in index
+rm modules.rst
+
 make clean
 make html
 popd
