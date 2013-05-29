@@ -8,6 +8,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import getopt
 import ctrl
+import dataMemcache
 
 def usage():
     print 'usage:'
@@ -68,6 +69,9 @@ if __name__ == "__main__":
         json = ctrl.readJson(recipeFile)
         ru.jsonIn(json)
 
+    myData = dataMemcache.brewData()
+    myData.setRunStatus('run')
+
     if bsmxFile != "":
         runOK = ru.checkBSMX(xml)
     else:
@@ -76,6 +80,7 @@ if __name__ == "__main__":
         if quick:
             runOK = ru.quick()
         else:
+            print "Run full"
             runOK = ru.run()
 
     if not runOK:

@@ -87,9 +87,12 @@ def boiling(doc, controllers, stageCount):
     stages = {}
     stageCount = stageCount + 1
 
+    # This step is just waiting for the boil to start
+    # by checking the temperature
+    # So no delay required
     step = parseBSMX.stageCtrl(controllers)
-    step["delayTimer"] = parseBSMX.setDict(20)
-    step["boiler"] = parseBSMX.setDict(1)
+    #step["delayTimer"] = parseBSMX.setDict(20)
+    step["boiler"] = parseBSMX.setDict(212)
     stages[mkSname("pre-boil", stageCount)] = step
     stageCount = stageCount + 1
 
@@ -111,7 +114,7 @@ def boiling(doc, controllers, stageCount):
             bt2 = dispenseTime
             step = parseBSMX.stageCtrl(controllers)
             step["delayTimer"] = parseBSMX.setDict(bt1)
-            step["boiler"] = parseBSMX.setDict(1)
+            step["boiler"] = parseBSMX.setDict(200)
 
             if dispenser > 0:
                 dispenserDevice = "dispenser%d" % (dispenser)
@@ -126,7 +129,7 @@ def boiling(doc, controllers, stageCount):
 
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(bt2)
-        step["boiler"] = parseBSMX.setDict(1)
+        step["boiler"] = parseBSMX.setDict(200)
         dispenserDevice = "dispenser%d" % (dispenser)
         step[dispenserDevice] = parseBSMX.setDict(empty)
         stages[mkSname("Boil", stageCount)] = step
@@ -135,13 +138,12 @@ def boiling(doc, controllers, stageCount):
     else:
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(boilTime)
-        step["boiler"] = parseBSMX.setDict(1)
+        step["boiler"] = parseBSMX.setDict(200)
         stages[mkSname("Boil", stageCount)] = step
         stageCount = stageCount + 1
 
     step = parseBSMX.stageCtrl(controllers)
     step["delayTimer"] = parseBSMX.setDict(0.1)
-    step["boiler"] = parseBSMX.setDict(0)
     stages[mkSname("Cool down", stageCount)] = step
     stageCount = stageCount + 1
 
@@ -157,6 +159,8 @@ def SingleInfusionBatch(doc, controllers):
     stages["01 Heating"] = s1
 
     s2 = parseBSMX.stageCtrl(controllers)
+    s2["waterHeater"] = parseBSMX.setDict(\
+                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages["02 Pump rest"] = s2
 
@@ -164,6 +168,8 @@ def SingleInfusionBatch(doc, controllers):
     strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
     deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
     strikeVolTot = strikeVolNet + deadSpaceVol
+    s3["waterHeater"] = parseBSMX.setDict(\
+                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     stages["03 StrikeWater"] = s3
 
@@ -231,6 +237,8 @@ def SingleBatchRecycleMash(doc, controllers):
     stageCount = stageCount + 1
 
     s2 = parseBSMX.stageCtrl(controllers)
+    s2["waterHeater"] = parseBSMX.setDict(\
+                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages[mkSname("Pump rest", stageCount)] = s2
     stageCount = stageCount + 1
@@ -239,6 +247,8 @@ def SingleBatchRecycleMash(doc, controllers):
     strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
     deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
     strikeVolTot = strikeVolNet + deadSpaceVol
+    s3["waterHeater"] = parseBSMX.setDict(\
+                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     stages[mkSname("StrikeWater", stageCount)] = s3
     stageCount = stageCount + 1
@@ -342,6 +352,8 @@ def MultiBatchRecycleMash(doc, controllers):
     stageCount = stageCount + 1
 
     s2 = parseBSMX.stageCtrl(controllers)
+    s2["waterHeater"] = parseBSMX.setDict(\
+                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages[mkSname("Pump rest", stageCount)] = s2
     stageCount = stageCount + 1
@@ -350,6 +362,8 @@ def MultiBatchRecycleMash(doc, controllers):
     strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
     deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
     strikeVolTot = strikeVolNet + deadSpaceVol
+    s3["waterHeater"] = parseBSMX.setDict(\
+                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     totVolIn = totVolIn + strikeVolTot
     stages[mkSname("StrikeWater", stageCount)] = s3

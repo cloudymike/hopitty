@@ -1,0 +1,16 @@
+{
+"name":"x10test",
+  "recipe":   {
+    "01 preheat":{
+      "boiler":200,
+      "delayTimer": 0.0
+     },
+    "02 boil":{
+      "boiler":200,
+      "delayTimer": 0.25
+     },
+    "03 cool":{
+      "delayTimer": 0.25
+     }    
+  }
+}

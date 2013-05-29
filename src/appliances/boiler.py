@@ -8,8 +8,6 @@ import sensors
 # it is close enough
 # Consider to not check when boil has started once...
 
-boilTemp = 200
-
 
 class boiler(appliances.genctrl):
     def __init__(self):
@@ -17,7 +15,7 @@ class boiler(appliances.genctrl):
         self.powerOn = False
         self.active = False
         self.unit = None
-        self.target = 0
+        self.target = 200
         self.unit = 'F'
         self.sensor = sensors.temperSensor()
 
@@ -34,8 +32,8 @@ class boiler(appliances.genctrl):
         else:
             return 'Off'
 
-#    def set(self, preset):
-#        pass
+    def set(self, preset):
+        self.target = preset
 
     def update(self):
         if self.isActive():
@@ -44,7 +42,7 @@ class boiler(appliances.genctrl):
             self.off()
 
     def targetMet(self):
-            return(self.get() >= boilTemp)
+            return(self.get() >= self.target)
 
     def measure(self):
         return(self.sensor.getValue())
@@ -52,8 +50,8 @@ class boiler(appliances.genctrl):
     def get(self):
         return(self.measure())
 
-#    def getTarget(self):
-#       return(1)
+    def getTarget(self):
+        return(self.target)
 
     def stop(self):
         self.active = False
