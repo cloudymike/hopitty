@@ -2,14 +2,16 @@
 import appliances.genctrl
 import sensors
 
-# Manage the wort boiler
-# Checks that a boil is started by checking temp, over 200F is boil
-# This is not completely true, but as this sensor is less accurate
-# it is close enough
-# Consider to not check when boil has started once...
 
 
 class boiler(appliances.genctrl):
+    """
+    Manage the wort boiler
+    Checks that a boil is started by checking temp, over 200F is boil
+    This is not completely true, but as this sensor is less accurate
+    it is close enough
+    Consider to not check when boil has started once...
+    """
     def __init__(self):
         self.boilerSwitch = None
         self.powerOn = False

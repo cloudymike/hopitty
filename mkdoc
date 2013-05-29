@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sphinx-apidoc -o doc -d 4 src
+sphinx-apidoc -o doc -d 4 -f src
 pushd doc
 make clean
 make html
