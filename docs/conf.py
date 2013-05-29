@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# doctst2 documentation build configuration file, created by
-# sphinx-quickstart on Tue May 28 21:20:35 2013.
+# hopitty api documentation build configuration file, created by
+# sphinx-quickstart on Tue May 28 23:26:09 2013.
 #
 # This file is execfile()d with the current directory set to its containing dir.
 #
@@ -40,7 +40,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Hopitty API'
+project = u'hopitty api'
 copyright = u'2013, CloudyMike'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -164,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'HopittyAPIdoc'
+htmlhelp_basename = 'hopittyapidoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,8 +183,8 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'doctst2.tex', u'doctst2 Documentation',
-   u'Me', 'manual'),
+  ('index', 'hopittyapi.tex', u'hopitty api Documentation',
+   u'CloudyMike', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -213,8 +213,8 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'doctst2', u'doctst2 Documentation',
-     [u'Me'], 1)
+    ('index', 'hopittyapi', u'hopitty api Documentation',
+     [u'CloudyMike'], 1)
 ]
 
 # If true, show URL addresses after external links.
@@ -227,8 +227,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'doctst2', u'doctst2 Documentation',
-   u'Me', 'doctst2', 'One line description of project.',
+  ('index', 'hopittyapi', u'hopitty api Documentation',
+   u'CloudyMike', 'hopittyapi', 'One line description of project.',
    'Miscellaneous'),
 ]
 
@@ -245,10 +245,10 @@ texinfo_documents = [
 # -- Options for Epub output ---------------------------------------------------
 
 # Bibliographic Dublin Core info.
-epub_title = u'doctst2'
-epub_author = u'Me'
-epub_publisher = u'Me'
-epub_copyright = u'2013, Me'
+epub_title = u'hopitty api'
+epub_author = u'CloudyMike'
+epub_publisher = u'CloudyMike'
+epub_copyright = u'2013, CloudyMike'
 
 # The language of the text. It defaults to the language option
 # or en if the language is not set.
