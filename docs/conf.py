@@ -40,8 +40,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'doctst2'
-copyright = u'2013, Me'
+project = u'Hopitty API'
+copyright = u'2013, CloudyMike'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -164,7 +164,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'doctst2doc'
+htmlhelp_basename = 'HopittyAPIdoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
