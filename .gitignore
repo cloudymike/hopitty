@@ -9,6 +9,11 @@
 ###################
 *~
 
+# document files
+###################
+doc/_build
+
+
 # Compiled source #
 ###################
 *.com
