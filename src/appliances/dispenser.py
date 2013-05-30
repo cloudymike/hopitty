@@ -37,6 +37,10 @@ class dispenser(appliances.genctrl):
         self.active = False   # Controller is running
         self.switch = None    # Switch object. Should have method on and off
         self.sensor = sensors.genericSensor()
+
+        ret = subprocess.call('lsusb')
+        self.usbOK = (ret == 0)
+
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../UscCmd/UscCmd'
 
@@ -91,16 +95,18 @@ class dispenser(appliances.genctrl):
 
     def move(self):
         if self.target == empty:
-            try:
-                retval = subprocess.check_output(self.exeEmpty, shell=True)
-            except:
-                pass
+            if self.usbOK:
+                try:
+                    retval = subprocess.check_output(self.exeEmpty, shell=True)
+                except:
+                    pass
             self.actual = empty
             #print "Dispenser", self.deviceNumber, "empty"
         else:
-            try:
-                retval = subprocess.check_output(self.exeFull, shell=True)
-            except:
-                pass
+            if self.usbOK:
+                try:
+                    retval = subprocess.check_output(self.exeFull, shell=True)
+                except:
+                    pass
             self.actual = full
             #print "Dispenser", self.deviceNumber, "full"

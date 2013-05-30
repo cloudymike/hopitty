@@ -12,6 +12,7 @@
 import usb
 import sys
 import struct
+import subprocess
 
 VIDPIDs = [(0x0c45L, 0x7401L)]
 REQ_INT_LEN = 8
@@ -93,10 +94,12 @@ class TemperDevice():
 
 class TemperHandler():
     def __init__(self):
-        busses = usb.busses()
         self._devices = []
-        for bus in busses:
-            self._devices.extend([TemperDevice(x) for x in bus.devices
+        ret = subprocess.call('lsusb')
+        if ret == 0:
+            busses = usb.busses()
+            for bus in busses:
+                self._devices.extend([TemperDevice(x) for x in bus.devices
                                   if (x.idVendor, x.idProduct) in VIDPIDs])
 
     def get_devices(self):

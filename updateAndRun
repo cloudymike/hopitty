@@ -13,4 +13,4 @@ sudo ./INSTALL
 cd ..
 
 # Restart runscan.py
-./runscan.py &> /dev/null & 
+./runscan.py -f tests/Cloud.bsmx &> /dev/null & 

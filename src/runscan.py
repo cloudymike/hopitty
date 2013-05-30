@@ -22,7 +22,7 @@ def usage():
     print "-f <filepath>: File for beermith file"
     print "-u <user>: User for beermith files"
     print "-v: verbose"
-    sys.exit
+    sys.exit(0)
 
 def getOptions():
     options, remainder = getopt.getopt(sys.argv[1:], 'f:hu:v', [
