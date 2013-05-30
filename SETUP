@@ -24,6 +24,7 @@ sudo easy_install python-memcached
 
 
 # GoIO
+#######################################
 sudo apt-get install -y pkg-config
 
 cd GoIO-2.28.0
@@ -36,11 +37,13 @@ cd $HOMEDIR/GoIO-2.28.0/mytemp
 make
 cd $HOMEDIR
 
-# For TemPER termometer
+# TemPER termometer
+#######################################
 sudo apt-get -y install python-usb
-sudo cp 99-tempsensor.rules /etc/udev/rules.d/
+sudo cp udev/99-tempsensor.rules /etc/udev/rules.d/
 
 #sudo easy_install python-x10
+#######################################
 git clone https://github.com/glibersat/python-x10.git
 cd python-x10
 sudo python setup.py install
@@ -48,6 +51,7 @@ cd $HOMEDIR
 rm -rf python-x10
 
 # phidgets
+#######################################
 sudo apt-get install -y libusb-1.0-0-dev
 
 pushd /tmp
@@ -68,9 +72,11 @@ sudo python setup.py install
 popd
 
 #Pololu, servo USB controller
+#######################################
 sudo apt-get install -y libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
 cd /tmp
-wget http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
+wget -O pololu-usb-sdk-120712.zip http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
+
 unzip pololu-usb-sdk-120712.zip
 cd pololu-usb-sdk
 # Avoid sudo requirement to access USB port
@@ -85,6 +91,12 @@ cp -r Maestro/UscCmd $HOMEDIR
 cd $HOMEDIR/src
 cd cgibin
 sudo ./INSTALL
+cd $HOMEDIR
+
+#DigiWeight
+#######################################
+pushd $HOMEDIR/DigiWeight
+make
 
 cd $HOMEDIR
 ./checkall
