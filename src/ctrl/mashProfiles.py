@@ -91,9 +91,20 @@ def boiling(doc, controllers, stageCount):
     # by checking the temperature
     # So no delay required
     step = parseBSMX.stageCtrl(controllers)
-    #step["delayTimer"] = parseBSMX.setDict(20)
-    step["boiler"] = parseBSMX.setDict(212)
+    step["boiler"] = parseBSMX.setDict(190)
     stages[mkSname("pre-boil", stageCount)] = step
+    stageCount = stageCount + 1
+
+    #hold 10 min just below boil to let foam settle
+    step = parseBSMX.stageCtrl(controllers)
+    step["boiler"] = parseBSMX.setDict(190)
+    step["delayTimer"] = parseBSMX.setDict(10)
+    stages[mkSname("de-foam", stageCount)] = step
+    stageCount = stageCount + 1
+
+    step = parseBSMX.stageCtrl(controllers)
+    step["boiler"] = parseBSMX.setDict(195)
+    stages[mkSname("start boil", stageCount)] = step
     stageCount = stageCount + 1
 
     boilTime = parseBSMX.bsmxReadTimeMin(doc, "F_E_BOIL_TIME")
@@ -114,7 +125,7 @@ def boiling(doc, controllers, stageCount):
             bt2 = dispenseTime
             step = parseBSMX.stageCtrl(controllers)
             step["delayTimer"] = parseBSMX.setDict(bt1)
-            step["boiler"] = parseBSMX.setDict(200)
+            step["boiler"] = parseBSMX.setDict(195)
 
             if dispenser > 0:
                 dispenserDevice = "dispenser%d" % (dispenser)
@@ -129,7 +140,7 @@ def boiling(doc, controllers, stageCount):
 
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(bt2)
-        step["boiler"] = parseBSMX.setDict(200)
+        step["boiler"] = parseBSMX.setDict(195)
         dispenserDevice = "dispenser%d" % (dispenser)
         step[dispenserDevice] = parseBSMX.setDict(empty)
         stages[mkSname("Boil", stageCount)] = step
@@ -138,7 +149,7 @@ def boiling(doc, controllers, stageCount):
     else:
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(boilTime)
-        step["boiler"] = parseBSMX.setDict(200)
+        step["boiler"] = parseBSMX.setDict(195)
         stages[mkSname("Boil", stageCount)] = step
         stageCount = stageCount + 1
 

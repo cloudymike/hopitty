@@ -19,21 +19,21 @@ def bsmxReadDispense(doc):
     additions = doc.getElementsByTagName(tagName)
     for addItem in additions:
         at = addItem.firstChild.nodeValue
-        if at != boiltime:
-            addTimes.append(float(at))
+        #if at != boiltime:
+        addTimes.append(float(at))
 
     # Find misc additions times
     tagName = "F_M_TIME"
     additions = doc.getElementsByTagName(tagName)
     for addItem in additions:
         at = addItem.firstChild.nodeValue
-        if at != boiltime:
-            addTimes.append(float(at))
+        #if at != boiltime:
+        addTimes.append(float(at))
 
     dedupedAddTimes = list(set(addTimes))
     dedupedAddTimes.sort(reverse=True)
 
-    #print dedupedAddTimes
+    print dedupedAddTimes
     return(dedupedAddTimes)
 
 

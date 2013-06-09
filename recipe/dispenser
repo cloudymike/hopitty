@@ -3,19 +3,19 @@
   "recipe":   {
     "1":{
       "dispenser1":0,
-      "delayTimer":0.02
+      "delayTimer":0.05
     },
     "2": {
       "dispenser2":0,
-      "delayTimer":0.02
+      "delayTimer":0.05
     },
     "3": {
       "dispenser3":0,
-      "delayTimer":0.02
+      "delayTimer":0.05
     },
     "4": {
       "dispenser4":0,
-      "delayTimer":0.02
+      "delayTimer":0.05
     }
   }
 

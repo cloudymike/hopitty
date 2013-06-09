@@ -24,7 +24,11 @@ class recipeListClass():
         return(self.list)
 
     def getRecipe(self, name):
-        return self.list[name]
+        try:
+            recipe = self.list[name]
+        except:
+            recipe = None
+        return recipe
 
     def deleteRecipe(self, name):
         del self.list[name]

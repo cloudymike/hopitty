@@ -29,7 +29,7 @@ class dispenser(appliances.genctrl):
         on and off, while controller is active
         '''
         self.deviceNumber = number
-        self.servo = str(number + 1)
+        self.servo = str(number)
         self.actual = full       # Actual measured value, ex temp
         self.target = full       # Target value
         self.unit = 'U'       # Unit of measure
