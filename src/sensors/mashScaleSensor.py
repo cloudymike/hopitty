@@ -18,7 +18,7 @@ class mashScaleSensor(sensors.genericSensor):
         except:
             self.simulation = True
             self.val = 0
-            print "******************Scale not found, entering simulation mode"
+            print "**********Scale not found, simulating HW"
 
     def getID(self):
         return(self.id)
@@ -48,3 +48,6 @@ class mashScaleSensor(sensors.genericSensor):
     def setValue(self, val):
         if self.simulation:
             self.val = val
+
+    def HWOK(self):
+        return(not self.simulation)

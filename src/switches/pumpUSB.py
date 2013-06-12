@@ -30,6 +30,9 @@ class onePump():
     def off(self):
         self.usb.setOutputState(self.index, False)
 
+    def HWOK(self):
+        return(True)
+
 
 class pumpUSB():
     def __init__(self):

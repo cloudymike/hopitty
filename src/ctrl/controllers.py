@@ -38,6 +38,13 @@ class controllerList(dict):
         for c in self.itervalues():
             c.stop()
 
+    def HWOK(self):
+        """Stop all controllers"""
+        for c in self.itervalues():
+            if not c.HWOK():
+                return(False)
+        return(True)
+
     def check(self, settings):
         """
         Check all controllers

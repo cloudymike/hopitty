@@ -73,6 +73,11 @@ class hwPump(appliances.genctrl):
             self.sensor = sensors.mashScaleSensor()
             #print "Created mashScale sensor"
 
+    def HWOK(self):
+        if self.pumpMotor == None:
+            return(False)
+        else:
+            return(self.pumpMotor.HWOK())
 
 class wortPump(hwPump):
 

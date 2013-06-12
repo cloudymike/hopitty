@@ -19,7 +19,7 @@ class thermometer(sensors.genericSensor):
 
         if self.simulation:
             self.val = 70.0
-            print "*****Thermometer not found, entering simulation mode"
+            print "**********Thermometer not found, simulating HW"
 
     def getID(self):
         return(self.id)
@@ -43,3 +43,6 @@ class thermometer(sensors.genericSensor):
                 self.val = self.val - 0.3
                 if self.val < 70:
                     self.val = 70
+
+    def HWOK(self):
+        return(not self.simulation)

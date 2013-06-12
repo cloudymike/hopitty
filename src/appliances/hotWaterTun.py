@@ -65,3 +65,7 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun != None:
             self.hotWaterTun.off()
         self.powerOn = False
+
+    def HWOK(self):
+        return(self.sensor.HWOK() and self.switch.HWOK())
+

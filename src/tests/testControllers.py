@@ -103,6 +103,18 @@ def testUnit():
         if s != None:
             assert len(s) > 0
 
+def testHWOK():
+    """
+    Test that HWOK is a boolean
+    More importantly, test that HWOK is implemented and does not crash
+    """
+    ctrl1 = ctrl.controllerList()
+    ctrl1.load()
+    for key, c in ctrl1.items():
+        s = c.HWOK()
+        print key, s
+        assert isinstance(s, bool) 
+
 
 def testVal():
     """
@@ -127,3 +139,6 @@ def testPowerOn():
         print key
         c.stop()
         assert not c.getPowerOn()
+
+if __name__ == '__main__':
+    testHWOK()

@@ -25,7 +25,8 @@ def usage():
     sys.exit(0)
 
 def getOptions():
-    options, remainder = getopt.getopt(sys.argv[1:], 'f:hu:v', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:v', [
+                         'equipment',
                          'file=',
                          'help',
                          'user=',
@@ -35,10 +36,13 @@ def getOptions():
     optret['verbose'] = False
     optret['user'] = getpass.getuser()
     optret['bsmxfile'] = None
+    optret['HWcheck'] = False
 
     for opt, arg in options:
         if opt in ('-h', '--help'):
             usage()
+        if opt in ('-e', '--equipment'):
+            optret['HWcheck'] = True
         if opt in ('-f', '--file'):
             optret['bsmxfile'] = arg
         if opt in ('-u', '--user'):
@@ -51,5 +55,11 @@ def getOptions():
 if __name__ == "__main__":
     options = getOptions()
     daemon = ctrl.scanrun(options['bsmxfile'], options['user'])
+    if options['HWcheck']:
+        if daemon.HWOK():
+            print "HW OK"
+        else:
+            print "ERROR: HW not OK, exiting"
+            sys.exit(1)
     daemon.loop()
         

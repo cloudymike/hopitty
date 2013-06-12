@@ -23,6 +23,9 @@ class simSwitch(object):
     def off(self):
         pass
 
+    def HWOK(self):
+        return(False)
+
 
 # Similar dummy function if a list of switches are required
 class simSwitchList():

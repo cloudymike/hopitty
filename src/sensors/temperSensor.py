@@ -34,6 +34,8 @@ class temperSensor():
                 print "Error temper value not read, using previous value"
             return(self.val)
 
+    def HWOK(self):
+        return(not self.simulation)
 
 if __name__ == '__main__':
     ts = temperSensor()

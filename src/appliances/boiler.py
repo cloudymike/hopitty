@@ -68,6 +68,9 @@ class boiler(appliances.genctrl):
             self.boilerSwitch.off()
         self.powerOn = False
 
+    def HWOK(self):
+        return(self.sensor.HWOK() and self.switch.HWOK())
+
 if __name__ == '__main__':
     testBoiler = boiler()
     testBoiler.on()

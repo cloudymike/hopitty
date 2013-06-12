@@ -129,3 +129,19 @@ class genctrl():
 
     def findOrAddSensor(self, clist):
         pass
+    
+    def pause(self):
+        """
+        Pause any action, to allow a temporary pause in the brew process.
+        This should be a no-action stage. Pumps should be stopped.
+        heaters should keep it'd temperature. etc. It is not the same
+        as stop.
+        """
+        pass
+
+    def HWOK(self):
+        """
+        Return True if all USB connections are OK to the HW devices.
+        Non HW devices (as a timer) should alway return True
+        """
+        return(True)

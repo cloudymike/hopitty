@@ -38,7 +38,8 @@ class dispenser(appliances.genctrl):
         self.switch = None    # Switch object. Should have method on and off
         self.sensor = sensors.genericSensor()
 
-        ret = subprocess.call('lsusb')
+        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),\
+                              stderr=subprocess.STDOUT)
         self.usbOK = (ret == 0)
 
         scriptdir = os.path.dirname(os.path.abspath(__file__))
@@ -110,3 +111,11 @@ class dispenser(appliances.genctrl):
                     pass
             self.actual = full
             #print "Dispenser", self.deviceNumber, "full"
+
+    def HWOK(self):
+        if self.usbOK:
+            checkstring = self.exe + ' --list'
+            retval = subprocess.check_output(checkstring, shell=True)
+            return(retval[0] != '0')
+        else:
+            return(False)

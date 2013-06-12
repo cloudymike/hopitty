@@ -60,3 +60,9 @@ class circulationPump(appliances.genctrl):
     def start(self):
         self.active = True
         self.pumpOn()
+
+    def HWOK(self):
+        if self.pumpMotor == None:
+            return(False)
+        else:
+            return(self.pumpMotor.HWOK())

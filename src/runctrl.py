@@ -14,8 +14,10 @@ def usage():
     print 'usage:'
     print "-h: help"
     print "-b file: read beersmith file"
+    print "-c: checkonly"
     print "-f file: read JSON file"
     print "-q: quick check"
+    print "-e: Equipment check"
     print "-v: verbose"
     sys.exit
 
@@ -25,9 +27,10 @@ if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'b:cf:hqpv', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'b:cef:hqpuv', [
                          'bsmx=',
-                         'checkonly'
+                         'checkonly',
+                         'equipment',
                          'file=',
                          'help',
                          'printRecipe',
@@ -41,6 +44,7 @@ if __name__ == "__main__":
     quick = False
     checkonly = False
     printRecipe = False
+    HWcheck = False
     recipeFile = ""
     bsmxFile = ""
     for opt, arg in options:
@@ -56,12 +60,21 @@ if __name__ == "__main__":
             checkonly = True
         elif opt in ('-p', '--printRecipe'):
             printRecipe = True
+        elif opt in ('-e', '--equipment'):
+            HWcheck = True
         elif opt in ('-v', '--verbose'):
             verbose = True
         elif opt == '--version':
             version = arg
 
     ru = ctrl.rununit()
+    if HWcheck:
+        if ru.HWOK():
+            print('USB devices connected')
+        else:
+            print('ERROR: Missing USB devices, exiting')
+            sys.exit(1)
+            
     if bsmxFile != "":
         xml = ctrl.bsmxReadFile(bsmxFile)
         ru.bsmxIn(xml)

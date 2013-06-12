@@ -1,7 +1,10 @@
 Where to start
 ===============
 
+USBconnect, check that all HW is in use and is connected to 
+No sudo on usb
 
+5/25/2013 or thereabout
 Test HW, verify that all USB hardware sensors and controllers are connected 
 and can be attached to by the software.
 
@@ -59,6 +62,23 @@ coverage
 
 
 ====== Post brew issues and observations =======
+
+== 6/9/13
+Stalling on hardware at line of pump start. Check why. This is with hardware and 
+sudo
+
+Remove requirements for sudo
+
+Be able to refresh recipe while running?
+
+The hose to the boiler pot must be above rim of pot to avoid siphoning.
+
+TemPER thermometer is at 206 when boiling. Change boil start to 200.
+
+Anti cavitation start of pumps.
+With scale, if no weight change within x seconds, stop and start again
+Without scale. Just start and stop multiple time the first time. Can be done in recipe.
+
 == 04/28/13
 Added cold water to hot water tun after mashin. This dropped the temperature and added 30 min to the mash cycle.
 

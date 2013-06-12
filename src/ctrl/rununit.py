@@ -107,7 +107,7 @@ def setupControllers(verbose, simulation, permissive):
             x10.open()
         except:
             if permissive:
-                print "Permissive mode, switch X10 to simulation"
+                print "**********X10 not found, simulating HW"
                 x10 = switches.simSwitchList()
                 simX10 = True
             else:
@@ -118,7 +118,7 @@ def setupControllers(verbose, simulation, permissive):
             usbPumps = switches.pumpUSB()
         except:
             if permissive:
-                print "Permissive mode switching USB to simulation"
+                print "**********USB pumps not found, simulating HW"
                 usbPumps = switches.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
@@ -156,7 +156,7 @@ def setupControllers(verbose, simulation, permissive):
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
-        print key
+        #print key
     return(controllers)
 
 
@@ -284,3 +284,6 @@ class rununit():
                     time.sleep(1)
         self.controllers.stop()
         return(True)
+
+    def HWOK(self):
+        return(self.controllers.HWOK())
