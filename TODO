@@ -2,12 +2,15 @@ Where to start
 ===============
 
 The USB scale return 0 if off, so no simple way to see it it is on or not.
+Tried to find a value that is representative but could not find anything
+The good news is that the value on USB port is always 10th of oz, no matter
+what mode the scale is in.
+Alternative is to check that scale is moving when pump is running. If not put
+everything on hold and sound alarm. This requires to new features
+   Hold or pause, stop everything but hold it steady
+   Alarm, sound alarm if something is wrong. web pages, sounds? 
 
 Add all new rules.d to SETUP script
-
-Check what is the boil temp again
-
-Hold temp is not hold, it is running heater... on boiler
 
 5/25/2013 or thereabout
 Test HW, verify that all USB hardware sensors and controllers are connected 
