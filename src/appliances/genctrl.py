@@ -129,7 +129,7 @@ class genctrl():
 
     def findOrAddSensor(self, clist):
         pass
-    
+
     def pause(self):
         """
         Pause any action, to allow a temporary pause in the brew process.

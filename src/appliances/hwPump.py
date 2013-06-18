@@ -77,7 +77,11 @@ class hwPump(appliances.genctrl):
         if self.pumpMotor == None:
             return(False)
         else:
-            return(self.pumpMotor.HWOK())
+            if self.pumpMotor.HWOK():
+                return(self.sensor.HWOK())
+            else:
+                return(False)
+
 
 class wortPump(hwPump):
 

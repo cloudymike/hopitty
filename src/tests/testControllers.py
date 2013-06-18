@@ -103,6 +103,7 @@ def testUnit():
         if s != None:
             assert len(s) > 0
 
+
 def testHWOK():
     """
     Test that HWOK is a boolean
@@ -113,7 +114,7 @@ def testHWOK():
     for key, c in ctrl1.items():
         s = c.HWOK()
         print key, s
-        assert isinstance(s, bool) 
+        assert isinstance(s, bool)
 
 
 def testVal():

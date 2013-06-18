@@ -39,11 +39,24 @@ class controllerList(dict):
             c.stop()
 
     def HWOK(self):
-        """Stop all controllers"""
+        """
+        Check if all HW is connected and if not, return
+        False.
+        On Failure, list what appliances are OK and failing.
+        """
+        usbOK = True
         for c in self.itervalues():
             if not c.HWOK():
-                return(False)
-        return(True)
+                usbOK = False
+        if not usbOK:
+            print "--------- Hardware status ---------"
+            for key, c in self.items():
+                if c.HWOK():
+                    print "    OK:  ", key
+                else:
+                    print "    Fail:", key
+            print "-----------------------------------"
+        return(usbOK)
 
     def check(self, settings):
         """

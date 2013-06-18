@@ -29,7 +29,6 @@ class scanrun():
         self.rl = recipelistmgr.recipeListClass()
         self.mydata = dataMemcache.brewData()
         self.runner = ctrl.rununit()
-        
 
         # Try to find a recipe file
         if recipefile != None:

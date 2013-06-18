@@ -45,4 +45,11 @@ class thermometer(sensors.genericSensor):
                     self.val = 70
 
     def HWOK(self):
-        return(not self.simulation)
+        if self.simulation:
+            return(False)
+        scaleStr = subprocess.check_output(self.exedir)
+        try:
+            t = float(scaleStr)
+        except:
+            return(False)
+        return(True)

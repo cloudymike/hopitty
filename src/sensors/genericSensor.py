@@ -13,7 +13,7 @@ class genericSensor():
         Return the current sensor value
         """
         return(42)
-    
+
     def HWOK(self):
         """
         Return OK if HW USB is connecteed and working.
