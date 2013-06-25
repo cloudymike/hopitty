@@ -1,6 +1,29 @@
 Where to start
 ===============
 
+Pause and skip button
+---------------------
+Add variables and methods in dataMemcache to handle pauseState and skipState.
+
+Create simulating methods in rununit. They will do nothing but holding the values, 
+(pause) or changing the value back (skip). Call these in method RunRecipe
+
+Set pause and skip both to false at the beginning of runRecipe
+
+Implement the action of skip and pause. 
+Skip: move to the next stage in runRecipe and make sure to set skip to False
+so no more than one step is advanced.
+
+Pause, in all appliances, implement a pause function that does something sensible.
+In general turn all activities off but consider hold on temperature.
+
+Add to testallvisible and testAllInvisible
+
+................................................
+
+Check that the scale is on
+---------------------------
+
 The USB scale return 0 if off, so no simple way to see it it is on or not.
 Tried to find a value that is representative but could not find anything
 The good news is that the value on USB port is always 10th of oz, no matter
