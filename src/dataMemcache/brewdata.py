@@ -125,3 +125,27 @@ class brewData(object):
 # This is data that should be sent to controller
     def setSelectedRecipe(self, value):
         self.setToMemcache('selectedRecipe', value)
+
+    def setPause(self, value):
+        if value:
+            self.setToMemcache('pause', 'True')
+        else:
+            self.setToMemcache('pause', 'False')
+
+    def getPause(self):
+        pauseStatus = self.getFromMemcache('pause')
+        if pauseStatus == None:
+            return(False)
+        return(pauseStatus == 'True')
+
+    def setSkip(self, value):
+        if value:
+            self.setToMemcache('skip', 'True')
+        else:
+            self.setToMemcache('skip', 'False')
+
+    def getSkip(self):
+        skipStatus = self.getFromMemcache('skip')
+        if skipStatus == None:
+            return(False)
+        return(skipStatus == 'True')

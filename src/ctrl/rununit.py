@@ -259,6 +259,8 @@ class rununit():
         runStop = 'run'
         myData = dataMemcache.brewData()
         myData.setStagesList(self.stages)
+        # Make sure skip is not accidentally pressed
+        myData.setSkip(False)
 
         for r_key, settings in sorted(self.stages.items()):
             if myData.getRunStatus() == 'run':
@@ -267,8 +269,9 @@ class rununit():
                 if True:
                     print ""
                     print "Stage: ", r_key
-                while (not self.controllers.done()) and\
-                      (myData.getRunStatus() == 'run'):
+                while (not self.controllers.done()) and \
+                      (myData.getRunStatus() == 'run') and \
+                      (not myData.getSkip()):
                     startTime = datetime.datetime.now()
                     self.controllers.run(settings)
                     writeStatus(self.controllers, settings, r_key, runStop,\
@@ -282,6 +285,7 @@ class rununit():
                         delta = datetime.datetime.now() - startTime
                         print "  Exectime: ", delta.microseconds, "uS"
                     time.sleep(1)
+                myData.setSkip(False)
         self.controllers.stop()
         return(True)
 

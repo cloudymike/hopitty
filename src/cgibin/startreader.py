@@ -9,13 +9,20 @@ def startreaderMain():
     cgitb.enable()
     myData = dataMemcache.brewData()
     form = cgi.FieldStorage()  # instantiate only once!
-    runStatus = form.getfirst('runStatus', 'empty')
 
-    # Avoid script injection escaping the user input
-    runStatus = cgi.escape(runStatus)
-    if runStatus != 'run':
-        runStatus = 'stop'
-    myData.setRunStatus(runStatus)
+    if 'runStatus' in form:
+        runStatus = form['runStatus'].value
+        if runStatus != 'run':
+            runStatus = 'stop'
+        myData.setRunStatus(runStatus)
+
+    if 'pauseState' in form:
+        pauseState = form['pauseState'].value
+        myData.setPause(pauseState == 'True')
+
+    if 'skipState' in form:
+        skipState = form['skipState'].value
+        myData.setSkip(skipState == 'True')
 
     print "Content-Type: text/html"
     print
@@ -26,8 +33,7 @@ def startreaderMain():
     <p>This is the page that should redirect</p>
     <p>The purpose of this page is to read form data and update data files.</p>
     <br><br>
-    <p>Run status: %s</p>
-    """ % runStatus
+    """
 
     print "</body></html>"
 

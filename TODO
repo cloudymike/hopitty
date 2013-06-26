@@ -3,23 +3,30 @@ Where to start
 
 Pause and skip button
 ---------------------
-Add variables and methods in dataMemcache to handle pauseState and skipState.
-
-Create simulating methods in rununit. They will do nothing but holding the values, 
-(pause) or changing the value back (skip). Call these in method RunRecipe
-
-Set pause and skip both to false at the beginning of runRecipe
-
-Implement the action of skip and pause. 
-Skip: move to the next stage in runRecipe and make sure to set skip to False
-so no more than one step is advanced.
+Implement the action of pause. 
 
 Pause, in all appliances, implement a pause function that does something sensible.
-In general turn all activities off but consider hold on temperature.
+In general turn all activities off but consider hold on temperature. For hot water 
+pot keep target temperature. Note, this  will make a nice pre-heating feature as well.
+Start the brew and pause immediately.
 
-Add to testallvisible and testAllInvisible
+Pause and skip....
+If skip is done while pause  is on, I should be able to step through the whole
+program without any activity. Test this.
 
-................................................
+Start does not start on stage 1.
+--------------------------------
+Start and stop is not pause. Make sure that start always go to stage 1.
+
+Slow runoff at end of sparge => pump cavitating
+-----------------------------------------------
+As there is wort left after the end of the brew, 1 h after the sparging,
+this is probably result of slow runoff, a variation of stuck sparge
+
+At the end of the cycle pumping the wort out, do it in stages with 
+1 min rest in between. maybe a pint at a time for the last 2-4 quarts.
+There will be no impact on overall time as the boiler pot is heating up the wort
+but will not be ready for boil yet.
 
 Check that the scale is on
 ---------------------------

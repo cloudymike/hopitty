@@ -17,12 +17,22 @@ def startMain():
 
     common.header('Run Control')
     runStatus = myData.getRunStatus()
-    pauseState = False
-    skipState = False
+    pauseState = myData.getPause()
+    skipState = myData.getSkip()
 
     print "Current Recipe: ", myData.getCurrentRecipe(), '<br>'
     print "Current Stage: ", myData.getCurrentStage(), '<br>'
-    print "Run status: ", runStatus, '<br>'
+
+    print "Run status: "
+    if runStatus != 'run':
+        print "Stopped"
+    else:
+        if pauseState:
+            print "Paused"
+        else:
+            print "Running"
+
+    print '<br>'
     print '<form method="get" action="startreader.py">'
 #    if runStatus != 'run':
 #        print '<input type="hidden" name="runStatus" value="run">'
