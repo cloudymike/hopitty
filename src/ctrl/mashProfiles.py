@@ -37,6 +37,7 @@ def txBSMXtoStages(doc, controllers):
     """
     stages = None
     equipmentName = parseBSMX.bsmxReadString(doc, "F_E_NAME")
+    print equipmentName
     #print "Equipment:", equipmentName
     validEquipment1 = [
                     'Pot and Cooler ( 5 Gal/19 L) - All Grain',
@@ -347,7 +348,7 @@ def MultiBatchRecycleMash(doc, controllers):
     """
     Multi mash, but recirculate mash all through mashing
     """
-    #print "====================MultiBatchRecycleMash"
+    print "====================MultiBatchRecycleMash"
     stages = {}
 
     totVolIn = 0
@@ -465,6 +466,7 @@ def MultiBatchRecycleMash(doc, controllers):
     try:
         stages.update(boiling(doc, controllers, stageCount))
     except:
+        print "Boiling profile failed"
         stages = None
 
     # Check and balances
@@ -472,11 +474,11 @@ def MultiBatchRecycleMash(doc, controllers):
 
     if round(totVolIn, 4) != \
        round(totVolOut + tunDeadSpace + grainAbsorption, 4):
-        #print "Error in/out flow not matching"
-        #print "In vol:", round(totVolIn, 4)
-        #print "Out Vol:", round(totVolOut, 4)
-        #print "Grain absorb and dead space:", \
-        #      round(tunDeadSpace + grainAbsorption, 4)
+        print "Error in/out flow not matching"
+        print "In vol:", round(totVolIn, 4)
+        print "Out Vol:", round(totVolOut, 4)
+        print "Grain absorb and dead space:", \
+              round(tunDeadSpace + grainAbsorption, 4)
         stages = None
 
     return(stages)
