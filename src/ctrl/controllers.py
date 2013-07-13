@@ -75,6 +75,18 @@ class controllerList(dict):
                 return(False)
         return(True)
 
+    def pause(self, settings):
+        """
+        Run all controllers
+        Take a measure, check settings and update controllers
+        """
+        for key, c in self.items():
+            s = settings[key]
+            c.set(s['targetValue'])
+            if s['active']:
+                c.pause()
+                c.update()
+
     def run(self, settings):
         """
         Run all controllers

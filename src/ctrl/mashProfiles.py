@@ -25,6 +25,7 @@ import sys
 empty = 0
 full = 1
 dispenserMax = 4
+boilTemp = 193
 
 
 def txBSMXtoStages(doc, controllers):
@@ -105,7 +106,7 @@ def boiling(doc, controllers, stageCount):
     stageCount = stageCount + 1
 
     step = parseBSMX.stageCtrl(controllers)
-    step["boiler"] = parseBSMX.setDict(200)
+    step["boiler"] = parseBSMX.setDict(boilTemp)
     stages[mkSname("start boil", stageCount)] = step
     stageCount = stageCount + 1
 
@@ -127,7 +128,7 @@ def boiling(doc, controllers, stageCount):
             bt2 = dispenseTime
             step = parseBSMX.stageCtrl(controllers)
             step["delayTimer"] = parseBSMX.setDict(bt1)
-            step["boiler"] = parseBSMX.setDict(200)
+            step["boiler"] = parseBSMX.setDict(boilTemp)
 
             if dispenser > 0:
                 dispenserDevice = "dispenser%d" % (dispenser)
@@ -142,7 +143,7 @@ def boiling(doc, controllers, stageCount):
 
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(bt2)
-        step["boiler"] = parseBSMX.setDict(200)
+        step["boiler"] = parseBSMX.setDict(boilTemp)
         dispenserDevice = "dispenser%d" % (dispenser)
         step[dispenserDevice] = parseBSMX.setDict(empty)
         stages[mkSname("Boil", stageCount)] = step
@@ -151,7 +152,7 @@ def boiling(doc, controllers, stageCount):
     else:
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(boilTime)
-        step["boiler"] = parseBSMX.setDict(200)
+        step["boiler"] = parseBSMX.setDict(boilTemp)
         stages[mkSname("Boil", stageCount)] = step
         stageCount = stageCount + 1
 

@@ -82,6 +82,15 @@ class hwPump(appliances.genctrl):
             else:
                 return(False)
 
+    def pause(self):
+        """
+        Pause any action, to allow a temporary pause in the brew process.
+        This should be a no-action stage. Pumps should be stopped.
+        heaters should keep it'd temperature. etc. It is not the same
+        as stop.
+        """
+        self.pumpOff()
+
 
 class wortPump(hwPump):
 

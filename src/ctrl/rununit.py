@@ -269,11 +269,16 @@ class rununit():
                 if True:
                     print ""
                     print "Stage: ", r_key
-                while (not self.controllers.done()) and \
+                while ((not self.controllers.done()) and \
                       (myData.getRunStatus() == 'run') and \
-                      (not myData.getSkip()):
+                      (not myData.getSkip())) or \
+                      myData.getPause():
                     startTime = datetime.datetime.now()
-                    self.controllers.run(settings)
+                    if myData.getPause():
+                        self.controllers.pause(settings)
+                    else:
+                        self.controllers.run(settings)
+
                     writeStatus(self.controllers, settings, r_key, runStop,\
                                 self.recipeName, \
                                 self.verbose)

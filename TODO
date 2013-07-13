@@ -1,6 +1,15 @@
 Where to start
 ===============
 
+Bad label
+---------
+Brew stages => brew status
+
+Boil Temp
+---------
+Use 192F
+
+
 Pause and skip button
 ---------------------
 Implement the action of pause. 
