@@ -211,11 +211,18 @@ class rununit():
         self.recipeName = ctrl.readName(json)
         self.stages = ctrl.readRecipe(json, self.controllers)
 
+    def stagesIn(self, stages):
+        self.recipeName = 'manualStages'
+        self.stages = stages
+
     def getStages(self):
         return(self.stages)
 
     def getRecipeName(self):
         return(self.recipeName)
+
+    def getControllers(self):
+        return(self.controllers)
 
     def run(self):
         if self.check():
@@ -256,7 +263,6 @@ class rununit():
         Goes through all stages of the recipe and runs all controllers
         Reset controllers by stopping them before starting each stage
         """
-        runStop = 'run'
         myData = dataMemcache.brewData()
         myData.setStagesList(self.stages)
         # Make sure skip is not accidentally pressed
@@ -264,35 +270,41 @@ class rununit():
 
         for r_key, settings in sorted(self.stages.items()):
             if myData.getRunStatus() == 'run':
-                self.controllers.stop()
-                self.controllers.run(settings)
-                if True:
-                    print ""
-                    print "Stage: ", r_key
-                while ((not self.controllers.done()) and \
-                      (myData.getRunStatus() == 'run') and \
-                      (not myData.getSkip())) or \
-                      myData.getPause():
-                    startTime = datetime.datetime.now()
-                    if myData.getPause():
-                        self.controllers.pause(settings)
-                    else:
-                        self.controllers.run(settings)
-
-                    writeStatus(self.controllers, settings, r_key, runStop,\
-                                self.recipeName, \
-                                self.verbose)
-                    # Shut everything down if hardware check shows failure
-                    if not ctrl.checkHardware(self.controllers):
-                        self.controllers.shutdown()
-                        return(False)
-                    if self.verbose:
-                        delta = datetime.datetime.now() - startTime
-                        print "  Exectime: ", delta.microseconds, "uS"
-                    time.sleep(1)
-                myData.setSkip(False)
+                self.runStage(r_key, settings)
         self.controllers.stop()
         return(True)
+
+    def runStage(self, r_key, settings):
+        myData = dataMemcache.brewData()
+        runStop = 'run'
+
+        self.controllers.stop()
+        self.controllers.run(settings)
+        if True:
+            print ""
+            print "Stage: ", r_key
+        while ((not self.controllers.done()) and \
+              (myData.getRunStatus() == 'run') and \
+              (not myData.getSkip())) or \
+              myData.getPause():
+            startTime = datetime.datetime.now()
+            if myData.getPause():
+                self.controllers.pause(settings)
+            else:
+                self.controllers.run(settings)
+
+            writeStatus(self.controllers, settings, r_key, runStop,\
+                        self.recipeName, \
+                        self.verbose)
+            # Shut everything down if hardware check shows failure
+            if not ctrl.checkHardware(self.controllers):
+                self.controllers.shutdown()
+                return(False)
+            if self.verbose:
+                delta = datetime.datetime.now() - startTime
+                print "  Exectime: ", delta.microseconds, "uS"
+            time.sleep(1)
+        myData.setSkip(False)
 
     def HWOK(self):
         return(self.controllers.HWOK())
