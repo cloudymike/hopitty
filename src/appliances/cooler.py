@@ -3,29 +3,29 @@ import appliances.genctrl
 import sensors
 
 
-class boiler(appliances.genctrl):
+class cooler(appliances.genctrl):
     """
-    Manage the wort boiler
-    Checks that a boil is started by checking temp, over 200F is boil
-    This is not completely true, but as this sensor is less accurate
-    it is close enough
-    Consider to not check when boil has started once...
+    Manage the wort cooler
     """
     def __init__(self):
-        self.boilerSwitch = None
+        self.coolerSwitch = None
         self.powerOn = False
         self.active = False
-        self.unit = None
-        self.target = 200
+        self.target = 80
         self.unit = 'F'
-        self.sensor = sensors.temperSensor()
+        # self.sensor = sensors.temperCoolerSensor()
+        # Set a generic sensor, later swap for same sensor as boiler.
+        self.sensor = sensors.genericSensor()
 
     def __del__(self):
         self.powerOn = False
         print 'Powering down'
 
     def connectSwitch(self, switch):
-        self.boilerSwitch = switch
+        self.coolerSwitch = switch
+
+    def connectSensor(self, sensor):
+        self.sensor = sensor
 
     def status(self):
         if self.powerOn:
@@ -43,7 +43,7 @@ class boiler(appliances.genctrl):
             self.off()
 
     def targetMet(self):
-            return(self.get() >= self.target)
+            return(self.get() <= self.target)
 
     def measure(self):
         return(self.sensor.getValue())
@@ -59,27 +59,24 @@ class boiler(appliances.genctrl):
         self.off()
 
     def on(self):
-        if self.boilerSwitch != None:
-            self.boilerSwitch.on()
+        if self.coolerSwitch != None:
+            self.coolerSwitch.on()
         self.powerOn = True
 
     def off(self):
-        if self.boilerSwitch != None:
-            self.boilerSwitch.off()
+        if self.coolerSwitch != None:
+            self.coolerSwitch.off()
         self.powerOn = False
 
     def HWOK(self):
-        if self.boilerSwitch == None:
+        if self.coolerSwitch == None:
             return(False)
         return(self.sensor.HWOK())
 
-    def getSensor(self):
-        return(self.sensor)
-
 if __name__ == '__main__':
-    testBoiler = boiler()
-    testBoiler.on()
-    while not testBoiler.targetMet():
-        print testBoiler.get()
+    testCooler = cooler()
+    testCooler.on()
+    while not testCooler.targetMet():
+        print testCooler.get()
     for x in range(0, 15):
-        print testBoiler.get()
+        print testCooler.get()

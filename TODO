@@ -1,6 +1,16 @@
 Where to start
 ===============
 
+add cooler to mashProfiles
+---------------------------
+Add cooling stage to stages, using the cooler appliance.
+
+bad device descriptions
+-----------------------
+/dev/ttyUSB0 in rununit. Well this works great if the x10 serial is the first
+device plugged in. If not it will fail. Find the real X10 device either by
+using real device descriptor (/dev/serial) or scan the ttyUSBn
+
 Bad label
 ---------
 Brew stages => brew status

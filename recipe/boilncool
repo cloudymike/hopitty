@@ -1,0 +1,11 @@
+{
+"name":"boilerNcool",
+  "recipe":   {
+    "02 boil":{
+      "boiler":90
+     },
+    "03 cool":{
+      "cooler": 84
+     }    
+  }
+}

@@ -1,4 +1,3 @@
-#!/usr/bin/python
 
 import pickle
 import time
@@ -23,11 +22,11 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
 
         myData.setStatus(stat)
 
-        #As alternative, save to pickle file
-        #statout = open('/tmp/status.pkl', 'w')
+        # As alternative, save to pickle file
+        # statout = open('/tmp/status.pkl', 'w')
         # Pickle dictionary using protocol 0.
-        #pickle.dump(stat, statout)
-        #statout.close()
+        # pickle.dump(stat, statout)
+        # statout.close()
 
         if verbose:
             print "================================"
@@ -126,8 +125,10 @@ def setupControllers(verbose, simulation, permissive):
         x10 = switches.simSwitchList()
         usbPumps = switches.simSwitchList()
 
+    print "Setting up appliances"
     hwTunSwitch = x10.getSwitch("H14")
     boilerSwitch = x10.getSwitch("I12")
+    coolerSwitch = switches.coolerSwitch()
     hotWaterPumpSwitch = usbPumps.getSwitch(1)
     hwCirculationSwitch = usbPumps.getSwitch(0)
     wortSwitch = usbPumps.getSwitch(2)
@@ -137,6 +138,10 @@ def setupControllers(verbose, simulation, permissive):
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
+    controllers.addController('cooler', appliances.cooler())
+    controllers['cooler'].connectSwitch(coolerSwitch)
+    boilerSensor = controllers['boiler'].getSensor()
+    controllers['cooler'].connectSensor(boilerSensor)
     controllers.addController('delayTimer', appliances.hoptimer())
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
@@ -153,10 +158,12 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('dispenser3', appliances.dispenser(3))
     controllers.addController('dispenser4', appliances.dispenser(4))
 
+    print "appliance setup done"
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
-        #print key
+        # print key
+    "returning..."
     return(controllers)
 
 
@@ -227,7 +234,7 @@ class rununit():
     def run(self):
         if self.check():
             runOK = self.runRecipe()
-            #(self.controllers, self.stages, self.recipeName, self.verbose)
+            # (self.controllers, self.stages, self.recipeName, self.verbose)
             return(runOK)
         else:
             return(False)
@@ -258,7 +265,7 @@ class rununit():
             return(False)
 
     def runRecipe(self):
-    #controllers, recipe, currentRecipe, verbose):
+    # controllers, recipe, currentRecipe, verbose):
         """
         Goes through all stages of the recipe and runs all controllers
         Reset controllers by stopping them before starting each stage
@@ -293,7 +300,7 @@ class rununit():
             else:
                 self.controllers.run(settings)
 
-            writeStatus(self.controllers, settings, r_key, runStop,\
+            writeStatus(self.controllers, settings, r_key, runStop, \
                         self.recipeName, \
                         self.verbose)
             # Shut everything down if hardware check shows failure

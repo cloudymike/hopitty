@@ -46,5 +46,8 @@ python-x10
 # DigiWeight
 DigiWeight/usbscale
 
+# coolerUSB
+coolerUSB/coolerUSB
+
 # pololu Maestro USB cmd
 UscCmd

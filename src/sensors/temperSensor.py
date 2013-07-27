@@ -4,7 +4,7 @@ import temper
 class temperSensor():
     def __init__(self):
         self.id = 'temper'
-        self.val = 150
+        self.val = 90
 
         th = temper.TemperHandler()
         self.devs = th.get_devices()
@@ -21,11 +21,14 @@ class temperSensor():
     def setID(self, newID):
         self.id = newID
 
+    def setSimValue(self):
+        self.val = self.val + 1.3
+        if self.val > 212:
+            self.val = 212
+
     def getValue(self):
         if self.simulation:
-            self.val = self.val + 1.3
-            if self.val > 212:
-                self.val = 212
+            self.setSimValue()
             return(self.val)
         else:
             try:
