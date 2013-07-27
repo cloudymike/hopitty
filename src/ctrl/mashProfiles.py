@@ -26,6 +26,7 @@ empty = 0
 full = 1
 dispenserMax = 4
 boilTemp = 193
+coolTemp = 72
 
 
 def txBSMXtoStages(doc, controllers):
@@ -39,7 +40,7 @@ def txBSMXtoStages(doc, controllers):
     stages = None
     equipmentName = parseBSMX.bsmxReadString(doc, "F_E_NAME")
     print equipmentName
-    #print "Equipment:", equipmentName
+    # print "Equipment:", equipmentName
     validEquipment1 = [
                     'Pot and Cooler ( 5 Gal/19 L) - All Grain',
                     'Grain 2.5G, 5Gcooler 4Gpot',
@@ -70,7 +71,7 @@ def checkVolBSMX(doc):
     tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
     tunDeadSpaceMin = 1
     if tunDeadSpace < tunDeadSpaceMin:
-        #print "Error: Tun dead space:", tunDeadSpace, "requires:", \
+        # print "Error: Tun dead space:", tunDeadSpace, "requires:", \
         #      tunDeadSpaceMin, "qt"
         return(False)
 
@@ -78,29 +79,65 @@ def checkVolBSMX(doc):
     preBoilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
     boilerVolumeMax = 14
     if preBoilVol > boilerVolumeMax:
-        #print "Error: ", preBoilVol, "exceeding boiler volume"
+        # print "Error: ", preBoilVol, "exceeding boiler volume"
         return(False)
     return(True)
 
 
-# Each def takes a recipe input and creates a mash profile
-# with stages
+# Cooling down the worth
+def cooling(doc, controllers, stageCount):
+    stages = {}
+    stageCount = stageCount + 1
+
+    # Cool down the wort to cool temperature
+    # Keep going for at least 20 minutes or to cooling
+    # temp
+    step = parseBSMX.stageCtrl(controllers)
+    step["cooler"] = parseBSMX.setDict(coolTemp)
+    step["delayTimer"] = parseBSMX.setDict(20)
+    stages[mkSname("cool", stageCount)] = step
+    stageCount = stageCount + 1
+
+    # Hold a  minute to recharge switch
+    # We should be done now but in case we are wrong on temperature
+    # we will just keep cooling after this step.
+    step = parseBSMX.stageCtrl(controllers)
+    # step["boiler"] = parseBSMX.setDict(0)
+    step["delayTimer"] = parseBSMX.setDict(1)
+    stages[mkSname("re-charge", stageCount)] = step
+    stageCount = stageCount + 1
+
+    # Keep on cooling for some time, in essence forever as the target temp
+    # is now very low
+    step = parseBSMX.stageCtrl(controllers)
+    step["cooler"] = parseBSMX.setDict(coolTemp - 40)
+    step["delayTimer"] = parseBSMX.setDict(20)
+    stages[mkSname("keepCool", stageCount)] = step
+    stageCount = stageCount + 1
+
+    return(stages)
+
+
+# Bring the pot to boil
+# Boil for the suitable time
+# Add hops and other additions with the dispensers
+# at suitable times.
 def boiling(doc, controllers, stageCount):
     stages = {}
     stageCount = stageCount + 1
 
-    # This step is just waiting for the boil to start
+    # This step is just bringing up temperature to preboil
     # by checking the temperature
     # So no delay required
     step = parseBSMX.stageCtrl(controllers)
-    step["boiler"] = parseBSMX.setDict(195)
+    step["boiler"] = parseBSMX.setDict(boilTemp - 5)
     stages[mkSname("pre-boil", stageCount)] = step
     stageCount = stageCount + 1
 
-    #hold a  few min just below boil to let foam settle
+    # hold a  few min just below boil to let foam settle
     # Turn off boiler to let things settle
     step = parseBSMX.stageCtrl(controllers)
-    #step["boiler"] = parseBSMX.setDict(0)
+    # step["boiler"] = parseBSMX.setDict(0)
     step["delayTimer"] = parseBSMX.setDict(5)
     stages[mkSname("de-foam", stageCount)] = step
     stageCount = stageCount + 1
@@ -116,7 +153,7 @@ def boiling(doc, controllers, stageCount):
     if len(dispenseTimeList) > 0:
         for dispenseTime in dispenseTimeList:
             if dispenseTime > boilTime:
-                #print "ERROR: bad dispense time"
+                # print "ERROR: bad dispense time"
                 return(None)
 
     if len(dispenseTimeList) > 0:
@@ -133,13 +170,13 @@ def boiling(doc, controllers, stageCount):
             if dispenser > 0:
                 dispenserDevice = "dispenser%d" % (dispenser)
                 step[dispenserDevice] = parseBSMX.setDict(empty)
-                #print "================", bt1, dispenserDevice
+                # print "================", bt1, dispenserDevice
 
             stages[mkSname("Boil", stageCount)] = step
             stageCount = stageCount + 1
             dispenser = dispenser + 1
 
-        #print "================", bt2, dispenserDevice
+        # print "================", bt2, dispenserDevice
 
         step = parseBSMX.stageCtrl(controllers)
         step["delayTimer"] = parseBSMX.setDict(bt2)
@@ -228,6 +265,8 @@ def SingleInfusionBatch(doc, controllers):
 
     try:
         stages.update(boiling(doc, controllers, 11))
+        stageCount = len(stages)
+        stages.update(cooling(doc, controllers, stageCount))
     except:
         stages = None
 
@@ -238,7 +277,7 @@ def SingleBatchRecycleMash(doc, controllers):
     """
     Original single mash, but recirculate mash all through mashing
     """
-    #print "====================SingleBatchRecycleMash"
+    # print "====================SingleBatchRecycleMash"
     stages = {}
     stageCount = 1
 
@@ -335,6 +374,8 @@ def SingleBatchRecycleMash(doc, controllers):
 
     try:
         stages.update(boiling(doc, controllers, stageCount))
+        stageCount = len(stages)
+        stages.update(cooling(doc, controllers, stageCount))
     except:
         stages = None
 
@@ -466,8 +507,10 @@ def MultiBatchRecycleMash(doc, controllers):
 
     try:
         stages.update(boiling(doc, controllers, stageCount))
+        stageCount = len(stages)
+        stages.update(cooling(doc, controllers, stageCount))
     except:
-        print "Boiling profile failed"
+        print "Boiling or cool profile failed"
         stages = None
 
     # Check and balances
@@ -480,6 +523,13 @@ def MultiBatchRecycleMash(doc, controllers):
         print "Out Vol:", round(totVolOut, 4)
         print "Grain absorb and dead space:", \
               round(tunDeadSpace + grainAbsorption, 4)
+        stages = None
+
+    try:
+        stages.update(boiling(doc, controllers, stageCount))
+        stageCount = len(stages)
+        stages.update(cooling(doc, controllers, stageCount))
+    except:
         stages = None
 
     return(stages)
