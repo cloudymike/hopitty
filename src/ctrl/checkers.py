@@ -29,7 +29,6 @@ def checkHardware(controllers):
 
 
 def checkRecipe(mycontrollers, recipe, verbose):
-    #if checkVolume(mycontrollers, recipe, verbose):
     if checkRecipeVsController(mycontrollers, recipe, verbose):
         if checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):
             return(True)

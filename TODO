@@ -1,9 +1,18 @@
 Where to start
 ===============
 
+volume calculation breakout
+-----------------------------
+Breakout calculation of volumes so the volumes used in check volumes are 
+the same as used in the creation of mash profiles (mashProfiles.py)
+
 add cooler to mashProfiles
 ---------------------------
 Add cooling stage to stages, using the cooler appliance.
+
+parameterize volume check
+-------------------------
+parameterize checkVolBSMX. Consider reading a setup file, time for .ini?
 
 bad device descriptions
 -----------------------

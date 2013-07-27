@@ -36,7 +36,9 @@ def getBSMXfile():
 
 def test1():
     sr = ctrl.scanrun(getBSMXfile())
-    assert sr.getRecipeList().len() > 1
+    count = sr.getRecipeList().len()
+    print "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^Valid recipes", count
+    assert count > 1
 
 
 def test2():
@@ -71,11 +73,11 @@ def test3():
         d.setSelectedRecipe(key)
         d.setRunStatus('run')
         sr.runSelectedRecipe(True)
-        print "xxxxxxxxxxx1"
+        print "xxxxxxxxxxx3"
         assert d.getRunStatus() == 'stop'
         return
 
 if __name__ == "__main__":
     test1()
-    #test2()
-    test3()
+    # test2()
+    # test3()

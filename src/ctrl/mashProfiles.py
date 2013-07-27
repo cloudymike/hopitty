@@ -48,6 +48,9 @@ def txBSMXtoStages(doc, controllers):
                     'Grain 3G, 5Gcooler, 5Gpot',
                     ]
 
+    if not checkVolBSMX(doc):
+        return(None)
+
     if equipmentName in validEquipment1:
         mashProfile = parseBSMX.bsmxReadString(doc, "F_MH_NAME")
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
@@ -67,21 +70,39 @@ def txBSMXtoStages(doc, controllers):
 
 
 def checkVolBSMX(doc):
-    return(True)
+    maxInfusionVol = 18  # quarts, before it goes below heater element
+    maxTotalInVol = 24.4  # quarts, before it goes below out spigot
+    tunDeadSpaceMin = 0.19
+    boilerVolumeMax = 16
+
+    # return(True)
     # Check tunDead Space
     tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
-    tunDeadSpaceMin = 1
     if tunDeadSpace < tunDeadSpaceMin:
-        # print "Error: Tun dead space:", tunDeadSpace, "requires:", \
-        #      tunDeadSpaceMin, "qt"
+        print "Error: Tun dead space:", tunDeadSpace, "requires:", \
+             tunDeadSpaceMin, "qt"
         return(False)
 
     # Check boiler volume
     preBoilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-    boilerVolumeMax = 14
     if preBoilVol > boilerVolumeMax:
-        # print "Error: ", preBoilVol, "exceeding boiler volume"
+        print "Error: ", preBoilVol, "exceeding boiler volume"
         return(False)
+
+    infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
+    if infuseVolNet > maxInfusionVol:
+        print "Error: ", infuseVolNet, "exceeding infusions volume"
+        return(False)
+
+    grainAbsorption = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
+                      / 8.3 * 4
+
+    totSparge = preBoilVol + grainAbsorption - infuseVolNet
+    totInVol = preBoilVol + grainAbsorption
+    if totInVol > maxTotalInVol:
+        print "Error: ", totInVol, "exceeding total in volume"
+        return(False)
+
     return(True)
 
 
@@ -203,6 +224,7 @@ def boiling(doc, controllers, stageCount):
 
 
 def SingleInfusionBatch(doc, controllers):
+    print "====================SingleInfusionBatch"
     stages = {}
     s1 = parseBSMX.stageCtrl(controllers)
     s1["waterHeater"] = parseBSMX.setDict(\
@@ -278,7 +300,8 @@ def SingleBatchRecycleMash(doc, controllers):
     """
     Original single mash, but recirculate mash all through mashing
     """
-    # print "====================SingleBatchRecycleMash"
+    print "====================SingleBatchRecycleMash"
+
     stages = {}
     stageCount = 1
 
