@@ -44,7 +44,8 @@ def txBSMXtoStages(doc, controllers):
     validEquipment1 = [
                     'Pot and Cooler ( 5 Gal/19 L) - All Grain',
                     'Grain 2.5G, 5Gcooler 4Gpot',
-                    'Grain 2.5G, 5Gcooler, 4Gpot'
+                    'Grain 2.5G, 5Gcooler, 4Gpot',
+                    'Grain 3G, 5Gcooler, 5Gpot',
                     ]
 
     if equipmentName in validEquipment1:
