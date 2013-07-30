@@ -351,9 +351,7 @@ def SingleBatchRecycleMash(doc, controllers):
     stageCount = stageCount + 1
 
     s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
-    strikeVolTot = strikeVolNet + deadSpaceVol
+    strikeVolTot = strikeVolume(doc)
     s3["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
@@ -400,28 +398,26 @@ def SingleBatchRecycleMash(doc, controllers):
     stageCount = stageCount + 1
 
     s6 = parseBSMX.stageCtrl(controllers)
-    grainAbsorption = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
-                      / 8.3 * 4
-    preboilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-    s6["hotWaterPump"] = parseBSMX.setDict(preboilVol / 2 + grainAbsorption - \
-                         strikeVolTot)
+    s6["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2 \
+                         + grainAbsorption(doc)\
+                         - strikeVolTot)
     stages[mkSname("Sparge in 1", stageCount)] = s6
     stageCount = stageCount + 1
 
     s7 = parseBSMX.stageCtrl(controllers)
-    s7["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s7["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
     s7["boiler"] = parseBSMX.setDict(1)
     stages[mkSname("Wort out 1", stageCount)] = s7
     stageCount = stageCount + 1
 
     s8 = parseBSMX.stageCtrl(controllers)
-    s8["hotWaterPump"] = parseBSMX.setDict(preboilVol / 2)
+    s8["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
     s8["boiler"] = parseBSMX.setDict(1)
     stages[mkSname("Sparge in 2", stageCount)] = s8
     stageCount = stageCount + 1
 
     s10 = parseBSMX.stageCtrl(controllers)
-    s10["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s10["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
     s10["boiler"] = parseBSMX.setDict(1)
     stages[mkSname("Wort out 2", stageCount)] = s10
     stageCount = stageCount + 1
@@ -468,8 +464,6 @@ def MultiBatchRecycleMash(doc, controllers):
     stageCount = stageCount + 1
 
     s3 = parseBSMX.stageCtrl(controllers)
-#    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-#    deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
     strikeVolTot = strikeVolume(doc)
     s3["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
@@ -516,20 +510,15 @@ def MultiBatchRecycleMash(doc, controllers):
     stages[mkSname("Mash recirculate", stageCount)] = s5
     stageCount = stageCount + 1
 
-    grainAbsorption = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
-                      / 8.3 * 4
-    preboilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-
     infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    totSparge = preboilVol + grainAbsorption - infuseVolNet
 
     totSparge = spargeVolume(doc)
     spargeSteps = 6
     volSpargeIn = totSparge / spargeSteps
     volWortOut = volSpargeIn
-    lastWortOut = preboilVol - (spargeSteps * volWortOut)
+    lastWortOut = preBoilVolume(doc) - (spargeSteps * volWortOut)
 
-    if volWortOut > infuseVolNet - grainAbsorption:
+    if volWortOut > infuseVolNet - grainAbsorption(doc):
         return(None)
 
     for i in range(spargeSteps):
@@ -569,15 +558,15 @@ def MultiBatchRecycleMash(doc, controllers):
         stages = None
 
     # Check and balances
-    tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
+    # tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
 
     if round(totVolIn, 4) != \
-       round(totVolOut + tunDeadSpace + grainAbsorption, 4):
+       round(totVolOut + tunDeadSpace(doc) + grainAbsorption(doc), 4):
         print "Error in/out flow not matching"
         print "In vol:", round(totVolIn, 4)
         print "Out Vol:", round(totVolOut, 4)
         print "Grain absorb and dead space:", \
-              round(tunDeadSpace + grainAbsorption, 4)
+              round(tunDeadSpace(doc) + grainAbsorption(doc), 4)
         stages = None
 
     try:

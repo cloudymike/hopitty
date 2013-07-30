@@ -1,10 +1,10 @@
 Where to start
 ===============
 
-volume calculation breakout
------------------------------
-Breakout calculation of volumes so the volumes used in check volumes are 
-the same as used in the creation of mash profiles (mashProfiles.py)
+logger
+------
+Create a logfile for at least each stage as it is run with timestamp and
+key data (as temps and volumes)
 
 breakout sensors
 ----------------
@@ -19,23 +19,6 @@ bad device descriptions
 /dev/ttyUSB0 in rununit. Well this works great if the x10 serial is the first
 device plugged in. If not it will fail. Find the real X10 device either by
 using real device descriptor (/dev/serial) or scan the ttyUSBn
-
-Pause and skip button
----------------------
-Implement the action of pause. 
-
-Pause, in all appliances, implement a pause function that does something sensible.
-In general turn all activities off but consider hold on temperature. For hot water 
-pot keep target temperature. Note, this  will make a nice pre-heating feature as well.
-Start the brew and pause immediately.
-
-Pause and skip....
-If skip is done while pause  is on, I should be able to step through the whole
-program without any activity. Test this.
-
-Start does not start on stage 1.
---------------------------------
-Start and stop is not pause. Make sure that start always go to stage 1.
 
 Slow runoff at end of sparge => pump cavitating
 -----------------------------------------------
