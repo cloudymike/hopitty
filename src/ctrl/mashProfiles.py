@@ -269,9 +269,7 @@ def SingleInfusionBatch(doc, controllers):
     stages["02 Pump rest"] = s2
 
     s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
-    strikeVolTot = strikeVolNet + deadSpaceVol
+    strikeVolTot = strikeVolume(doc)
     s3["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
@@ -294,25 +292,22 @@ def SingleInfusionBatch(doc, controllers):
     stages["05 Mash recirculate"] = s5
 
     s6 = parseBSMX.stageCtrl(controllers)
-    grainAbsorption = \
-      parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
-    preboilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-    s6["hotWaterPump"] = parseBSMX.setDict(preboilVol / 2 + \
-                         grainAbsorption - strikeVolTot)
+    s6["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2 + \
+                         grainAbsorption(doc) - strikeVolTot)
     stages["06 Sparge in 1"] = s6
 
     s7 = parseBSMX.stageCtrl(controllers)
-    s7["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s7["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
     s7["boiler"] = parseBSMX.setDict(1)
     stages["07 Wort out 1"] = s7
 
     s8 = parseBSMX.stageCtrl(controllers)
-    s8["hotWaterPump"] = parseBSMX.setDict(preboilVol / 2)
+    s8["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
     s8["boiler"] = parseBSMX.setDict(1)
     stages["08 Sparge in 2"] = s8
 
     s10 = parseBSMX.stageCtrl(controllers)
-    s10["wortPump"] = parseBSMX.setDict(preboilVol / 2)
+    s10["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
     s10["boiler"] = parseBSMX.setDict(1)
     stages["10 Wort out 2"] = s10
 
