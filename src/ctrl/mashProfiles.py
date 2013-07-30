@@ -29,6 +29,31 @@ boilTemp = 193
 coolTemp = 72
 
 
+def grainAbsorption(doc):
+    ga = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
+                      / 8.3 * 4
+    return(ga)
+
+
+def tunDeadSpace(doc):
+    return(parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION"))
+
+
+def strikeVolume(doc):
+    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
+    strikeVolTot = strikeVolNet + tunDeadSpace(doc)
+    return(strikeVolTot)
+
+
+def preBoilVolume(doc):
+    return(parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL"))
+
+
+def spargeVolume(doc):
+    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
+    return(preBoilVolume(doc) + grainAbsorption(doc) - strikeVolNet)
+
+
 def txBSMXtoStages(doc, controllers):
     """
     Reads the bsmx file and creates a stages list.
@@ -77,30 +102,35 @@ def checkVolBSMX(doc):
 
     # return(True)
     # Check tunDead Space
-    tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
-    if tunDeadSpace < tunDeadSpaceMin:
-        print "Error: Tun dead space:", tunDeadSpace, "requires:", \
+    if tunDeadSpace(doc) < tunDeadSpaceMin:
+        print "Error: Tun dead space:", tunDeadSpace(doc), "requires:", \
              tunDeadSpaceMin, "qt"
         return(False)
 
     # Check boiler volume
-    preBoilVol = parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL")
-    if preBoilVol > boilerVolumeMax:
-        print "Error: ", preBoilVol, "exceeding boiler volume"
+    if preBoilVolume(doc) > boilerVolumeMax:
+        print "Error: ", preBoilVolume(doc), "exceeding boiler volume"
         return(False)
 
-    infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    if infuseVolNet > maxInfusionVol:
-        print "Error: ", infuseVolNet, "exceeding infusions volume"
+    if strikeVolume(doc) > maxInfusionVol:
+        print "Error: ", strikeVolume(doc), "exceeding infusions volume"
         return(False)
 
-    grainAbsorption = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
-                      / 8.3 * 4
-
-    totSparge = preBoilVol + grainAbsorption - infuseVolNet
-    totInVol = preBoilVol + grainAbsorption
+    totInVol = strikeVolume(doc) + spargeVolume(doc)
     if totInVol > maxTotalInVol:
         print "Error: ", totInVol, "exceeding total in volume"
+        return(False)
+
+    outLoss = grainAbsorption(doc) + tunDeadSpace(doc) + preBoilVolume(doc)
+
+    inV = round(totInVol, 4)
+    outV = round(outLoss, 4)
+
+    if inV != outV:
+        print "Deadspace", tunDeadSpace(doc)
+        print "Error: In and outvolume mismatch"
+        print "In volume ", totInVol, "qt"
+        print "Out Volume", outLoss, "qt"
         return(False)
 
     return(True)
@@ -438,9 +468,9 @@ def MultiBatchRecycleMash(doc, controllers):
     stageCount = stageCount + 1
 
     s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
-    strikeVolTot = strikeVolNet + deadSpaceVol
+#    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
+#    deadSpaceVol = parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
+    strikeVolTot = strikeVolume(doc)
     s3["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
@@ -493,6 +523,7 @@ def MultiBatchRecycleMash(doc, controllers):
     infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
     totSparge = preboilVol + grainAbsorption - infuseVolNet
 
+    totSparge = spargeVolume(doc)
     spargeSteps = 6
     volSpargeIn = totSparge / spargeSteps
     volWortOut = volSpargeIn

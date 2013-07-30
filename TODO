@@ -6,6 +6,10 @@ volume calculation breakout
 Breakout calculation of volumes so the volumes used in check volumes are 
 the same as used in the creation of mash profiles (mashProfiles.py)
 
+breakout sensors
+----------------
+Breakout the sensors in the same way as with switches. Already done for cooler and boiler.
+
 parameterize volume check
 -------------------------
 parameterize checkVolBSMX. Consider reading a setup file, time for .ini?
@@ -15,15 +19,6 @@ bad device descriptions
 /dev/ttyUSB0 in rununit. Well this works great if the x10 serial is the first
 device plugged in. If not it will fail. Find the real X10 device either by
 using real device descriptor (/dev/serial) or scan the ttyUSBn
-
-Bad label
----------
-Brew stages => brew status
-
-Boil Temp
----------
-Use 192F
-
 
 Pause and skip button
 ---------------------
@@ -85,14 +80,6 @@ catch
   return;
 }
 
-create a minmax water checker using BSMX input.
-There is a start of one in mashProfiles.py. checkVolBsmx
-More in last mash profile
-Break this one out as a def and reuse. Maybe use in ctrl.rununit.checkBSMX.
-Right now it always returns true as tests are failing.
-
-Created a checker for min max water but it is not considering water used by grain.
-Maybe break out function in parseBSMX. Make 18StoneRuination fail. Did not work so remove.
 
 There is no way to see what recipe is selected until you push the start
 button
