@@ -35,7 +35,7 @@ def statusMain():
 
     controllers = status['controllers']
 
-    common.header("Brew Stages", True)
+    common.header("Brew Status", True)
 
     print """<h2>%s</h2>""" % myData.getCurrentRecipe()
     print """<h3>Stage: %s</h3>""" % stage
