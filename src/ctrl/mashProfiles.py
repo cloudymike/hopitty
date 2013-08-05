@@ -537,12 +537,23 @@ def MultiBatchRecycleMash(doc, controllers):
         stages[mkSname("Sparge in", stageCount)] = sIn
         stageCount = stageCount + 1
 
-    s30 = parseBSMX.stageCtrl(controllers)
-    s30["wortPump"] = parseBSMX.setDict(lastWortOut)
-    s30["boiler"] = parseBSMX.setDict(1)
-    totVolOut = totVolOut + lastWortOut
-    stages[mkSname("Wort out final", stageCount)] = s30
-    stageCount = stageCount + 1
+    # For final wort out, run multiple steps and rest in between
+    # to allow the wort to seep through the mash, as pumping is too
+    # fast otherwise.
+    finalWortSteps = 4
+    for i in range(finalWortSteps):
+        sfw = parseBSMX.stageCtrl(controllers)
+        sfw["wortPump"] = parseBSMX.setDict(lastWortOut / finalWortSteps)
+        sfw["boiler"] = parseBSMX.setDict(1)
+        totVolOut = totVolOut + lastWortOut / finalWortSteps
+        stages[mkSname("Wort out final", stageCount)] = sfw
+        stageCount = stageCount + 1
+
+        sfwHold = parseBSMX.stageCtrl(controllers)
+        sfwHold["delayTimer"] = parseBSMX.setDict(1)
+        sfwHold["boiler"] = parseBSMX.setDict(1)
+        stages[mkSname("Wort Final hold", stageCount)] = sfwHold
+        stageCount = stageCount + 1
 
     try:
         stages.update(boiling(doc, controllers, stageCount))

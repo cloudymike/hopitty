@@ -5,6 +5,20 @@ logger
 ------
 Create a logfile for at least each stage as it is run with timestamp and
 key data (as temps and volumes)
+http://docs.python.org/2/howto/logging.html
+
+mash and sparge breakout
+--------------------------
+In mashProfiles, separate out mashing and sparging. Create a generic program
+with switch for mashing and sparging.
+
+At the same time, break the mashProfile module as it is too long right now.
+Can this be an object?
+
+breakout of last wort out
+--------------------------
+Create a last wort out based MultiBatchRecycleMash and use this for all cycles.
+See previous todo, as this may be part of the same project...
 
 breakout sensors
 ----------------

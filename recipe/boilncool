@@ -2,7 +2,8 @@
 "name":"boilerNcool",
   "recipe":   {
     "02 boil":{
-      "boiler":90
+      "boiler":90,
+      "delayTimer":1
      },
     "03 cool":{
       "cooler": 84
