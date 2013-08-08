@@ -1,3 +1,16 @@
+Brew notes 130806
+==================
+
+X10 switches not working
+
+Mash circulation pump stuck
+
+Create a run script that sets all options correctly so I do not have to think.
+I forgot the -e switch, it would probably have found the x10 problem.
+
+Boil temperature is very dependent on how close the Temper is to the pot. Create a shim
+to make sure it is tight against the pot. Without shim, about 188 with about 198.
+
 Where to start
 ===============
 
