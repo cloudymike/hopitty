@@ -29,7 +29,6 @@ boilTemp = 189
 coolTemp = 78
 
 
-
 def grainAbsorption(doc):
     ga = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
                       / 8.3 * 4
