@@ -25,8 +25,9 @@ import sys
 empty = 0
 full = 1
 dispenserMax = 4
-boilTemp = 193
-coolTemp = 72
+boilTemp = 189
+coolTemp = 78
+
 
 
 def grainAbsorption(doc):
@@ -190,7 +191,7 @@ def boiling(doc, controllers, stageCount):
     # Turn off boiler to let things settle
     step = parseBSMX.stageCtrl(controllers)
     # step["boiler"] = parseBSMX.setDict(0)
-    step["delayTimer"] = parseBSMX.setDict(5)
+    step["delayTimer"] = parseBSMX.setDict(1)
     stages[mkSname("de-foam", stageCount)] = step
     stageCount = stageCount + 1
 
