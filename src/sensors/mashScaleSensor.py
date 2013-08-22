@@ -2,18 +2,20 @@ import sensors
 import subprocess
 import os
 import signal
+import dataMemcache
 
 
 class mashScaleSensor(sensors.genericSensor):
 
     def __init__(self):
+        self.myData = dataMemcache.brewData()
         self.warningCount = 0
         self.id = 'mashScale'
         self.simulation = False
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exedir = scriptdir + '/../../DigiWeight/usbscale'
         try:
-            #print 'Fake scale check'
+            # print 'Fake scale check'
             self.scaleStr = subprocess.check_output(self.exedir)
         except:
             self.simulation = True
@@ -33,6 +35,12 @@ class mashScaleSensor(sensors.genericSensor):
             execstring = 'timeout 1 ' + self.exedir
             try:
                 localstr = subprocess.check_output(execstring, shell=True)
+                if float(localstr) > 65535:
+                    print "Error, hold everything"
+                    # self.myData.setError()
+                if int(localstr) > 8200:
+                    print "Error hold everything"
+                    # self.myData.setError()
 
                 if int(localstr) == 0:
                     print "Warning: Scale value 0 return previous value"

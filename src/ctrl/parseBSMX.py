@@ -14,12 +14,13 @@ def bsmxReadDispense(doc):
     boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
     addTimes = []
 
+    print "boiltime", boiltime
     # Find hop additions times
     tagName = "F_H_BOIL_TIME"
     additions = doc.getElementsByTagName(tagName)
     for addItem in additions:
         at = addItem.firstChild.nodeValue
-        #if at != boiltime:
+        # if at != boiltime:
         addTimes.append(float(at))
 
     # Find misc additions times
@@ -27,7 +28,7 @@ def bsmxReadDispense(doc):
     additions = doc.getElementsByTagName(tagName)
     for addItem in additions:
         at = addItem.firstChild.nodeValue
-        #if at != boiltime:
+        # if at != boiltime:
         addTimes.append(float(at))
 
     dedupedAddTimes = list(set(addTimes))
@@ -250,14 +251,14 @@ if __name__ == "__main__":
     c = ctrl.controllerList()
     c.load()
 
-    #filename = "../../beersmith/spargetest.bsmx"
+    # filename = "../../beersmith/spargetest.bsmx"
 
-    #filename = "../../beersmith/SilverDollarPorter.bsmx"
-    #filename = "../../beersmith/barbary-coast-common-beer.bsmx"
-    #filename = "../../beersmith/17citra.bsmx"
+    # filename = "../../beersmith/SilverDollarPorter.bsmx"
+    # filename = "../../beersmith/barbary-coast-common-beer.bsmx"
+    # filename = "../../beersmith/17citra.bsmx"
     filename = "../../beersmith/18RuinStone.bsmx"
 
-    #printSomeBsmx(filename)
+    # printSomeBsmx(filename)
     doc = bsmxReadFile(filename)
     myStages = bsmxReadRecipe(doc, c)
     prettyPrintStages(myStages)

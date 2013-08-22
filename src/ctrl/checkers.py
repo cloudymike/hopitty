@@ -32,6 +32,7 @@ def checkRecipe(mycontrollers, recipe, verbose):
     if checkRecipeVsController(mycontrollers, recipe, verbose):
         if checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):
             return(True)
+    print "checkRecipe failed"
     return(False)
 
 

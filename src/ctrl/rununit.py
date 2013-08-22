@@ -102,7 +102,8 @@ def setupControllers(verbose, simulation, permissive):
     if not simulation:
         print "Initializing hardware"
         try:
-            x10 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller-if00-port0')
+            x10 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
+                                 '_Inc._USB-Serial_Controller-if00-port0')
             x10.open()
         except:
             if permissive:

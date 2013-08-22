@@ -5,7 +5,7 @@ Created on Mar 19, 2013
 '''
 
 import memcache
-#@PydevCodeAnalysisIgnore
+# @PydevCodeAnalysisIgnore
 
 
 class brewData(object):
@@ -21,6 +21,8 @@ class brewData(object):
         '''
         Constructor
         '''
+        self.unsetError()
+
     def getFromMemcache(self, key):
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
         try:
@@ -137,6 +139,13 @@ class brewData(object):
         if pauseStatus == None:
             return(False)
         return(pauseStatus == 'True')
+
+    def setError(self):
+        self.setPause(True)
+        self.setToMemcache('error', 'True')
+
+    def unsetError(self):
+        self.setToMemcache('error', 'False')
 
     def setSkip(self, value):
         if value:

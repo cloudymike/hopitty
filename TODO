@@ -1,6 +1,18 @@
 
 Where to start
 ===============
+The scale max is 8122. Overweight is 65535
+
+If overweight, then pause and error
+
+Create a cancel error button
+
+Add error condition 
+
+Add display for error condition, red instead of green?
+
+Add check for getting close to 50lb (-5.2 - 1.5 lb) in recipe check
+
 
 logger
 ------
