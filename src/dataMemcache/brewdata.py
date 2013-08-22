@@ -147,6 +147,12 @@ class brewData(object):
     def unsetError(self):
         self.setToMemcache('error', 'False')
 
+    def getError(self):
+        errorStatus = self.getFromMemcache('error')
+        if errorStatus == None:
+            return(False)
+        return(errorStatus == 'True')
+
     def setSkip(self, value):
         if value:
             self.setToMemcache('skip', 'True')

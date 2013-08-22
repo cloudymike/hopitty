@@ -19,6 +19,7 @@ def startMain():
     runStatus = myData.getRunStatus()
     pauseState = myData.getPause()
     skipState = myData.getSkip()
+    errorState = myData.getError()
 
     print "Current Recipe: ", myData.getCurrentRecipe(), '<br>'
     print "Current Stage: ", myData.getCurrentStage(), '<br>'
@@ -94,6 +95,27 @@ def startMain():
         """
         print ' value="Skip">'
     print "Skip one stage forward."
+    print '</form>'
+
+    print '<form method="get" action="startreader.py">'
+    if errorState:
+        print '<input type="hidden" name="errorState" value="False">'
+        print '<input type="submit"'
+        print """
+        style="color: black; background-color: red; font-size: larger;
+        height:50px;width:80px;"
+        """
+        print ' value="Error">'
+    else:
+        print '<input type="hidden" name="errorState" value="True">'
+        print '<input type="submit"'
+        print """
+        style="color: black; background-color: white; font-size: larger;
+        height:50px;width:80px;"
+        """
+        print ' value="OK">'
+
+    print "Clear error."
     print '</form>'
 
     common.footer(__file__)

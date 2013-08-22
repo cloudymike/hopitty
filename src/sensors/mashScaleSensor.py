@@ -37,10 +37,10 @@ class mashScaleSensor(sensors.genericSensor):
                 localstr = subprocess.check_output(execstring, shell=True)
                 if float(localstr) > 65535:
                     print "Error, hold everything"
-                    # self.myData.setError()
+                    self.myData.setError()
                 if int(localstr) > 8200:
                     print "Error hold everything"
-                    # self.myData.setError()
+                    self.myData.setError()
 
                 if int(localstr) == 0:
                     print "Warning: Scale value 0 return previous value"

@@ -102,6 +102,7 @@ def checkVolBSMX(doc):
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
     boilerVolumeMax = 17
+    maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
     # return(True)
     # Check tunDead Space
@@ -136,6 +137,12 @@ def checkVolBSMX(doc):
         print "Out Volume", outLoss, "qt"
         return(False)
 
+    grainWeight = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")
+    fluidWeight = strikeVolume(doc) * 2.08
+    totWeight = grainWeight + fluidWeight
+    if totWeight > maxTotalWeight:
+        print "Total weight ", totWeight, "exceeding max", maxTotalWeight
+        return(False)
     return(True)
 
 
