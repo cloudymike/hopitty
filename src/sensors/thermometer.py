@@ -9,7 +9,7 @@ class thermometer(sensors.genericSensor):
     def __init__(self):
         self.id = 'thermometer'
         self.simulation = False
-        self.erorcount = 0
+        self.errorcount = 0
 
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exedir = scriptdir + '/../../GoIO-2.28.0/mytemp/mytemp'
