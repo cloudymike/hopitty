@@ -10,7 +10,7 @@ def bsmxReadString(doc, tagName):
     return(recipeString)
 
 
-def bsmxReadDispense(doc):
+def bsmxReadDispenseOld(doc):
     boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
     addTimes = []
 
@@ -247,7 +247,61 @@ def printSomeBsmx(filename):
            - grainAbsorption - tunDeadSpace
     print "Math Check out:", flySteps * flyWortOut + lastWortOut
 
+
+def bsmxReadHops(doc):
+    tagName = 'Hops'
+    hops = doc.getElementsByTagName(tagName)
+    hlist = []
+    for hop in hops:
+        name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
+
+        boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
+               firstChild.nodeValue
+        dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
+              firstChild.nodeValue
+        use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+        if use == '0':
+            print "Boil", name, boil, "minutes"
+            hlist.append(float(boil))
+        if use == '1':
+            print "Dryhop", name, dry, "days"
+    return(hlist)
+
+
+def bsmxReadMisc(doc):
+    tagName = 'Misc'
+    ms = doc.getElementsByTagName(tagName)
+    mlist = []
+    for m in ms:
+        name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
+
+        t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
+        unit = m.getElementsByTagName("F_M_TIME_UNITS")[0].\
+               firstChild.nodeValue
+        use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
+        if unit == '0':
+            tu = 'minutes'
+        if unit == '0':
+            tu = 'days'
+        if use == '0':
+            print "Boil", name, t, tu
+            mlist.append(float(t))
+        else:
+            print "Other", name, t, tu
+    return(mlist)
+
+
+def bsmxReadDispense(doc):
+    addTimes = bsmxReadHops(doc) + bsmxReadMisc(doc)
+    dedupedAddTimes = list(set(addTimes))
+    dedupedAddTimes.sort(reverse=True)
+
+    print dedupedAddTimes
+    return(dedupedAddTimes)
+
+
 if __name__ == "__main__":
+    print "start"
     c = ctrl.controllerList()
     c.load()
 
@@ -255,11 +309,16 @@ if __name__ == "__main__":
 
     # filename = "../../beersmith/SilverDollarPorter.bsmx"
     # filename = "../../beersmith/barbary-coast-common-beer.bsmx"
-    # filename = "../../beersmith/17citra.bsmx"
-    filename = "../../beersmith/18RuinStone.bsmx"
+    filename = "../../beersmith/2626test.bsmx"
 
     # printSomeBsmx(filename)
     doc = bsmxReadFile(filename)
-    myStages = bsmxReadRecipe(doc, c)
-    prettyPrintStages(myStages)
-    bsmxReadDispense(doc)
+    # myStages = bsmxReadRecipe(doc, c)
+    # prettyPrintStages(myStages)
+    # bsmxReadDispense(doc)
+
+    print('before')
+    print(bsmxReadHops(doc))
+    print(bsmxReadMisc(doc))
+    print(bsmxReadDispense(doc))
+    print('after')
