@@ -1,6 +1,7 @@
 import sensors
 import subprocess
 import os
+import dataMemcache
 
 
 class thermometer(sensors.genericSensor):
@@ -8,6 +9,8 @@ class thermometer(sensors.genericSensor):
     def __init__(self):
         self.id = 'thermometer'
         self.simulation = False
+        self.erorcount = 0
+
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exedir = scriptdir + '/../../GoIO-2.28.0/mytemp/mytemp'
         try:
@@ -32,8 +35,17 @@ class thermometer(sensors.genericSensor):
             return(self.val)
         else:
             scaleStr = subprocess.check_output(self.exedir)
-            t = float(scaleStr)
-            return(t)
+            try:
+                t = float(scaleStr)
+                self.val = t
+                self.errorcount = 0
+            except:
+                print('Error: Thermometer read error')
+                self.errorcount = self.errorcount + 1
+                if self.errorcount > 10:
+                    errorData = dataMemcache.brewData()
+                    errorData.setError()
+            return(self.val)
 
     def setValue(self, powerOn):
         if self.simulation:

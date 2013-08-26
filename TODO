@@ -13,6 +13,24 @@ Add display for error condition, red instead of green?
 
 Add check for getting close to 50lb (-5.2 - 1.5 lb) in recipe check
 
+add test for errorTester, set error unset error
+
+
+Additions not to boil is incorrecly counted
+Example biofine 1 day, units for minute is 0
+
+<F_M_NAME>Biofine Clear</F_M_NAME>
+<F_M_TYPE>1</F_M_TYPE>
+<F_M_USE_FOR></F_M_USE_FOR>
+<F_M_TEMP_VOL>320.0000000</F_M_TEMP_VOL>
+<F_M_UNITS>6</F_M_UNITS>
+<F_M_AMOUNT>0.5000000</F_M_AMOUNT>
+<F_M_VOLUME>320.0000000</F_M_VOLUME>
+<F_M_INVENTORY>0.0000000</F_M_INVENTORY>
+<F_M_PRICE>1.0000000</F_M_PRICE>
+<F_M_USE>3</F_M_USE>
+<F_M_TIME_UNITS>2</F_M_TIME_UNITS>
+<F_M_TIME>1.0000000</F_M_TIME>
 
 logger
 ------
