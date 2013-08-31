@@ -24,7 +24,13 @@ def testStart():
 
     mydata.setRunStatus('run')
     mydata.setSkip(True)
+    mydata.setPause(False)
     startTime = datetime.datetime.now()
+    if mydata.getSkip():
+        print "Skip is true"
+    else:
+        print "Skip is false"
+    print "Run stage 1, should skip"
     ru.runStage('1', stages['1'])
     delta = datetime.datetime.now() - startTime
     deltasec = delta.total_seconds()

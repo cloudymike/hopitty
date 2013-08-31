@@ -23,6 +23,11 @@ def statusMain():
     status = myData.getStatus()
     stage = myData.getCurrentStage()
 
+    errorState = myData.getError()
+    highLightColor = """<tr style="background-color:green;color:white;">"""
+    if errorState:
+        highLightColor = """<tr style="background-color:red;color:white;">"""
+
     # If there is not status, set some default vals to
     # not break but rather show empty values
     if len(status) == 0:
@@ -54,7 +59,7 @@ def statusMain():
         """
         for key, c in controllers.items():
             if c['active']:
-                print """<tr style="background-color:green;color:white;">"""
+                print highLightColor
             else:
                 print """<tr style="background-color:white;color:gray;">"""
             print """<td> %s </td>""" % key
@@ -88,4 +93,9 @@ def statusMain():
 
 
 if __name__ == "__main__":
+    md = dataMemcache.brewData()
+    statusMain()
+    print "====================================================="
+    time.sleep(5)
+    md.setError()
     statusMain()

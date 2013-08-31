@@ -275,6 +275,8 @@ class rununit():
         myData.setStagesList(self.stages)
         # Make sure skip is not accidentally pressed
         myData.setSkip(False)
+        myData.setPause(False)
+        myData.setError(False)
 
         for r_key, settings in sorted(self.stages.items()):
             if myData.getRunStatus() == 'run':
@@ -295,6 +297,7 @@ class rununit():
               (myData.getRunStatus() == 'run') and \
               (not myData.getSkip())) or \
               myData.getPause():
+
             startTime = datetime.datetime.now()
             if myData.getPause():
                 self.controllers.pause(settings)
