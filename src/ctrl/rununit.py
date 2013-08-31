@@ -276,7 +276,7 @@ class rununit():
         # Make sure skip is not accidentally pressed
         myData.setSkip(False)
         myData.setPause(False)
-        myData.setError(False)
+        myData.unsetError()
 
         for r_key, settings in sorted(self.stages.items()):
             if myData.getRunStatus() == 'run':
