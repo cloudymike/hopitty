@@ -1,4 +1,4 @@
-#import subprocess
+# import subprocess
 import appliances.genctrl
 import sensors
 
@@ -68,5 +68,7 @@ class hwt(appliances.genctrl):
 
     def HWOK(self):
         if self.hotWaterTun == None:
+            return(False)
+        if not self.hotWaterTun.HWOK():
             return(False)
         return(self.sensor.HWOK())

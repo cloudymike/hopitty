@@ -71,6 +71,8 @@ class cooler(appliances.genctrl):
     def HWOK(self):
         if self.coolerSwitch == None:
             return(False)
+        if not self.coolerSwitch.HWOK():
+            return(False)
         return(self.sensor.HWOK())
 
 if __name__ == '__main__':
