@@ -1,14 +1,5 @@
 Brew notes 130901
 
-Cooler USB and temper thermometer seems to overlap
-When the temper thermometer was added the the USB hub, but the cooler USB not
-then it registered as all devices OK
-
-Temper and cooler USB is interacting. When Temper is plugged in, the HW check OK's both
-the boiler thermometer and the cooler.When CoolerUSB is plugged in temper is NOT recognized
-In addition, when either thermometer is plugged in but not X10, it passes for HW/boiler. 
-I'd expect fail on missing X10.
-
 Only X10 plugged in, it hangs, sometimes.
 
 
@@ -36,11 +27,6 @@ with switch for mashing and sparging.
 
 At the same time, break the mashProfile module as it is too long right now.
 Can this be an object?
-
-breakout of last wort out
---------------------------
-Create a last wort out based MultiBatchRecycleMash and use this for all cycles.
-See previous todo, as this may be part of the same project...
 
 breakout sensors
 ----------------

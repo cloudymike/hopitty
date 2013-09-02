@@ -142,13 +142,14 @@ class brewData(object):
 
     def setError(self):
         self.setPause(True)
-        self.setToMemcache('error', 'True')
+        self.setToMemcache('errorstatus', 'True')
 
     def unsetError(self):
-        self.setToMemcache('error', 'False')
+        self.setToMemcache('errorstatus', 'False')
 
     def getError(self):
-        errorStatus = self.getFromMemcache('error')
+        errorStatus = self.getFromMemcache('errorstatus')
+        print "error status", errorStatus
         if errorStatus == None:
             return(False)
         return(errorStatus == 'True')

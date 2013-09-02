@@ -20,4 +20,4 @@ class genericSensor():
         For sensors without USB connection return true
         at all times
         """
-        return(true)
+        return(True)
