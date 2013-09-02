@@ -1,17 +1,17 @@
-Brew notes 130901
-
-Only X10 plugged in, it hangs, sometimes.
-
-
 Where to start
 ===============
 
-Add display for error condition, red instead of green?
+Recipe page
+-----------
+Create a page with the recipe for brew day. What goes into each cup. What goes into the
+mash tun. Times to be used for mash and boil.
 
+read from web
+-------------
+
+more checks
+------------
 Add check for getting close to 50lb (-5.2 - 1.5 lb) in recipe check
-
-add test for errorTester, set error unset error
-
 
 
 logger
@@ -36,21 +36,6 @@ parameterize volume check
 -------------------------
 parameterize checkVolBSMX. Consider reading a setup file, time for .ini?
 
-bad device descriptions
------------------------
-/dev/ttyUSB0 in rununit. Well this works great if the x10 serial is the first
-device plugged in. If not it will fail. Find the real X10 device either by
-using real device descriptor (/dev/serial) or scan the ttyUSBn
-
-Slow runoff at end of sparge => pump cavitating
------------------------------------------------
-As there is wort left after the end of the brew, 1 h after the sparging,
-this is probably result of slow runoff, a variation of stuck sparge
-
-At the end of the cycle pumping the wort out, do it in stages with 
-1 min rest in between. maybe a pint at a time for the last 2-4 quarts.
-There will be no impact on overall time as the boiler pot is heating up the wort
-but will not be ready for boil yet.
 
 Check that the scale is on
 ---------------------------
@@ -68,8 +53,6 @@ Refactor myX10 to be based on simswitchlist.
 
 
 5/25/2013 or thereabout
-Test HW, verify that all USB hardware sensors and controllers are connected 
-and can be attached to by the software.
 
 In mashProfiles, break out water heating and sparging, as this is the same for all
 current mash profiles.
@@ -89,8 +72,6 @@ catch
 
 There is no way to see what recipe is selected until you push the start
 button
-
-dataMemcache: create nosetests for all methods. write-read-compare. Validate type of data
 
 Create a maintenance programs module that is similar to recipeliststatus, but
 reading the json files instead.
@@ -117,18 +98,10 @@ coverage
 
 
 ====== Post brew issues and observations =======
+== 130901
 
-== 130806
+Only X10 plugged in, it hangs, sometimes.
 
-(Fixed) X10 switches not working 
-
-(Fixed) Mash circulation pump stuck 
-
-(Fixed) Create a run script that sets all options correctly so I do not have to think.
-I forgot the -e switch, it would probably have found the x10 problem.
-
-(Fixed) Boil temperature is very dependent on how close the Temper is to the pot. Create a shim
-to make sure it is tight against the pot. Without shim, about 188 with about 198.
 
 == 6/9/13
 Stalling on hardware at line of pump start. Check why. This is with hardware and 

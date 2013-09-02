@@ -14,6 +14,11 @@ def stageStatusMain():
 
     cgitb.enable()
 
+    errorState = myData.getError()
+    highLightColor = """<tr style="background-color:green;color:white;">"""
+    if errorState:
+        highLightColor = """<tr style="background-color:red;color:white;">"""
+
     common.header("Brew Stages", True)
     print """<h2>%s</h2>""" % myData.getCurrentRecipe()
 
@@ -26,7 +31,7 @@ def stageStatusMain():
         print '</tr>'
         for stage, step in sorted(stages.items()):
             if stage == currentStage:
-                print """<tr style="background-color:green;color:white;">"""
+                print highLightColor
             else:
                 print """<tr style="background-color:white;color:black;">"""
             print "<td>", stage, "</td>"
