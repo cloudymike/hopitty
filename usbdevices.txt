@@ -1,0 +1,11 @@
+0403:6001 Cooler	Future Technology Devices International, Ltd FT232 USB-Serial (UART) IC
+067b:2303 X10		Prolific Technology, Inc. PL2303 Serial Port
+0c45:7401 Temper	Microdia 
+06c2:0040 Pumps		Phidgets Inc. (formerly GLAB) PhidgetInterface Kit 0-0-4
+1ffb:0089 Dispenser
+1446:6a73 Scale 
+08f7:0002 Termometer	Vernier EasyTemp/Go!Temp
+
+
+
+
