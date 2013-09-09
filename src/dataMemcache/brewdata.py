@@ -22,6 +22,7 @@ class brewData(object):
         Constructor
         '''
         self.unsetError()
+        self.recipe = []
 
     def getFromMemcache(self, key):
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -165,3 +166,81 @@ class brewData(object):
         if skipStatus == None:
             return(False)
         return(skipStatus == 'True')
+
+    def addToRecipe(self, ingredience, amount, container):
+        recipe = self.getRecipe()
+        recipeItem = [ingredience, amount, container]
+        recipe.append(recipeItem)
+        self.setToMemcache('recipe', recipe)
+
+    def clearRecipe(self):
+        recipe = []
+        self.setToMemcache('recipe', recipe)
+
+    def getRecipe(self):
+        recipe = self.getFromMemcache('recipe')
+        if recipe == None:
+            recipe = []
+        return(recipe)
+
+    def getRecipeContainers(self):
+        r = self.getRecipe()
+        c = []
+        for ri in r:
+            if not (ri[2] in c):
+                c.append(ri[2])
+        c.sort()
+        return (c)
+
+    def getItemsInContainer(self, container):
+        r = self.getRecipe()
+        c = []
+        for ri in r:
+            if ri[2] == container:
+                c.append(ri)
+        return(c)
+
+
+# End of class brewData
+def dummyRecipe(bd):
+    bd.clearRecipe()
+    bd.addToRecipe('Cascade', 1, 'dispenser1')
+    bd.addToRecipe('Chocolate Malt', 8, 'mashtun')
+    bd.addToRecipe('Pale Malt', 88, 'mashtun')
+    return(bd.getRecipe())
+
+
+def testRecipe():
+    d1 = brewData()
+    d2 = brewData()
+    r0 = dummyRecipe(d1)
+    r1 = d1.getRecipe()
+    print r0
+    print r1
+    assert r0 == r1
+    r2 = d2.getRecipe()
+    print r2
+    assert r0 == r2
+    d2.addToRecipe('Crystal 40L', 4, 'mashtun')
+    r1 = d1.getRecipe()
+    r2 = d2.getRecipe()
+    print r2
+    assert len(r2) == len(r0) + 1
+    assert r1 == r2
+    assert r0 != r2
+
+    c = d1.getRecipeContainers()
+    print c
+    assert len(c) > 0
+    assert 'mashtun' in c
+    if len(c) > 1:
+        assert c[0] < c[1]
+
+    mt = d1.getItemsInContainer('mashtun')
+    print mt
+    assert len(mt) > 0
+    assert len(mt) < len(d1.getRecipe())
+    print "OK"
+
+if __name__ == "__main__":
+    testRecipe()

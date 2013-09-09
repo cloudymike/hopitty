@@ -15,6 +15,7 @@ class commonweb():
         print '<a href="status.py"><button>Status</button></a>'
         print '<a href="stagesstatus.py"><button>Stages</button></a>'
         print '<a href="recipeliststatus.py"><button>RecipeList</button></a>'
+        print '<a href="recipe.py"><button>Recipe</button></a>'
         print '<a href=', retpage, '><button>Refresh</button></a>'
 
     def header(self, title, refresh=False):
