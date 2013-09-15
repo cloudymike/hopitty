@@ -71,6 +71,7 @@ def txBSMXtoStages(doc, controllers):
                     'Grain 2.5G, 5Gcooler 4Gpot',
                     'Grain 2.5G, 5Gcooler, 4Gpot',
                     'Grain 3G, 5Gcooler, 5Gpot',
+                    'Grain 3G, 5Gcooler 5Gpot',
                     ]
 
     if not checkVolBSMX(doc):
