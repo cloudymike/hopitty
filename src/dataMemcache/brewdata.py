@@ -167,9 +167,9 @@ class brewData(object):
             return(False)
         return(skipStatus == 'True')
 
-    def addToRecipe(self, ingredience, amount, container):
+    def addToRecipe(self, ingredience, amount, container, unit='oz'):
         recipe = self.getRecipe()
-        recipeItem = [ingredience, amount, container]
+        recipeItem = [ingredience, amount, container, unit]
         recipe.append(recipeItem)
         self.setToMemcache('recipe', recipe)
 

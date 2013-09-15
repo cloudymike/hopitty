@@ -2,6 +2,7 @@ import xml.dom.minidom
 import ctrl
 import sys
 import mashProfiles
+import dataMemcache
 
 
 def bsmxReadString(doc, tagName):
@@ -100,7 +101,11 @@ def bsmxReadRecipe(doc, controllers):
 
     The bulk of this def is moved into mashProfiles, as this is where
     customization is kept.
+
+    Also reads recipe to data store
     """
+    bsmxRead2DataStore(doc)
+
     return(mashProfiles.txBSMXtoStages(doc, controllers))
 
 
@@ -268,6 +273,71 @@ def bsmxReadHops(doc):
     return(hlist)
 
 
+def returnDispenser(doc, t):
+    hlist = bsmxReadDispense(doc)
+    i = 1
+    for h in hlist:
+        a = int(float(t))
+        b = int(h)
+        if a == b:
+            dispenser = 'dispenser' + str(i)
+            return(dispenser)
+        else:
+            i = i + 1
+    return('error')
+
+
+def bsmxHops2Recipe(doc):
+    d = dataMemcache.brewData()
+    tagName = 'Hops'
+    hops = doc.getElementsByTagName(tagName)
+    for hop in hops:
+        name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
+        weight = round(float(hop.getElementsByTagName("F_H_AMOUNT")[0].\
+               firstChild.nodeValue), 2)
+        boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
+               firstChild.nodeValue
+        dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
+              firstChild.nodeValue
+        use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+        if use == '0':
+            d.addToRecipe(name, weight, returnDispenser(doc, boil))
+
+
+def bsmxMisc2Recipe(doc):
+    d = dataMemcache.brewData()
+    tagName = 'Misc'
+    misc = doc.getElementsByTagName(tagName)
+    for m in misc:
+        name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
+
+        t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
+        timeunit = m.getElementsByTagName("F_M_TIME_UNITS")[0].\
+               firstChild.nodeValue
+        amount = round(float(m.getElementsByTagName("F_M_AMOUNT")[0].\
+               firstChild.nodeValue), 2)
+        unit = ""
+        use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
+        if timeunit == '0':
+            tu = 'minutes'
+        if timeunit == '1':
+            tu = 'days'
+
+        if use == '0':
+            d.addToRecipe(name, amount, returnDispenser(doc, t), unit)
+
+
+def bsmxGrains2Recipe(doc):
+    d = dataMemcache.brewData()
+    tagName = 'Grain'
+    hops = doc.getElementsByTagName(tagName)
+    for hop in hops:
+        name = hop.getElementsByTagName("F_G_NAME")[0].firstChild.nodeValue
+        weight = round(float(hop.getElementsByTagName("F_G_AMOUNT")[0].\
+               firstChild.nodeValue), 2)
+        d.addToRecipe(name, weight, 'mashtun')
+
+
 def bsmxReadMisc(doc):
     tagName = 'Misc'
     ms = doc.getElementsByTagName(tagName)
@@ -300,6 +370,14 @@ def bsmxReadDispense(doc):
     return(dedupedAddTimes)
 
 
+def bsmxRead2DataStore(doc):
+    d1 = dataMemcache.brewData()
+    d1.clearRecipe()
+    bsmxGrains2Recipe(doc)
+    bsmxHops2Recipe(doc)
+    bsmxMisc2Recipe(doc)
+
+
 if __name__ == "__main__":
     print "start"
     c = ctrl.controllerList()
@@ -309,16 +387,24 @@ if __name__ == "__main__":
 
     # filename = "../../beersmith/SilverDollarPorter.bsmx"
     # filename = "../../beersmith/barbary-coast-common-beer.bsmx"
-    filename = "../../beersmith/2626test.bsmx"
+    filename = "../../beersmith/29BitterAmerican.bsmx"
+    d1 = dataMemcache.brewData()
+    d1.clearRecipe()
+    print('before')
 
     # printSomeBsmx(filename)
     doc = bsmxReadFile(filename)
-    # myStages = bsmxReadRecipe(doc, c)
+    myStages = bsmxReadRecipe(doc, c)
     # prettyPrintStages(myStages)
     # bsmxReadDispense(doc)
+    # bsmxRead2DataStore(doc)
+    c = d1.getRecipeContainers()
+    for container in c:
+        mt = d1.getItemsInContainer(container)
+        print "================", container
+        print mt
 
-    print('before')
-    print(bsmxReadHops(doc))
-    print(bsmxReadMisc(doc))
-    print(bsmxReadDispense(doc))
+    # print(bsmxReadHops(doc))
+    # print(bsmxReadMisc(doc))
+    # print(bsmxReadDispense(doc))
     print('after')

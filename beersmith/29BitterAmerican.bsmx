@@ -1,4 +1,4 @@
-<Recipes><_MOD_>1974-11-29</_MOD_>
+<Recipes><_MOD_>1975-07-27</_MOD_>
 <Name>Recipes</Name>
 <Type>7372</Type>
 <Owndata>0</Owndata>
@@ -21,7 +21,7 @@
 <Image></Image>
 <F_R_IMAGE_X>0</F_R_IMAGE_X>
 <F_R_IMAGE_Y>0</F_R_IMAGE_Y>
-<F_R_EQUIPMENT><_MOD_>1969-12-31</_MOD_>
+<F_R_EQUIPMENT><_MOD_>2013-09-14</_MOD_>
 <F_E_NAME>Grain 3G, 5Gcooler 5Gpot</F_E_NAME>
 <F_E_MASH_VOL>640.0000000</F_E_MASH_VOL>
 <F_E_TUN_MASS>160.0000000</F_E_TUN_MASS>
@@ -45,7 +45,7 @@
 <F_E_HOP_UTIL>100.0000000</F_E_HOP_UTIL>
 <F_E_NOTES></F_E_NOTES>
 </F_R_EQUIPMENT>
-<F_R_STYLE><_MOD_>1969-12-31</_MOD_>
+<F_R_STYLE><_MOD_>2013-09-14</_MOD_>
 <F_S_NAME>American Amber Ale</F_S_NAME>
 <F_S_CATEGORY>American Pale Ale</F_S_CATEGORY>
 <F_S_GUIDE>BJCP 1999</F_S_GUIDE>
@@ -70,7 +70,7 @@
 <F_S_EXAMPLES>North Coast Red Seal Ale, Fat Tire Amber Ale, Full Sail Amber Ale</F_S_EXAMPLES>
 <F_S_WEB_LINK></F_S_WEB_LINK>
 </F_R_STYLE>
-<F_R_MASH><_MOD_>1969-12-31</_MOD_>
+<F_R_MASH><_MOD_>2013-09-14</_MOD_>
 <F_MH_NAME>Single Infusion, Medium Body, No Mash Out</F_MH_NAME>
 <F_MH_GRAIN_WEIGHT>108.0000000</F_MH_GRAIN_WEIGHT>
 <F_MH_GRAIN_TEMP>72.0000000</F_MH_GRAIN_TEMP>
@@ -156,7 +156,7 @@
 <F_C_CARB_RATE>100.0000000</F_C_CARB_RATE>
 <F_C_NOTES>Use corn sugar for priming the beer</F_C_NOTES>
 </F_R_CARB>
-<F_R_AGE><_MOD_>1969-12-31</_MOD_>
+<F_R_AGE><_MOD_>2013-09-14</_MOD_>
 <F_A_NAME>Ale, Two Stage</F_A_NAME>
 <F_A_PRIM_TEMP>67.0000000</F_A_PRIM_TEMP>
 <F_A_PRIM_END_TEMP>67.0000000</F_A_PRIM_END_TEMP>
@@ -179,7 +179,7 @@
 <Type>7405</Type>
 <Owndata>1</Owndata>
 <TID>7182</TID>
-<Size>10</Size>
+<Size>11</Size>
 <_XName>Ingredients</_XName>
 <Allocinc>16</Allocinc>
 <Data><Grain><_MOD_>1969-12-31</_MOD_>
@@ -234,7 +234,7 @@
 <F_G_PRICE>0.0781250</F_G_PRICE>
 <F_G_CONVERT_GRAIN>Amber Liquid Extract</F_G_CONVERT_GRAIN>
 </Grain>
-<Grain><_MOD_>1974-12-02</_MOD_>
+<Grain><_MOD_>1975-06-27</_MOD_>
 <F_G_NAME>Caramel/Crystal Malt - 15L</F_G_NAME>
 <F_G_ORIGIN>US</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -261,7 +261,7 @@ Also called &quot;Crystal&quot; malt.</F_G_NOTES>
 <F_G_PRICE>0.0800000</F_G_PRICE>
 <F_G_CONVERT_GRAIN></F_G_CONVERT_GRAIN>
 </Grain>
-<Grain><_MOD_>1975-01-31</_MOD_>
+<Grain><_MOD_>1969-12-31</_MOD_>
 <F_G_NAME>Caramel/Crystal Malt - 45L</F_G_NAME>
 <F_G_ORIGIN>US</F_G_ORIGIN>
 <F_G_SUPPLIER></F_G_SUPPLIER>
@@ -288,7 +288,7 @@ Also called &quot;Crystal&quot; malt.</F_G_NOTES>
 <F_G_PRICE>0.0800000</F_G_PRICE>
 <F_G_CONVERT_GRAIN></F_G_CONVERT_GRAIN>
 </Grain>
-<Hops><_MOD_>1974-12-02</_MOD_>
+<Hops><_MOD_>1969-12-31</_MOD_>
 <F_H_NAME>Warrior</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>2</F_H_TYPE>
@@ -311,7 +311,25 @@ Substitutes: Nugget, Columbus, Magnum</F_H_NOTES>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Hops><_MOD_>1969-12-31</_MOD_>
+<Misc><_MOD_>1969-12-31</_MOD_>
+<F_M_NAME>Whirlfloc Tablet</F_M_NAME>
+<F_M_TYPE>1</F_M_TYPE>
+<F_M_USE_FOR>Clarity</F_M_USE_FOR>
+<F_M_TEMP_VOL>384.0000000</F_M_TEMP_VOL>
+<F_M_UNITS>13</F_M_UNITS>
+<F_M_AMOUNT>1.0000000</F_M_AMOUNT>
+<F_M_VOLUME>640.0000000</F_M_VOLUME>
+<F_M_INVENTORY>12.0000000</F_M_INVENTORY>
+<F_M_PRICE>0.1000000</F_M_PRICE>
+<F_M_USE>0</F_M_USE>
+<F_M_TIME_UNITS>0</F_M_TIME_UNITS>
+<F_M_TIME>15.0000000</F_M_TIME>
+<F_M_NOTES>Aids in clearing yeast and chill haze.  Easy to use tablet form.</F_M_NOTES>
+<F_M_IMPORT_AS_WEIGHT>1</F_M_IMPORT_AS_WEIGHT>
+<F_M_IMPORT_UNITS>0</F_M_IMPORT_UNITS>
+<F_ORDER>6</F_ORDER>
+</Misc>
+<Hops><_MOD_>1975-06-27</_MOD_>
 <F_H_NAME>Cascade</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>2</F_H_TYPE>
@@ -330,12 +348,12 @@ Aroma: Strong spicy, floral, grapefruit character
 Substitutes: Centennial
 Examples: Sierra Nevada Pale Ale, Anchor Liberty Ale</F_H_NOTES>
 <F_H_IBU_CONTRIB>8.6728486</F_H_IBU_CONTRIB>
-<F_ORDER>6</F_ORDER>
+<F_ORDER>7</F_ORDER>
 <F_H_USE>0</F_H_USE>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Hops><_MOD_>1969-12-31</_MOD_>
+<Hops><_MOD_>1975-06-27</_MOD_>
 <F_H_NAME>Centennial</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>0</F_H_TYPE>
@@ -353,12 +371,12 @@ Aroma: Floral, citrus aroma, spicy, clean bittering flavor
 Substitutes: Galena, Eroica, Nugget, Bullion
 Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_H_IBU_CONTRIB>0.0000000</F_H_IBU_CONTRIB>
-<F_ORDER>7</F_ORDER>
+<F_ORDER>8</F_ORDER>
 <F_H_USE>0</F_H_USE>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Yeast><_MOD_>1974-11-07</_MOD_>
+<Yeast><_MOD_>1975-09-12</_MOD_>
 <F_Y_NAME>American Ale</F_Y_NAME>
 <F_Y_LAB>Wyeast Labs</F_Y_LAB>
 <F_Y_PRODUCT_ID>1056</F_Y_PRODUCT_ID>
@@ -369,7 +387,7 @@ Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_Y_AMOUNT>1.0000000</F_Y_AMOUNT>
 <F_Y_INVENTORY>0.0000000</F_Y_INVENTORY>
 <F_Y_PRICE>6.0000000</F_Y_PRICE>
-<F_ORDER>8</F_ORDER>
+<F_ORDER>9</F_ORDER>
 <F_Y_IN_RECIPE>1</F_Y_IN_RECIPE>
 <F_Y_BREW_DATE>2013-09-15</F_Y_BREW_DATE>
 <F_Y_PKG_DATE>2012-11-12</F_Y_PKG_DATE>
@@ -386,7 +404,7 @@ Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_Y_BEST_FOR>American Pale Ale, Scottish Ale, Porters, Sweet Stout, Barley Wine, Alt</F_Y_BEST_FOR>
 <F_Y_NOTES>Soft, smooth, clean finish.  Very well balanced.  Very versitile -- works well with many ale styles.</F_Y_NOTES>
 </Yeast>
-<Hops><_MOD_>1975-01-31</_MOD_>
+<Hops><_MOD_>1970-01-02</_MOD_>
 <F_H_NAME>Centennial</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>0</F_H_TYPE>
@@ -404,12 +422,12 @@ Aroma: Floral, citrus aroma, spicy, clean bittering flavor
 Substitutes: Galena, Eroica, Nugget, Bullion
 Examples: Sierra Nevada Celebration Ale, Sierra Nevada Bigfoot</F_H_NOTES>
 <F_H_IBU_CONTRIB>0.0000000</F_H_IBU_CONTRIB>
-<F_ORDER>9</F_ORDER>
+<F_ORDER>10</F_ORDER>
 <F_H_USE>1</F_H_USE>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
 </Hops>
-<Hops><_MOD_>2023-11-04</_MOD_>
+<Hops><_MOD_>1975-09-12</_MOD_>
 <F_H_NAME>Simcoe</F_H_NAME>
 <F_H_ORIGIN>U.S.</F_H_ORIGIN>
 <F_H_TYPE>0</F_H_TYPE>
@@ -427,7 +445,7 @@ Used for: IPAs
 Aroma: Citrus and pine-like aroma
 Substitutes: N/A</F_H_NOTES>
 <F_H_IBU_CONTRIB>0.0000000</F_H_IBU_CONTRIB>
-<F_ORDER>10</F_ORDER>
+<F_ORDER>11</F_ORDER>
 <F_H_USE>1</F_H_USE>
 <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
 <F_H_PRICE>1.0000000</F_H_PRICE>
