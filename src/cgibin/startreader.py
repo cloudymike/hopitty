@@ -26,8 +26,14 @@ def startreaderMain():
 
     print "Content-Type: text/html"
     print
-    print '<html>'
-    print '<meta HTTP-EQUIV="REFRESH" content="0; url=/index.html">'
+    print """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+       "http://www.w3.org/TR/html4/loose.dtd">
+       <html>
+         <head>
+           <title></title>
+    <meta HTTP-EQUIV="REFRESH" content="0; url=/index.html">
+     </head>
+    """
     print """\
     <body><h1>RecipeReader</h1>
     <p>This is the page that should redirect</p>

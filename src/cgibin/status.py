@@ -49,12 +49,12 @@ def statusMain():
         print """\
         <table border="1">
         <tr>
-        <td><b>Controller</td>
-        <td><b>Active</td>
-        <td><b>Set Value</td>
-        <td><b>Actual Value</td>
-        <td><b>Power</td>
-        <td><b>Done</td>
+        <td><b>Controller</b></td>
+        <td><b>Active</b></td>
+        <td><b>Set Value</b></td>
+        <td><b>Actual Value</b></td>
+        <td><b>Power</b></td>
+        <td><b>Done</b></td>
         </tr>
         """
         for key, c in controllers.items():
@@ -96,4 +96,3 @@ def statusMain():
 if __name__ == "__main__":
     md = dataMemcache.brewData()
     statusMain()
-

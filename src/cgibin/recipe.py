@@ -21,9 +21,9 @@ def recipeMain():
     print """\
     <table border="1">
     <tr>
-    <td><b>Container</td>
-    <td><b>Item</td>
-    <td><b>Amount</td>
+    <td><b>Container</b></td>
+    <td><b>Item</b></td>
+    <td><b>Amount</b></td>
     </tr>
     """
 

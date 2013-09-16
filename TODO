@@ -3,12 +3,14 @@ Where to start
 
 Both mash circulation and heat circulation running at same time. Does not work. Make sure heat circulation if off when
 mash circulation running. This is a power limitation problem.
-
-Check if html generated is valid html
-
 Cavitation with wort circulation pump. Skip worth circulation all together? Use fewer and shorter cycles? Looks like it is a problem of wort not sinking through grain.
-
 Remove sparge circulation pump
+
+Startup with hardware still fails sometimes. Able to fail with just X10 serial connected.
+
+When using the plug for the pumps to turn it on and off it at times failed
+
+After removing mash circulation pump, remove all the mash circulation steps
 
 Recipe page
 -----------

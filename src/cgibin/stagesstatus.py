@@ -24,7 +24,7 @@ def stageStatusMain():
 
     if myData.getRunStatus() == 'run':
         print '<table border="1"><tr>'
-        print '<td><b> Stage </td></b>'
+        print '<td><b> Stage </b></td>'
         ctrlList = myData.getControllerList()
         for c in ctrlList:
             print "<th>", c, "</th>"
