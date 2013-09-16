@@ -92,10 +92,8 @@ def statusMain():
     common.footer(__file__)
 
 
+# This is not a test...This is the real thing..
 if __name__ == "__main__":
     md = dataMemcache.brewData()
     statusMain()
-    print "====================================================="
-    time.sleep(5)
-    md.setError()
-    statusMain()
+
