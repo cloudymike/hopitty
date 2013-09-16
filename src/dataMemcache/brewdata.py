@@ -150,7 +150,6 @@ class brewData(object):
 
     def getError(self):
         errorStatus = self.getFromMemcache('errorstatus')
-        print "error status", errorStatus
         if errorStatus == None:
             return(False)
         return(errorStatus == 'True')

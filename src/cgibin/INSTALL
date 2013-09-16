@@ -12,7 +12,7 @@ sudo cp -r ../dataMemcache /usr/lib/cgi-bin
 sudo chmod -R 755 /usr/lib/cgi-bin/dataMemcache
 
 sudo cp -p ../../datadir/* /tmp
-chmod 666 /tmp/*.pkl
+sudo chmod 666 /tmp/*.pkl
 sudo cp -p ../html/*.html /var/www
-chmod 755 /var/www/*.html
+sudo chmod 755 /var/www/*.html
 popd

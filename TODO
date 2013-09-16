@@ -1,6 +1,17 @@
 Where to start
 ===============
 
+Both mash circulation and heat circulation running at same time. Does not work. Make sure heat circulation if off when
+mash circulation running. This is a power limitation problem.
+
+When I am changing to status page, the pause button goes on. Error checker?
+
+Check if html generated is valid html
+
+Cavitation with wort circulation pump. Skip worth circulation all together? Use fewer and shorter cycles? Looks like it is a problem of wort not sinking through grain.
+
+Remove sparge circulation pump
+
 Recipe page
 -----------
 Create a page with the recipe for brew day. What goes into each cup. What goes into the

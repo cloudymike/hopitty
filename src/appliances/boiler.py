@@ -71,8 +71,6 @@ class boiler(appliances.genctrl):
     def HWOK(self):
         if self.boilerSwitch == None:
             return(False)
-        if not self.boilerSwitch.HWOK():
-            return(False)
         return(self.sensor.HWOK())
 
     def getSensor(self):
