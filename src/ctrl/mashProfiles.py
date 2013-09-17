@@ -84,13 +84,13 @@ def txBSMXtoStages(doc, controllers):
                        'Single Infusion, Full Body, Batch Sparge'
                        ]:
 
-            stages = SingleBatchRecycleMash(doc, controllers)
+            stages = SingleInfusionBatch(doc, controllers)
 
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                        'Single Infusion, Medium Body, No Mash Out',
                        'Single Infusion, Full Body, No Mash Out',
                        ]:
-            stages = MultiBatchRecycleMash(doc, controllers)
+            stages = MultiBatchMash(doc, controllers)
         if stages == None:
             print "No valid mash profile found"
     else:
@@ -296,14 +296,6 @@ def SingleInfusionBatch(doc, controllers):
     s4["waterCirculationPump"] = parseBSMX.setDict(1)
     stages["04 Mashing"] = s4
 
-    s5 = parseBSMX.stageCtrl(controllers)
-    s5["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s5["waterCirculationPump"] = parseBSMX.setDict(1)
-    s5["mashCirculationPump"] = parseBSMX.setDict(1)
-    s5["delayTimer"] = parseBSMX.setDict(2)
-    stages["05 Mash recirculate"] = s5
-
     s6 = parseBSMX.stageCtrl(controllers)
     s6["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2 + \
                          grainAbsorption(doc) - strikeVolTot)
@@ -334,121 +326,15 @@ def SingleInfusionBatch(doc, controllers):
     return(stages)
 
 
-def SingleBatchRecycleMash(doc, controllers):
-    """
-    Original single mash, but recirculate mash all through mashing
-    """
-    print "====================SingleBatchRecycleMash"
-
-    stages = {}
-    stageCount = 1
-
-    s1 = parseBSMX.stageCtrl(controllers)
-    s1["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
-    s1["waterCirculationPump"] = parseBSMX.setDict(1)
-
-    stages[mkSname("Heating", stageCount)] = s1
-    stageCount = stageCount + 1
-
-    s2 = parseBSMX.stageCtrl(controllers)
-    s2["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
-    s2["delayTimer"] = parseBSMX.setDict(0.30)
-    stages[mkSname("Pump rest", stageCount)] = s2
-    stageCount = stageCount + 1
-
-    s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolTot = strikeVolume(doc)
-    s3["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
-    s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
-    stages[mkSname("StrikeWater", stageCount)] = s3
-    stageCount = stageCount + 1
-
-    s5 = parseBSMX.stageCtrl(controllers)
-    s5["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s5["waterCirculationPump"] = parseBSMX.setDict(1)
-    s5["mashCirculationPump"] = parseBSMX.setDict(1)
-    s5["delayTimer"] = parseBSMX.setDict(2)
-    stages[mkSname("Mash Initial Mix", stageCount)] = s5
-    stageCount = stageCount + 1
-
-    mixSteps = 4
-    mixTime = 1
-    mashTime = parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME")
-    spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
-
-    for i in range(mixSteps):
-        step = parseBSMX.stageCtrl(controllers)
-        step["delayTimer"] = parseBSMX.setDict((mashTime / mixSteps) - mixTime)
-        step["waterHeater"] = parseBSMX.setDict(spargeTemp)
-        step["waterCirculationPump"] = parseBSMX.setDict(1)
-        stages[mkSname("Mashing", stageCount)] = step
-        stageCount = stageCount + 1
-
-        step = parseBSMX.stageCtrl(controllers)
-        step["delayTimer"] = parseBSMX.setDict(mixTime)
-        step["waterHeater"] = parseBSMX.setDict(spargeTemp)
-        step["waterCirculationPump"] = parseBSMX.setDict(1)
-        step["mashCirculationPump"] = parseBSMX.setDict(1)
-        stages[mkSname("Mash mix", stageCount)] = step
-        stageCount = stageCount + 1
-
-    s5 = parseBSMX.stageCtrl(controllers)
-    s5["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
-    s5["waterCirculationPump"] = parseBSMX.setDict(1)
-    s5["mashCirculationPump"] = parseBSMX.setDict(1)
-    s5["delayTimer"] = parseBSMX.setDict(2)
-    stages[mkSname("Mash recirculate", stageCount)] = s5
-    stageCount = stageCount + 1
-
-    s6 = parseBSMX.stageCtrl(controllers)
-    s6["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2 \
-                         + grainAbsorption(doc)\
-                         - strikeVolTot)
-    stages[mkSname("Sparge in 1", stageCount)] = s6
-    stageCount = stageCount + 1
-
-    s7 = parseBSMX.stageCtrl(controllers)
-    s7["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
-    s7["boiler"] = parseBSMX.setDict(1)
-    stages[mkSname("Wort out 1", stageCount)] = s7
-    stageCount = stageCount + 1
-
-    s8 = parseBSMX.stageCtrl(controllers)
-    s8["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
-    s8["boiler"] = parseBSMX.setDict(1)
-    stages[mkSname("Sparge in 2", stageCount)] = s8
-    stageCount = stageCount + 1
-
-    s10 = parseBSMX.stageCtrl(controllers)
-    s10["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
-    s10["boiler"] = parseBSMX.setDict(1)
-    stages[mkSname("Wort out 2", stageCount)] = s10
-    stageCount = stageCount + 1
-
-    try:
-        stages.update(boiling(doc, controllers, stageCount))
-        stageCount = len(stages)
-        stages.update(cooling(doc, controllers, stageCount))
-    except:
-        stages = None
-
-    return(stages)
-
-
 def mkSname(title, number):
     return("%02d %s" % (number, title))
 
 
-def MultiBatchRecycleMash(doc, controllers):
+def MultiBatchMash(doc, controllers):
     """
-    Multi mash, but recirculate mash all through mashing
+    Multi batch sparging mash
     """
-    print "====================MultiBatchRecycleMash"
+    print "====================MultiBatchMash"
     stages = {}
 
     totVolIn = 0
@@ -480,42 +366,15 @@ def MultiBatchRecycleMash(doc, controllers):
     stages[mkSname("StrikeWater", stageCount)] = s3
     stageCount = stageCount + 1
 
+    mashTime = parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME")
+    spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
+
     step = parseBSMX.stageCtrl(controllers)
     step["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
-    step["mashCirculationPump"] = parseBSMX.setDict(1)
-    step["delayTimer"] = parseBSMX.setDict(2)
-    stages[mkSname("Mash Initial Mix", stageCount)] = step
-    stageCount = stageCount + 1
-
-    mixSteps = 12
-    mixTime = 1
-    mashTime = parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME")
-    spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
-
-    for i in range(mixSteps):
-        step = parseBSMX.stageCtrl(controllers)
-        step["delayTimer"] = parseBSMX.setDict((mashTime / mixSteps) - mixTime)
-        step["waterHeater"] = parseBSMX.setDict(spargeTemp)
-        step["waterCirculationPump"] = parseBSMX.setDict(1)
-        stages[mkSname("Mashing", stageCount)] = step
-        stageCount = stageCount + 1
-
-        step = parseBSMX.stageCtrl(controllers)
-        step["delayTimer"] = parseBSMX.setDict(mixTime)
-        step["waterHeater"] = parseBSMX.setDict(spargeTemp)
-        step["waterCirculationPump"] = parseBSMX.setDict(1)
-        step["mashCirculationPump"] = parseBSMX.setDict(1)
-        stages[mkSname("Mash mix", stageCount)] = step
-        stageCount = stageCount + 1
-
-    # Turn off heater to ensure not overlap between heater and boiler
-    s5 = parseBSMX.stageCtrl(controllers)
-    s5["waterCirculationPump"] = parseBSMX.setDict(1)
-    s5["mashCirculationPump"] = parseBSMX.setDict(1)
-    s5["delayTimer"] = parseBSMX.setDict(2)
-    stages[mkSname("Mash recirculate", stageCount)] = s5
+    step["delayTimer"] = parseBSMX.setDict(mashTime)
+    stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
 
     infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
@@ -530,17 +389,18 @@ def MultiBatchRecycleMash(doc, controllers):
         return(None)
 
     for i in range(spargeSteps):
-        sOut = parseBSMX.stageCtrl(controllers)
-        sOut["wortPump"] = parseBSMX.setDict(volWortOut)
-        totVolOut = totVolOut + volWortOut
-        sOut["boiler"] = parseBSMX.setDict(1)
-        stages[mkSname("Wort out", stageCount)] = sOut
-        stageCount = stageCount + 1
 
         sHold = parseBSMX.stageCtrl(controllers)
         sHold["delayTimer"] = parseBSMX.setDict(1)
         sHold["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Sparge hold", stageCount)] = sHold
+        stageCount = stageCount + 1
+
+        sOut = parseBSMX.stageCtrl(controllers)
+        sOut["wortPump"] = parseBSMX.setDict(volWortOut)
+        totVolOut = totVolOut + volWortOut
+        sOut["boiler"] = parseBSMX.setDict(1)
+        stages[mkSname("Wort out", stageCount)] = sOut
         stageCount = stageCount + 1
 
         sIn = parseBSMX.stageCtrl(controllers)
@@ -555,17 +415,18 @@ def MultiBatchRecycleMash(doc, controllers):
     # fast otherwise.
     finalWortSteps = 4
     for i in range(finalWortSteps):
-        sfw = parseBSMX.stageCtrl(controllers)
-        sfw["wortPump"] = parseBSMX.setDict(lastWortOut / finalWortSteps)
-        sfw["boiler"] = parseBSMX.setDict(1)
-        totVolOut = totVolOut + lastWortOut / finalWortSteps
-        stages[mkSname("Wort out final", stageCount)] = sfw
-        stageCount = stageCount + 1
 
         sfwHold = parseBSMX.stageCtrl(controllers)
         sfwHold["delayTimer"] = parseBSMX.setDict(1)
         sfwHold["boiler"] = parseBSMX.setDict(1)
         stages[mkSname("Wort Final hold", stageCount)] = sfwHold
+        stageCount = stageCount + 1
+
+        sfw = parseBSMX.stageCtrl(controllers)
+        sfw["wortPump"] = parseBSMX.setDict(lastWortOut / finalWortSteps)
+        sfw["boiler"] = parseBSMX.setDict(1)
+        totVolOut = totVolOut + lastWortOut / finalWortSteps
+        stages[mkSname("Wort out final", stageCount)] = sfw
         stageCount = stageCount + 1
 
     try:
@@ -586,14 +447,6 @@ def MultiBatchRecycleMash(doc, controllers):
         print "Out Vol:", round(totVolOut, 4)
         print "Grain absorb and dead space:", \
               round(tunDeadSpace(doc) + grainAbsorption(doc), 4)
-        stages = None
-
-    try:
-        stages.update(boiling(doc, controllers, stageCount))
-        print "Boiling done"
-        stageCount = len(stages)
-        stages.update(cooling(doc, controllers, stageCount))
-    except:
         stages = None
 
     return(stages)

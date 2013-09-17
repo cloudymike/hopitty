@@ -133,7 +133,7 @@ def setupControllers(verbose, simulation, permissive):
     hotWaterPumpSwitch = usbPumps.getSwitch(1)
     hwCirculationSwitch = usbPumps.getSwitch(0)
     wortSwitch = usbPumps.getSwitch(2)
-    mashCirculationSwitch = usbPumps.getSwitch(3)
+    # mashCirculationSwitch = usbPumps.getSwitch(3)
 
     controllers.addController('waterHeater', appliances.hwt())
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
@@ -151,9 +151,9 @@ def setupControllers(verbose, simulation, permissive):
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
     controllers.addController('wortPump', appliances.wortPump())
     controllers['wortPump'].connectSwitch(wortSwitch)
-    controllers.addController('mashCirculationPump', \
-                              appliances.circulationPump())
-    controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
+    # controllers.addController('mashCirculationPump', \
+    #                          appliances.circulationPump())
+    # controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
     controllers.addController('dispenser1', appliances.dispenser(1))
     controllers.addController('dispenser2', appliances.dispenser(2))
     controllers.addController('dispenser3', appliances.dispenser(3))

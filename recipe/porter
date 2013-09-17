@@ -19,7 +19,6 @@
     "05 Mash recirculate": {
       "waterHeater":168,
       "waterCirculationPump":1,
-      "mashCirculationPump":1,
       "delayTimer":0.30
     },
     "06 Wort pump 1":{

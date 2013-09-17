@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Goes through all files in html folder and checks they are valid html
+# Goes through all the the scripts in the cgibin folder and checks that it
+# creates valid html
+# Fails on first failing recipe
+
+pushd src/html  >/dev/null
+for file in *.html; do
+  echo ".......................$file"
+  cat $file  | validate
+  if [ "$?" != "0" ] ; then
+    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+    exit 1
+  fi
+done
+popd >/dev/null
+
+pushd src/cgibin  >/dev/null
+for file in *.py; do
+  echo ".......................$file"
+  grep "__main__" $file > /dev/null
+  if [ "$?" == "0" ]; then
+    if [ -x $file ]; then
+	  $file | tail --lines=+3 | validate
+	  if [ "$?" != "0" ] ; then
+	    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+	    exit 1
+	  fi
+	fi
+  fi
+done
+popd  >/dev/null
+echo "===========All Tests Passed================"

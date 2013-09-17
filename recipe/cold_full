@@ -1,16 +1,12 @@
 {
-"name":"IPA",
+"name":"coldfull",
   "recipe":   {
-    "1":{
+    "01":{
       "waterCirculationPump":1,
       "delayTimer":0.167
     },
     "02": {
       "hotWaterPump":8
-    },
-    "3": {
-      "mashCirculationPump":1,
-      "delayTimer":0.167
     },
     "04":{
       "waterCirculationPump":1,

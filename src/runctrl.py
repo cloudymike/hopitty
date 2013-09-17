@@ -2,7 +2,7 @@
 
 # branch t1
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src") 
+sys.path.append("/home/mikael/workspace/hoppity/src")
 sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
@@ -74,7 +74,7 @@ if __name__ == "__main__":
         else:
             print('ERROR: Missing USB devices, exiting')
             sys.exit(1)
-            
+
     if bsmxFile != "":
         xml = ctrl.bsmxReadFile(bsmxFile)
         ru.bsmxIn(xml)
@@ -103,7 +103,7 @@ if __name__ == "__main__":
     print " "
     print "OK"
     ru.stop()
-    
+
     ctrl.prettyPrintStages(ru.getStages())
     print "Shutting down"
     del ru

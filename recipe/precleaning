@@ -8,10 +8,6 @@
     "02": {
       "hotWaterPump":4
     },
-    "03": {
-      "mashCirculationPump":1,
-      "delayTimer":1
-    },
     "04":{
       "wortPump":1
     }

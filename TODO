@@ -1,21 +1,17 @@
 Where to start
 ===============
 
-Both mash circulation and heat circulation running at same time. Does not work. Make sure heat circulation if off when
-mash circulation running. This is a power limitation problem.
-Cavitation with wort circulation pump. Skip worth circulation all together? Use fewer and shorter cycles? Looks like it is a problem of wort not sinking through grain.
-Remove sparge circulation pump
+logger
+------
+Create a logfile for at least each stage as it is run with timestamp and
+key data (as temps and volumes)
+http://docs.python.org/2/howto/logging.html
 
 Startup with hardware still fails sometimes. Able to fail with just X10 serial connected.
 
-When using the plug for the pumps to turn it on and off it at times failed
+When unpluggin the power for the pumps to turn it on and off it at times failed the program with
+error in phidget module
 
-After removing mash circulation pump, remove all the mash circulation steps
-
-Recipe page
------------
-Create a page with the recipe for brew day. What goes into each cup. What goes into the
-mash tun. Times to be used for mash and boil.
 
 read from web
 -------------
@@ -23,21 +19,6 @@ read from web
 more checks
 ------------
 Add check for getting close to 50lb (-5.2 - 1.5 lb) in recipe check
-
-
-logger
-------
-Create a logfile for at least each stage as it is run with timestamp and
-key data (as temps and volumes)
-http://docs.python.org/2/howto/logging.html
-
-mash and sparge breakout
---------------------------
-In mashProfiles, separate out mashing and sparging. Create a generic program
-with switch for mashing and sparging.
-
-At the same time, break the mashProfile module as it is too long right now.
-Can this be an object?
 
 breakout sensors
 ----------------
@@ -47,6 +28,10 @@ parameterize volume check
 -------------------------
 parameterize checkVolBSMX. Consider reading a setup file, time for .ini?
 
+check that inout pumps are running
+-----------------------------------
+It should be simple to check if the weight on the scale is changing when hot water 
+or wort pump is running. May have to check over a longer time span, a few seconds
 
 Check that the scale is on
 ---------------------------

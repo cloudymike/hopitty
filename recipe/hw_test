@@ -15,7 +15,6 @@
       "wortPump":0.2
     },
     "05 mash circulation": {
-      "mashCirculationPump":1,
       "delayTimer":0.3
     }
   }

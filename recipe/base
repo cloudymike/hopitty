@@ -16,7 +16,6 @@
     "4": {
       "waterCirculationPump":1,
       "waterHeater":168,
-      "mashCirculationPump":1,
       "delayTimer":5
     },
     "5":{

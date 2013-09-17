@@ -1,24 +1,6 @@
 {
 "name":"PostCleaning",
   "recipe":   {
-    "02": {
-      "mashCirculationPump":1,
-      "delayTimer":0.30
-    },
-    "03":{
-      "wortPump":0.7
-    },
-    "04": {
-      "mashCirculationPump":1,
-      "delayTimer":0.30
-    },
-    "05":{
-      "wortPump":0.7
-    },
-    "06": {
-      "mashCirculationPump":1,
-      "delayTimer":0.30
-    },
     "08":{
       "wortPump":0.32
     }
