@@ -1,11 +1,16 @@
 Where to start
 ===============
 
+Error check: dispenser time longer than boil time
+
 logger
 ------
 Create a logfile for at least each stage as it is run with timestamp and
 key data (as temps and volumes)
 http://docs.python.org/2/howto/logging.html
+
+Create a general logger that replaces all print statement. For now print to screen as the
+print statement but change later as needed to a real log.
 
 Startup with hardware still fails sometimes. Able to fail with just X10 serial connected.
 

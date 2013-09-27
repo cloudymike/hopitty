@@ -88,11 +88,15 @@ def txBSMXtoStages(doc, controllers):
 
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                        'Single Infusion, Medium Body, No Mash Out',
-                       'Single Infusion, Full Body, No Mash Out',
+                       'Single Infusion, Full Body, No Mash Out'
                        ]:
             stages = MultiBatchMash(doc, controllers)
-        if stages == None:
+        else:
             print "No valid mash profile found"
+            print "===", mashProfile, "==="
+        if stages == None:
+            print "Mash test failed"
+
     else:
         print ":", equipmentName, ":Not valid equipment"
     return(stages)
@@ -386,6 +390,7 @@ def MultiBatchMash(doc, controllers):
     lastWortOut = preBoilVolume(doc) - (spargeSteps * volWortOut)
 
     if volWortOut > infuseVolNet - grainAbsorption(doc):
+        print "volWothOut failed"
         return(None)
 
     for i in range(spargeSteps):
@@ -432,9 +437,14 @@ def MultiBatchMash(doc, controllers):
     try:
         stages.update(boiling(doc, controllers, stageCount))
         stageCount = len(stages)
+    except:
+        print "Boiling profile failed"
+        stages = None
+
+    try:
         stages.update(cooling(doc, controllers, stageCount))
     except:
-        print "Boiling or cool profile failed"
+        print "Cooling profile failed"
         stages = None
 
     # Check and balances
