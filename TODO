@@ -1,7 +1,26 @@
 Where to start
 ===============
 
-Error check: dispenser time longer than boil time
+ERROR to fix negative volume
+-----------------------------
+At one point the scale started to calculate negative volumes.
+First, add check for scale that it volume is not going up or going negative, go to
+error mode. Suggestion, test for 10 seconds.
+Second, why was there an error. Seems that every other measurement was "0"
+
+
+Additional error check
+-----------------------
+Add error check: dispenser time longer than boil time
+
+maintenance recipes
+-------------------
+Add maintenance recipes:
+precleaning
+preheating
+postcleaning
+IS it better to create a new page? Best to have these are jason recipes to read from a dir just as with
+the other recipes? Read them to the same page but different reader?
 
 logger
 ------
