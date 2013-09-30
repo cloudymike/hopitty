@@ -1,11 +1,14 @@
 import time
 import appliances.genctrl
 import sensors
+import datetime
+import dataMemcache
 
 
 class hwPump(appliances.genctrl):
 
     def __init__(self):
+        self.data = dataMemcache.brewData()
         self.actual = 0.000
         self.target = 0
         self.startVol = 0.000
@@ -18,6 +21,10 @@ class hwPump(appliances.genctrl):
         self.pumpMotor = None
         self.sensor = sensors.mashScaleSensor()
         # print "==========",self.sensor.getID()
+        self.oldTime = datetime.datetime.now()
+        self.actual = 0
+        self.lastActual = 0
+        self.lastCheck = datetime.datetime.now()
 
     def connectSwitch(self, switch):
         """
@@ -34,6 +41,38 @@ class hwPump(appliances.genctrl):
         if self.powerOn:
             self.sensor.setValue(self.sensor.getValue() + deltavol)
             self.actual = self.sensor.getValue() - self.startVol
+            if not self.checkFlow():
+                print "Error: Flow not detected in ", __name__
+                self.data.setError()
+
+    def checkFlow(self):
+        """
+        Checks if there is a change in the volume if pups is
+        supposed to be running.
+        The check is done over 10 seconds to allow change
+        If there has not been a check for 5 seconds, skip as well
+        """
+        # is this the first time to check for a while, if so, return true.
+        deltaLastCheck = datetime.datetime.now() - self.lastCheck
+        self.lastCheck = datetime.datetime.now()
+        if deltaLastCheck > datetime.timedelta(seconds=5):
+            self.oldTime = datetime.datetime.now()
+            return(True)
+        # If power is not on, don't check
+        if not self.powerOn:
+            self.oldTime = datetime.datetime.now()
+            return(True)
+        # if there is a change, return true
+        if self.lastActual != self.actual:
+            self.lastActual = self.actual
+            self.oldTime = datetime.datetime.now()
+            return(True)
+        # Allow to fail for 10s,return true until 10s is up.
+        elapsed = datetime.datetime.now() - self.oldTime
+        if elapsed < datetime.timedelta(seconds=10):
+            return(True)
+
+        return(False)
 
     def update(self):
         self.measure()
@@ -68,10 +107,10 @@ class hwPump(appliances.genctrl):
             if c1.sensor.getID() == "mashScale":
                 foundSensor = True
                 self.sensor = c1.sensor
-                #print "Found mashScale sensor on", key
+                # print "Found mashScale sensor on", key
         if not foundSensor:
             self.sensor = sensors.mashScaleSensor()
-            #print "Created mashScale sensor"
+            # print "Created mashScale sensor"
 
     def HWOK(self):
         if self.pumpMotor == None:
