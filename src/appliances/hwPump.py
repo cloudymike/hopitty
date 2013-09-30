@@ -40,6 +40,7 @@ class hwPump(appliances.genctrl):
         self.absSec = currSec
         if self.powerOn:
             self.sensor.setValue(self.sensor.getValue() + deltavol)
+            # self.sensor.setValue(self.sensor.getValue())
             self.actual = self.sensor.getValue() - self.startVol
             if not self.checkFlow():
                 print "Error: Flow not detected in ", __name__
@@ -141,4 +142,8 @@ class wortPump(hwPump):
         if self.powerOn:
             sensorValue = self.sensor.getValue()
             self.sensor.setValue(sensorValue - deltavol)
+            # self.sensor.setValue(sensorValue)
             self.actual = self.startVol - sensorValue
+            if not self.checkFlow():
+                print "Error: Flow not detected in ", __name__
+                self.data.setError()

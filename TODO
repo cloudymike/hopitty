@@ -1,6 +1,15 @@
 Where to start
 ===============
 
+Clear error
+=============
+The clear error button does not work
+
+Show errors
+==============
+Showing errors does not seem to work. Show show read on status, also print "error"
+Maybe we should pass an error message.
+
 ERROR to fix negative volume
 -----------------------------
 At one point the scale started to calculate negative volumes.
