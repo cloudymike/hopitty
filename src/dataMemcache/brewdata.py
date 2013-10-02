@@ -21,7 +21,6 @@ class brewData(object):
         '''
         Constructor
         '''
-        self.unsetError()
         self.recipe = []
 
     def getFromMemcache(self, key):

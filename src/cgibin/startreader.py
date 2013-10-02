@@ -24,6 +24,11 @@ def startreaderMain():
         skipState = form['skipState'].value
         myData.setSkip(skipState == 'True')
 
+    if 'errorState' in form:
+        errorState = form['errorState'].value
+        if errorState == 'False':
+            myData.unsetError()
+
     print "Content-Type: text/html"
     print
     print """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"

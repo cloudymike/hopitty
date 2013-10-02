@@ -24,6 +24,7 @@ def statusMain():
     stage = myData.getCurrentStage()
 
     errorState = myData.getError()
+    # errorState = False
     highLightColor = """<tr style="background-color:green;color:white;">"""
     if errorState:
         highLightColor = """<tr style="background-color:red;color:white;">"""

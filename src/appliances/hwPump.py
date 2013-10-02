@@ -38,6 +38,7 @@ class hwPump(appliances.genctrl):
         deltaSec = currSec - self.absSec
         deltavol = deltaSec / self.SEC_PER_QUART
         self.absSec = currSec
+
         if self.powerOn:
             self.sensor.setValue(self.sensor.getValue() + deltavol)
             # Error testing
@@ -67,11 +68,9 @@ class hwPump(appliances.genctrl):
             return(True)
         # if there is a change, return true
         delta = int((self.actual - self.lastActual) * 10000)
-        print delta
         if delta > 0:
             self.lastActual = self.actual
             self.oldTime = datetime.datetime.now()
-            print 'D'
             return(True)
         # Allow to fail for 10s,return true until 10s is up.
         elapsed = datetime.datetime.now() - self.oldTime
