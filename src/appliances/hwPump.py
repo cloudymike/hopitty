@@ -64,7 +64,9 @@ class hwPump(appliances.genctrl):
             self.oldTime = datetime.datetime.now()
             return(True)
         # if there is a change, return true
-        if self.lastActual != self.actual:
+        delta = int((self.actual - self.lastActual) * 10000)
+        print delta
+        if delta != 0:
             self.lastActual = self.actual
             self.oldTime = datetime.datetime.now()
             return(True)
