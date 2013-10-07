@@ -57,6 +57,7 @@ class hwPump(appliances.genctrl):
         If there has not been a check for 5 seconds, skip as well
         """
         # is this the first time to check for a while, if so, return true.
+
         deltaLastCheck = datetime.datetime.now() - self.lastCheck
         self.lastCheck = datetime.datetime.now()
         if deltaLastCheck > datetime.timedelta(seconds=5):
@@ -68,7 +69,7 @@ class hwPump(appliances.genctrl):
             return(True)
         # if there is a change, return true
         delta = int((self.actual - self.lastActual) * 10000)
-        if delta > 0:
+        if delta != 0:
             self.lastActual = self.actual
             self.oldTime = datetime.datetime.now()
             return(True)
@@ -77,6 +78,7 @@ class hwPump(appliances.genctrl):
         if elapsed < datetime.timedelta(seconds=10):
             return(True)
 
+        print elapsed
         return(False)
 
     def update(self):

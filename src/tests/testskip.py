@@ -35,7 +35,7 @@ def testStart():
     delta = datetime.datetime.now() - startTime
     deltasec = delta.total_seconds()
     print delta, deltasec
-    assert deltasec < 1.0
+    assert deltasec < 1.5
 
     mydata.setSkip(False)
     startTime = datetime.datetime.now()

@@ -1,22 +1,37 @@
 Where to start
 ===============
 
-Clear error
-=============
-The clear error button does not work
 
-Show errors
-==============
-Showing errors does not seem to work. Show show read on status, also print "error"
-Maybe we should pass an error message.
+cut down stages
+-----------------
 
-ERROR to fix negative volume
------------------------------
-At one point the scale started to calculate negative volumes.
-First, add check for scale that it volume is not going up or going negative, go to
-error mode. Suggestion, test for 10 seconds.
-Second, why was there an error. Seems that every other measurement was "0"
+remember resume state at error or let it unresume
+--------------------------------------------------
 
+goto step page?
+---------------
+
+Inject hardware error
+-----------------------
+   expected
+   failing
+   none
+   
+For each sensor and switch, allow injection of hardware error in simulation mode
+none: no errors
+failing: total failure, as would be expected from the HW device not connected
+expected: a limited amount of failures that we expect to recover from
+
+Expected is (typically) a failure that happens every few cycles
+Failing is an error that provides no data from a sensor or constant failure.
+
+In mashScaleSensor, an errorTesting mode is added, as an example
+
+Move todo items that are not critical to bug list
+-------------------------------------------------
+
+Install software on old(er) laptop 
+----------------------------------
 
 Additional error check
 -----------------------
@@ -33,10 +48,6 @@ the other recipes? Read them to the same page but different reader?
 
 logger
 ------
-Create a logfile for at least each stage as it is run with timestamp and
-key data (as temps and volumes)
-http://docs.python.org/2/howto/logging.html
-
 Create a general logger that replaces all print statement. For now print to screen as the
 print statement but change later as needed to a real log.
 
@@ -57,14 +68,14 @@ breakout sensors
 ----------------
 Breakout the sensors in the same way as with switches. Already done for cooler and boiler.
 
+Error testing
+--------------
+Add testing for error conditions, as pumps not running, and validate that 
+error state is entered.
+
 parameterize volume check
 -------------------------
 parameterize checkVolBSMX. Consider reading a setup file, time for .ini?
-
-check that inout pumps are running
------------------------------------
-It should be simple to check if the weight on the scale is changing when hot water 
-or wort pump is running. May have to check over a longer time span, a few seconds
 
 Check that the scale is on
 ---------------------------

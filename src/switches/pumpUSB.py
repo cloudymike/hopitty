@@ -9,26 +9,34 @@ __author__ = 'Adam Stelmack'
 __version__ = '2.1.8'
 __date__ = 'May 17 2010'
 
-#Basic imports
+# Basic imports
 import time
-#Phidget specific imports
+# Phidget specific imports
 from Phidgets.PhidgetException import PhidgetErrorCodes, PhidgetException
 from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs
 from Phidgets.Events.Events import ErrorEventArgs, InputChangeEventArgs
 from Phidgets.Events.Events import OutputChangeEventArgs, SensorChangeEventArgs
 from Phidgets.Devices.InterfaceKit import InterfaceKit
+import dataMemcache
 
 
 class onePump():
     def __init__(self, usb, index):
         self.usb = usb
         self.index = index
+        self.data = dataMemcache.brewData()
 
     def on(self):
-        self.usb.setOutputState(self.index, True)
+        try:
+            self.usb.setOutputState(self.index, True)
+        except:
+            self.data.setError()
 
     def off(self):
-        self.usb.setOutputState(self.index, False)
+        try:
+            self.usb.setOutputState(self.index, False)
+        except:
+            self.data.setError()
 
     def HWOK(self):
         return(True)
@@ -78,7 +86,7 @@ class pumpUSB():
 
 if __name__ == "__main__":
 
-#Create an interfacekit object
+# Create an interfacekit object
 
     print("Opening phidget object....")
     pu = pumpUSB()

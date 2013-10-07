@@ -3,15 +3,20 @@ import subprocess
 import os
 import signal
 import dataMemcache
+import random
 
 
 class mashScaleSensor(sensors.genericSensor):
 
     def __init__(self):
+        self.errorTesting = False
+        self.errorModeFailing = False
         self.myData = dataMemcache.brewData()
         self.warningCount = 0
         self.id = 'mashScale'
         self.simulation = False
+        self.oldval = 0
+        self.val = 0
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exedir = scriptdir + '/../../DigiWeight/usbscale'
         try:
@@ -30,12 +35,21 @@ class mashScaleSensor(sensors.genericSensor):
 
     def getValue(self):
         if self.simulation:
+            if self.errorModeFailing:
+                randomrange = 1
+            else:
+                randomrange = 2
+
+            if self.errorTesting:
+                if random.randrange(0, randomrange) == 0:
+                    return(self.oldval)
+            self.oldval = self.val
             return(self.val)
         else:
             execstring = 'timeout 1 ' + self.exedir
             try:
                 localstr = subprocess.check_output(execstring, shell=True)
-                if float(localstr) > 65535:
+                if float(localstr) > 65534:
                     print "Error, hold everything"
                     self.myData.setError()
                 if int(localstr) > 8200:
