@@ -386,7 +386,7 @@ def MultiBatchMash(doc, controllers):
     infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
 
     totSparge = spargeVolume(doc)
-    spargeSteps = 6
+    spargeSteps = 4
     volSpargeIn = totSparge / spargeSteps
     volWortOut = volSpargeIn
     lastWortOut = preBoilVolume(doc) - (spargeSteps * volWortOut)
@@ -420,7 +420,7 @@ def MultiBatchMash(doc, controllers):
     # For final wort out, run multiple steps and rest in between
     # to allow the wort to seep through the mash, as pumping is too
     # fast otherwise.
-    finalWortSteps = 4
+    finalWortSteps = 2
     for i in range(finalWortSteps):
 
         sfwHold = parseBSMX.stageCtrl(controllers)
