@@ -7,10 +7,11 @@ sudo apt-get install -y apache2
 sudo apt-get install -y unzip
 
 sudo apt-get -y install python-setuptools
+sudo apt-get -y install python-pip
 sudo apt-get -y install g++ make
 
 # HTML validator, for testhtml
-sudo apt-get install wdg-html-validator
+sudo apt-get -y install wdg-html-validator
 
 # Python packages. May require github downloads
 sudo easy_install pyusb

@@ -14,15 +14,14 @@
 #define PIN_DCD 0x40
 #define PIN_RI  0x80
 
-#define LED 0x10  /* PN_TR */
+#define LED 0x08  /* PN_CTS */
 
 int main ( int argc, char *argv[] )
 {
     unsigned char c = 0;
     char check = '2';
-    const char serial[] = "A602HSI6";
+    const char serial[] = "AD02662S";
     const char *descriptor = NULL;
-
     struct ftdi_context ftdic;
 
     /* Initialize context for subsequent function calls */
@@ -30,13 +29,13 @@ int main ( int argc, char *argv[] )
 
     /* Open FTDI device based on FT232R vendor & product IDs */
     if(ftdi_usb_open_desc(&ftdic, 0x0403, 0x6001, descriptor, serial) < 0) {
-        puts("Can't open device cooler USB");
+        puts("Can't open device mash stirrer USB");
         return 1;
     }
 
     if ( argc == 1 )
     {
-        printf( "cooler USB device found, all OK\n");
+        printf( "Mash stirrer USB device found, all OK\n");
         return 0;
     }
 

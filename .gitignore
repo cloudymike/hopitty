@@ -49,5 +49,8 @@ DigiWeight/usbscale
 # coolerUSB
 coolerUSB/coolerUSB
 
+# mashStirUSB
+mashStirUSB/mashStirUSB
+
 # pololu Maestro USB cmd
 UscCmd

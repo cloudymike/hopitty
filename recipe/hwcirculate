@@ -1,0 +1,10 @@
+{
+"name":"hwcirculate",
+  "recipe":   {
+    "01":{
+      "waterCirculationPump":1,
+      "delayTimer":1
+    }
+  }
+
+}
