@@ -11,7 +11,8 @@ def countFails(scale, count):
     drone1 = sensors.thermometer()
     drone2 = sensors.temperSensor()
     switch1 = switches.coolerSwitch()
-    switch2 = switches.myX10()
+    switch2 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
+                                 '_Inc._USB-Serial_Controller-if00-port0')
     switch3 = switches.pumpUSB()
 
 
@@ -51,6 +52,6 @@ if __name__ == "__main__":
     scale = sensors.mashScaleSensor()
 
     if scale.HWOK():
-        countFails(scale, 1000)
+        countFails(scale, 300)
     else:
         print "No HW"
