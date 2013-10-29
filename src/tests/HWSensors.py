@@ -4,6 +4,7 @@ sys.path.append('..')
 import sensors
 import switches
 
+
 def countFails(scale, count):
     zeros = 0
     exceptions = 0
@@ -14,7 +15,6 @@ def countFails(scale, count):
     switch2 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
                                  '_Inc._USB-Serial_Controller-if00-port0')
     switch3 = switches.pumpUSB()
-
 
     for x in range(0, count):
 
@@ -46,11 +46,11 @@ def countFails(scale, count):
             else:
                 sys.stdout.write(".")
         except:
-            exceptions = exceptions + 1;
+            exceptions = exceptions + 1
             sys.stdout.write("*")
 
         sys.stdout.flush()
-        if x % 100 == 99:
+        if x % 25 == 24:
             print ""
 
     print ""
@@ -62,7 +62,7 @@ if __name__ == "__main__":
     scale = sensors.mashScaleSensor()
 
     if scale.HWOK():
-        countFails(scale, 300)
+        countFails(scale, 100)
     else:
         countFails(scale, 1)
         print "No HW"
