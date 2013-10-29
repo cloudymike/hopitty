@@ -7,8 +7,16 @@ def countFails(scale, count):
     zeros = 0
     exceptions = 0
 
+    drone1 = sensors.thermometer()
+    drone2 = sensors.temperSensor()
+
     for x in range(0, count):
 
+        try:
+            d1 = drone1.getValue()
+            d2 = drone2.getValue()
+        except:
+            sys.stdout.write('-')
         try:
             val = scale.getRaw()
             if int(val) == 0:
@@ -33,6 +41,6 @@ if __name__ == "__main__":
     scale = sensors.mashScaleSensor()
 
     if scale.HWOK():
-        countFails(scale, 100)
+        countFails(scale, 1000)
     else:
         print "No HW"
