@@ -1,5 +1,7 @@
-import sensors
 import sys
+sys.path.append('..')
+
+import sensors
 
 def countFails(scale, count):
     zeros = 0
