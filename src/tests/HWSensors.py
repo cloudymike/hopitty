@@ -2,6 +2,7 @@ import sys
 sys.path.append('..')
 
 import sensors
+import switches
 
 def countFails(scale, count):
     zeros = 0
@@ -9,12 +10,21 @@ def countFails(scale, count):
 
     drone1 = sensors.thermometer()
     drone2 = sensors.temperSensor()
+    switch1 = switches.coolerSwitch()
+    switch2 = switches.myX10()
+    switch3 = switches.pumpUSB()
+
 
     for x in range(0, count):
 
         try:
             d1 = drone1.getValue()
             d2 = drone2.getValue()
+
+            s1 = switch1.off()
+            s2 = switch2.off()
+            s3 = switch3.off()
+
         except:
             sys.stdout.write('-')
         try:
@@ -29,7 +39,7 @@ def countFails(scale, count):
             sys.stdout.write("*")
 
         sys.stdout.flush()
-        if x % 25 == 24:
+        if x % 100 == 99:
             print ""
 
     print ""
