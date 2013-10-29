@@ -20,14 +20,24 @@ def countFails(scale, count):
 
         try:
             d1 = drone1.getValue()
-            d2 = drone2.getValue()
-
-            s1 = switch1.off()
-            s2 = switch2.off()
-            s3 = switch3.off()
-
         except:
-            sys.stdout.write('-')
+            sys.stdout.write('v')
+        try:
+            d2 = drone2.getValue()
+        except:
+            sys.stdout.write('t')
+        try:
+            s1 = switch1.off()
+        except:
+            sys.stdout.write('c')
+        try:
+            s2 = switch2.off()
+        except:
+            sys.stdout.write('x')
+        try:
+            s3 = switch3.off()
+        except:
+            sys.stdout.write('u')
         try:
             val = scale.getRaw()
             if int(val) == 0:
@@ -54,4 +64,5 @@ if __name__ == "__main__":
     if scale.HWOK():
         countFails(scale, 300)
     else:
+        countFails(scale, 1)
         print "No HW"
