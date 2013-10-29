@@ -7,6 +7,7 @@ class controllerList(dict):
         pass
 
     def addController(self, name, ctrl):
+        print "Adding ", name
         self[name] = ctrl
 
     def addControllerList(self, l):
@@ -102,7 +103,7 @@ class controllerList(dict):
             # beginning of each stage. It is also very time
             # consuming as most controllers are not in use
             # in each stage
-            #else:
+            # else:
             #    c.stop()
 
     def stopCurrent(self, settings):

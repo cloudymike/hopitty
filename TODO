@@ -1,6 +1,67 @@
 Where to start
 ===============
 
+Brew notes 10/27
+----------------
+Pump errors at wort pumping was consistent. In essence the weight stopped going down.
+
+Major foaming from the air pump. Need to limit the time
+
+When running pump and checking (watch usbscale) then the usbscale program hang on occations.
+
+When just running the pump, a lot fewer errors. Used wort_pump_test and got very few errors of type ".Warning: Scale value 0 return previous value"
+These were very common when running the brew, every other "dot"
+Is there an interaction with other USB devices?
+
+Example of error outputs:
+Stage:  05 Wort out final
+.Warning: Scale read error
+..Warning: Scale value 0 return previous value
+..Warning: Scale value 0 return previous value
+....
+
+Demonstrated that problem is more frequent when water heater and pump is running than just pump:
+Example:
+    "01":{
+      "wortPump":2.0,
+      "waterHeater":165      
+    }
+ generates more problems than:
+     "01":{
+      "wortPump":2.0,
+      "waterHeater":165      
+    }
+ 
+
+Startup problem
+---------------
+An example of startup hanging:
+Setting up appliances
+/home/mikael/workspace/hopitty/src/switches/../../coolerUSB/coolerUSB
+cooler USB device found, all OK
+**********Cooler switch found, 
+Adding  waterHeater
+Adding  boiler
+Adding  cooler
+Adding  delayTimer
+Adding  hotWaterPump
+Adding  waterCirculationPump
+
+
+I suspect the scale as I can demonstrate that the scale reading hangs on occation (try watch usbscale)
+
+Evidence 2:
+Setting up appliances
+/home/mikael/workspace/hopitty/src/switches/../../coolerUSB/coolerUSB
+cooler USB device found, all OK
+**********Cooler switch found, 
+Adding  waterHeater
+Adding  boiler
+Adding  cooler
+Adding  delayTimer
+
+
+
 remember resume state at error or let it unresume
 --------------------------------------------------
 

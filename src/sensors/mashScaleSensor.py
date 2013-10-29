@@ -33,6 +33,10 @@ class mashScaleSensor(sensors.genericSensor):
     def setID(self, newID):
         self.id = newID
 
+    def getRaw(self):
+        execstring = 'timeout 1 ' + self.exedir
+        return(subprocess.check_output(execstring, shell=True))
+
     def getValue(self):
         if self.simulation:
             if self.errorModeFailing:
