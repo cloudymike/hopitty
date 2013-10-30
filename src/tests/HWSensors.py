@@ -62,7 +62,7 @@ if __name__ == "__main__":
     scale = sensors.mashScaleSensor()
 
     if scale.HWOK():
-        countFails(scale, 100)
+        countFails(scale, 26)
     else:
         countFails(scale, 1)
         print "No HW"

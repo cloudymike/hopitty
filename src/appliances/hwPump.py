@@ -151,5 +151,5 @@ class wortPump(hwPump):
             # self.sensor.setValue(sensorValue)
             self.actual = self.startVol - sensorValue
             if not self.checkFlow():
-                print "Error: Flow not detected in ", __name__
-                self.data.setError()
+                print "FAKE Error: Flow not detected in ", __name__
+#                self.data.setError()
