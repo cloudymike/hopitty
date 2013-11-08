@@ -31,7 +31,7 @@ int main (int argc, char **argv) {
   for (k = 0; k < 9; k++) {
     snprintf(hiddev, sizeof hiddev, "%s%d", "/dev/usb/hiddev", k);
     if ((fd = open(hiddev, O_RDONLY)) >= 0) {
-       
+      /* printf("Name:%s:\n", name); */
       ioctl(fd, HIDIOCGNAME(100), name);
       if ( strcmp(name,"DYMO 5 Pound USB Postal Scale") == 0) {
         read(fd, ev, sizeof(struct hiddev_event) * EV_NUM);
