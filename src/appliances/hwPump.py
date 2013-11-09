@@ -19,7 +19,7 @@ class hwPump(appliances.genctrl):
         self.SEC_PER_QUART = 39.0
         self.unit = 'Qt'
         self.pumpMotor = None
-        self.sensor = sensors.mashScaleSensor()
+        self.sensor = sensors.dymoScaleSensor()
         # print "==========",self.sensor.getID()
         self.oldTime = datetime.datetime.now()
         self.actual = 0
@@ -116,7 +116,7 @@ class hwPump(appliances.genctrl):
                 self.sensor = c1.sensor
                 # print "Found mashScale sensor on", key
         if not foundSensor:
-            self.sensor = sensors.mashScaleSensor()
+            self.sensor = sensors.dymoScaleSensor()
             # print "Created mashScale sensor"
 
     def HWOK(self):

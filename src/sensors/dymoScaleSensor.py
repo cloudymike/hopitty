@@ -17,6 +17,7 @@ class dymoScaleSensor(sensors.genericSensor):
 
     def __init__(self):
         self.val = 0
+        self.id = 'mashScale'
         # find the USB device
         self.dev = usb.core.find(idVendor=VENDOR_ID,
               idProduct=PRODUCT_ID)
