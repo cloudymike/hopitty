@@ -51,10 +51,11 @@ class hwPump(appliances.genctrl):
 
     def checkFlow(self):
         """
-        Checks if there is a change in the volume if pups is
-        supposed to be running.
-        The check is done over 10 seconds to allow change
-        If there has not been a check for 5 seconds, skip as well
+        Checks if there is a change in the volume if pumps is
+        to be running.
+        The check is done over 30 seconds to allow for granularity in change.
+        If there has not been a check for 5 seconds, skip as well to avoid
+        false errors.
         """
         # is this the first time to check for a while, if so, return true.
 
@@ -73,9 +74,9 @@ class hwPump(appliances.genctrl):
             self.lastActual = self.actual
             self.oldTime = datetime.datetime.now()
             return(True)
-        # Allow to fail for 10s,return true until 10s is up.
+        # Allow to fail for Xs,return true until time is up.
         elapsed = datetime.datetime.now() - self.oldTime
-        if elapsed < datetime.timedelta(seconds=10):
+        if elapsed < datetime.timedelta(seconds=30):
             return(True)
 
         print elapsed
