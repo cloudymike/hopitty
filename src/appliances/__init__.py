@@ -6,3 +6,4 @@ from circulationPump import *
 from hwPump import *
 from dispenser import *
 from cooler import *
+from mashStirrer import *

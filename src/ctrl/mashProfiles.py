@@ -300,6 +300,7 @@ def SingleInfusionBatch(doc, controllers):
     s4["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     s4["waterCirculationPump"] = parseBSMX.setDict(1)
+    s4["mashStirrer"] = parseBSMX.setDict(1)
     stages["04 Mashing"] = s4
 
     s6 = parseBSMX.stageCtrl(controllers)
@@ -379,6 +380,7 @@ def MultiBatchMash(doc, controllers):
     step["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
+    step["mashStirrer"] = parseBSMX.setDict(1)
     step["delayTimer"] = parseBSMX.setDict(mashTime)
     stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
@@ -500,6 +502,7 @@ def testonlyMash(doc, controllers):
     step["waterHeater"] = parseBSMX.setDict(\
                         parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
+    step["mashStirrer"] = parseBSMX.setDict(1)
     step["delayTimer"] = parseBSMX.setDict(mashTime)
     stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
