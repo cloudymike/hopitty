@@ -22,47 +22,65 @@ class mashStirrer(appliances.genctrl):
         # Set a generic sensor, later swap for same sensor as boiler.
         self.sensor = sensors.genericSensor()
 
+    def connectSwitch(self, switch):
+        """
+        If a switch is required, this will connect it with the devices
+        The switch object needs to have a method on and a method off.
+        """
+        self.switch = switch
+
+    def measure(self):
+        self.actual = 0
+
+    def targetMet(self):
+        return(True)
+
+    def update(self):
+        if self.powerOn:
+            self.on()
+        else:
+            self.off()
+
+    def on(self):
+        self.powerOn = True
+        if self.switch != None:
+            self.switch.on()
+
+    def off(self):
+        self.powerOn = False
+        if self.switch != None:
+            self.switch.off()
+
+    def stop(self):
+        self.target = 0
+        self.actual = 0
+        self.active = False
+        self.off()
+
+    def start(self):
+        self.active = True
+        self.on()
+
+    def HWOK(self):
+        if self.switch == None:
+            return(False)
+        else:
+            return(self.switch.HWOK())
+
     def __del__(self):
         self.powerOn = False
         print 'Powering down'
 
     def status(self):
-        if self.powerOn:
+        if self.on:
             return 'On'
         else:
             return 'Off'
 
-    def targetMet(self):
-        return(True)
-
-    def measure(self):
-        self.actual = 0
-
-    def stop(self):
-        self.active = False
-        self.off()
-
-    def on(self):
-        if self.switch != None:
-            self.switch.on()
-        self.powerOn = True
-
-    def off(self):
-        if self.switch != None:
-            self.switch.off()
-        self.powerOn = False
-
-    def HWOK(self):
-        if self.switch == None:
-            return(False)
-        if not self.switch.HWOK():
-            return(False)
-        return(self.sensor.HWOK())
 
 if __name__ == '__main__':
     testmashStirrer = mashStirrer()
     testmashStirrer.on()
-    while not testmashStirrer.targetMet():
-        print testmashStirrer.get()
-    for x in range(0, 15):
-        print testmashStirrer.get()
+    print testmashStirrer.get()
+    testmashStirrer.off()
+    print testmashStirrer.get()

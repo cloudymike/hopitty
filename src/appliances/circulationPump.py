@@ -38,7 +38,10 @@ class circulationPump(appliances.genctrl):
         return(True)
 
     def update(self):
-        pass
+        if self.powerOn:
+            self.pumpOn()
+        else:
+            self.pumpOff()
 
     def pumpOn(self):
         self.powerOn = True
