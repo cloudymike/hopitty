@@ -2,5 +2,21 @@
 #
 # Script to start the program for proper brewing
 # with all the options
-
-sudo ./runscan.py -u mikael -e
+# 
+# This scripts is hackish at this point. It should be cleaned up and most likely 
+# moved into python
+#
+# Add proper logging for all print statements
+# The stats should be send to a separate file from within python
+DATESTRING=`date +%F-%H-%M`
+LOGFILE="brew-${DATESTRING}.log"
+STATSFILE="stats-${DATESTRING}.log"
+echo "Output log copied to ${LOGFILE}"
+echo "Status, of all sensors and switches logged to ${STATSFILE}"
+pushd hoplog
+python logActual.py > /tmp/${STATSFILE} &
+popd
+#./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
+sudo ./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
+#sudo "./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}"
+pkill -9 -f logActual.py

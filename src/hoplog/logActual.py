@@ -5,6 +5,10 @@ Created on Sep 23, 2013
 
 This is probably not a logger but rather a plain file writer.
 '''
+import sys
+sys.path.append('..')
+# sys.path.append("/home/mikael/workspace/hoppity/src")
+# sys.path.append("/home/mikael/workspace/hoppity/src/dataMemcache")
 import dataMemcache
 import logging
 import time
