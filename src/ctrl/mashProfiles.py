@@ -25,8 +25,8 @@ import sys
 empty = 0
 full = 1
 dispenserMax = 4
-boilTemp = 189
-coolTemp = 78
+boilTempConstant = 189
+coolTemp = 72
 
 
 def grainAbsorption(doc):
@@ -191,7 +191,7 @@ def cooling(doc, controllers, stageCount):
 # Boil for the suitable time
 # Add hops and other additions with the dispensers
 # at suitable times.
-def boiling(doc, controllers, stageCount):
+def boiling(doc, controllers, stageCount, boilTemp):
     stages = {}
     stageCount = stageCount + 1
     print "boiling start"
@@ -324,7 +324,7 @@ def SingleInfusionBatch(doc, controllers):
     stages["10 Wort out 2"] = s10
 
     try:
-        stages.update(boiling(doc, controllers, 11))
+        stages.update(boiling(doc, controllers, 11, boilTempConstant))
         stageCount = len(stages)
         stages.update(cooling(doc, controllers, stageCount))
     except:
@@ -439,7 +439,7 @@ def MultiBatchMash(doc, controllers):
         stageCount = stageCount + 1
 
     try:
-        stages.update(boiling(doc, controllers, stageCount))
+        stages.update(boiling(doc, controllers, stageCount, boilTempConstant))
         stageCount = len(stages)
     except:
         print "Boiling profile failed"
@@ -466,6 +466,9 @@ def MultiBatchMash(doc, controllers):
     return(stages)
 
 
+# test mash
+# Different shortcust to allow for a shorter test cycle
+# The boiling temp as example is low (60F)
 def testonlyMash(doc, controllers):
     """
     Testing mash
@@ -525,7 +528,7 @@ def testonlyMash(doc, controllers):
     stageCount = stageCount + 1
 
     try:
-        stages.update(boiling(doc, controllers, stageCount))
+        stages.update(boiling(doc, controllers, stageCount, 60))
         stageCount = len(stages)
     except:
         print "Boiling profile failed"
