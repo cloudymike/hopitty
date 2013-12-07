@@ -26,7 +26,7 @@ empty = 0
 full = 1
 dispenserMax = 4
 boilTempConstant = 189
-coolTemp = 72
+coolTempConstant = 72
 
 
 def grainAbsorption(doc):
@@ -155,7 +155,7 @@ def checkVolBSMX(doc):
 
 
 # Cooling down the worth
-def cooling(doc, controllers, stageCount):
+def cooling(doc, controllers, stageCount, coolTemp):
     stages = {}
     stageCount = stageCount + 1
 
@@ -176,12 +176,14 @@ def cooling(doc, controllers, stageCount):
     stages[mkSname("re-charge", stageCount)] = step
     stageCount = stageCount + 1
 
-    # Keep on cooling for some time, in essence forever as the target temp
-    # is now very low
+    # Open the valve
+    # Keep on cooling
+    # Keep this stage in essence forever
     step = parseBSMX.stageCtrl(controllers)
     step["cooler"] = parseBSMX.setDict(coolTemp - 40)
-    step["delayTimer"] = parseBSMX.setDict(20)
-    stages[mkSname("keepCool", stageCount)] = step
+    step["delayTimer"] = parseBSMX.setDict(60)
+    step["boilerValve"] = parseBSMX.setDict(1)
+    stages[mkSname("Empty out", stageCount)] = step
     stageCount = stageCount + 1
 
     return(stages)
@@ -326,7 +328,7 @@ def SingleInfusionBatch(doc, controllers):
     try:
         stages.update(boiling(doc, controllers, 11, boilTempConstant))
         stageCount = len(stages)
-        stages.update(cooling(doc, controllers, stageCount))
+        stages.update(cooling(doc, controllers, stageCount, coolTempConstant))
     except:
         stages = None
 
@@ -446,7 +448,7 @@ def MultiBatchMash(doc, controllers):
         stages = None
 
     try:
-        stages.update(cooling(doc, controllers, stageCount))
+        stages.update(cooling(doc, controllers, stageCount, coolTempConstant))
     except:
         print "Cooling profile failed"
         stages = None
@@ -535,7 +537,7 @@ def testonlyMash(doc, controllers):
         stages = None
 
     try:
-        stages.update(cooling(doc, controllers, stageCount))
+        stages.update(cooling(doc, controllers, stageCount, 90))
     except:
         print "Cooling profile failed"
         stages = None
