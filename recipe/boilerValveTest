@@ -1,0 +1,24 @@
+{
+"name":"mashstir",
+  "recipe":   {
+    "01":{
+      "delayTimer":0.10
+     },
+    "02":{
+      "mashStirrer": 1,
+      "delayTimer":0.10
+     },
+    "03":{
+      "delayTimer":0.10
+     },
+    "04":{
+      "mashStirrer": 1,
+      "delayTimer":0.10
+     }
+,
+    "05":{
+      "delayTimer":0.10
+     }
+  }
+
+}

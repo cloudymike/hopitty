@@ -7,8 +7,6 @@ This is probably not a logger but rather a plain file writer.
 '''
 import sys
 sys.path.append('..')
-# sys.path.append("/home/mikael/workspace/hoppity/src")
-# sys.path.append("/home/mikael/workspace/hoppity/src/dataMemcache")
 import dataMemcache
 import logging
 import time
@@ -49,7 +47,10 @@ class logActual():
     def logLine(self):
         status = self.data.getStatus()
         currentStage = self.data.getCurrentStage()
-        controllers = status['controllers']
+        try:
+            controllers = status['controllers']
+        except:
+            controllers = {}
         elapsed = datetime.datetime.now() - self.oldLineTime
         if controllers != self.oldControllers:
             if currentStage != self.oldCurrentStage or \
