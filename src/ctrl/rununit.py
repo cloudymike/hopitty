@@ -129,6 +129,7 @@ def setupControllers(verbose, simulation, permissive):
     print "Setting up appliances"
     hwTunSwitch = x10.getSwitch("H14")
     boilerSwitch = x10.getSwitch("I12")
+    aeratorSwitch = x10.getSwitch("J10")
     coolerSwitch = switches.coolerSwitch()
     mashStirSwitch = switches.mashStirSwitch()
     boilerValveSwitch = switches.boilerValveSwitch()
@@ -139,8 +140,13 @@ def setupControllers(verbose, simulation, permissive):
 
     controllers.addController('waterHeater', appliances.hwt())
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
+
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
+
+    controllers.addController('aerator', appliances.aerator())
+    controllers['aerator'].connectSwitch(aeratorSwitch)
+
     controllers.addController('cooler', appliances.cooler())
     controllers['cooler'].connectSwitch(coolerSwitch)
     boilerSensor = controllers['boiler'].getSensor()

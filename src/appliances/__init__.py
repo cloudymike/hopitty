@@ -8,3 +8,4 @@ from dispenser import *
 from cooler import *
 from mashStirrer import *
 from boilerValve import *
+from aerator import *

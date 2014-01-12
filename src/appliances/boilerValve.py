@@ -10,7 +10,7 @@ import sensors
 
 class boilerValve(appliances.genctrl):
     """
-    Manage the mash stirrer
+    Manage the boilervalve
     """
     def __init__(self):
         self.switch = None
