@@ -17,6 +17,7 @@ pushd hoplog
 python logActual.py > /tmp/${STATSFILE} &
 popd
 #./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
+./unerror.py
 sudo ./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
 #sudo "./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}"
 pkill -9 -f logActual.py

@@ -1,22 +1,23 @@
 {
 "name":"x10test",
   "recipe":   {
-    "01":{
+    "01AllOff":{
+      "waterHeater":30,
+      "delayTimer": 0.1
+     },
+    "02BoilerOn":{
       "boiler":1,
       "delayTimer": 0.1
      },
-     "02":{
-      "waterHeater":90
-     },
-    "03":{
-      "boiler":1,
+     "03AeratorOn":{
+      "aerator":1,
       "delayTimer": 0.1
      },
-     "04":{
-      "waterHeater":100,
+    "04HotWaterTunOnKeep4ever":{
+      "waterHeater":30,
       "delayTimer": 0.1
      },
-     "05":{
+     "09":{
       "delayTimer": 0.1
      }
      

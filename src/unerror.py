@@ -15,11 +15,11 @@ import dataMemcache
 
 
 if __name__ == "__main__":
-
+    print "Clearing errors and unpausing"
     data = dataMemcache.brewData()
-    while True:
-        data.unsetError()
-        data.setPause(False)
-        sys.stdout.write(".")
-        sys.stdout.flush()
-        time.sleep(1)
+#    while True:
+    data.unsetError()
+    data.setPause(False)
+#    sys.stdout.write(".")
+#    sys.stdout.flush()
+#    time.sleep(1)

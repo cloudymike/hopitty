@@ -1,0 +1,14 @@
+{
+"name":"heat_only",
+  "recipe":   {
+    "01":{
+      "waterHeater":10
+     },
+     "02":{
+      "waterHeater":10,
+      "delayTimer": 0.1
+     }
+     
+  }
+
+}

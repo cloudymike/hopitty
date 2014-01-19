@@ -9,7 +9,7 @@ class hwt(appliances.genctrl):
         self.hotWaterTun = None
         self.powerOn = False
         self.active = False
-        self.presetTemp = 70.0
+        self.presetTemp = 40.0
         self.unit = 'F'
 #        self.currTemp = 70.0
         self.sensor = sensors.thermometer()

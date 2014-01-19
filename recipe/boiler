@@ -7,10 +7,10 @@
      },
     "02 boil":{
       "boiler":200,
-      "delayTimer": 10.0
+      "delayTimer": 0.3
      },
     "03 cool":{
-      "delayTimer": 0.25
+      "delayTimer": 0.1
      }    
   }
 }
