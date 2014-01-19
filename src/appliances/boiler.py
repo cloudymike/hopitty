@@ -1,6 +1,7 @@
 # import subprocess
 import appliances.genctrl
 import sensors
+import dataMemcache
 
 
 class boiler(appliances.genctrl):
@@ -60,12 +61,24 @@ class boiler(appliances.genctrl):
 
     def on(self):
         if self.boilerSwitch != None:
-            self.boilerSwitch.on()
+            try:
+                self.boilerSwitch.on()
+            except:
+                print "Error: boilerSwitch on failed"
+                errorData = dataMemcache.brewData()
+                errorData.setError()
+
         self.powerOn = True
 
     def off(self):
         if self.boilerSwitch != None:
-            self.boilerSwitch.off()
+            try:
+                self.boilerSwitch.off()
+            except:
+                print "Error: boilerSwitch off failed"
+                errorData = dataMemcache.brewData()
+                errorData.setError()
+
         self.powerOn = False
 
     def HWOK(self):

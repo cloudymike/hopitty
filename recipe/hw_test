@@ -1,20 +1,47 @@
 {
 "name":"Hardware Test",
   "recipe":   {
+    "00 cool":{
+      "cooler": 2000,
+      "delayTimer":0.3
+     },
     "01 water heater":{
-      "waterHeater":80
+      "waterHeater":30,
+      "delayTimer":0.3
     },
-    "02 hot water pump": {
-      "hotWaterPump":0.2
-    },
+    "02 boil":{
+      "boiler":30,
+      "delayTimer": 0.3
+     },
     "03 water circulation": {
       "waterCirculationPump":1,
       "delayTimer":0.3
     },
-    "04 worth pump":{
-      "wortPump":0.2
+    "04 dispenser 1":{
+      "dispenser1":0,
+      "delayTimer":0.05
     },
-    "05 mash circulation": {
+    "05 dispenser 2": {
+      "dispenser2":0,
+      "delayTimer":0.05
+    },
+    "06 dispenser 3": {
+      "dispenser3":0,
+      "delayTimer":0.05
+    },
+    "07 dispenser 4": {
+      "dispenser4":0,
+      "delayTimer":0.05
+    },
+    "08 aerator":{
+      "aerator": 1,
+      "delayTimer":0.10
+     },
+    "09 boilerValve":{
+      "boilerValve": 1,
+      "delayTimer":0.10
+     },
+    "99 end": {
       "delayTimer":0.3
     }
   }
