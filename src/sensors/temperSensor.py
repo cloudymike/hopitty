@@ -41,7 +41,6 @@ class temperSensor():
         else:
             try:
                 self.val = self.device.get_temperature(format="fahrenheit")
-                print self.val
             except:
                 print "Error temper value not read, using previous value"
                 self.device = self.connect()
