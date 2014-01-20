@@ -1,6 +1,18 @@
 Where to start
 ===============
 
+Handle broken USB connection. Try to pull out a USB device, as the thermometer, and then reconnect.
+It should be able to recover. This type of errors do happen.
+
+Create a turn everything off program. This should include setting the temperature low on water heater
+etc to avoid any activity. (is this valid for the pumps?)
+
+It looks like the off signal is not sent to X10 on every cycle. Validate.
+
+Lot's of errors on mash stirrer still. Double check there is no ground connection.
+
+Check collected error files.
+
 pep on brewing computer is a newer version and much more stringent. Try to satisfy this.
 
 Brew notes 10/27

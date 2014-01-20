@@ -5,15 +5,23 @@ class temperSensor():
     def __init__(self):
         self.id = 'temper'
         self.val = 90
+        self.devs = None
+        self.device = self.connect()
+        self.simulation = (self.device == None)
 
-        th = temper.TemperHandler()
-        self.devs = th.get_devices()
+    def connect(self):
+        try:
+            th = temper.TemperHandler()
+            self.devs = th.get_devices()
+        except:
+            return None
 
-        self.simulation = (len(self.devs) == 0)
+        if (len(self.devs) == 0):
+            return None
+
         if len(self.devs) > 1:
             print "Error, more than one device found, using first device"
-        if not self.simulation:
-            self.device = self.devs[0]
+        return(self.devs[0])
 
     def getID(self):
         return(self.id)
@@ -33,8 +41,10 @@ class temperSensor():
         else:
             try:
                 self.val = self.device.get_temperature(format="fahrenheit")
+                print self.val
             except:
                 print "Error temper value not read, using previous value"
+                self.device = self.connect()
             return(self.val)
 
     def HWOK(self):

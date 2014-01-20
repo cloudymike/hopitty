@@ -37,7 +37,11 @@
       "aerator": 1,
       "delayTimer":0.10
      },
-    "09 boilerValve":{
+    "09 mashStirrer":{
+      "boilerValve": 1,
+      "delayTimer":0.50
+     },
+    "10 boilerValve":{
       "boilerValve": 1,
       "delayTimer":0.10
      },
