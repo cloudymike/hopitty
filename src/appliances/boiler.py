@@ -71,7 +71,6 @@ class boiler(appliances.genctrl):
         self.powerOn = True
 
     def off(self):
-        print "boiler off"
         if self.boilerSwitch != None:
             try:
                 self.boilerSwitch.off()
