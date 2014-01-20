@@ -103,8 +103,8 @@ class controllerList(dict):
             # beginning of each stage. It is also very time
             # consuming as most controllers are not in use
             # in each stage
-            # else:
-            #    c.stop()
+            else:
+                c.stop()
 
     def stopCurrent(self, settings):
         """
