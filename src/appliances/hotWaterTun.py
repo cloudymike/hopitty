@@ -58,12 +58,20 @@ class hwt(appliances.genctrl):
 
     def on(self):
         if self.hotWaterTun != None:
-            self.hotWaterTun.on()
+            try:
+                self.hotWaterTun.on()
+            except:
+                pass
+
         self.powerOn = True
 
     def off(self):
         if self.hotWaterTun != None:
-            self.hotWaterTun.off()
+            try:
+                self.hotWaterTun.off()
+            except:
+                pass
+
         self.powerOn = False
 
     def HWOK(self):
