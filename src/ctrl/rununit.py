@@ -68,7 +68,7 @@ def runManual(controllers, verbose):
         writeStatus(controllers, settings, stage, runStop, 'Manual run', \
                     verbose)
 
-        time.sleep(1)
+        time.sleep(0.1)
 
 
 def quickRecipe(controllers, recipe, verbose):
@@ -327,7 +327,7 @@ class rununit():
             if self.verbose:
                 delta = datetime.datetime.now() - startTime
                 print "  Exectime: ", delta.microseconds, "uS"
-            time.sleep(1)
+            time.sleep(0.1)
         myData.setSkip(False)
 
     def HWOK(self):

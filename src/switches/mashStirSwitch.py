@@ -46,7 +46,7 @@ class mashStirSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            print "Error, mashStir switch failing"
+            print "Error, mashStir switch failing on"
 
     def off(self):
         try:
@@ -57,7 +57,7 @@ class mashStirSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            print "Error, mashStir switch failing"
+            print "Error, mashStir switch failing off"
 
     def HWOK(self):
         try:

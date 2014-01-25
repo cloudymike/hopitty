@@ -1,5 +1,6 @@
 
 import appliances.myloader
+import time
 
 
 class controllerList(dict):
@@ -94,6 +95,7 @@ class controllerList(dict):
         Take a measure, check settings and update controllers
         """
         for key, c in self.items():
+            time.sleep(0.01)
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
@@ -103,8 +105,8 @@ class controllerList(dict):
             # beginning of each stage. It is also very time
             # consuming as most controllers are not in use
             # in each stage
-            else:
-                c.stop()
+            # else:
+            #    c.stop()
 
     def stopCurrent(self, settings):
         """
