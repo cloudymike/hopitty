@@ -1,6 +1,8 @@
 Where to start
 ===============
 
+dummy comment to move production forwards
+
 Handle broken USB connection. Try to pull out a USB device, as the thermometer, and then reconnect.
 It should be able to recover. This type of errors do happen.
 
