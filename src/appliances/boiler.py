@@ -66,7 +66,7 @@ class boiler(appliances.genctrl):
             except:
                 print "Error: boilerSwitch on failed"
                 errorData = dataMemcache.brewData()
-                errorData.setError()
+                #errorData.setError()
 
         self.powerOn = True
 

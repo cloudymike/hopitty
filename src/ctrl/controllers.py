@@ -2,10 +2,13 @@
 import appliances.myloader
 import time
 
+STRESSTEST = False
+
 
 class controllerList(dict):
     def __init__(self):
-        pass
+        if STRESSTEST:
+            print "WARNING: Running in stress test mode"
 
     def addController(self, name, ctrl):
         print "Adding ", name
@@ -95,7 +98,8 @@ class controllerList(dict):
         Take a measure, check settings and update controllers
         """
         for key, c in self.items():
-            time.sleep(0.01)
+            if not STRESSTEST:
+                time.sleep(0.01)
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
@@ -106,7 +110,8 @@ class controllerList(dict):
             # consuming as most controllers are not in use
             # in each stage
             # else:
-            #    c.stop()
+                if STRESSTEST:
+                    c.stop()
 
     def stopCurrent(self, settings):
         """
