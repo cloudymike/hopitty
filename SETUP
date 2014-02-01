@@ -105,4 +105,7 @@ cd $HOMEDIR
 ./checkall
 
 
+# FTDI devices
+######################################
+sudo apt-get install libftdi-dev
 

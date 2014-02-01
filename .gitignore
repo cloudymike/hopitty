@@ -41,7 +41,11 @@ GoIO-2.28.0/GoIO_cpp/.libs/
 GoIO-2.28.0/GoIO_cpp/Linux/.libs/
 GoIO-2.28.0/config.log
 GoIO-2.28.0/libtool
-
+GoIO-2.28.0/config.status
+GoIO-2.28.0/Makefile
+GoIO-2.28.0/GoIO_cpp/Makefile
+GoIO-2.28.0/GoIO_cpp/Linux/Makefile
+GoIO-2.28.0/GoIO_DLL/Makefile
 
 # python X10 is dowloaded from github and unmodified
 python-x10
