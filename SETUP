@@ -109,3 +109,7 @@ cd $HOMEDIR
 ######################################
 sudo apt-get install libftdi-dev
 
+# Additional stuff based on testing
+######################################
+sudo apt-get install libusb-dev
+
