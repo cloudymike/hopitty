@@ -25,6 +25,9 @@ sudo easy_install python-memcached
 # Potential futures
 #sudo apt-get install -y python-sqlalchemy
 
+# Additional stuff based on testing
+######################################
+sudo apt-get -y install python-gtk2
 
 # GoIO
 #######################################
@@ -100,14 +103,11 @@ cd $HOMEDIR
 #######################################
 pushd $HOMEDIR/DigiWeight
 make
+popd
+
 # FTDI devices
 ######################################
-sudo apt-get install libftdi-dev
-
-# Additional stuff based on testing
-######################################
-sudo apt-get install libusb-dev
-sudo apt-get install python-gtk2
+sudo apt-get -y install libftdi-dev
 
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
