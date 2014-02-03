@@ -107,6 +107,7 @@ sudo apt-get install libftdi-dev
 # Additional stuff based on testing
 ######################################
 sudo apt-get install libusb-dev
+suod apt-get install python-gtk2
 
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
