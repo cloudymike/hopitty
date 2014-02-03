@@ -37,7 +37,8 @@ class dymoScaleSensor(sensors.genericSensor):
                     devmanufacturer = usb.util.get_string(self.dev, 256, 1)
                     devname = usb.util.get_string(self.dev, 256, 2)
                 except:
-                    # This have been seen failing. If so, enter simulation mode.
+                    # This have been seen failing.
+                    # If so, enter simulation mode.
                     self.simulation = False
     #            print "device found: " + devmanufacturer + " " + devname
     #
