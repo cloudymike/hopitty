@@ -7,6 +7,7 @@ import usb.util
 import pygtk
 pygtk.require('2.0')
 import math
+import subprocess
 
 # DYMO 100lb scale
 VENDOR_ID = 0x0922
