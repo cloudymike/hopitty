@@ -19,10 +19,13 @@ class dymoScaleSensor(sensors.genericSensor):
     def __init__(self):
         self.val = 0
         self.id = 'mashScale'
+        self.simulation = False
         # find the USB device
         ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),\
                               stderr=subprocess.STDOUT)
-        if ret == 0:
+        if ret != 0:
+            self.simulation = True
+        else:
             self.dev = usb.core.find(idVendor=VENDOR_ID,
                   idProduct=PRODUCT_ID)
                     # was it found?
