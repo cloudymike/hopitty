@@ -19,30 +19,33 @@ class dymoScaleSensor(sensors.genericSensor):
         self.val = 0
         self.id = 'mashScale'
         # find the USB device
-        self.dev = usb.core.find(idVendor=VENDOR_ID,
-              idProduct=PRODUCT_ID)
-                # was it found?
-        if self.dev is None:
-            self.simulation = True
-        else:
-            self.simulation = False
-            try:
-                devmanufacturer = usb.util.get_string(self.dev, 256, 1)
-                devname = usb.util.get_string(self.dev, 256, 2)
-            except:
-                # This have been seen failing. If so, enter simulation mode.
+        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),\
+                              stderr=subprocess.STDOUT)
+        if ret == 0:
+            self.dev = usb.core.find(idVendor=VENDOR_ID,
+                  idProduct=PRODUCT_ID)
+                    # was it found?
+            if self.dev is None:
+                self.simulation = True
+            else:
                 self.simulation = False
-#            print "device found: " + devmanufacturer + " " + devname
-#
-#            interface = 0
-#            if self.dev.is_kernel_driver_active(interface) is True:
-#                print "but we need to detach kernel driver"
-#                self.dev.detach_kernel_driver(interface)
-#
-#                # use the first/default configuration
-#                self.dev.set_configuration()
-#                print "claiming device"
-#                usb.util.claim_interface(self.dev, interface)
+                try:
+                    devmanufacturer = usb.util.get_string(self.dev, 256, 1)
+                    devname = usb.util.get_string(self.dev, 256, 2)
+                except:
+                    # This have been seen failing. If so, enter simulation mode.
+                    self.simulation = False
+    #            print "device found: " + devmanufacturer + " " + devname
+    #
+    #            interface = 0
+    #            if self.dev.is_kernel_driver_active(interface) is True:
+    #                print "but we need to detach kernel driver"
+    #                self.dev.detach_kernel_driver(interface)
+    #
+    #                # use the first/default configuration
+    #                self.dev.set_configuration()
+    #                print "claiming device"
+    #                usb.util.claim_interface(self.dev, interface)
 
     def getID(self):
         return(self.id)
