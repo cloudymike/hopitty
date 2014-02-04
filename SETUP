@@ -109,6 +109,18 @@ popd
 ######################################
 sudo apt-get -y install libftdi-dev
 
+cd $HOMEDIR
+pushd ./boilerValve
+./makeme
+popd
+pushd ./coolerUSB
+./makeme
+popd
+pushd ./mashStirUSB
+./makeme
+popd
+
+
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
 ######################################
