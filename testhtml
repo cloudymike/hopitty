@@ -22,7 +22,7 @@ for file in *.py; do
   grep "__main__" $file > /dev/null
   if [ "$?" == "0" ]; then
     if [ -x $file ]; then
-	  $file | tail --lines=+3 | validate
+	  "./$file" | tail --lines=+3 | validate
 	  if [ "$?" != "0" ] ; then
 	    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
 	    exit 1
