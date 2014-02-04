@@ -22,6 +22,7 @@ class brewData(object):
         Constructor
         '''
         self.recipe = []
+        self.HWerrorDict = {}
 
     def getFromMemcache(self, key):
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -153,6 +154,21 @@ class brewData(object):
             return(False)
         return(errorStatus == 'True')
 
+    def setHWerror(self, retries=5, id=__name__, errorText="HW error"):
+        if not id in self.HWerrorDict:
+            self.HWerrorDict[id] = 1
+        else:
+            self.HWerrorDict[id] = self.HWerrorDict[id] + 1
+        if self.HWerrorDict[id] > retries:
+            print "ERROR: ", errorText
+            self.setError()
+
+    def unsetHWerror(self, id=__name__):
+        if not id in self.HWerrorDict:
+            self.HWerrorDict[id] = 0
+        else:
+            self.HWerrorDict[id] = 0
+
     def setSkip(self, value):
         if value:
             self.setToMemcache('skip', 'True')
@@ -238,7 +254,32 @@ def testRecipe():
     print mt
     assert len(mt) > 0
     assert len(mt) < len(d1.getRecipe())
-    print "OK"
+    print "testRecipe OK"
+
+
+def testErrors():
+    d1 = brewData()
+    d1.unsetError()
+    assert not d1.getError()
+    d1.setError()
+    assert d1.getError()
+    d1.unsetError()
+    assert not d1.getError()
+    d1.setHWerror(errorText='Just testing')
+    assert not d1.getError()
+    d1.setHWerror(errorText='Just testing')
+    d1.setHWerror(errorText='Just testing')
+    d1.setHWerror(errorText='Just testing')
+    d1.setHWerror(errorText='Just testing')
+    d1.setHWerror(errorText='Just testing')
+    assert d1.getError()
+    d1.unsetError()
+    d1.unsetHWerror()
+    assert not d1.getError()
+
+    print "testErrors OK"
+
 
 if __name__ == "__main__":
     testRecipe()
+    testErrors()

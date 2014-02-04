@@ -21,6 +21,12 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         stat['stage'] = stage
 
         myData.setStatus(stat)
+        if myData.getError():
+            crumb = 'E'
+        elif myData.getPause():
+            crumb = 'P'
+        else:
+            crumb = '.'
 
         # As alternative, save to pickle file
         # statout = open('/tmp/status.pkl', 'w')
@@ -33,7 +39,7 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
             print "Target: ", settings
             print "Actual: ", stat
         else:
-            sys.stdout.write(".")
+            sys.stdout.write(crumb)
             sys.stdout.flush()
 
 

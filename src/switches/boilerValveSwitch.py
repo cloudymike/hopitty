@@ -46,7 +46,7 @@ class boilerValveSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            print "Error, boilerValve switch failing"
+            self.data.setHWerror(errorText="boilerValve switch failing")
 
     def off(self):
         try:
@@ -57,7 +57,7 @@ class boilerValveSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            print "Error, boilerValve switch failing"
+            self.data.setHWerror(errorText="boilerValve switch failing")
 
     def HWOK(self):
         try:

@@ -46,7 +46,7 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            print "Error, cooler switch failing"
+            self.data.setHWerror(errorText="cooler switch failing")
 
     def off(self):
         try:
@@ -57,7 +57,7 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            print "Error, cooler switch failing"
+            self.data.setHWerror(errorText="cooler switch failing")
 
     def HWOK(self):
         try:

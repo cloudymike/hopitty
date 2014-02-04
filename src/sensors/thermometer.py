@@ -40,11 +40,7 @@ class thermometer(sensors.genericSensor):
                 self.val = t
                 self.errorcount = 0
             except:
-                print('Error: Thermometer read error')
-                self.errorcount = self.errorcount + 1
-                if self.errorcount > 10:
-                    errorData = dataMemcache.brewData()
-                    errorData.setError()
+                self.data.setHWerror(errorText="Thermometer read error")
             return(self.val)
 
     def setValue(self, powerOn):

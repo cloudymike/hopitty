@@ -1,4 +1,5 @@
 import temper
+import dataMemcache
 
 
 class temperSensor():
@@ -8,6 +9,7 @@ class temperSensor():
         self.devs = None
         self.device = self.connect()
         self.simulation = (self.device == None)
+        self.data = dataMemcache.brewData()
 
     def connect(self):
         try:
@@ -42,7 +44,7 @@ class temperSensor():
             try:
                 self.val = self.device.get_temperature(format="fahrenheit")
             except:
-                print "Error temper value not read, using previous value"
+                self.data.setHWerror(errorText="temper value fail")
                 self.device = self.connect()
             return(self.val)
 
