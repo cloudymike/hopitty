@@ -16,6 +16,8 @@ sudo apt-get -y install wdg-html-validator
 # Python packages. May require github downloads
 sudo easy_install pyusb
 sudo easy_install pyserial
+sudo easy_install bottle
+
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
 
