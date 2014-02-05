@@ -6,6 +6,13 @@
 # Note that it will NOT test the hardware just that the software execs
 # required are working.
 
+#Check that the C-code executables are compiled
+if [ ! -x ./mytemp/mytemp ]; then echo "mytemp missing"; exit 1; fi
+if [ ! -x ./boilerValve/boilerValve ]; then echo "boilerValve missing"; exit 1; fi
+if [ ! -x ./coolerUSB/coolerUSB ]; then echo "coolerUSB missing"; exit 1; fi
+if [ ! -x ./mashStirUSB/mashStirUSB ]; then echo "mashStirUSB missing"; exit 1; fi
+if [ ! -x ./UscCmd/UscCmd ]; then echo "UscCmd missing"; exit 1; fi
+
 lsusb
 if [ "$?" != "0" ]; then
   echo "HW USB not present, exit gracefully"
@@ -15,7 +22,7 @@ fi
 UscCmd/UscCmd --list
 if [ "$?" != "0" ]; then echo "Error: UscCmd not working"; exit 1; fi
 
-GoIO-2.28.0/mytemp/mytemp
+mytemp/mytemp
 if [ "$?" != "0" ]; then echo "Error: GoIO not working"; exit 1; fi
 
 
