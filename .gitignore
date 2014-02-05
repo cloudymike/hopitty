@@ -37,6 +37,10 @@ htmlcov/
 # python X10 is dowloaded from github and unmodified
 python-x10
 
+# GoIO
+mytemp/mytemp
+GoIO_SDK
+
 # DigiWeight
 DigiWeight/usbscale
 
