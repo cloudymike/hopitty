@@ -16,6 +16,7 @@ Reading all beersmith recipes:
 Got to web page:
 http://localhost
 
+
 Web pages
 =========
 (This may change)
@@ -37,6 +38,10 @@ If errors, check the script. It relies on the ability to download from different
 vendors.
 
 This script will also setup the required web pages into /var/www
+
+The Vagranfile included will build an instance and install and test all software.
+This is an easy test but not complete, as HW can not be addressed with virtual machine.
+
 
 Testing
 =======
