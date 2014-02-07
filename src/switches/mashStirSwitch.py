@@ -7,6 +7,7 @@ import subprocess
 import os
 import switches
 import time
+import dataMemcache
 
 
 class mashStirSwitch(switches.simSwitch):
@@ -20,6 +21,7 @@ class mashStirSwitch(switches.simSwitch):
         Constructor
         '''
         self.simulation = False
+        self.data = dataMemcache.brewData()
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../mashStirUSB/mashStirUSB'
         print self.exe
@@ -46,7 +48,10 @@ class mashStirSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(errorText="mashStir switch failing")
+            self.data.setHWerror(id=__name__,\
+                                 errorText="mashStir switch failing")
+        else:
+            self.data.unsetHWerror(id=__name__)
 
     def off(self):
         try:
@@ -57,7 +62,10 @@ class mashStirSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(errorText="mashStir switch failing")
+            self.data.setHWerror(id=__name__,\
+                                 errorText="mashStir switch failing")
+        else:
+            self.data.unsetHWerror(id=__name__)
 
     def HWOK(self):
         try:

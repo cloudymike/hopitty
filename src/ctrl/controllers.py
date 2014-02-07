@@ -98,8 +98,8 @@ class controllerList(dict):
         Take a measure, check settings and update controllers
         """
         for key, c in self.items():
-            if not STRESSTEST:
-                time.sleep(0.01)
+#            if not STRESSTEST:
+#                time.sleep(0.01)
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:

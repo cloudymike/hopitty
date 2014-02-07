@@ -1,10 +1,13 @@
 # import subprocess
 import appliances.genctrl
 import sensors
+import dataMemcache
 
 
 class hwt(appliances.genctrl):
     def __init__(self):
+        self.data = dataMemcache.brewData()
+        self.x10 = None  # Pointer back to the X10 so it can be reopened
 #        self.hotWaterTun = switch
         self.hotWaterTun = None
         self.powerOn = False
@@ -17,6 +20,9 @@ class hwt(appliances.genctrl):
     def __del__(self):
         self.stop()
         print 'Powering down'
+
+    def setx(self, x10):
+        self.x10 = x10
 
     def connectSwitch(self, switch):
         self.hotWaterTun = switch
@@ -60,8 +66,13 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun != None:
             try:
                 self.hotWaterTun.on()
+                self.data.unsetHWerror(id=__name__)
             except:
-                pass
+                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                try:
+                    self.x10.open()
+                except:
+                    print 'x10 open failed'
 
         self.powerOn = True
 
@@ -69,8 +80,13 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun != None:
             try:
                 self.hotWaterTun.off()
+                self.data.unsetHWerror(id=__name__)
             except:
-                pass
+                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                try:
+                    self.x10.open()
+                except:
+                    print 'x10 open failed'
 
         self.powerOn = False
 

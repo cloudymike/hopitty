@@ -147,9 +147,11 @@ def setupControllers(verbose, simulation, permissive):
 
     controllers.addController('waterHeater', appliances.hwt())
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
+    controllers['waterHeater'].setx(x10)
 
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
+    controllers['boiler'].setx(x10)
 
     controllers.addController('aerator', appliances.aerator())
     controllers['aerator'].connectSwitch(aeratorSwitch)
@@ -329,11 +331,12 @@ class rununit():
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(self.controllers):
                 self.controllers.shutdown()
+                print '>>>>>>>>>>>>>>HW FAile<<<<<<<<<<<<<<<<<'
                 return(False)
             if self.verbose:
                 delta = datetime.datetime.now() - startTime
                 print "  Exectime: ", delta.microseconds, "uS"
-            time.sleep(0.1)
+            time.sleep(1)
         myData.setSkip(False)
 
     def HWOK(self):

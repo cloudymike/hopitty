@@ -7,6 +7,7 @@ import subprocess
 import os
 import switches
 import time
+import dataMemcache
 
 
 class coolerSwitch(switches.simSwitch):
@@ -20,6 +21,7 @@ class coolerSwitch(switches.simSwitch):
         Constructor
         '''
         self.simulation = False
+        self.data = dataMemcache.brewData()
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../coolerUSB/coolerUSB'
         print self.exe
@@ -46,7 +48,10 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(errorText="cooler switch failing")
+            self.data.setHWerror(id=__name__,\
+                                 errorText="cooler switch failing")
+        else:
+            self.data.unsetHWerror(id=__name__)
 
     def off(self):
         try:
@@ -57,7 +62,10 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(errorText="cooler switch failing")
+            self.data.setHWerror(id=__name__,\
+                                 errorText="cooler switch failing")
+        else:
+            self.data.unsetHWerror(id=__name__)
 
     def HWOK(self):
         try:

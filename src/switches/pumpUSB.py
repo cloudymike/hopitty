@@ -29,14 +29,16 @@ class onePump():
     def on(self):
         try:
             self.usb.setOutputState(self.index, True)
+            self.data.unsetHWerror(id=__name__)
         except:
-            self.data.setHWerror(errorText="usb pump failing")
+            self.data.setHWerror(id=__name__, errorText="usb pump failing")
 
     def off(self):
         try:
             self.usb.setOutputState(self.index, False)
+            self.data.unsetHWerror(id=__name__)
         except:
-            self.data.setHWerror(errorText="usb pump failing")
+            self.data.setHWerror(id=__name__, errorText="usb pump failing")
 
     def HWOK(self):
         return(True)

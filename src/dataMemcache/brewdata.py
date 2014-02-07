@@ -154,7 +154,7 @@ class brewData(object):
             return(False)
         return(errorStatus == 'True')
 
-    def setHWerror(self, retries=5, id=__name__, errorText="HW error"):
+    def setHWerror(self, id='unknown', retries=5, errorText="HW error"):
         if not id in self.HWerrorDict:
             self.HWerrorDict[id] = 1
         else:
@@ -162,8 +162,9 @@ class brewData(object):
         if self.HWerrorDict[id] > retries:
             print "ERROR: ", errorText
             self.setError()
+        print id, self.HWerrorDict[id]
 
-    def unsetHWerror(self, id=__name__):
+    def unsetHWerror(self, id='unknown'):
         if not id in self.HWerrorDict:
             self.HWerrorDict[id] = 0
         else:

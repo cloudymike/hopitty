@@ -10,9 +10,11 @@ class thermometer(sensors.genericSensor):
         self.id = 'thermometer'
         self.simulation = False
         self.errorcount = 0
+        self.data = dataMemcache.brewData()
+        self.val = 40.0
 
         scriptdir = os.path.dirname(os.path.abspath(__file__))
-        self.exedir = scriptdir + '/../../GoIO-2.28.0/mytemp/mytemp'
+        self.exedir = scriptdir + '/../../mytemp/mytemp'
         try:
             scaleStr = subprocess.check_output(self.exedir)
             if scaleStr == 'No Go devices found.\n':
@@ -39,8 +41,11 @@ class thermometer(sensors.genericSensor):
                 t = float(scaleStr)
                 self.val = t
                 self.errorcount = 0
+                self.data.unsetHWerror(id=__name__)
             except:
-                self.data.setHWerror(errorText="Thermometer read error")
+                self.data.setHWerror(id=__name__,\
+                                     errorText="Thermometer read error",\
+                                     retries=10)
             return(self.val)
 
     def setValue(self, powerOn):

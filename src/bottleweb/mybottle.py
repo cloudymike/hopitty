@@ -3,6 +3,10 @@ from bottle import request, response, redirect
 import bottle
 import time
 
+import pretty
+import index
+import recipeliststatus
+
 counter = 1
 
 
@@ -11,9 +15,8 @@ def update_counter():
     counter = counter + 1
 
 
-@route('/')
 @route('/hello/<name>')
-def index(name='world'):
+def sayhello(name='world'):
 
     if request.get_cookie("hello_visited"):
         return template("Welcome back {{name}}</b>! Nice to see you again",\
@@ -23,17 +26,8 @@ def index(name='world'):
         return template('<b>Hello {{name}}</b>! Nice to meet you', name=name)
 
 
-@route('/pretty')
-def pretty():
-    dapage = '''
-    <h1>Big head</h1>
-    hi
-    '''
-    return(dapage)
-
-
 @route('/refresh')
-def pretty():
+def refresh():
 #    dapage=template('<b>Count is {{counter}}</b>', counter=counter)
     dapage = """
     <meta http-equiv="refresh" content="5">

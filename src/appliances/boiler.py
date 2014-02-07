@@ -13,6 +13,8 @@ class boiler(appliances.genctrl):
     Consider to not check when boil has started once...
     """
     def __init__(self):
+        self.data = dataMemcache.brewData()
+        self.x10 = None  # Pointer back to X10 to re-open
         self.boilerSwitch = None
         self.powerOn = False
         self.active = False
@@ -24,6 +26,9 @@ class boiler(appliances.genctrl):
     def __del__(self):
         self.powerOn = False
         print 'Powering down'
+
+    def setx(self, x10):
+        self.x10 = x10
 
     def connectSwitch(self, switch):
         self.boilerSwitch = switch
@@ -63,10 +68,13 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch != None:
             try:
                 self.boilerSwitch.on()
+                self.data.unsetHWerror(id=__name__)
             except:
-                print "Error: boilerSwitch on failed"
-                errorData = dataMemcache.brewData()
-                #errorData.setError()
+                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                try:
+                    self.x10.open()
+                except:
+                    print 'x10 open failed'
 
         self.powerOn = True
 
@@ -74,10 +82,13 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch != None:
             try:
                 self.boilerSwitch.off()
+                self.data.unsetHWerror(id=__name__)
             except:
-                print "Error: boilerSwitch off failed"
-                errorData = dataMemcache.brewData()
-                errorData.setError()
+                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                try:
+                    self.x10.open()
+                except:
+                    print 'x10 open failed'
 
         self.powerOn = False
 
