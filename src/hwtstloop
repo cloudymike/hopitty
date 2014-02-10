@@ -1,0 +1,11 @@
+#! /bin/bash
+while [ 1 ]; 
+do 
+  sudo ./runctrl.py -e -f ../recipe/hw_test; 
+  if [ "$?" != "0" ]; 
+  then 
+    break; 
+  fi; 
+done;
+
+
