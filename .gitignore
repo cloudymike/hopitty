@@ -50,5 +50,8 @@ coolerUSB/coolerUSB
 # mashStirUSB
 mashStirUSB/mashStirUSB
 
+# boilerValve
+boilerValve/boilerValve
+
 # pololu Maestro USB cmd
 UscCmd
