@@ -5,7 +5,7 @@ import ctrl
 def testGenSensor():
     c1 = appliances.genctrl()
     assert isinstance(c1.sensor.getID(), str)
-    assert (isinstance(c1.sensor.getValue(), int) or \
+    assert (isinstance(c1.sensor.getValue(), int) or
             isinstance(c1.sensor.getValue(), float))
 
 
@@ -15,7 +15,7 @@ def testSensors():
     for key, c1 in clist.items():
         print "Checking sensor", key
         assert isinstance(c1.sensor.getID(), str)
-        assert (isinstance(c1.sensor.getValue(), int) or \
+        assert (isinstance(c1.sensor.getValue(), int) or
                 isinstance(c1.sensor.getValue(), float))
 
 

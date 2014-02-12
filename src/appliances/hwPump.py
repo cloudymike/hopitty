@@ -90,12 +90,12 @@ class hwPump(appliances.genctrl):
     def pumpOn(self):
         if not self.targetMet():
             self.powerOn = True
-            if self.pumpMotor != None:
+            if self.pumpMotor is not None:
                 self.pumpMotor.on()
 
     def pumpOff(self):
         self.powerOn = False
-        if self.pumpMotor != None:
+        if self.pumpMotor is not None:
             self.pumpMotor.off()
 
     def stop(self):
@@ -121,7 +121,7 @@ class hwPump(appliances.genctrl):
             # print "Created mashScale sensor"
 
     def HWOK(self):
-        if self.pumpMotor == None:
+        if self.pumpMotor is None:
             return(False)
         else:
             if self.pumpMotor.HWOK():

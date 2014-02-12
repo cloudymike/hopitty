@@ -65,7 +65,7 @@ def statusMain():
                 print """<tr style="background-color:white;color:gray;">"""
             print """<td> %s </td>""" % key
             print """<td>  %s  </td>""" % yn(c['active'])
-            if c['unit'] == None:
+            if c['unit'] is None:
                 print """<td> </td>"""
                 print """<td> </td>"""
             else:

@@ -21,14 +21,14 @@ class dymoScaleSensor(sensors.genericSensor):
         self.id = 'mashScale'
         self.simulation = False
         # find the USB device
-        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),\
+        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
                               stderr=subprocess.STDOUT)
         if ret != 0:
             self.simulation = True
         else:
             self.dev = usb.core.find(idVendor=VENDOR_ID,
-                  idProduct=PRODUCT_ID)
-                    # was it found?
+                                     idProduct=PRODUCT_ID)
+            # was it found?
             if self.dev is None:
                 self.simulation = True
             else:
@@ -60,7 +60,7 @@ class dymoScaleSensor(sensors.genericSensor):
 
     def readVol(self):
         dev = usb.core.find(idVendor=VENDOR_ID,
-                               idProduct=PRODUCT_ID)
+                            idProduct=PRODUCT_ID)
         interface = 0
         if dev.is_kernel_driver_active(interface) is True:
             dev.detach_kernel_driver(interface)
@@ -79,7 +79,7 @@ class dymoScaleSensor(sensors.genericSensor):
                                endpoint.wMaxPacketSize)
             except:
                 myd = None
-            if myd != None:
+            if myd is not None:
                 raw_weight = myd[4] + myd[5] * 256
 
                 DATA_MODE_GRAMS = 2
@@ -119,8 +119,8 @@ class dymoScaleSensor(sensors.genericSensor):
             return(False)
         else:
             self.dev = usb.core.find(idVendor=VENDOR_ID,
-              idProduct=PRODUCT_ID)
-                # was it found?
+                                     idProduct=PRODUCT_ID)
+            # was it found?
             if self.dev is None:
                 return(False)
         return(True)

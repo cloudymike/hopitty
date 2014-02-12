@@ -34,7 +34,7 @@ class recipeClass():
 
     def checkPopulation(self):
         for key, val in self.recipeDict.items():
-            assert val != None
+            assert val is not None
 
     def getValue(self, key, value):
         if key in self.recipeDict:

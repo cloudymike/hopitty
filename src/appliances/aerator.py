@@ -43,12 +43,12 @@ class aerator(appliances.genctrl):
 
     def on(self):
         self.powerOn = True
-        if self.switch != None:
+        if self.switch is not None:
             self.switch.on()
 
     def off(self):
         self.powerOn = False
-        if self.switch != None:
+        if self.switch is not None:
             self.switch.off()
 
     def stop(self):
@@ -62,7 +62,7 @@ class aerator(appliances.genctrl):
         self.on()
 
     def HWOK(self):
-        if self.switch == None:
+        if self.switch is None:
             return(False)
         else:
             return(True)

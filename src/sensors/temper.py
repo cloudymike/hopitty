@@ -95,13 +95,14 @@ class TemperDevice():
 class TemperHandler():
     def __init__(self):
         self._devices = []
-        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),\
+        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
                               stderr=subprocess.STDOUT)
         if ret == 0:
             busses = usb.busses()
             for bus in busses:
-                self._devices.extend([TemperDevice(x) for x in bus.devices
-                                  if (x.idVendor, x.idProduct) in VIDPIDs])
+                self._devices.extend([TemperDevice(x)
+                                      for x in bus.devices
+                                      if (x.idVendor, x.idProduct) in VIDPIDs])
 
     def get_devices(self):
         return self._devices
@@ -112,7 +113,8 @@ if __name__ == '__main__':
     print "Found %i devices" % len(devs)
     for i, dev in enumerate(devs):
         try:
-            print "Device #%i: %0.1f°C %0.1f°F" % (i, dev.get_temperature(),
+            print "Device #%i: %0.1f°C %0.1f°F" %\
+                  (i, dev.get_temperature(),
                    dev.get_temperature(format="fahrenheit"))
         except:
             print "Try using sudo"

@@ -1,6 +1,6 @@
 
 
-class   myQuickLoader:
+class myQuickLoader:
     """
     This is a better version that figures out what is a class and then
     just collects those.

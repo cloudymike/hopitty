@@ -38,7 +38,7 @@ class brewData(object):
 
     def getStagesList(self):
         stages = self.getFromMemcache('stagesDict')
-        if stages == None:
+        if stages is None:
             stages = {}
         return(stages)
 
@@ -48,7 +48,7 @@ class brewData(object):
 
     def getRecipeList(self):
         recipes = self.getFromMemcache('recipeNameList')
-        if recipes == None:
+        if recipes is None:
             recipes = []
         recipes.sort()
         return(recipes)
@@ -62,7 +62,7 @@ class brewData(object):
             status = self.getFromMemcache("hopitty_run_key")
         except:
             status = None
-        if status == None:
+        if status is None:
             status = {}
         return(status)
 
@@ -72,7 +72,7 @@ class brewData(object):
 
     def getRunStatus(self):
         runStatus = self.getFromMemcache('runStatus')
-        if runStatus == None:
+        if runStatus is None:
             runStatus = ""
         return(runStatus)
 
@@ -137,7 +137,7 @@ class brewData(object):
 
     def getPause(self):
         pauseStatus = self.getFromMemcache('pause')
-        if pauseStatus == None:
+        if pauseStatus is None:
             return(False)
         return(pauseStatus == 'True')
 
@@ -150,7 +150,7 @@ class brewData(object):
 
     def getError(self):
         errorStatus = self.getFromMemcache('errorstatus')
-        if errorStatus == None:
+        if errorStatus is None:
             return(False)
         return(errorStatus == 'True')
 
@@ -178,7 +178,7 @@ class brewData(object):
 
     def getSkip(self):
         skipStatus = self.getFromMemcache('skip')
-        if skipStatus == None:
+        if skipStatus is None:
             return(False)
         return(skipStatus == 'True')
 
@@ -194,7 +194,7 @@ class brewData(object):
 
     def getRecipe(self):
         recipe = self.getFromMemcache('recipe')
-        if recipe == None:
+        if recipe is None:
             recipe = []
         return(recipe)
 

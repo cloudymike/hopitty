@@ -59,17 +59,17 @@ class cooler(appliances.genctrl):
         self.off()
 
     def on(self):
-        if self.coolerSwitch != None:
+        if self.coolerSwitch is not None:
             self.coolerSwitch.on()
         self.powerOn = True
 
     def off(self):
-        if self.coolerSwitch != None:
+        if self.coolerSwitch is not None:
             self.coolerSwitch.off()
         self.powerOn = False
 
     def HWOK(self):
-        if self.coolerSwitch == None:
+        if self.coolerSwitch is None:
             return(False)
         if not self.coolerSwitch.HWOK():
             return(False)

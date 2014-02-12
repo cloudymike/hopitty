@@ -48,7 +48,7 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,\
+            self.data.setHWerror(id=__name__,
                                  errorText="cooler switch failing")
         else:
             self.data.unsetHWerror(id=__name__)
@@ -62,7 +62,7 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,\
+            self.data.setHWerror(id=__name__,
                                  errorText="cooler switch failing")
         else:
             self.data.unsetHWerror(id=__name__)

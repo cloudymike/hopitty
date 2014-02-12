@@ -148,8 +148,8 @@ def printSomeBsmx(filename):
     print "Equipment:", equipmentName
 
     validEquipment = [
-                    'Pot and Cooler ( 5 Gal/19 L) - All Grain'
-                    ]
+        'Pot and Cooler ( 5 Gal/19 L) - All Grain'
+        ]
     if equipmentName in validEquipment:
         print "Equipment selected is OK"
     else:
@@ -158,11 +158,11 @@ def printSomeBsmx(filename):
     mashMethod = bsmxReadString(doc, "F_MH_NAME")
     print "Mash method:", mashMethod
     validMethods = [
-                    'Single Infusion, Light Body, Batch Sparge',
-                    'Single Infusion, Medium Body, Batch Sparge',
-                    'Single Infusion, Full Body, Batch Sparge',
-                    'Single Infusion, Medium Body, No Mash Out'
-                    ]
+        'Single Infusion, Light Body, Batch Sparge',
+        'Single Infusion, Medium Body, Batch Sparge',
+        'Single Infusion, Full Body, Batch Sparge',
+        'Single Infusion, Medium Body, No Mash Out'
+        ]
     if mashMethod in validMethods:
         print "Mash Method OK"
     else:
@@ -171,22 +171,22 @@ def printSomeBsmx(filename):
     print "================ Sparge raw data ================"
 
     print "Infusion temperature:", \
-           bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"), "F"
+        bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"), "F"
 
     print "Mash Time:", bsmxReadTimeMin(doc, "F_MS_STEP_TIME"), "min"
 
     infuseVolNet = bsmxReadVolQt(doc, "F_MS_INFUSION")
 
     print "Infusion Volume Net:", infuseVolNet, "qt", \
-                                  infuseVolNet, "Gallons"
+        infuseVolNet, "Gallons"
 
     infuseVolTot = bsmxReadVolQt(doc, "F_MS_INFUSION") + \
-                   bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
+        bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
     print "Infusion Volume Total:", infuseVolTot, "qt", \
-                                    infuseVolTot / 4, "Gallons"
+        infuseVolTot / 4, "Gallons"
     tunDeadSpace = bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
     print "Tun dead space:", tunDeadSpace, "qt", \
-                             tunDeadSpace / 4, "Gallons"
+          tunDeadSpace / 4, "Gallons"
 
     grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
     preboilVol = bsmxReadVolQt(doc, "F_E_BOIL_VOL")
@@ -197,7 +197,7 @@ def printSomeBsmx(filename):
     print "Grain weight: ", bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT"), "lb"
 
     print "Grain absorption:", grainAbsorption, "qt", \
-                               grainAbsorption / 4, "Gallons"
+          grainAbsorption / 4, "Gallons"
 
     totSparge = preboilVol + grainAbsorption - infuseVolNet
     print "Total Sparge vol:", totSparge, "qt", totSparge / 4, "Gallons"
@@ -213,7 +213,7 @@ def printSomeBsmx(filename):
     print "Vol in +", infuseVolTot + totSparge
     print "Loss -", grainAbsorption - tunDeadSpace
     print "Remainder=", infuseVolTot + totSparge \
-                        - grainAbsorption - tunDeadSpace
+          - grainAbsorption - tunDeadSpace
     print "Pre Boil Volume", preboilVol
 
     print "================ Batch Sparge ================"
@@ -228,10 +228,10 @@ def printSomeBsmx(filename):
     print "Wort pump1", boilVol2, "qt", boilVol2 / 4, "Gallons"
 
     print "Total boil pumped is ", boilVol1 + boilVol2, "qt", \
-           (boilVol1 + boilVol2) / 4, "Gallons"
+          (boilVol1 + boilVol2) / 4, "Gallons"
 
     print "Math Check in", sparge1 + sparge2 + infuseVolTot - \
-           grainAbsorption - tunDeadSpace
+          grainAbsorption - tunDeadSpace
     print "Math Check out:", boilVol1 + boilVol2
 
     print "================ Almost Fly Sparge ================"
@@ -249,7 +249,7 @@ def printSomeBsmx(filename):
     print "Wort volumes:", flyWortOut, "qt", flyWortOut / 4, "Gallons"
     print "Last Wort volumes:", lastWortOut, "qt", lastWortOut / 4, "Gallons"
     print "Math Check in", flySteps * flySpargeIn + infuseVolTot \
-           - grainAbsorption - tunDeadSpace
+          - grainAbsorption - tunDeadSpace
     print "Math Check out:", flySteps * flyWortOut + lastWortOut
 
 
@@ -260,10 +260,10 @@ def bsmxReadHops(doc):
     for hop in hops:
         name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
 
-        boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
-               firstChild.nodeValue
-        dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
-              firstChild.nodeValue
+        boil = hop.getElementsByTagName(
+            "F_H_BOIL_TIME")[0].firstChild.nodeValue
+        dry = hop.getElementsByTagName(
+            "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
         use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
         if use == '0':
             print "Boil", name, boil, "minutes"
@@ -293,12 +293,12 @@ def bsmxHops2Recipe(doc):
     hops = doc.getElementsByTagName(tagName)
     for hop in hops:
         name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
-        weight = round(float(hop.getElementsByTagName("F_H_AMOUNT")[0].\
-               firstChild.nodeValue), 2)
+        weight = round(float(hop.getElementsByTagName("F_H_AMOUNT")[0].
+                       firstChild.nodeValue), 2)
         boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
-               firstChild.nodeValue
+            firstChild.nodeValue
         dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
-              firstChild.nodeValue
+            firstChild.nodeValue
         use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
         if use == '0':
             d.addToRecipe(name, weight, returnDispenser(doc, boil))
@@ -312,10 +312,10 @@ def bsmxMisc2Recipe(doc):
         name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
 
         t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
-        timeunit = m.getElementsByTagName("F_M_TIME_UNITS")[0].\
-               firstChild.nodeValue
-        amount = round(float(m.getElementsByTagName("F_M_AMOUNT")[0].\
-               firstChild.nodeValue), 2)
+        timeunit = m.getElementsByTagName(
+            "F_M_TIME_UNITS")[0].firstChild.nodeValue
+        amount = round(float(m.getElementsByTagName(
+                       "F_M_AMOUNT")[0].firstChild.nodeValue), 2)
         unit = ""
         use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
         if timeunit == '0':
@@ -333,8 +333,8 @@ def bsmxGrains2Recipe(doc):
     hops = doc.getElementsByTagName(tagName)
     for hop in hops:
         name = hop.getElementsByTagName("F_G_NAME")[0].firstChild.nodeValue
-        weight = round(float(hop.getElementsByTagName("F_G_AMOUNT")[0].\
-               firstChild.nodeValue), 2)
+        weight = round(float(hop.getElementsByTagName("F_G_AMOUNT")[0].
+                       firstChild.nodeValue), 2)
         d.addToRecipe(name, weight, 'mashtun')
 
 
@@ -346,8 +346,7 @@ def bsmxReadMisc(doc):
         name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
 
         t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
-        unit = m.getElementsByTagName("F_M_TIME_UNITS")[0].\
-               firstChild.nodeValue
+        unit = m.getElementsByTagName("F_M_TIME_UNITS")[0].firstChild.nodeValue
         use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
         if unit == '0':
             tu = 'minutes'

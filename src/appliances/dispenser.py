@@ -38,7 +38,7 @@ class dispenser(appliances.genctrl):
         self.switch = None    # Switch object. Should have method on and off
         self.sensor = sensors.genericSensor()
 
-        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),\
+        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
                               stderr=subprocess.STDOUT)
         self.usbOK = (ret == 0)
 

@@ -8,7 +8,7 @@ class temperSensor():
         self.val = 90
         self.devs = None
         self.device = self.connect()
-        self.simulation = (self.device == None)
+        self.simulation = (self.device is None)
         self.data = dataMemcache.brewData()
 
     def connect(self):
@@ -45,7 +45,7 @@ class temperSensor():
                 self.val = self.device.get_temperature(format="fahrenheit")
                 self.data.unsetHWerror(id=__name__)
             except:
-                self.data.setHWerror(id=__name__,\
+                self.data.setHWerror(id=__name__,
                                      errorText="temper value fail")
                 self.device = self.connect()
             return(self.val)

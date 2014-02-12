@@ -16,6 +16,6 @@ class myX10(CM11):
 
 if __name__ == '__main__':
     x10 = myX10('/dev/serial/by-id/usb-Prolific_Technology'
-                                 '_Inc._USB-Serial_Controller-if00-port0')
+                '_Inc._USB-Serial_Controller-if00-port0')
     x10.open()
     testSW = x10.getSwitch('H1')

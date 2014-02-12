@@ -31,9 +31,9 @@ class scanrun():
         self.runner = ctrl.rununit()
 
         # Try to find a recipe file
-        if recipefile != None:
+        if recipefile is not None:
             self.bsmxfile = recipefile
-        elif user != None:
+        elif user is not None:
             self.bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
         else:
             print "ERROR: No data for BSMX file"
@@ -99,12 +99,12 @@ class scanrun():
         """
         r = self.rl.getRecipe(self.mydata.getSelectedRecipe())
         if run(self.mydata):
-            if r != None:
+            if r is not None:
                 bsxml = r.getBSMXdoc()
                 self.runner.bsmxIn(bsxml)
                 print "+++++++++++++++",\
-                     self.runner.getRecipeName(),\
-                     "+++++++++++++++"
+                      self.runner.getRecipeName(),\
+                      "+++++++++++++++"
                 if quick:
                     runOK = self.runner.quick()
                 else:

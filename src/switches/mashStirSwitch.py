@@ -48,7 +48,7 @@ class mashStirSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,\
+            self.data.setHWerror(id=__name__,
                                  errorText="mashStir switch failing")
         else:
             self.data.unsetHWerror(id=__name__)
@@ -62,7 +62,7 @@ class mashStirSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,\
+            self.data.setHWerror(id=__name__,
                                  errorText="mashStir switch failing")
         else:
             self.data.unsetHWerror(id=__name__)

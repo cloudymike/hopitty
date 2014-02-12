@@ -19,8 +19,8 @@ def update_counter():
 def sayhello(name='world'):
 
     if request.get_cookie("hello_visited"):
-        return template("Welcome back {{name}}</b>! Nice to see you again",\
-                name=name)
+        return template("Welcome back {{name}}</b>! Nice to see you again",
+                        name=name)
     else:
         response.set_cookie("hello_visited", "yes", max_age=60)
         return template('<b>Hello {{name}}</b>! Nice to meet you', name=name)

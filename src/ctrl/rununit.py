@@ -71,7 +71,7 @@ def runManual(controllers, verbose):
             controllers.run(settings)
 
         stage = 'Manual'
-        writeStatus(controllers, settings, stage, runStop, 'Manual run', \
+        writeStatus(controllers, settings, stage, runStop, 'Manual run',
                     verbose)
 
         time.sleep(0.1)
@@ -167,7 +167,7 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('delayTimer', appliances.hoptimer())
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
-    controllers.addController('waterCirculationPump', \
+    controllers.addController('waterCirculationPump',
                               appliances.circulationPump())
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
     controllers.addController('wortPump', appliances.wortPump())
@@ -222,7 +222,7 @@ class rununit():
         self.verbose = False
         self.simulation = False
         self.permissive = True
-        self.controllers = setupControllers(self.verbose, self.simulation, \
+        self.controllers = setupControllers(self.verbose, self.simulation,
                                             self.permissive)
         self.recipeName = ""
         self.stages = {}
@@ -272,7 +272,7 @@ class rununit():
             return(False)
 
     def check(self):
-        return(ctrl.checkers.checkRecipe(self.controllers, self.stages, \
+        return(ctrl.checkers.checkRecipe(self.controllers, self.stages,
                                          self.verbose))
 
     def checkBSMX(self, xml):
@@ -280,9 +280,9 @@ class rununit():
         if not ctrl.checkVolBSMX(xml):
             return(False)
         stages = ctrl.bsmxReadRecipe(xml, self.controllers)
-        if stages != None:
-            return(ctrl.checkers.checkRecipe(self.controllers, stages, \
-                                         self.verbose))
+        if stages is not None:
+            return(ctrl.checkers.checkRecipe(self.controllers, stages,
+                                             self.verbose))
         else:
             return(False)
 
@@ -314,10 +314,9 @@ class rununit():
         if True:
             print ""
             print "Stage: ", r_key
-        while ((not self.controllers.done()) and \
-              (myData.getRunStatus() == 'run') and \
-              (not myData.getSkip())) or \
-              myData.getPause():
+        while ((not self.controllers.done()) and
+              (myData.getRunStatus() == 'run') and
+              (not myData.getSkip())) or myData.getPause():
 
             startTime = datetime.datetime.now()
             if myData.getPause():
@@ -325,8 +324,8 @@ class rununit():
             else:
                 self.controllers.run(settings)
 
-            writeStatus(self.controllers, settings, r_key, runStop, \
-                        self.recipeName, \
+            writeStatus(self.controllers, settings, r_key, runStop,
+                        self.recipeName,
                         self.verbose)
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(self.controllers):

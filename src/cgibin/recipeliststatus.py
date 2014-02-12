@@ -28,7 +28,7 @@ def recipeliststatusMain():
             sel = ""
 
         print '<input type="radio" name="recipe" value=', rnstr, sel, ">", \
-        recipeName, '<br>'
+            recipeName, '<br>'
     print '<input type="submit" value="Set">'
 
     print '</form>'

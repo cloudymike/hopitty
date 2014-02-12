@@ -65,7 +65,7 @@ class boiler(appliances.genctrl):
         self.off()
 
     def on(self):
-        if self.boilerSwitch != None:
+        if self.boilerSwitch is not None:
             try:
                 self.boilerSwitch.on()
                 self.data.unsetHWerror(id=__name__)
@@ -79,7 +79,7 @@ class boiler(appliances.genctrl):
         self.powerOn = True
 
     def off(self):
-        if self.boilerSwitch != None:
+        if self.boilerSwitch is not None:
             try:
                 self.boilerSwitch.off()
                 self.data.unsetHWerror(id=__name__)
@@ -93,7 +93,7 @@ class boiler(appliances.genctrl):
         self.powerOn = False
 
     def HWOK(self):
-        if self.boilerSwitch == None:
+        if self.boilerSwitch is None:
             return(False)
         return(self.sensor.HWOK())
 

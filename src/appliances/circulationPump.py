@@ -45,13 +45,13 @@ class circulationPump(appliances.genctrl):
 
     def pumpOn(self):
         self.powerOn = True
-        if self.pumpMotor != None:
+        if self.pumpMotor is not None:
             self.pumpMotor.on()
 
     def pumpOff(self):
         """ Pump on regardless of target"""
         self.powerOn = False
-        if self.pumpMotor != None:
+        if self.pumpMotor is not None:
             self.pumpMotor.off()
 
     def stop(self):
@@ -65,7 +65,7 @@ class circulationPump(appliances.genctrl):
         self.pumpOn()
 
     def HWOK(self):
-        if self.pumpMotor == None:
+        if self.pumpMotor is None:
             return(False)
         else:
             return(self.pumpMotor.HWOK())

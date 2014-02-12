@@ -23,7 +23,7 @@ def getTestRecipeList():
 
 
 def testRecipeScanner(user=None):
-    if user == None:
+    if user is None:
         rl = getTestRecipeList()
     else:
         rl = recipelistmgr.recipeListClass()

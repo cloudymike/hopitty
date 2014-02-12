@@ -15,6 +15,8 @@ def recipeliststatusBottle():
     #common.header('Recipe list')
     #selectedRecipe = myData.getCurrentRecipe()
     selectedRecipe = myData.getSelectedRecipe()
+    if selectedRecipe is None:
+        selectedRecipe = ""
 
     retstr = retstr + "<b>Current Recipe:</b>" + selectedRecipe + "<br><br>"
     retstr = retstr + '<form method="get" action="recipereader.py">'
@@ -62,7 +64,7 @@ def recipeliststatusMain():
             sel = ""
 
         print '<input type="radio" name="recipe" value=', rnstr, sel, ">", \
-        recipeName, '<br>'
+            recipeName, '<br>'
     print '<input type="submit" value="Set">'
 
     print '</form>'

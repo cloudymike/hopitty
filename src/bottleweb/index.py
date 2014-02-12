@@ -28,7 +28,7 @@ process.</li>
 <a href="cgi-bin/start.py"><button>Run Control</button></a>
 <a href="cgi-bin/status.py"><button>Status</button></a>
 <a href="cgi-bin/stagesstatus.py"><button>Stages</button></a>
-<a href="cgi-bin/recipeliststatus.py"><button>Recipe List</button></a>
+<a href="recipelist"><button>Recipe List</button></a>
 <a href="cgi-bin/recipe.py"><button>Recipe</button></a>
 
 </body>

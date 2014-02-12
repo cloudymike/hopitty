@@ -30,8 +30,7 @@ coolTempConstant = 72
 
 
 def grainAbsorption(doc):
-    ga = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")\
-                      / 8.3 * 4
+    ga = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
     return(ga)
 
 
@@ -66,13 +65,11 @@ def txBSMXtoStages(doc, controllers):
     equipmentName = parseBSMX.bsmxReadString(doc, "F_E_NAME")
     print equipmentName
     # print "Equipment:", equipmentName
-    validEquipment1 = [
-                    'Pot and Cooler ( 5 Gal/19 L) - All Grain',
-                    'Grain 2.5G, 5Gcooler 4Gpot',
-                    'Grain 2.5G, 5Gcooler, 4Gpot',
-                    'Grain 3G, 5Gcooler, 5Gpot',
-                    'Grain 3G, 5Gcooler 5Gpot',
-                    ]
+    validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
+                       'Grain 2.5G, 5Gcooler 4Gpot',
+                       'Grain 2.5G, 5Gcooler, 4Gpot',
+                       'Grain 3G, 5Gcooler, 5Gpot',
+                       'Grain 3G, 5Gcooler 5Gpot']
 
     if not checkVolBSMX(doc):
         return(None)
@@ -80,24 +77,21 @@ def txBSMXtoStages(doc, controllers):
     if equipmentName in validEquipment1:
         mashProfile = parseBSMX.bsmxReadString(doc, "F_MH_NAME")
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
-                       'Single Infusion, Medium Body, Batch Sparge',
-                       'Single Infusion, Full Body, Batch Sparge'
-                       ]:
+                           'Single Infusion, Medium Body, Batch Sparge',
+                           'Single Infusion, Full Body, Batch Sparge']:
 
             stages = SingleInfusionBatch(doc, controllers)
 
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
-                       'Single Infusion, Medium Body, No Mash Out',
-                       'Single Infusion, Full Body, No Mash Out'
-                       ]:
+                             'Single Infusion, Medium Body, No Mash Out',
+                             'Single Infusion, Full Body, No Mash Out']:
             stages = MultiBatchMash(doc, controllers)
-        elif mashProfile in ['testonly'
-                       ]:
+        elif mashProfile in ['testonly']:
             stages = testonlyMash(doc, controllers)
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
-        if stages == None:
+        if stages is None:
             print "Mash test failed"
 
     else:
@@ -116,7 +110,7 @@ def checkVolBSMX(doc):
     # Check tunDead Space
     if tunDeadSpace(doc) < tunDeadSpaceMin:
         print "Error: Tun dead space:", tunDeadSpace(doc), "requires:", \
-             tunDeadSpaceMin, "qt"
+            tunDeadSpaceMin, "qt"
         return(False)
 
     # Check boiler volume
@@ -278,36 +272,38 @@ def SingleInfusionBatch(doc, controllers):
     print "====================SingleInfusionBatch"
     stages = {}
     s1 = parseBSMX.stageCtrl(controllers)
-    s1["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s1["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
     stages["01 Heating"] = s1
 
     s2 = parseBSMX.stageCtrl(controllers)
-    s2["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s2["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages["02 Pump rest"] = s2
 
     s3 = parseBSMX.stageCtrl(controllers)
     strikeVolTot = strikeVolume(doc)
-    s3["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s3["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     stages["03 StrikeWater"] = s3
 
     s4 = parseBSMX.stageCtrl(controllers)
-    s4["delayTimer"] = parseBSMX.setDict(\
-                       parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME"))
-    s4["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+    s4["delayTimer"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME"))
+    s4["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     s4["waterCirculationPump"] = parseBSMX.setDict(1)
     s4["mashStirrer"] = parseBSMX.setDict(1)
     stages["04 Mashing"] = s4
 
     s6 = parseBSMX.stageCtrl(controllers)
-    s6["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2 + \
-                         grainAbsorption(doc) - strikeVolTot)
+    s6["hotWaterPump"] = parseBSMX.setDict(
+        preBoilVolume(doc) / 2 +
+        grainAbsorption(doc) -
+        strikeVolTot)
     stages["06 Sparge in 1"] = s6
 
     s7 = parseBSMX.stageCtrl(controllers)
@@ -352,24 +348,24 @@ def MultiBatchMash(doc, controllers):
     stageCount = 1
 
     s1 = parseBSMX.stageCtrl(controllers)
-    s1["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s1["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
 
     stages[mkSname("Heating", stageCount)] = s1
     stageCount = stageCount + 1
 
     s2 = parseBSMX.stageCtrl(controllers)
-    s2["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s2["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages[mkSname("Pump rest", stageCount)] = s2
     stageCount = stageCount + 1
 
     s3 = parseBSMX.stageCtrl(controllers)
     strikeVolTot = strikeVolume(doc)
-    s3["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s3["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     totVolIn = totVolIn + strikeVolTot
     stages[mkSname("StrikeWater", stageCount)] = s3
@@ -379,8 +375,8 @@ def MultiBatchMash(doc, controllers):
     spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
 
     step = parseBSMX.stageCtrl(controllers)
-    step["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+    step["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
     step["mashStirrer"] = parseBSMX.setDict(1)
     step["delayTimer"] = parseBSMX.setDict(mashTime)
@@ -484,8 +480,8 @@ def testonlyMash(doc, controllers):
     stageCount = 1
 
     s1 = parseBSMX.stageCtrl(controllers)
-    s1["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s1["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
 
     stages[mkSname("Heating", stageCount)] = s1
@@ -493,8 +489,8 @@ def testonlyMash(doc, controllers):
 
     s3 = parseBSMX.stageCtrl(controllers)
     strikeVolTot = strikeVolume(doc)
-    s3["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+    s3["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     totVolIn = totVolIn + strikeVolTot
     stages[mkSname("StrikeWater", stageCount)] = s3
@@ -504,8 +500,8 @@ def testonlyMash(doc, controllers):
     spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
 
     step = parseBSMX.stageCtrl(controllers)
-    step["waterHeater"] = parseBSMX.setDict(\
-                        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+    step["waterHeater"] = parseBSMX.setDict(
+        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
     step["mashStirrer"] = parseBSMX.setDict(1)
     step["delayTimer"] = parseBSMX.setDict(mashTime)

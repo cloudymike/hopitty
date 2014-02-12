@@ -63,7 +63,7 @@ class hwt(appliances.genctrl):
         self.off()
 
     def on(self):
-        if self.hotWaterTun != None:
+        if self.hotWaterTun is not None:
             try:
                 self.hotWaterTun.on()
                 self.data.unsetHWerror(id=__name__)
@@ -77,7 +77,7 @@ class hwt(appliances.genctrl):
         self.powerOn = True
 
     def off(self):
-        if self.hotWaterTun != None:
+        if self.hotWaterTun is not None:
             try:
                 self.hotWaterTun.off()
                 self.data.unsetHWerror(id=__name__)
@@ -91,6 +91,6 @@ class hwt(appliances.genctrl):
         self.powerOn = False
 
     def HWOK(self):
-        if self.hotWaterTun == None:
+        if self.hotWaterTun is None:
             return(False)
         return(self.sensor.HWOK())
