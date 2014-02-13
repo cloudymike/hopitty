@@ -1,8 +1,10 @@
 import bottle
+import commonweb
 
 
 @bottle.route('/')
 def index():
+    common = commonweb.commonweb()
     indexpage = """
          <head>
          <title>Hopitty</title>
@@ -24,13 +26,8 @@ are on.</li>
 <li>The <b>Status</b> page shows the status of the current stage in the brew
 process.</li>
 </ul>
-<a href="/index.html"><button>Home</button></a>
-<a href="cgi-bin/start.py"><button>Run Control</button></a>
-<a href="cgi-bin/status.py"><button>Status</button></a>
-<a href="cgi-bin/stagesstatus.py"><button>Stages</button></a>
-<a href="recipelist"><button>Recipe List</button></a>
-<a href="cgi-bin/recipe.py"><button>Recipe</button></a>
+"""
+    indexpage = indexpage + common.footer()
+    indexpage = indexpage + "</body>"
 
-</body>
-    """
     return(indexpage)

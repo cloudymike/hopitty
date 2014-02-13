@@ -6,22 +6,18 @@ class commonweb():
         pass
 
     def header(self, title, refresh=False):
-        print "Content-Type: text/html"
-        print
-        print """<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">"""
-        print """\
-        <html>
-        <head>
-        <title>%s</title>
+        retstr = """
+       <head>
+       <title>%s</title>
         """ % title
         if refresh:
-            print '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
-        print """\
+            retstr = retstr + '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
+        retstr = retstr + """
         </head>
         <body>
         <h1>%s</h1>
         """ % title
+        return(retstr)
 
     def footer(self):
         retstr = ""
@@ -31,5 +27,5 @@ class commonweb():
         retstr = retstr + '<a href="/stages"><button>Stages</button></a>'
         retstr = retstr + \
             '<a href="/recipelist"><button>RecipeList</button></a>'
-        retstr = retstr + '<a href="recipe.py"><button>Recipe</button></a>'
+        retstr = retstr + '<a href="/recipe"><button>Recipe</button></a>'
         return(retstr)

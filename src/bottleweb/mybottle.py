@@ -6,6 +6,7 @@ import time
 import pretty
 import index
 import recipeliststatus
+import recipe
 
 counter = 1
 
