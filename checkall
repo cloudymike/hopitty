@@ -35,4 +35,10 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Lint (pepme) Failed !!!!!!!!!!"
     exit 1
 fi
+echo "Make documentation.."
+./mkdocs > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Make documentation Failed !!!!!!!!!!"
+    exit 1
+fi
 echo "=========== Everything is OK! ================"

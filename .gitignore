@@ -55,3 +55,14 @@ boilerValve/boilerValve
 
 # pololu Maestro USB cmd
 UscCmd
+
+
+# Docs
+################
+docs/appliances.rst
+docs/cgibin.rst
+docs/sensors.rst
+docs/switches.rst
+docs/hoplog.rst
+docs/unerror.rst
+
