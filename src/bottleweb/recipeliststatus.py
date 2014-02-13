@@ -1,75 +1,50 @@
 import bottle
+from bottle import route, run, template, error, get, post
+from bottle import request, response, redirect
 
 #import cgitb
 
-#import commonweb
+import commonweb
 import dataMemcache
 
 
-@bottle.route('/recipelist')
+@get('/recipelist')
 def recipeliststatusBottle():
-    retstr = ""
+    retstr = "<h1>Recipe list</h1>"
     myData = dataMemcache.brewData()
+    cweb = commonweb.commonweb()
     recipeList = myData.getRecipeList()
-
-    #common.header('Recipe list')
-    #selectedRecipe = myData.getCurrentRecipe()
     selectedRecipe = myData.getSelectedRecipe()
+    print "old", selectedRecipe
+
     if selectedRecipe is None:
         selectedRecipe = ""
 
     retstr = retstr + "<b>Current Recipe:</b>" + selectedRecipe + "<br><br>"
-    retstr = retstr + '<form method="get" action="recipereader.py">'
+    retstr = retstr + '<form method="post" action="/recipelist">'
 
     for recipeName in recipeList:
         rnstr = "\"" + recipeName + "\""
         if recipeName == selectedRecipe:
             sel = "checked"
+            retstr = retstr + "<b>"
         else:
             sel = ""
 
         retstr = retstr + '<input type="radio" name="recipe" value='
-        retstr = retstr + rnstr + sel + ">" + recipeName + '<br>'
+        retstr = retstr + rnstr + sel + ">" + recipeName + '</b><br>\n'
     retstr = retstr + '<input type="submit" value="Set">'
 
     retstr = retstr + '</form>'
-
+    retstr = retstr + cweb.footer()
     return(retstr)
 
 
-def dummyF():
-
-    common.footer(__file__)
-
-
-def recipeliststatusMain():
-    cgitb.enable()
-
-    common = commonweb.commonweb()
-
+@post('/recipelist')
+def dorecipeliststatusBottle():
+    setRecipe = request.forms.get('recipe')
+    print "New", setRecipe
     myData = dataMemcache.brewData()
-    recipeList = myData.getRecipeList()
-
-    common.header('Recipe list')
-    #selectedRecipe = myData.getCurrentRecipe()
-    selectedRecipe = myData.getSelectedRecipe()
-
-    print "<b>Current Recipe:</b>", selectedRecipe, "<br><br>"
-    print '<form method="get" action="recipereader.py">'
-    for recipeName in recipeList:
-        rnstr = "\"" + recipeName + "\""
-        if recipeName == selectedRecipe:
-            sel = "checked"
-        else:
-            sel = ""
-
-        print '<input type="radio" name="recipe" value=', rnstr, sel, ">", \
-            recipeName, '<br>'
-    print '<input type="submit" value="Set">'
-
-    print '</form>'
-
-    common.footer(__file__)
-
-if __name__ == "__main__":
-    recipeliststatusMain()
+    myData.setCurrentRecipe(setRecipe)
+    myData.setSelectedRecipe(setRecipe)
+    return(recipeliststatusBottle())

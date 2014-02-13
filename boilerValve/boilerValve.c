@@ -29,13 +29,13 @@ int main ( int argc, char *argv[] )
 
     /* Open FTDI device based on FT232R vendor & product IDs */
     if(ftdi_usb_open_desc(&ftdic, 0x0403, 0x6001, descriptor, serial) < 0) {
-        puts("Can't open device boiler valve USB");
+        //puts("Can't open device boiler valve USB");
         return 1;
     }
 
     if ( argc == 1 )
     {
-        printf( "Boiler valve USB device found, all OK\n");
+        //printf( "Boiler valve USB device found, all OK\n");
         return 0;
     }
 

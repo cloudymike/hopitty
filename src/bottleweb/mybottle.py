@@ -40,6 +40,7 @@ def refresh():
 
 @get('/me')
 def me():
+    print "me get"
     return '''
         <form action="/me" method="post">
             Username: <input name="username" type="text" />
@@ -50,6 +51,7 @@ def me():
 
 @post('/me')  # or @route('/login', method='POST')
 def do_me_in():
+    print "me post"
     username = request.forms.get('username')
     if username == 'mikael':
         return "<p>Your username is correct.</p>"

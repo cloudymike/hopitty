@@ -1,7 +1,8 @@
 #!/bin/bash
-nosetests
+nosetests src/bottleweb .
 if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
 fi
+
 echo "===========All Tests Passed================"

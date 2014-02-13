@@ -30,13 +30,13 @@ int main ( int argc, char *argv[] )
 
     /* Open FTDI device based on FT232R vendor & product IDs */
     if(ftdi_usb_open_desc(&ftdic, 0x0403, 0x6001, descriptor, serial) < 0) {
-        puts("Can't open device cooler USB");
+        //puts("Can't open device cooler USB");
         return 1;
     }
 
     if ( argc == 1 )
     {
-        printf( "cooler USB device found, all OK\n");
+        //printf( "cooler USB device found, all OK\n");
         return 0;
     }
 
