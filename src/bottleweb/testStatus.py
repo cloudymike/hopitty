@@ -3,10 +3,10 @@ from threading import Thread
 import time
 import urllib2
 
-import recipe
+import status
 
 
-def testRecipe():
+def testStatus():
     def begin():
         run(server=server)
 
@@ -16,13 +16,12 @@ def testRecipe():
     Thread(target=begin).start()
     print "Server started"
     time.sleep(0.1)
-    aResp = urllib2.urlopen("http://localhost:8080/recipe")
+    aResp = urllib2.urlopen("http://localhost:8080/status")
     server.stop()
     print "Server stopped"
 
     web_pg = aResp.read()
-    assert "Recipe" in web_pg
-    assert "Home" in web_pg
+    assert "Brew Status" in web_pg
     print "test passed"
 
 
@@ -45,4 +44,4 @@ class MyWSGIRefServer(ServerAdapter):
 
 
 if __name__ == '__main__':
-    testRecipe()
+    testStatus()
