@@ -11,13 +11,18 @@
 DATESTRING=`date +%F-%H-%M`
 LOGFILE="brew-${DATESTRING}.log"
 STATSFILE="stats-${DATESTRING}.log"
+WEBFILE="web-${DATESTRING}.log"
+
 echo "Output log copied to ${LOGFILE}"
 echo "Status, of all sensors and switches logged to ${STATSFILE}"
 pushd hoplog
 python logActual.py > /tmp/${STATSFILE} &
 popd
+./python runbottle.py > /tmp/${WEBFILE} &
 #./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
 ./unerror.py
 sudo ./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
 #sudo "./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}"
+
 pkill -9 -f logActual.py
+pkill -9 -f runbottle.py
