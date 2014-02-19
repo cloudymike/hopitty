@@ -67,9 +67,9 @@ def status():
                 retstr = retstr + """<td> </td>"""
             else:
                 retstr = retstr + """<td> %.2f %s</td>""" %\
-                   (c['target'], c['unit'])
+                    (c['target'], c['unit'])
                 retstr = retstr + """<td> %.2f %s</td>""" %\
-                   (c['actual'], c['unit'])
+                    (c['actual'], c['unit'])
             retstr = retstr + """<td> %s </td>""" % yn(c['powerOn'])
             retstr = retstr + """<td>%s</td>""" % yn(c['targetMet'])
             retstr = retstr + "</tr>"

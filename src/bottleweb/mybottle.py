@@ -1,3 +1,5 @@
+#!/usr/bin/python
+
 from bottle import route, run, template, error, get, post
 from bottle import request, response, redirect
 import bottle

@@ -2,6 +2,9 @@ from bottle import Bottle, ServerAdapter, route, run
 from threading import Thread
 import time
 import urllib2
+import urllib
+
+import dataMemcache
 
 import recipeliststatus
 
@@ -24,7 +27,7 @@ class MyWSGIRefServer(ServerAdapter):
         self.server.shutdown()
 
 
-def testIndex():
+def testHeader():
     def begin():
         run(server=server)
 
@@ -32,19 +35,46 @@ def testIndex():
     server.quiet = True
 
     Thread(target=begin).start()
-    print "Server started"
     time.sleep(0.1)
     try:
         aResp = urllib2.urlopen("http://localhost:8080/recipelist")
     except:
         print "page read error"
     server.stop()
-    print "Server stopped"
 
     web_pg = aResp.read()
-    print web_pg
     assert "Recipe list" in web_pg
-    print "test passed"
+    print "Header test passed"
+
+
+def testSetRecipe():
+    def begin():
+        run(server=server)
+
+    bd = dataMemcache.brewData()
+    recipelist = ['coolkoelsh', 'maxhop', 'silverdollar']
+    bd.setRecipeList(recipelist)
+    bd.setCurrentRecipe('coolkoelsh')
+    bd.setSelectedRecipe('coolkoelsh')
+    server = MyWSGIRefServer(host="localhost", port=8080)
+    server.quiet = True
+
+    Thread(target=begin).start()
+    time.sleep(0.1)
+    r1 = urllib2.urlopen("http://localhost:8080/recipelist")
+    w1 = r1.read()
+
+    data2 = urllib.urlencode({"recipe": "maxhop"})
+    r2 = urllib2.urlopen("http://localhost:8080/recipelist", data2)
+    w2 = r2.read()
+
+    server.stop()
+
+    assert "Current Recipe:</b>coolkoelsh" in w1
+    assert "Current Recipe:</b>maxhop" in w2
+
+    print "Set recipe test passed"
 
 if __name__ == '__main__':
-    testIndex()
+    testHeader()
+    testSetRecipe()

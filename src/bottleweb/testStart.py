@@ -25,23 +25,24 @@ def testStatus():
     assert 'Run Control' in web_pg
     print "Header test passed"
 
+
 def testRun():
     def begin():
         run(server=server)
 
-    data=dataMemcache.brewData()
+    data = dataMemcache.brewData()
     server = MyWSGIRefServer(host="localhost", port=8080)
     server.quiet = True
     data.setRunStatus('stop')
 
     Thread(target=begin).start()
-    
+
     time.sleep(0.1)
-    postDataR = urllib.urlencode({"runStatus":"run"})
+    postDataR = urllib.urlencode({"runStatus": "run"})
     aResp = urllib.urlopen("http://localhost:8080/start", postDataR)
     dRun = data.getRunStatus()
 
-    postDataS = urllib.urlencode({"runStatus":"stop"})
+    postDataS = urllib.urlencode({"runStatus": "stop"})
     aRespF = urllib.urlopen("http://localhost:8080/start", postDataS)
 
     server.stop()
@@ -56,21 +57,21 @@ def testPause():
     def begin():
         run(server=server)
 
-    data=dataMemcache.brewData()
+    data = dataMemcache.brewData()
     server = MyWSGIRefServer(host="localhost", port=8080)
     server.quiet = True
     data.setPause(False)
 
     Thread(target=begin).start()
-    
+
     time.sleep(0.1)
-    postData = urllib.urlencode({"pauseState":"True"})
+    postData = urllib.urlencode({"pauseState": "True"})
     aResp = urllib.urlopen("http://localhost:8080/start", postData)
     dTrue = data.getPause()
 
-    postDataF = urllib.urlencode({"pauseState":"False"})
+    postDataF = urllib.urlencode({"pauseState": "False"})
     aRespF = urllib.urlopen("http://localhost:8080/start", postDataF)
-    
+
     server.stop()
 
     assert dTrue
@@ -83,22 +84,22 @@ def testSkip():
     def begin():
         run(server=server)
 
-    data=dataMemcache.brewData()
+    data = dataMemcache.brewData()
     server = MyWSGIRefServer(host="localhost", port=8080)
     server.quiet = True
     data.setSkip(False)
 
     Thread(target=begin).start()
-    
+
     time.sleep(0.1)
-    postData = urllib.urlencode({"skipState":"True"})
+    postData = urllib.urlencode({"skipState": "True"})
     aResp = urllib.urlopen("http://localhost:8080/start", postData)
     dTrue = data.getSkip()
 
-    postDataF = urllib.urlencode({"skipState":"False"})
+    postDataF = urllib.urlencode({"skipState": "False"})
     aRespF = urllib.urlopen("http://localhost:8080/start", postDataF)
     server.stop()
-    
+
     assert dTrue
     assert not data.getSkip()
 
@@ -109,7 +110,7 @@ def testError():
     def begin():
         run(server=server)
 
-    data=dataMemcache.brewData()
+    data = dataMemcache.brewData()
     server = MyWSGIRefServer(host="localhost", port=8080)
     server.quiet = True
     data.unsetError()
@@ -122,15 +123,14 @@ def testError():
     assert data.getPause()
 
     Thread(target=begin).start()
-    
+
     time.sleep(0.1)
 
-    postDataF = urllib.urlencode({"errorState":"False"})
+    postDataF = urllib.urlencode({"errorState": "False"})
     aRespF = urllib.urlopen("http://localhost:8080/start", postDataF)
     server.stop()
     assert not data.getError()
     assert not data.getPause()
-
 
     print "Error test passed"
 
@@ -152,11 +152,9 @@ class MyWSGIRefServer(ServerAdapter):
     def stop(self):
         self.server.shutdown()
 
-
 if __name__ == '__main__':
     testStatus()
     testRun()
     testPause()
     testSkip()
     testError()
-

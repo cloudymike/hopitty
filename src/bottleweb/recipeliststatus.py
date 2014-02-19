@@ -15,12 +15,11 @@ def recipeliststatusBottle():
     cweb = commonweb.commonweb()
     recipeList = myData.getRecipeList()
     selectedRecipe = myData.getSelectedRecipe()
-    print "old", selectedRecipe
 
     if selectedRecipe is None:
         selectedRecipe = ""
 
-    retstr = retstr + "<b>Current Recipe:</b>" + selectedRecipe + "<br><br>"
+    retstr = retstr + "<b>Current Recipe:</b>" + selectedRecipe + "<br><br>\n"
     retstr = retstr + '<form method="post" action="/recipelist">'
 
     for recipeName in recipeList:
@@ -43,7 +42,6 @@ def recipeliststatusBottle():
 @post('/recipelist')
 def dorecipeliststatusBottle():
     setRecipe = request.forms.get('recipe')
-    print "New", setRecipe
     myData = dataMemcache.brewData()
     myData.setCurrentRecipe(setRecipe)
     myData.setSelectedRecipe(setRecipe)
