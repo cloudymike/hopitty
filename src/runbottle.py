@@ -8,6 +8,6 @@ def begin():
 
 
 if __name__ == '__main__':
-    server = bottleweb.mybottle(host="localhost", port=8080)
+    server = bottleweb.mybottle(host="0.0.0.0", port=8080)
     server.quiet = False
     begin()
