@@ -12,14 +12,18 @@ Contents:
    :maxdepth: 4
 
    appliances
-   cgibin
+   bottleweb
    ctrl
    dataMemcache
    recipelistmgr
    runctrl
    runscan
+   runbottle
+   unerror
    sensors
    switches
+   hoplog
+   
 
 
 Indices and tables
