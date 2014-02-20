@@ -25,7 +25,7 @@ def stagestatus():
         rs = rs + '<td><b> Stage </b></td>'
         ctrlList = myData.getControllerList()
         for c in ctrlList:
-            rs = rs + "<th>", c, "</th>"
+            rs = rs + "<th>", str(c), "</th>"
         rs = rs + '</tr>'
         for stage, step in sorted(stages.items()):
             if stage == currentStage:
