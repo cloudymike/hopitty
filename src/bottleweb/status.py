@@ -81,7 +81,7 @@ def status():
     if abs(watchdog - checkwatchdog) > 10:
         retstr = retstr + "<h1>Controller Stopped Running</h1>"
     else:
-        retstr = retstr + "Controller status: ", str(status['runStop'])
+        retstr = retstr + "Controller status: " + str(status['runStop'])
 
 #    print """\
 #    <form method="get" action="ctrlform.py">
