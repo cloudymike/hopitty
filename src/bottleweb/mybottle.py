@@ -36,7 +36,7 @@ def begin():
     run(server=server)
 
 if __name__ == '__main__':
-    server = mybottle(host="localhost", port=8080)
+    server = mybottle(host="0.0.0.0", port=8080)
     server.quiet = False
     print "Starting"
     Thread(target=begin).start()

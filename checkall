@@ -23,12 +23,6 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! HW specific code failed !!!!!!!!!!"
     exit 1
 fi
-echo "Check HTML.."
-./testhtml > /dev/null
-if [ "$?" != "0" ]; then
-    echo "!!!!!!!!!! Test of HTML code Failed !!!!!!!!!!"
-    exit 1
-fi
 echo "Lint (pep8).."
 ./pepme > /dev/null
 if [ "$?" != "0" ]; then
