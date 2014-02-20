@@ -20,7 +20,7 @@ class commonweb():
         return(retstr)
 
     def footer(self):
-        retstr = ""
+        retstr = "<br><br>"
         retstr = retstr + '<a href="/"><button>Home</button></a>'
         retstr = retstr + '<a href="/start"><button>Run Control</button></a>'
         retstr = retstr + '<a href="/status"><button>Status</button></a>'
