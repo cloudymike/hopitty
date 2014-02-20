@@ -128,9 +128,8 @@ def dostart():
     myData = dataMemcache.brewData()
 
     runStatus = request.forms.get('runStatus')
-    if runStatus != 'run':
-        runStatus = 'stop'
-    myData.setRunStatus(runStatus)
+    if runStatus is not None:
+        myData.setRunStatus(runStatus)
 
     pauseState = request.forms.get('pauseState')
     myData.setPause(pauseState == 'True')

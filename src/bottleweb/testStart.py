@@ -60,6 +60,7 @@ def testPause():
     data = dataMemcache.brewData()
     server = MyWSGIRefServer(host="localhost", port=8080)
     server.quiet = True
+    data.setRunStatus('run')
     data.setPause(False)
 
     Thread(target=begin).start()
@@ -76,6 +77,7 @@ def testPause():
 
     assert dTrue
     assert not data.getPause()
+    assert data.getRunStatus() == 'run'
 
     print "Pause test passed"
 

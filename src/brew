@@ -8,6 +8,29 @@
 #
 # Add proper logging for all print statements
 # The stats should be send to a separate file from within python
+
+usage() {
+echo "USAGE: $0"
+
+}
+
+USR=$USER
+SIMULATE=0
+while getopts ":su:" opt; do
+  case $opt in
+    s)
+      SIMULATE=1
+      ;;
+    u)
+      USR=$OPTARG
+      ;;
+    \?)
+      usage
+      ;;
+  esac
+done
+echo $SIMULATE
+
 DATESTRING=`date +%F-%H-%M`
 LOGFILE="brew-${DATESTRING}.log"
 STATSFILE="stats-${DATESTRING}.log"
@@ -18,11 +41,14 @@ echo "Status, of all sensors and switches logged to ${STATSFILE}"
 pushd hoplog
 python logActual.py > /tmp/${STATSFILE} &
 popd
-./python runbottle.py > /tmp/${WEBFILE} &
-#./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
+python runbottle.py > /tmp/${WEBFILE} &
+
 ./unerror.py
-sudo ./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
-#sudo "./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}"
+if [ "$SIMULATE" == "1" ]; then
+  ./runscan.py -u mikael | /usr/bin/tee /tmp/${LOGFILE}
+else
+  sudo ./runscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
+fi
 
 pkill -9 -f logActual.py
 pkill -9 -f runbottle.py
