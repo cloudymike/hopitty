@@ -2,6 +2,7 @@ from bottle import app
 from selenium import webdriver
 
 from wsgi_liveserver import LiveServerTestCase
+from xvfbwrapper import Xvfb
 
 # required to load the routes
 import hopmain
@@ -12,10 +13,13 @@ class hopTestPageButtons(LiveServerTestCase):
         return app()
 
     def setUp(self):
+        self.vdisplay = Xvfb(width=1280, height=720)
+        self.vdisplay.start()
         self.driver = webdriver.Firefox()
 
     def tearDown(self):
         self.driver.close()
+        self.vdisplay.stop()
 
     def test_index(self):
 
