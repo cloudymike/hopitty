@@ -123,6 +123,16 @@ pushd ./mashStirUSB
 ./makeme
 popd
 
+# Setup of a headless server to do selenium testing
+# This will add some GUI cruft to the server.
+######################################
+sudo apt-get install -y firefox
+sudo apt-get install -y xvfb
+sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+
+sudo easy_install selenium
+sudo easy_install wsgi_liveserver
+sudo easy_install xvfbwrapper
 
 # Finally run all tests to see that install is OK
 # This should be the end of the install file

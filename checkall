@@ -5,6 +5,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Unit Tests Failed !!!!!!!!!!"
     exit 1
 fi
+echo "Testing web app with selenium..."
+./testselenium > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Selenium test failed !!!!!!!!!!"
+    exit 1
+fi
 echo "Recipe test.."
 ./testrecipe > /dev/null
 if [ "$?" != "0" ]; then
