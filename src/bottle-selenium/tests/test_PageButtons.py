@@ -6,6 +6,7 @@ from xvfbwrapper import Xvfb
 
 # required to load the routes
 import hopmain
+import dataMemcache
 
 
 class hopTestPageButtons(LiveServerTestCase):
@@ -42,6 +43,20 @@ class hopTestPageButtons(LiveServerTestCase):
 
     def test_status(self):
 
+        bd = dataMemcache.brewData()
+        recipelist = ['coolkoelsh', 'maxhop', 'silverdollar']
+        bd.setRecipeList(recipelist)
+        bd.setCurrentRecipe('silverdollar')
+        bd.setSelectedRecipe('silverdollar')
+        status = {}
+        status['name'] = 'silverdollar'
+        status['stage'] = 'First'
+        status['controllers'] = {}
+        status['watchDog'] = 0
+        bd.setStatus(status)
+        bd.setRunStatus('run')
+        bd.setPause(False)
+ 
         driver = self.driver
         self.driver.get(self.url_base())
         # Make sure we start on home page

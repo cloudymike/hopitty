@@ -1,6 +1,12 @@
 Where to start
 ===============
 
+Cleanup data module and make it atomic. 
+ONe set and get for each set of data
+Start with status
+
+
+
 Handle broken USB connection. Try to pull out a USB device, as the thermometer, and then reconnect.
 It should be able to recover. This type of errors do happen.
   * dispensers

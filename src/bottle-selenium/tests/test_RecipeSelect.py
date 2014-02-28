@@ -26,7 +26,6 @@ class hopTestPageButtons(LiveServerTestCase):
         bd = dataMemcache.brewData()
         recipelist = ['coolkoelsh', 'maxhop', 'silverdollar']
         bd.setRecipeList(recipelist)
-        bd.setCurrentRecipe('maxhop')
         bd.setSelectedRecipe('maxhop')
 
         driver = self.driver
@@ -38,11 +37,9 @@ class hopTestPageButtons(LiveServerTestCase):
         driver.find_element_by_name("recipe").click()
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         self.assertEqual("coolkoelsh", driver.find_element_by_css_selector("form > b").text)
-        assert bd.getCurrentRecipe() == 'coolkoelsh'
         assert bd.getSelectedRecipe() == 'coolkoelsh'
 
         driver.find_element_by_xpath("(//input[@name='recipe'])[3]").click()
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         self.assertEqual("silverdollar", driver.find_element_by_css_selector("form > b").text)
-        assert bd.getCurrentRecipe() == 'silverdollar'
         assert bd.getSelectedRecipe() == 'silverdollar'
