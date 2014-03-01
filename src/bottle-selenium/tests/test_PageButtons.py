@@ -29,7 +29,8 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_css_selector("button").click()
-        self.assertEqual("Hopitty", driver.find_element_by_css_selector("h1").text)
+        self.assertEqual("Hopitty",
+                         driver.find_element_by_css_selector("h1").text)
 
     def test_RunControl(self):
 
@@ -39,7 +40,8 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[2]/button").click()
-        self.assertEqual("Run Control", driver.find_element_by_css_selector("h1").text)
+        self.assertEqual("Run Control",
+                         driver.find_element_by_css_selector("h1").text)
 
     def test_status(self):
 
@@ -56,14 +58,15 @@ class hopTestPageButtons(LiveServerTestCase):
         bd.setStatus(status)
         bd.setRunStatus('run')
         bd.setPause(False)
- 
+
         driver = self.driver
         self.driver.get(self.url_base())
         # Make sure we start on home page
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[3]/button").click()
-        self.assertEqual("Brew Status", driver.find_element_by_css_selector("h1").text)
+        self.assertEqual("Brew Status",
+                         driver.find_element_by_css_selector("h1").text)
 
     def test_stages(self):
 
@@ -73,10 +76,12 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[4]/button").click()
-        self.assertEqual("Brew Stages", driver.find_element_by_css_selector("h1").text)
+        self.assertEqual("Brew Stages",
+                         driver.find_element_by_css_selector("h1").text)
         driver.find_element_by_css_selector("button").click()
-        self.assertEqual("Hopitty", driver.find_element_by_css_selector("h1").text)
-    
+        self.assertEqual("Hopitty",
+                         driver.find_element_by_css_selector("h1").text)
+
     def test_recipelist(self):
 
         driver = self.driver
@@ -85,10 +90,12 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[5]/button").click()
-        self.assertEqual("Recipe list", driver.find_element_by_css_selector("h1").text)
+        self.assertEqual("Recipe list",
+                         driver.find_element_by_css_selector("h1").text)
         driver.find_element_by_css_selector("button").click()
-        self.assertEqual("Hopitty", driver.find_element_by_css_selector("h1").text)
-    
+        self.assertEqual("Hopitty",
+                         driver.find_element_by_css_selector("h1").text)
+
     def test_recipe(self):
 
         driver = self.driver
@@ -97,8 +104,8 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[6]/button").click()
-        self.assertEqual("Recipe", driver.find_element_by_css_selector("h1").text)
+        self.assertEqual("Recipe",
+                         driver.find_element_by_css_selector("h1").text)
         driver.find_element_by_css_selector("button").click()
-        self.assertEqual("Hopitty", driver.find_element_by_css_selector("h1").text)
-    
- 
+        self.assertEqual("Hopitty",
+                         driver.find_element_by_css_selector("h1").text)

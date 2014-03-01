@@ -8,6 +8,7 @@ from wsgi_liveserver import LiveServerTestCase
 import main
 import time
 
+
 class SeleniumTest(LiveServerTestCase):
     def create_app(self):
         return app()

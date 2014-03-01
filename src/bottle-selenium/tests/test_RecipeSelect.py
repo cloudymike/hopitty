@@ -8,6 +8,7 @@ from xvfbwrapper import Xvfb
 import hopmain
 import dataMemcache
 
+
 class hopTestPageButtons(LiveServerTestCase):
     def create_app(self):
         return app()
@@ -36,10 +37,12 @@ class hopTestPageButtons(LiveServerTestCase):
         driver.find_element_by_xpath("//a[5]/button").click()
         driver.find_element_by_name("recipe").click()
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
-        self.assertEqual("coolkoelsh", driver.find_element_by_css_selector("form > b").text)
+        self.assertEqual("coolkoelsh",
+                         driver.find_element_by_css_selector("form > b").text)
         assert bd.getSelectedRecipe() == 'coolkoelsh'
 
         driver.find_element_by_xpath("(//input[@name='recipe'])[3]").click()
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
-        self.assertEqual("silverdollar", driver.find_element_by_css_selector("form > b").text)
+        self.assertEqual("silverdollar",
+                         driver.find_element_by_css_selector("form > b").text)
         assert bd.getSelectedRecipe() == 'silverdollar'

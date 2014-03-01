@@ -1,4 +1,7 @@
 #!/bin/bash
+
+pkill -9 -f bottleweb &> /dev/null
+
 nosetests $1 src/bottleweb . 
 if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"

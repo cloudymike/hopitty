@@ -42,28 +42,17 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[2]/button").click()
-        self.assertEqual(
-            'Run Control\nCurrent Recipe: silverdollar\n' +
-            'Current Stage:\nRun status: Stopped\nStart/stop ' +
-            'brewing program\nPause brewing process temporarily\nSkip one ' +
-            'stage forward.\nClear error.\n\n\nHomeRun ' +
-            'ControlStatusStagesRecipeListRecipe',
-            driver.find_element_by_css_selector("body").text)
+        cstr = driver.find_element_by_css_selector("body").text
+        assert 'Current Recipe: silverdollar' in cstr
+        assert 'Run status: Stopped' in cstr
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
-        self.assertEqual(
-            'Run Control\nCurrent Recipe: silverdollar\nCurrent Stage: First\nRun status: ' +
-            'Running\nStart/stop brewing program\nPause brewing process ' +
-            'temporarily\nSkip one stage forward.\nClear error.\n\n\n' +
-            'HomeRun ControlStatusStagesRecipeListRecipe',
-            driver.find_element_by_css_selector("body").text)
+        cstr = driver.find_element_by_css_selector("body").text
+        assert 'Current Stage: First' in cstr
+        assert 'Run status: Running' in cstr
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
-        self.assertEqual(
-            'Run Control\nCurrent Recipe: silverdollar\n' +
-            'Current Stage:\nRun status: Stopped\nStart/stop ' +
-            'brewing program\nPause brewing process temporarily\nSkip one ' +
-            'stage forward.\nClear error.\n\n\nHomeRun ' +
-            'ControlStatusStagesRecipeListRecipe',
-            driver.find_element_by_css_selector("body").text)
+        cstr = driver.find_element_by_css_selector("body").text
+        assert 'Current Recipe: silverdollar' in cstr
+        assert 'Run status: Stopped' in cstr
 
     def test_Pause(self):
 
@@ -85,22 +74,17 @@ class hopTestPageButtons(LiveServerTestCase):
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[2]/button").click()
- 
+
         driver.find_element_by_xpath("//input[@value='Pause']").click()
-        self.assertEqual(
-            'Run Control\nCurrent Recipe: silverdollar\nCurrent Stage: First\nRun status: ' +
-            'Paused\nStart/stop brewing program\nPause brewing process ' +
-            'temporarily\nSkip one stage forward.\nClear error.\n\n\n' +
-            'HomeRun ControlStatusStagesRecipeListRecipe',
-            driver.find_element_by_css_selector("body").text)
+        cstr = driver.find_element_by_css_selector("body").text
+        print cstr
+        assert 'Current Recipe: silverdollar' in cstr
+        assert 'Run status: Paused' in cstr
         assert bd.getPause()
         driver.find_element_by_xpath("//input[@value='Resume']").click()
-        self.assertEqual(
-            'Run Control\nCurrent Recipe: silverdollar\nCurrent Stage: First\nRun status: ' +
-            'Running\nStart/stop brewing program\nPause brewing process ' +
-            'temporarily\nSkip one stage forward.\nClear error.\n\n\n' +
-            'HomeRun ControlStatusStagesRecipeListRecipe',
-            driver.find_element_by_css_selector("body").text)
+        cstr = driver.find_element_by_css_selector("body").text
+        print cstr
+        assert 'Run status: Running' in cstr
         assert not bd.getPause()
 
     def test_Error(self):
@@ -116,7 +100,7 @@ class hopTestPageButtons(LiveServerTestCase):
         bd.setStatus(status)
         bd.setRunStatus('run')
         bd.setPause(False)
- 
+
         driver = self.driver
         self.driver.get(self.url_base())
         # Make sure we start on home page
@@ -124,14 +108,13 @@ class hopTestPageButtons(LiveServerTestCase):
         bd.setError()
 
         driver.find_element_by_xpath("//a[2]/button").click()
-        self.assertEqual(
-            'Run Control\nCurrent Recipe: silverdollar\nCurrent Stage: First\nRun status: ' +
-            'Paused\nStart/stop brewing program\nPause brewing process ' +
-            'temporarily\nSkip one stage forward.\nClear error.\n\n\n' +
-            'HomeRun ControlStatusStagesRecipeListRecipe',
-            driver.find_element_by_css_selector("body").text)
+        cstr = driver.find_element_by_css_selector("body").text
+        assert 'Current Recipe: silverdollar' in cstr
+        assert 'Run status: Paused' in cstr
 
-        self.assertEqual("", driver.find_element_by_xpath("//input[@value='Skip']").text)
-        self.assertEqual("", driver.find_element_by_xpath("//input[@value='Error']").text)
-        #assert bd.getPause()
-        
+        self.assertEqual("",
+                         driver.find_element_by_xpath(
+                             "//input[@value='Skip']").text)
+        self.assertEqual("",
+                         driver.find_element_by_xpath(
+                             "//input[@value='Error']").text)

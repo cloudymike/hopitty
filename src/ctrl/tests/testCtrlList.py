@@ -25,8 +25,8 @@ def createCtrl():
 
 def testReadStages():
 
-    ctrl1=createCtrl()
-    
+    ctrl1 = createCtrl()
+
     print os.getcwd()
     try:
         data = ctrl.readJson('src/ctrl/tests/json_data')
@@ -38,7 +38,7 @@ def testReadStages():
                 data = ctrl.readJson('tests/json_data')
             except:
                 data = ctrl.readJson('json_data')
-    stages = ctrl.readRecipe(data,ctrl1)
+    stages = ctrl.readRecipe(data, ctrl1)
     assert len(stages) > 0
     pprint(stages)
     ctrlCount = len(ctrl1)
@@ -46,4 +46,3 @@ def testReadStages():
     for s_key, s_val in stages.items():
         print s_key
         assert ctrlCount == len(s_val)
-

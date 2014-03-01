@@ -3,6 +3,7 @@
 import bottleweb
 from bottle import run
 
+
 def begin():
     run(server=server)
 

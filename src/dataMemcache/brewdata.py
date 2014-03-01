@@ -7,6 +7,8 @@ Created on Mar 19, 2013
 import memcache
 # @PydevCodeAnalysisIgnore
 
+import time
+
 
 class brewData(object):
     '''
@@ -23,6 +25,7 @@ class brewData(object):
         '''
         self.recipe = []
         self.HWerrorDict = {}
+        watchdogTime = 0
 
     def getFromMemcache(self, key):
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -215,6 +218,23 @@ class brewData(object):
                 c.append(ri)
         return(c)
 
+    def resetWatchdog(self):
+        self.watchdogTime = int(time.time())
+
+    def checkWatchdog(self):
+        checkwatchdog = int(time.time())
+        retval = abs(self.watchdogTime - checkwatchdog) > 10
+        self.watchdogTime = int(time.time())
+        return(retval)
+
+
+def testWatchdog():
+    bd = brewData()
+    bd.resetWatchdog()
+    assert not bd.checkWatchdog()
+    time.sleep(11)
+    assert bd.checkWatchdog()
+
 
 # End of class brewData
 def dummyRecipe(bd):
@@ -280,7 +300,10 @@ def testErrors():
 
     print "testErrors OK"
 
+#def testFail():
+#    assert False
 
 if __name__ == "__main__":
     testRecipe()
     testErrors()
+    testWatchdog()

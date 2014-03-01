@@ -10,6 +10,7 @@ import getopt
 import ctrl
 import dataMemcache
 
+
 def usage():
     print 'usage:'
     print "-h: help"
@@ -22,22 +23,21 @@ def usage():
     sys.exit
 
 
-
 if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
 
     options, remainder = getopt.getopt(sys.argv[1:], 'b:cef:hqpuv', [
-                         'bsmx=',
-                         'checkonly',
-                         'equipment',
-                         'file=',
-                         'help',
-                         'printRecipe',
-                         'quick',
-                         'verbose',
-                         'version=',
-                         ])
+        'bsmx=',
+        'checkonly',
+        'equipment',
+        'file=',
+        'help',
+        'printRecipe',
+        'quick',
+        'verbose',
+        'version=',
+        ])
     verbose = False
     simulation = False
     permissive = True
