@@ -20,7 +20,7 @@ def stagestatus():
     rs = common.header("Brew Stages", True)
     rs = rs + """<h2>%s</h2>""" % myData.getCurrentRecipe()
 
-    if myData.getRunStatus() == 'run':
+    if myData.getCtrlRunning():
         rs = rs + '<table border="1"><tr>'
         rs = rs + '<td><b> Stage </b></td>'
         ctrlList = myData.getControllerList()

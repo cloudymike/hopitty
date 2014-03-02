@@ -22,7 +22,7 @@ def testStart():
     stages["2"] = s2
     ru.stagesIn(stages)
 
-    mydata.setRunStatus('run')
+    mydata.setCtrlRunning(True)
     mydata.setSkip(True)
     mydata.setPause(False)
     startTime = datetime.datetime.now()

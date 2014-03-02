@@ -17,7 +17,8 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
         stat['name'] = currentRecipe
         stat['controllers'] = ctrlStat
         stat['runStop'] = runStop
-        stat['watchDog'] = int(time.time())
+        myData.resetWatchdog()
+        #stat['watchDog'] = int(time.time())
         stat['stage'] = stage
 
         myData.setStatus(stat)
@@ -300,7 +301,7 @@ class rununit():
         myData.unsetError()
 
         for r_key, settings in sorted(self.stages.items()):
-            if myData.getRunStatus() == 'run':
+            if myData.getCtrlRunning():
                 self.runStage(r_key, settings)
         self.controllers.stop()
         return(True)
@@ -315,7 +316,7 @@ class rununit():
             print ""
             print "Stage: ", r_key
         while ((not self.controllers.done()) and
-              (myData.getRunStatus() == 'run') and
+              (myData.getCtrlRunning()) and
               (not myData.getSkip())) or myData.getPause():
 
             startTime = datetime.datetime.now()

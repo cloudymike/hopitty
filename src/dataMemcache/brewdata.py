@@ -25,7 +25,6 @@ class brewData(object):
         '''
         self.recipe = []
         self.HWerrorDict = {}
-        watchdogTime = 0
 
     def getFromMemcache(self, key):
         mc = memcache.Client(['127.0.0.1:11211'], debug=0)
@@ -73,14 +72,47 @@ class brewData(object):
         """ Stores the status into memcache record """
         self.setToMemcache("hopitty_run_key", stages)
 
-    def getRunStatus(self):
-        runStatus = self.getFromMemcache('runStatus')
-        if runStatus is None:
-            runStatus = ""
-        return(runStatus)
+    def setCtrlRunning(self, value):
+        """
+        Sets the run status of the controller (the brewer)
+        This replaces previous RunStatus
+        """
+        self.setToMemcache('ctrlRunning', value)
+
+    def getCtrlRunning(self):
+        """
+        Gets the runs status of the controller
+        Returns boolean value True if running.
+        """
+        ctrlRunning = self.getFromMemcache('ctrlRunning')
+        if ctrlRunning is None:
+            ctrlRunning = False
+            self.setCtrlRunning(False)
+        return(ctrlRunning)
+
+#    def getRunStatus(self):
+#        """
+#        Obsoleted, replaced with getCtrlRunning
+#        Provided backwards compatibility but get value from getCtrlRunning
+#        """
+#        if self.getCtrlRunning():
+#            return('run')
+#        else:
+#            return('stop')
+
+    # This is data that should be sent to controller
+#    def setRunStatus(self, value):
+#        """
+#        Obsoleted, replaced with setCtrlRunning
+#        """
+#        assert value in ['run', 'stop']
+#        if value == 'run':
+#            self.setCtrlRunning(True)
+#        else:
+#            self.setCtrlRunning(False)
 
     def getCurrentStage(self):
-        if self.getRunStatus() == 'run':
+        if self.getCtrlRunning():
             status = self.getStatus()
             try:
                 currentStage = status['stage']
@@ -102,7 +134,7 @@ class brewData(object):
 # Use this in final production
     def getCurrentRecipe(self):
         stat = self.getStatus()
-        if self.getRunStatus() == 'run':
+        if self.getCtrlRunning():
             try:
                 recipe = stat['name']
             except:
@@ -119,11 +151,6 @@ class brewData(object):
         """
         selected = self.getFromMemcache('selectedRecipe')
         return(selected)
-
-    # This is data that should be sent to controller
-    def setRunStatus(self, value):
-        assert value in ['run', 'stop']
-        self.setToMemcache('runStatus', value)
 
     def setCurrentRecipe(self, value):
         self.setToMemcache('currentRecipe', value)
@@ -219,91 +246,13 @@ class brewData(object):
         return(c)
 
     def resetWatchdog(self):
-        self.watchdogTime = int(time.time())
+        watchdogTime = int(time.time())
+        self.setToMemcache('watchdogTime', watchdogTime)
 
     def checkWatchdog(self):
         checkwatchdog = int(time.time())
-        retval = abs(self.watchdogTime - checkwatchdog) > 10
-        self.watchdogTime = int(time.time())
+        watchdogTime = self.getFromMemcache('watchdogTime')
+        if watchdogTime is None:
+            watchdogTime = 0
+        retval = abs(watchdogTime - checkwatchdog) > 10
         return(retval)
-
-
-def testWatchdog():
-    bd = brewData()
-    bd.resetWatchdog()
-    assert not bd.checkWatchdog()
-    time.sleep(11)
-    assert bd.checkWatchdog()
-
-
-# End of class brewData
-def dummyRecipe(bd):
-    bd.clearRecipe()
-    bd.addToRecipe('Cascade', 1, 'dispenser1')
-    bd.addToRecipe('Chocolate Malt', 8, 'mashtun')
-    bd.addToRecipe('Pale Malt', 88, 'mashtun')
-    return(bd.getRecipe())
-
-
-def testRecipe():
-    d1 = brewData()
-    d2 = brewData()
-    r0 = dummyRecipe(d1)
-    r1 = d1.getRecipe()
-    print r0
-    print r1
-    assert r0 == r1
-    r2 = d2.getRecipe()
-    print r2
-    assert r0 == r2
-    d2.addToRecipe('Crystal 40L', 4, 'mashtun')
-    r1 = d1.getRecipe()
-    r2 = d2.getRecipe()
-    print r2
-    assert len(r2) == len(r0) + 1
-    assert r1 == r2
-    assert r0 != r2
-
-    c = d1.getRecipeContainers()
-    print c
-    assert len(c) > 0
-    assert 'mashtun' in c
-    if len(c) > 1:
-        assert c[0] < c[1]
-
-    mt = d1.getItemsInContainer('mashtun')
-    print mt
-    assert len(mt) > 0
-    assert len(mt) < len(d1.getRecipe())
-    print "testRecipe OK"
-
-
-def testErrors():
-    d1 = brewData()
-    d1.unsetError()
-    assert not d1.getError()
-    d1.setError()
-    assert d1.getError()
-    d1.unsetError()
-    assert not d1.getError()
-    d1.setHWerror(errorText='Just testing')
-    assert not d1.getError()
-    d1.setHWerror(errorText='Just testing')
-    d1.setHWerror(errorText='Just testing')
-    d1.setHWerror(errorText='Just testing')
-    d1.setHWerror(errorText='Just testing')
-    d1.setHWerror(errorText='Just testing')
-    assert d1.getError()
-    d1.unsetError()
-    d1.unsetHWerror()
-    assert not d1.getError()
-
-    print "testErrors OK"
-
-#def testFail():
-#    assert False
-
-if __name__ == "__main__":
-    testRecipe()
-    testErrors()
-    testWatchdog()

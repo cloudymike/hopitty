@@ -25,3 +25,11 @@ dataMemcache Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`test_brewdata` Module
+---------------------------
+
+.. automodule:: dataMemcache.test_brewdata
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

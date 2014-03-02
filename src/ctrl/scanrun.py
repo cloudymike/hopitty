@@ -17,11 +17,7 @@ from os import path, access, R_OK  # W_OK for write permission.
 
 
 def run(mydata):
-    rs = mydata.getRunStatus()
-    if rs == 'run':
-        return(True)
-    else:
-        return(False)
+    return(mydata.getCtrlRunning())
 
 
 class scanrun():
@@ -112,7 +108,7 @@ class scanrun():
                 if not runOK:
                     print "Run failed"
                 self.runner.stop()
-                self.mydata.setRunStatus('stop')
+                self.mydata.setCtrlRunning(False)
             else:
                 print "No recipe selected"
         else:

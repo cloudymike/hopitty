@@ -56,7 +56,7 @@ class hopTestPageButtons(LiveServerTestCase):
         status['controllers'] = {}
         status['watchDog'] = 0
         bd.setStatus(status)
-        bd.setRunStatus('run')
+        bd.setCtrlRunning(True)
         bd.setPause(False)
 
         driver = self.driver

@@ -53,10 +53,10 @@ def test2():
     for key, recipe in l.items():
         print "=========", key
         d.setSelectedRecipe(key)
-        d.setRunStatus('run')
+        d.setCtrlRunning(True)
         sr.runSelectedRecipe(True)
         print "xxxxxxxxxxx1"
-        assert d.getRunStatus() == 'stop'
+        assert not d.getCtrlRunning()
 
 
 def test3():
@@ -71,10 +71,10 @@ def test3():
     for key, recipe in l.items():
         print "=========", key
         d.setSelectedRecipe(key)
-        d.setRunStatus('run')
+        d.setCtrlRunning(True)
         sr.runSelectedRecipe(True)
         print "xxxxxxxxxxx3"
-        assert d.getRunStatus() == 'stop'
+        assert not d.getCtrlRunning()
         return
 
 if __name__ == "__main__":

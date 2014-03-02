@@ -33,7 +33,7 @@ class hopTestPageButtons(LiveServerTestCase):
         status['name'] = 'silverdollar'
         status['stage'] = 'First'
         bd.setStatus(status)
-        bd.setRunStatus('stop')
+        bd.setCtrlRunning(False)
         bd.setPause(False)
 
         driver = self.driver
@@ -44,6 +44,7 @@ class hopTestPageButtons(LiveServerTestCase):
         driver.find_element_by_xpath("//a[2]/button").click()
         cstr = driver.find_element_by_css_selector("body").text
         assert 'Current Recipe: silverdollar' in cstr
+        print "Error StartStop", cstr
         assert 'Run status: Stopped' in cstr
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         cstr = driver.find_element_by_css_selector("body").text
@@ -52,6 +53,7 @@ class hopTestPageButtons(LiveServerTestCase):
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         cstr = driver.find_element_by_css_selector("body").text
         assert 'Current Recipe: silverdollar' in cstr
+        print "Line 56", cstr
         assert 'Run status: Stopped' in cstr
 
     def test_Pause(self):
@@ -65,7 +67,7 @@ class hopTestPageButtons(LiveServerTestCase):
         status['name'] = 'silverdollar'
         status['stage'] = 'First'
         bd.setStatus(status)
-        bd.setRunStatus('run')
+        bd.setCtrlRunning(True)
         bd.setPause(False)
 
         driver = self.driver
@@ -98,7 +100,7 @@ class hopTestPageButtons(LiveServerTestCase):
         status['name'] = 'silverdollar'
         status['stage'] = 'First'
         bd.setStatus(status)
-        bd.setRunStatus('run')
+        bd.setCtrlRunning(True)
         bd.setPause(False)
 
         driver = self.driver

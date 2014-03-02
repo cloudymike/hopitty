@@ -7,12 +7,12 @@ import dataMemcache
 def testStart():
     mydata = dataMemcache.brewData()
 
-    mydata.setRunStatus('stop')
-    assert mydata.getRunStatus() != 'run'
-    mydata.setRunStatus('run')
-    assert mydata.getRunStatus() == 'run'
-    mydata.setRunStatus('stop')
-    assert mydata.getRunStatus() != 'run'
+    mydata.setCtrlRunning(False)
+    assert not mydata.getCtrlRunning()
+    mydata.setCtrlRunning(True)
+    assert mydata.getCtrlRunning()
+    mydata.setCtrlRunning(False)
+    assert not mydata.getCtrlRunning()
     print "OK"
 
 if __name__ == "__main__":

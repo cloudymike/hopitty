@@ -16,8 +16,6 @@ def start():
     myData = dataMemcache.brewData()
 
     rs = common.header('Run Control')
-    runStatus = myData.getRunStatus()
-    pauseState = myData.getPause()
     skipState = myData.getSkip()
     errorState = myData.getError()
 
@@ -25,20 +23,18 @@ def start():
     rs = rs + "Current Stage: " + str(myData.getCurrentStage()) + '<br>'
 
     rs = rs + "Run status: "
-    if runStatus != 'run':
-        rs = rs + "Stopped"
-    else:
-        if pauseState:
+    if myData.getCtrlRunning():
+        if myData.getPause():
             rs = rs + "Paused"
         else:
             rs = rs + "Running"
+    else:
+        rs = rs + "Stopped"
 
     rs = rs + '<br>'
     rs = rs + '<form method="post" action="/start">'
-#    if runStatus != 'run':
-#        print '<input type="hidden" name="runStatus" value="run">'
-#    print '<input type="submit"'
-    if runStatus == 'run':
+
+    if myData.getCtrlRunning():
         rs = rs + '<input type="hidden" name="runStatus" value="stop">'
         rs = rs + '<input type="submit"'
         rs = rs + """
@@ -58,7 +54,7 @@ def start():
     rs = rs + '</form>'
 
     rs = rs + '<form method="post" action="/start">'
-    if pauseState:
+    if myData.getPause():
         rs = rs + '<input type="hidden" name="pauseState" value="False">'
         rs = rs + '<input type="submit"'
         rs = rs + """
@@ -128,8 +124,11 @@ def dostart():
     myData = dataMemcache.brewData()
 
     runStatus = request.forms.get('runStatus')
-    if runStatus is not None:
-        myData.setRunStatus(runStatus)
+
+    if runStatus == 'stop':
+        myData.setCtrlRunning(False)
+    elif runStatus == 'run':
+        myData.setCtrlRunning(True)
 
     pauseState = request.forms.get('pauseState')
     myData.setPause(pauseState == 'True')

@@ -64,12 +64,12 @@ class logActual():
         self.oldCurrentStage = currentStage
 
     def oneLine(self):
-        runstatus = self.data.getRunStatus()
-        if runstatus == 'run' and runstatus != self.oldstatus:
+        if self.data.getCtrlRunning() and \
+                self.data.getCtrlRunning() != self.oldstatus:
             self.headLine()
         else:
             self.logLine()
-        self.oldstatus = runstatus
+        self.oldstatus = self.data.getCtrlRunning()
 
 if __name__ == "__main__":
     l = logActual()

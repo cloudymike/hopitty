@@ -83,7 +83,7 @@ if __name__ == "__main__":
         ru.jsonIn(json)
 
     myData = dataMemcache.brewData()
-    myData.setRunStatus('run')
+    myData.setCtrlRunning(True)
 
     if bsmxFile != "":
         runOK = ru.checkBSMX(xml)

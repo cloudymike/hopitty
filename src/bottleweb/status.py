@@ -30,7 +30,7 @@ def status():
             status = {}
             status['controllers'] = {}
             status['runStop'] = 'Unknown'
-            status['watchDog'] = 0
+            #status['watchDog'] = 0
             status['stage'] = 'Unknown'
             status['name'] = 'Unknown'
 
@@ -41,7 +41,7 @@ def status():
     retstr = retstr + """<h2>%s</h2>""" % myData.getCurrentRecipe()
     retstr = retstr + """<h3>Stage: %s</h3>""" % stage
 
-    if myData.getRunStatus() == 'run':
+    if myData.getCtrlRunning():
         retstr = retstr + """\
         <table border="1">
         <tr>
@@ -76,9 +76,10 @@ def status():
 
         retstr = retstr + "</table>"
     retstr = retstr + "<br>"
-    checkwatchdog = int(time.time())
-    watchdog = status['watchDog']
-    if abs(watchdog - checkwatchdog) > 10:
+    #checkwatchdog = int(time.time())
+    #watchdog = status['watchDog']
+    #if abs(watchdog - checkwatchdog) > 10:
+    if myData.checkWatchdog():
         retstr = retstr + "<h1>Controller Stopped Running</h1>"
     else:
         retstr = retstr + "Controller status: " + str(status['runStop'])
