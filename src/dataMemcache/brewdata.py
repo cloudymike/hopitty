@@ -143,6 +143,9 @@ class brewData(object):
             recipe = self.getFromMemcache('currentRecipe')
         return(recipe)
 
+    def setCurrentRecipe(self, value):
+        self.setToMemcache('currentRecipe', value)
+
     def getSelectedRecipe(self):
         """
         Get the recipe that is selected on recipe lists page.
@@ -151,9 +154,6 @@ class brewData(object):
         """
         selected = self.getFromMemcache('selectedRecipe')
         return(selected)
-
-    def setCurrentRecipe(self, value):
-        self.setToMemcache('currentRecipe', value)
 
 # This is data that should be sent to controller
     def setSelectedRecipe(self, value):

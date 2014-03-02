@@ -29,7 +29,7 @@ def status():
     if len(status) == 0:
             status = {}
             status['controllers'] = {}
-            status['runStop'] = 'Unknown'
+            #status['runStop'] = 'Unknown'
             #status['watchDog'] = 0
             status['stage'] = 'Unknown'
             status['name'] = 'Unknown'
@@ -80,9 +80,15 @@ def status():
     #watchdog = status['watchDog']
     #if abs(watchdog - checkwatchdog) > 10:
     if myData.checkWatchdog():
-        retstr = retstr + "<h1>Controller Stopped Running</h1>"
+        retstr = retstr + "<h1>ERROR: Controller not responding</h1>"
+    elif myData.getCtrlRunning and myData.getPause():
+        retstr = retstr + "Controller running, but paused"
+    elif myData.getCtrlRunning and not myData.getPause():
+        retstr = retstr + "Controller running"
+    elif not myData.getCtrlRunning:
+        retstr = retstr + "Controller running, but paused"
     else:
-        retstr = retstr + "Controller status: " + str(status['runStop'])
+        retstr = retstr + "Controller state unknown"
 
 #    print """\
 #    <form method="get" action="ctrlform.py">

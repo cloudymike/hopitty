@@ -107,7 +107,13 @@ class dymoScaleSensor(sensors.genericSensor):
 
     def getValue(self):
         if not self.simulation:
-            self.val = self.readVol()
+            newval = self.readVol()
+            if newval is not None:
+                self.val = newval
+            else:
+                self.data.setHWerror(id=__name__,
+                                     errorText="dymoScale read error",
+                                     retries=10)
         return self.val
 
     def setValue(self, val):

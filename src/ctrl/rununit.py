@@ -9,17 +9,18 @@ import sys
 import dataMemcache
 
 
-def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
+def writeStatus(controllers, settings, stage, currentRecipe, verbose):
         ctrlStat = controllers.status()
         myData = dataMemcache.brewData()
 
         stat = {}
         stat['name'] = currentRecipe
         stat['controllers'] = ctrlStat
-        stat['runStop'] = runStop
-        myData.resetWatchdog()
+        #stat['runStop'] = runStop
         #stat['watchDog'] = int(time.time())
         stat['stage'] = stage
+
+        myData.resetWatchdog()
 
         myData.setStatus(stat)
         if myData.getError():
@@ -44,40 +45,6 @@ def writeStatus(controllers, settings, stage, runStop, currentRecipe, verbose):
             sys.stdout.flush()
 
 
-def runManual(controllers, verbose):
-    print "manual"
-    while True:
-        # get data
-        settings = {}
-        try:
-            settings = pickle.load(open("/tmp/settings.pkl", "rb"))
-        except:
-            settings['runStop'] = 'stop'
-        runStop = settings['runStop']
-
-        # Shut everything down if hardware check shows failure
-        if not ctrl.checkers.checkHardware(controllers):
-            controllers.shutdown()
-            break
-
-        # Shut everything down
-        if runStop == 'shutdown':
-            controllers.shutdown()
-            break
-
-        if runStop == 'stop':
-            controllers.stop()
-
-        if runStop == 'run':
-            controllers.run(settings)
-
-        stage = 'Manual'
-        writeStatus(controllers, settings, stage, runStop, 'Manual run',
-                    verbose)
-
-        time.sleep(0.1)
-
-
 def quickRecipe(controllers, recipe, verbose):
     """
     Runs through the recipe without any delay to just check it is OK
@@ -86,7 +53,6 @@ def quickRecipe(controllers, recipe, verbose):
     permissive
     """
     controllers.stop()
-    runStop = 'run'
     for r_key, settings in sorted(recipe.items()):
         startTime = datetime.datetime.now()
         controllers.run(settings)
@@ -308,7 +274,6 @@ class rununit():
 
     def runStage(self, r_key, settings):
         myData = dataMemcache.brewData()
-        runStop = 'run'
 
         self.controllers.stop()
         self.controllers.run(settings)
@@ -325,7 +290,7 @@ class rununit():
             else:
                 self.controllers.run(settings)
 
-            writeStatus(self.controllers, settings, r_key, runStop,
+            writeStatus(self.controllers, settings, r_key,
                         self.recipeName,
                         self.verbose)
             # Shut everything down if hardware check shows failure
