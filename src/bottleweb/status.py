@@ -31,7 +31,7 @@ def status():
             status['controllers'] = {}
             #status['runStop'] = 'Unknown'
             #status['watchDog'] = 0
-            status['stage'] = 'Unknown'
+            #status['stage'] = 'Unknown'
             status['name'] = 'Unknown'
 
     controllers = status['controllers']

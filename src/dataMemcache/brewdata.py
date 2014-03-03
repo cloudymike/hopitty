@@ -113,14 +113,20 @@ class brewData(object):
 
     def getCurrentStage(self):
         if self.getCtrlRunning():
-            status = self.getStatus()
             try:
-                currentStage = status['stage']
+                currentStage = self.getFromMemcache('currentStage')
             except:
                 currentStage = ""
         else:
             currentStage = ""
         return(currentStage)
+
+    def setCurrentStage(self, value):
+        """
+        Sets the run stage of the controller (the brewer)
+        This replaces previous the use of setStatus
+        """
+        self.setToMemcache('currentStage', value)
 
     def getControllerList(self):
         controllerList = []

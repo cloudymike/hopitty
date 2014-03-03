@@ -9,42 +9,6 @@ import sys
 import dataMemcache
 
 
-def writeStatus(controllers, settings, stage, currentRecipe, verbose):
-        ctrlStat = controllers.status()
-        myData = dataMemcache.brewData()
-
-        stat = {}
-        stat['name'] = currentRecipe
-        stat['controllers'] = ctrlStat
-        #stat['runStop'] = runStop
-        #stat['watchDog'] = int(time.time())
-        stat['stage'] = stage
-
-        myData.resetWatchdog()
-
-        myData.setStatus(stat)
-        if myData.getError():
-            crumb = 'E'
-        elif myData.getPause():
-            crumb = 'P'
-        else:
-            crumb = '.'
-
-        # As alternative, save to pickle file
-        # statout = open('/tmp/status.pkl', 'w')
-        # Pickle dictionary using protocol 0.
-        # pickle.dump(stat, statout)
-        # statout.close()
-
-        if verbose:
-            print "================================"
-            print "Target: ", settings
-            print "Actual: ", stat
-        else:
-            sys.stdout.write(crumb)
-            sys.stdout.flush()
-
-
 def quickRecipe(controllers, recipe, verbose):
     """
     Runs through the recipe without any delay to just check it is OK
@@ -290,13 +254,11 @@ class rununit():
             else:
                 self.controllers.run(settings)
 
-            writeStatus(self.controllers, settings, r_key,
-                        self.recipeName,
-                        self.verbose)
+            self.writeStatus(settings, r_key)
             # Shut everything down if hardware check shows failure
             if not ctrl.checkHardware(self.controllers):
                 self.controllers.shutdown()
-                print '>>>>>>>>>>>>>>HW FAile<<<<<<<<<<<<<<<<<'
+                print '>>>>>>>>>>>>>>HW Fail<<<<<<<<<<<<<<<<<'
                 return(False)
             if self.verbose:
                 delta = datetime.datetime.now() - startTime
@@ -306,3 +268,30 @@ class rununit():
 
     def HWOK(self):
         return(self.controllers.HWOK())
+
+    def writeStatus(self, settings, stage):
+            ctrlStat = self.controllers.status()
+            myData = dataMemcache.brewData()
+
+            stat = {}
+            stat['name'] = self.recipeName
+            stat['controllers'] = ctrlStat
+
+            myData.setCurrentStage(stage)
+            myData.resetWatchdog()
+            myData.setStatus(stat)
+
+            if myData.getError():
+                crumb = 'E'
+            elif myData.getPause():
+                crumb = 'P'
+            else:
+                crumb = '.'
+
+            if self.verbose:
+                print "================================"
+                print "Target: ", settings
+                print "Actual: ", stat
+            else:
+                sys.stdout.write(crumb)
+                sys.stdout.flush()
