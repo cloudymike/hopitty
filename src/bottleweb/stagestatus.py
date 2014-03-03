@@ -9,7 +9,7 @@ def stagestatus():
     common = commonweb.commonweb()
     myData = dataMemcache.brewData()
     stages = myData.getStagesList()
-    status = myData.getStatus()
+    #status = myData.getStatus()
     currentStage = myData.getCurrentStage()
 
     errorState = myData.getError()

@@ -48,14 +48,12 @@ class hopTestPageButtons(LiveServerTestCase):
         bd = dataMemcache.brewData()
         recipelist = ['coolkoelsh', 'maxhop', 'silverdollar']
         bd.setRecipeList(recipelist)
-        bd.setCurrentRecipe('silverdollar')
         bd.setSelectedRecipe('silverdollar')
-        status = {}
-        status['name'] = 'silverdollar'
-        status['stage'] = 'First'
-        status['controllers'] = {}
-        status['watchDog'] = 0
-        bd.setStatus(status)
+
+        bd.setCurrentRecipe('silverdollar')
+        bd.setCurrentStage('First')
+        bd.setControllersStatus({})
+        bd.resetWatchdog()
         bd.setCtrlRunning(True)
         bd.setPause(False)
 

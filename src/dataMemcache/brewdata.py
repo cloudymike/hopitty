@@ -59,19 +59,6 @@ class brewData(object):
         """ Stores the status into memcache record """
         self.setToMemcache('recipeNameList', recipes)
 
-    def getStatus(self):
-        try:
-            status = self.getFromMemcache("hopitty_run_key")
-        except:
-            status = None
-        if status is None:
-            status = {}
-        return(status)
-
-    def setStatus(self, stages):
-        """ Stores the status into memcache record """
-        self.setToMemcache("hopitty_run_key", stages)
-
     def setCtrlRunning(self, value):
         """
         Sets the run status of the controller (the brewer)
@@ -89,27 +76,6 @@ class brewData(object):
             ctrlRunning = False
             self.setCtrlRunning(False)
         return(ctrlRunning)
-
-#    def getRunStatus(self):
-#        """
-#        Obsoleted, replaced with getCtrlRunning
-#        Provided backwards compatibility but get value from getCtrlRunning
-#        """
-#        if self.getCtrlRunning():
-#            return('run')
-#        else:
-#            return('stop')
-
-    # This is data that should be sent to controller
-#    def setRunStatus(self, value):
-#        """
-#        Obsoleted, replaced with setCtrlRunning
-#        """
-#        assert value in ['run', 'stop']
-#        if value == 'run':
-#            self.setCtrlRunning(True)
-#        else:
-#            self.setCtrlRunning(False)
 
     def getCurrentStage(self):
         if self.getCtrlRunning():
@@ -139,14 +105,10 @@ class brewData(object):
 
 # Use this in final production
     def getCurrentRecipe(self):
-        stat = self.getStatus()
-        if self.getCtrlRunning():
-            try:
-                recipe = stat['name']
-            except:
-                recipe = ""
-        else:
+        try:
             recipe = self.getFromMemcache('currentRecipe')
+        except:
+            recipe = ""
         return(recipe)
 
     def setCurrentRecipe(self, value):
@@ -190,21 +152,21 @@ class brewData(object):
             return(False)
         return(errorStatus == 'True')
 
-    def setHWerror(self, id='unknown', retries=5, errorText="HW error"):
-        if not id in self.HWerrorDict:
-            self.HWerrorDict[id] = 1
+    def setHWerror(self, myid='unknown', retries=5, errorText="HW error"):
+        if not myid in self.HWerrorDict:
+            self.HWerrorDict[myid] = 1
         else:
-            self.HWerrorDict[id] = self.HWerrorDict[id] + 1
-        if self.HWerrorDict[id] > retries:
+            self.HWerrorDict[myid] = self.HWerrorDict[myid] + 1
+        if self.HWerrorDict[myid] > retries:
             print "ERROR: ", errorText
             self.setError()
-        print id, self.HWerrorDict[id]
+        print myid, self.HWerrorDict[myid]
 
-    def unsetHWerror(self, id='unknown'):
-        if not id in self.HWerrorDict:
-            self.HWerrorDict[id] = 0
+    def unsetHWerror(self, myid='unknown'):
+        if not myid in self.HWerrorDict:
+            self.HWerrorDict[myid] = 0
         else:
-            self.HWerrorDict[id] = 0
+            self.HWerrorDict[myid] = 0
 
     def setSkip(self, value):
         if value:
@@ -262,3 +224,12 @@ class brewData(object):
             watchdogTime = 0
         retval = abs(watchdogTime - checkwatchdog) > 10
         return(retval)
+
+    def setControllersStatus(self, dictval):
+        self.setToMemcache('controllersStatus', dictval)
+
+    def getControllersStatus(self):
+        ctrlstat = self.getFromMemcache('controllersStatus')
+        if ctrlstat is None:
+            ctrlstat = {}
+        return(ctrlstat)

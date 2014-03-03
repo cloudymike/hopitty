@@ -1,5 +1,4 @@
 
-import pickle
 import time
 import datetime
 import ctrl.readRecipe
@@ -7,30 +6,6 @@ import appliances.boiler
 import switches
 import sys
 import dataMemcache
-
-
-def quickRecipe(controllers, recipe, verbose):
-    """
-    Runs through the recipe without any delay to just check it is OK
-    This is different from check recipe in that it will also run
-    each controller, thus test hardware if connected and not
-    permissive
-    """
-    controllers.stop()
-    for r_key, settings in sorted(recipe.items()):
-        startTime = datetime.datetime.now()
-        controllers.run(settings)
-        if True:
-            print ""
-            print "Stage: ", r_key
-        if not ctrl.checkHardware(controllers):
-            controllers.shutdown()
-            return(False)
-        controllers.stopCurrent(settings)
-        if verbose:
-            delta = datetime.datetime.now() - startTime
-            print "  Exectime: ", delta.microseconds, "uS"
-    return(True)
 
 
 def setupControllers(verbose, simulation, permissive):
@@ -46,7 +21,7 @@ def setupControllers(verbose, simulation, permissive):
             if permissive:
                 print "**********X10 not found, simulating HW"
                 x10 = switches.simSwitchList()
-                simX10 = True
+                #simX10 = True
             else:
                 print "X10 not available"
                 sys.exit()
@@ -143,6 +118,30 @@ def getStages(jsonFile, bsmxFile, controllers):
     return(stages)
 
 
+class bsmxStages():
+    """
+    This class will wrap all the bsmx functions. On instantiation, the
+    object needs to be passed an xml file and a controller list.
+    If the xml file is not a valid recipe, and can not be brewed with the
+    controllers, then the validRecipe will be false and any return of
+    a stages list will be an empty list.
+    """
+    def __init__(self, xmlfile, controllers):
+        self.valid = False
+        self.stages = {}
+        self.bsmx = xmlfile
+        self.ctrl = controllers
+
+    def __del__(self):
+        pass
+
+    def getStages(self):
+        """
+        Returns a valid stages dictionary for the recipe
+        """
+        pass
+
+
 class rununit():
     """
     This class will wrap all of the other classes required
@@ -197,7 +196,7 @@ class rununit():
 
     def quick(self):
         if self.check():
-            runOK = quickRecipe(self.controllers, self.stages, self.verbose)
+            runOK = self.quickRecipe()
             return(runOK)
         else:
             return(False)
@@ -216,6 +215,29 @@ class rununit():
                                              self.verbose))
         else:
             return(False)
+
+    def quickRecipe(self):
+        """
+        Runs through the recipe without any delay to just check it is OK
+        This is different from check recipe in that it will also run
+        each controller, thus test hardware if connected and not
+        permissive
+        """
+        self.controllers.stop()
+        for r_key, settings in sorted(self.stages.items()):
+            startTime = datetime.datetime.now()
+            self.controllers.run(settings)
+            if True:
+                print ""
+                print "Stage: ", r_key
+            if not ctrl.checkHardware(self.controllers):
+                self.controllers.shutdown()
+                return(False)
+            self.controllers.stopCurrent(settings)
+            if self.verbose:
+                delta = datetime.datetime.now() - startTime
+                print "  Exectime: ", delta.microseconds, "uS"
+        return(True)
 
     def runRecipe(self):
     # controllers, recipe, currentRecipe, verbose):
@@ -273,13 +295,9 @@ class rununit():
             ctrlStat = self.controllers.status()
             myData = dataMemcache.brewData()
 
-            stat = {}
-            #stat['name'] = self.recipeName
-            stat['controllers'] = ctrlStat
-
+            myData.setControllersStatus(ctrlStat)
             myData.setCurrentStage(stage)
             myData.resetWatchdog()
-            myData.setStatus(stat)
 
             if myData.getError():
                 crumb = 'E'
@@ -291,7 +309,6 @@ class rununit():
             if self.verbose:
                 print "================================"
                 print "Target: ", settings
-                print "Actual: ", stat
             else:
                 sys.stdout.write(crumb)
                 sys.stdout.flush()

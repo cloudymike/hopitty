@@ -111,7 +111,7 @@ class dymoScaleSensor(sensors.genericSensor):
             if newval is not None:
                 self.val = newval
             else:
-                self.data.setHWerror(id=__name__,
+                self.data.setHWerror(myid=__name__,
                                      errorText="dymoScale read error",
                                      retries=10)
         return self.val

@@ -48,10 +48,10 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,
+            self.data.setHWerror(myid=__name__,
                                  errorText="cooler switch failing")
         else:
-            self.data.unsetHWerror(id=__name__)
+            self.data.unsetHWerror(myid=__name__)
 
     def off(self):
         try:
@@ -62,10 +62,10 @@ class coolerSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,
+            self.data.setHWerror(myid=__name__,
                                  errorText="cooler switch failing")
         else:
-            self.data.unsetHWerror(id=__name__)
+            self.data.unsetHWerror(myid=__name__)
 
     def HWOK(self):
         try:

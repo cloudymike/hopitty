@@ -4,11 +4,32 @@ Created on Mar 19, 2013
 @author: mikael
 '''
 
-import memcache
-# @PydevCodeAnalysisIgnore
-
 import time
 from brewdata import brewData
+
+
+def testControllersStatus():
+    bd = brewData()
+    empty = {}
+    oneitem = {'a': 1}
+    bd.setControllersStatus(oneitem)
+    assert bd.getControllersStatus() == oneitem
+    bd.setControllersStatus(empty)
+    assert bd.getControllersStatus() == empty
+    bd.setControllersStatus(None)
+    assert bd.getControllersStatus() == empty
+
+
+def testStagesList():
+    bd = brewData()
+    empty = {}
+    oneitem = {'a': 1}
+    bd.setStagesList(oneitem)
+    assert bd.getStagesList() == oneitem
+    bd.setStagesList(empty)
+    assert bd.getStagesList() == empty
+    bd.setStagesList(None)
+    assert bd.getStagesList() == empty
 
 
 def test_stage():
@@ -30,21 +51,20 @@ def testWatchdog():
     assert bd.checkWatchdog()
 
 
-# End of class brewData
-def dummyRecipe(bd):
-    bd.clearRecipe()
-    bd.addToRecipe('Cascade', 1, 'dispenser1')
-    bd.addToRecipe('Chocolate Malt', 8, 'mashtun')
-    bd.addToRecipe('Pale Malt', 88, 'mashtun')
-    return(bd.getRecipe())
-
-
 def test_CtrlRunning():
     bd = brewData()
     bd.setCtrlRunning(True)
     assert bd.getCtrlRunning()
     bd.setCtrlRunning(False)
     assert not bd.getCtrlRunning()
+
+
+def dummyRecipe(bd):
+    bd.clearRecipe()
+    bd.addToRecipe('Cascade', 1, 'dispenser1')
+    bd.addToRecipe('Chocolate Malt', 8, 'mashtun')
+    bd.addToRecipe('Pale Malt', 88, 'mashtun')
+    return(bd.getRecipe())
 
 
 def testRecipe():
@@ -78,6 +98,18 @@ def testRecipe():
     assert len(mt) > 0
     assert len(mt) < len(d1.getRecipe())
     print "testRecipe OK"
+
+
+def testRecipeList():
+    bd = brewData()
+    empty = []
+    oneitem = ['a']
+    bd.setRecipeList(oneitem)
+    assert bd.getRecipeList() == oneitem
+    bd.setRecipeList(empty)
+    assert bd.getRecipeList() == empty
+    bd.setRecipeList(None)
+    assert bd.getRecipeList() == empty
 
 
 def testErrors():

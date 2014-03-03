@@ -68,9 +68,9 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch is not None:
             try:
                 self.boilerSwitch.on()
-                self.data.unsetHWerror(id=__name__)
+                self.data.unsetHWerror(myid=__name__)
             except:
-                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                self.data.setHWerror(myid=__name__, errorText="X10 failed")
                 try:
                     self.x10.open()
                 except:
@@ -82,9 +82,9 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch is not None:
             try:
                 self.boilerSwitch.off()
-                self.data.unsetHWerror(id=__name__)
+                self.data.unsetHWerror(myid=__name__)
             except:
-                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                self.data.setHWerror(myid=__name__, errorText="X10 failed")
                 try:
                     self.x10.open()
                 except:

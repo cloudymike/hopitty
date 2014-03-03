@@ -15,7 +15,7 @@ def yn(status):
 def status():
     common = commonweb.commonweb()
     myData = dataMemcache.brewData()
-    status = myData.getStatus()
+    #status = myData.getStatus()
     stage = myData.getCurrentStage()
 
     errorState = myData.getError()
@@ -26,15 +26,15 @@ def status():
 
     # If there is not status, set some default vals to
     # not break but rather show empty values
-    if len(status) == 0:
-            status = {}
-            status['controllers'] = {}
+    #if len(status) == 0:
+    #        status = {}
+    #        status['controllers'] = {}
             #status['runStop'] = 'Unknown'
             #status['watchDog'] = 0
             #status['stage'] = 'Unknown'
-            status['name'] = 'Unknown'
+    #        status['name'] = 'Unknown'
 
-    controllers = status['controllers']
+    controllers = myData.getControllersStatus()
 
     retstr = common.header("Brew Status", True)
 

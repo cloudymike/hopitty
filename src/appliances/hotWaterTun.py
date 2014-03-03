@@ -66,9 +66,9 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun is not None:
             try:
                 self.hotWaterTun.on()
-                self.data.unsetHWerror(id=__name__)
+                self.data.unsetHWerror(myid=__name__)
             except:
-                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                self.data.setHWerror(myid=__name__, errorText="X10 failed")
                 try:
                     self.x10.open()
                 except:
@@ -80,9 +80,9 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun is not None:
             try:
                 self.hotWaterTun.off()
-                self.data.unsetHWerror(id=__name__)
+                self.data.unsetHWerror(myid=__name__)
             except:
-                self.data.setHWerror(id=__name__, errorText="X10 failed")
+                self.data.setHWerror(myid=__name__, errorText="X10 failed")
                 try:
                     self.x10.open()
                 except:

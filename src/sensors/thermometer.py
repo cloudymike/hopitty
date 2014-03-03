@@ -41,9 +41,9 @@ class thermometer(sensors.genericSensor):
                 t = float(scaleStr)
                 self.val = t
                 self.errorcount = 0
-                self.data.unsetHWerror(id=__name__)
+                self.data.unsetHWerror(myid=__name__)
             except:
-                self.data.setHWerror(id=__name__,
+                self.data.setHWerror(myid=__name__,
                                      errorText="Thermometer read error",
                                      retries=10)
             return(self.val)

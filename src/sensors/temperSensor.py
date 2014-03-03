@@ -43,9 +43,9 @@ class temperSensor():
         else:
             try:
                 self.val = self.device.get_temperature(format="fahrenheit")
-                self.data.unsetHWerror(id=__name__)
+                self.data.unsetHWerror(myid=__name__)
             except:
-                self.data.setHWerror(id=__name__,
+                self.data.setHWerror(myid=__name__,
                                      errorText="temper value fail")
                 self.device = self.connect()
             return(self.val)

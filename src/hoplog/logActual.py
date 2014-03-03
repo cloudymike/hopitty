@@ -45,12 +45,8 @@ class logActual():
         self.outLine(message)
 
     def logLine(self):
-        status = self.data.getStatus()
         currentStage = self.data.getCurrentStage()
-        try:
-            controllers = status['controllers']
-        except:
-            controllers = {}
+        controllers = self.data.getControllersStatus()
         elapsed = datetime.datetime.now() - self.oldLineTime
         if controllers != self.oldControllers:
             if currentStage != self.oldCurrentStage or \
@@ -70,6 +66,15 @@ class logActual():
         else:
             self.logLine()
         self.oldstatus = self.data.getCtrlRunning()
+
+
+def test_oneLine():
+    """
+    Very simple test that makes sure it can run
+    """
+    l = logActual()
+    l.oneLine()
+
 
 if __name__ == "__main__":
     l = logActual()

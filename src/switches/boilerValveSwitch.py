@@ -48,10 +48,10 @@ class boilerValveSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,
+            self.data.setHWerror(myid=__name__,
                                  errorText="boilerValve switch failing")
         else:
-            self.data.unsetHWerror(id=__name__)
+            self.data.unsetHWerror(myid=__name__)
 
     def off(self):
         try:
@@ -62,10 +62,10 @@ class boilerValveSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(id=__name__,
+            self.data.setHWerror(myid=__name__,
                                  errorText="boilerValve switch failing")
         else:
-            self.data.unsetHWerror(id=__name__)
+            self.data.unsetHWerror(myid=__name__)
 
     def HWOK(self):
         try:
