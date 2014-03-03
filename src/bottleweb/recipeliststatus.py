@@ -15,15 +15,24 @@ def recipeliststatusBottle():
     cweb = commonweb.commonweb()
     recipeList = myData.getRecipeList()
     selectedRecipe = myData.getSelectedRecipe()
+    currentRecipe = myData.getCurrentRecipe()
 
     if selectedRecipe is None:
         selectedRecipe = ""
 
-    retstr = retstr + "<b>Current Recipe:</b>" + selectedRecipe + "<br><br>\n"
+    if currentRecipe is None:
+        currentRecipe = ""
+
+    retstr = retstr + "<b>Current running Recipe :</b>" + \
+        selectedRecipe + "<br><br>\n"
+    retstr = retstr + "<b>Current Selected Recipe:</b>" + \
+        selectedRecipe + "<br><br>\n"
     retstr = retstr + '<form method="post" action="/recipelist">'
 
     for recipeName in recipeList:
         rnstr = "\"" + recipeName + "\""
+#        if recipeName == currentRecipe:
+#            retstr = retstr + "<u>"
         if recipeName == selectedRecipe:
             sel = "checked"
             retstr = retstr + "<b>"
@@ -31,7 +40,7 @@ def recipeliststatusBottle():
             sel = ""
 
         retstr = retstr + '<input type="radio" name="recipe" value='
-        retstr = retstr + rnstr + sel + ">" + recipeName + '</b><br>\n'
+        retstr = retstr + rnstr + sel + ">" + recipeName + '</b></u><br>\n'
     retstr = retstr + '<input type="submit" value="Set">'
 
     retstr = retstr + '</form>'
@@ -43,6 +52,8 @@ def recipeliststatusBottle():
 def dorecipeliststatusBottle():
     setRecipe = request.forms.get('recipe')
     myData = dataMemcache.brewData()
-    myData.setCurrentRecipe(setRecipe)
+    #if not myData.getCtrlRunning():
+    #    myData.setCurrentRecipe(setRecipe)
+
     myData.setSelectedRecipe(setRecipe)
     return(recipeliststatusBottle())

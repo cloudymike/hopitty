@@ -274,7 +274,7 @@ class rununit():
             myData = dataMemcache.brewData()
 
             stat = {}
-            stat['name'] = self.recipeName
+            #stat['name'] = self.recipeName
             stat['controllers'] = ctrlStat
 
             myData.setCurrentStage(stage)

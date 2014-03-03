@@ -48,7 +48,7 @@ class hopTestPageButtons(LiveServerTestCase):
         assert 'Run status: Stopped' in cstr
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         cstr = driver.find_element_by_css_selector("body").text
-        assert 'Current Stage: First' in cstr
+        assert 'Current Stage:' in cstr
         assert 'Run status: Running' in cstr
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         cstr = driver.find_element_by_css_selector("body").text
