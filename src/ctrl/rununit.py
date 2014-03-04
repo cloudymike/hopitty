@@ -95,27 +95,28 @@ def setupControllers(verbose, simulation, permissive):
     return(controllers)
 
 
-def getRecipeName(jsonFile, bsmxFile):
-    if jsonFile != "":
-        data = ctrl.readJson(jsonFile)
-        return(ctrl.readName(data))
-    elif bsmxFile != "":
-        data = ctrl.bsmxReadFile(bsmxFile)
-        return(ctrl.bsmxReadName(data))
-    else:
-        return('Manual')
+#def getRecipeName(jsonFile, bsmxFile):
+#    if jsonFile != "":
+#        data = ctrl.readJson(jsonFile)
+#        return(ctrl.readName(data))
+#
+#    elif bsmxFile != "":
+#        data = ctrl.bsmxReadFile(bsmxFile)
+#        return(ctrl.bsmxReadName(data))
+#    else:
+#        return('Manual')
 
 
-def getStages(jsonFile, bsmxFile, controllers):
-    if jsonFile != "":
-        data = ctrl.readJson(jsonFile)
-        stages = ctrl.readRecipe(data, controllers)
-    elif bsmxFile != "":
-        data = ctrl.bsmxReadFile(bsmxFile)
-        stages = ctrl.bsmxReadRecipe(data, controllers)
-    else:
-        stages = {}
-    return(stages)
+#def getStages(jsonFile, bsmxFile, controllers):
+#    if jsonFile != "":
+#        data = ctrl.readJson(jsonFile)
+#        stages = ctrl.readRecipe(data, controllers)
+#    elif bsmxFile != "":
+#        data = ctrl.bsmxReadFile(bsmxFile)
+#        stages = ctrl.bsmxReadRecipe(data, controllers)
+#    else:
+#        stages = {}
+#    return(stages)
 
 
 class bsmxStages():
@@ -167,8 +168,11 @@ class rununit():
         self.stages = ctrl.bsmxReadRecipe(xml, self.controllers)
 
     def jsonIn(self, json):
-        self.recipeName = ctrl.readName(json)
-        self.stages = ctrl.readRecipe(json, self.controllers)
+        #self.recipeName = ctrl.readName(json)
+        #self.stages = ctrl.readRecipe(json, self.controllers)
+        js = ctrl.jsonStages(json, self.controllers)
+        self.recipeName = js.getRecipeName()
+        self.stages = js.getStages()
 
     def stagesIn(self, stages):
         self.recipeName = 'manualStages'

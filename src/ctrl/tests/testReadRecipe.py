@@ -39,7 +39,8 @@ def testReadStages():
             except:
                 data = ctrl.readJson('json_data')
                 print 'Could not find recipe'
-    stages = ctrl.readRecipe(data, ctrl1)
+    js = ctrl.jsonStages(data, ctrl1)
+    stages = js.getStages()
     assert len(stages) > 0
     pprint(stages)
     ctrlCount = len(ctrl1)

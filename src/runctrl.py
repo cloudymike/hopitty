@@ -79,8 +79,10 @@ if __name__ == "__main__":
         xml = ctrl.bsmxReadFile(bsmxFile)
         ru.bsmxIn(xml)
     else:
-        json = ctrl.readJson(recipeFile)
-        ru.jsonIn(json)
+        #json = ctrl.readJson(recipeFile)
+        #ru.jsonIn(json)
+        js = ctrl.jsonStages(recipeFile, ru.getControllers())
+        ru.stagesIn(js.getStages())
 
     myData = dataMemcache.brewData()
     myData.setCtrlRunning(True)

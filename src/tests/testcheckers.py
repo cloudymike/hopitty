@@ -26,11 +26,12 @@ def testRecipeCheck():
             except:
                 data = ctrl.readJson('json_data')
                 print 'Could not find recipe'
-    stages = ctrl.readRecipe(data, ctrl1)
+    js = ctrl.jsonStages(data, ctrl1)
+    stages = js.getStages()
     assert len(stages) > 0
     pprint(stages)
     assert ctrl.checkers.checkRecipe(ctrl1, stages, True)
-    name = ctrl.readName(data)
+    name = js.getRecipeName()
     print 'Name:', name
     assert len(name) > 0
 #    assert isinstance(name, str)
