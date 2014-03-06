@@ -87,7 +87,7 @@ def txBSMXtoStages(doc, controllers):
                              'Single Infusion, Full Body, No Mash Out']:
             stages = MultiBatchMash(doc, controllers)
         elif mashProfile in ['testonly']:
-            stages = testonlyMash(doc, controllers)
+            stages = onlyTestMash(doc, controllers)
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
@@ -467,7 +467,7 @@ def MultiBatchMash(doc, controllers):
 # test mash
 # Different shortcust to allow for a shorter test cycle
 # The boiling temp as example is low (60F)
-def testonlyMash(doc, controllers):
+def onlyTestMash(doc, controllers):
     """
     Testing mash
     """

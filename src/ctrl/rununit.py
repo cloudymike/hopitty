@@ -1,7 +1,8 @@
 
 import time
 import datetime
-import ctrl.readRecipe
+import ctrl
+import jsonStages
 import appliances.boiler
 import switches
 import sys
@@ -170,7 +171,7 @@ class rununit():
     def jsonIn(self, json):
         #self.recipeName = ctrl.readName(json)
         #self.stages = ctrl.readRecipe(json, self.controllers)
-        js = ctrl.jsonStages(json, self.controllers)
+        js = jsonStages.jsonStages(json, self.controllers)
         self.recipeName = js.getRecipeName()
         self.stages = js.getStages()
 

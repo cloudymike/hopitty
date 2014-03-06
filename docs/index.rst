@@ -15,6 +15,8 @@ Contents:
    bottleweb
    ctrl
    dataMemcache
+   hoplog
+   jsonStages
    recipelistmgr
    runctrl
    runscan
@@ -22,7 +24,7 @@ Contents:
    unerror
    sensors
    switches
-   hoplog
+
    
 
 

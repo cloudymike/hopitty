@@ -49,14 +49,6 @@ ctrl Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`readRecipe` Module
-------------------------
-
-.. automodule:: ctrl.readRecipe
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`rununit` Module
 ---------------------
 

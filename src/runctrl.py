@@ -9,6 +9,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 import getopt
 import ctrl
 import dataMemcache
+import jsonStages
 
 
 def usage():
@@ -81,8 +82,12 @@ if __name__ == "__main__":
     else:
         #json = ctrl.readJson(recipeFile)
         #ru.jsonIn(json)
-        js = ctrl.jsonStages(recipeFile, ru.getControllers())
-        ru.stagesIn(js.getStages())
+        js = jsonStages.jsonStages(recipeFile, ru.getControllers())
+        if js.isValid():
+            ru.stagesIn(js.getStages())
+        else:
+            print "ERROR: JSON file is not valid"
+            sys.exit(1)
 
     myData = dataMemcache.brewData()
     myData.setCtrlRunning(True)
