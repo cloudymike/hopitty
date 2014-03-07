@@ -2,7 +2,7 @@
 import time
 import datetime
 import ctrl
-import jsonStages
+import recipeReader
 import appliances.boiler
 import switches
 import sys
@@ -96,54 +96,6 @@ def setupControllers(verbose, simulation, permissive):
     return(controllers)
 
 
-#def getRecipeName(jsonFile, bsmxFile):
-#    if jsonFile != "":
-#        data = ctrl.readJson(jsonFile)
-#        return(ctrl.readName(data))
-#
-#    elif bsmxFile != "":
-#        data = ctrl.bsmxReadFile(bsmxFile)
-#        return(ctrl.bsmxReadName(data))
-#    else:
-#        return('Manual')
-
-
-#def getStages(jsonFile, bsmxFile, controllers):
-#    if jsonFile != "":
-#        data = ctrl.readJson(jsonFile)
-#        stages = ctrl.readRecipe(data, controllers)
-#    elif bsmxFile != "":
-#        data = ctrl.bsmxReadFile(bsmxFile)
-#        stages = ctrl.bsmxReadRecipe(data, controllers)
-#    else:
-#        stages = {}
-#    return(stages)
-
-
-class bsmxStages():
-    """
-    This class will wrap all the bsmx functions. On instantiation, the
-    object needs to be passed an xml file and a controller list.
-    If the xml file is not a valid recipe, and can not be brewed with the
-    controllers, then the validRecipe will be false and any return of
-    a stages list will be an empty list.
-    """
-    def __init__(self, xmlfile, controllers):
-        self.valid = False
-        self.stages = {}
-        self.bsmx = xmlfile
-        self.ctrl = controllers
-
-    def __del__(self):
-        pass
-
-    def getStages(self):
-        """
-        Returns a valid stages dictionary for the recipe
-        """
-        pass
-
-
 class rununit():
     """
     This class will wrap all of the other classes required
@@ -171,7 +123,7 @@ class rununit():
     def jsonIn(self, json):
         #self.recipeName = ctrl.readName(json)
         #self.stages = ctrl.readRecipe(json, self.controllers)
-        js = jsonStages.jsonStages(json, self.controllers)
+        js = recipeReader.jsonStages(json, self.controllers)
         self.recipeName = js.getRecipeName()
         self.stages = js.getStages()
 

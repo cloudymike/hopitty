@@ -9,7 +9,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 import getopt
 import ctrl
 import dataMemcache
-import jsonStages
+import recipeReader
 
 
 def usage():
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     else:
         #json = ctrl.readJson(recipeFile)
         #ru.jsonIn(json)
-        js = jsonStages.jsonStages(recipeFile, ru.getControllers())
+        js = recipeReader.jsonStages(recipeFile, ru.getControllers())
         if js.isValid():
             ru.stagesIn(js.getStages())
         else:

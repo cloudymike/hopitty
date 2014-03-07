@@ -5,6 +5,30 @@ import mashProfiles
 import dataMemcache
 
 
+class bsmxStages():
+    """
+    This class will wrap all the bsmx functions. On instantiation, the
+    object needs to be passed an xml file and a controller list.
+    If the xml file is not a valid recipe, and can not be brewed with the
+    controllers, then the validRecipe will be false and any return of
+    a stages list will be an empty list.
+    """
+    def __init__(self, xmlfile, controllers):
+        self.valid = False
+        self.stages = {}
+        self.bsmx = xmlfile
+        self.ctrl = controllers
+
+    def __del__(self):
+        pass
+
+    def getStages(self):
+        """
+        Returns a valid stages dictionary for the recipe
+        """
+        pass
+
+
 def bsmxReadString(doc, tagName):
     recipeStringNode = doc.getElementsByTagName(tagName)
     recipeString = recipeStringNode[0].firstChild.nodeValue

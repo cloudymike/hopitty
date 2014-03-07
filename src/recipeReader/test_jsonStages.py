@@ -1,4 +1,4 @@
-from jsonStages import jsonStages
+from recipeReader import jsonStages
 import os
 
 #========== Start of test code =============
