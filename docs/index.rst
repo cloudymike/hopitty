@@ -16,8 +16,8 @@ Contents:
    ctrl
    dataMemcache
    hoplog
-   jsonStages
    recipelistmgr
+   recipeReader
    runctrl
    runscan
    runbottle
