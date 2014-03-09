@@ -43,13 +43,15 @@ def checkRecipeVsController(mycontrollers, recipe, verbose):
     Go through all the stages in the recipe and see
     that the controllers match the controllers available
     """
-    for r_key, settings in sorted(recipe.items()):
-        print r_key
-        if verbose:
+    if recipe is not None:
+        for r_key, settings in sorted(recipe.items()):
             print r_key
-        if not mycontrollers.check(settings):
-            return(False)
-    return(True)
+            if verbose:
+                print r_key
+            if not mycontrollers.check(settings):
+                return(False)
+        return(True)
+    return(False)
 
 
 def checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):

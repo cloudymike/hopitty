@@ -25,7 +25,7 @@ import sys
 empty = 0
 full = 1
 dispenserMax = 4
-boilTempConstant = 189
+boilTempConstant = 179
 coolTempConstant = 72
 
 

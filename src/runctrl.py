@@ -77,8 +77,8 @@ if __name__ == "__main__":
             sys.exit(1)
 
     if bsmxFile != "":
-        xml = ctrl.bsmxReadFile(bsmxFile)
-        ru.bsmxIn(xml)
+        #xml = ctrl.bsmxReadFile(bsmxFile)
+        ru.bsmxIn(bsmxFile)
     else:
         #json = ctrl.readJson(recipeFile)
         #ru.jsonIn(json)
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     myData.setCtrlRunning(True)
 
     if bsmxFile != "":
-        runOK = ru.checkBSMX(xml)
+        runOK = ru.checkBSMX(bsmxFile)
     else:
         runOK = ru.check()
     if not checkonly:

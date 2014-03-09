@@ -65,3 +65,11 @@ ctrl Package
     :undoc-members:
     :show-inheritance:
 
+:mod:`test_bsmxStages` Module
+-----------------------------
+
+.. automodule:: ctrl.test_bsmxStages
+    :members:
+    :undoc-members:
+    :show-inheritance:
+

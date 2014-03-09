@@ -51,7 +51,7 @@ def test2():
     l = rl.getlist()
     d = dataMemcache.brewData()
     for key, recipe in l.items():
-        print "=========", key
+        print ">>>>>>", key, "<<<<<<"
         d.setSelectedRecipe(key)
         d.setCtrlRunning(True)
         sr.runSelectedRecipe(True)

@@ -1,4 +1,5 @@
 import xml.dom.minidom
+import os
 import ctrl
 import sys
 import mashProfiles
@@ -13,19 +14,91 @@ class bsmxStages():
     controllers, then the validRecipe will be false and any return of
     a stages list will be an empty list.
     """
-    def __init__(self, xmlfile, controllers):
-        self.valid = False
+    def __init__(self, bsmx, controllers):
         self.stages = {}
-        self.bsmx = xmlfile
         self.ctrl = controllers
+        self.name = ""
+        self.inputTypeDebug = 'NA'
+
+        self.valid = True
+        try:
+            self.doc = bsmxReadFile(bsmx)
+            self.inputTypeDebug = 'file'
+        except:
+            try:
+                self.doc = bsmxReadFromString(bsmx)
+                self.inputTypeDebug = 'string'
+            except:
+                self.doc = bsmx
+                try:
+                    # Maybe a better check on valid bsmx doc?
+                    self.name = bsmxReadName(self.doc)
+                    self.valid = self.name != ""
+                    self.inputTypeDebug = 'doc'
+                except:
+                    self.valid = False
+                    self.doc = None
+                    self.inputTypeDebug = 'NA'
+
+        print "************Input type", self.inputTypeDebug
+        if self.valid:
+            try:
+                self.name = bsmxReadName(self.doc)
+            except:
+                self.valid = False
+        if self.valid:
+            try:
+                self.stages = mashProfiles.txBSMXtoStages(self.doc, self.ctrl)
+            except:
+                self.valid = False
 
     def __del__(self):
         pass
+
+    def getDocTree(self):
+        """
+        Returns the doctree, to allow standard dom operations to be applied.
+        This should be avoided and instead the built in operations to get
+        specific fields should be used.
+        """
+        return(self.doc)
+
+    def getField(self, key):
+        return(bsmxReadString(self.doc, key))
+
+    def getEquipment(self):
+        return(bsmxReadString(self.doc, "F_E_NAME"))
 
     def getStages(self):
         """
         Returns a valid stages dictionary for the recipe
         """
+        return(self.stages)
+
+    def getRecipeName(self):
+        return(self.name)
+
+    def isValid(self):
+        return(self.valid)
+
+    def validateRecipe(self):
+        retval = True
+        for s_key, stage in self.stages.items():
+            for c_key, ctrlType in stage.items():
+                if not c_key in self.ctrlList:
+                    retval = False
+        return(retval)
+
+    def readRecipe(self, data, controllerList):
+        pass
+
+    def mkControllerList(self, controllers):
+        ctrlLst = []
+        for c_key, c in controllers.items():
+            ctrlLst.append(c_key)
+        return(ctrlLst)
+
+    def readName(self, data):
         pass
 
 
@@ -92,12 +165,29 @@ def setDict(val):
 
 def stageCtrl(controllers):
     settings = {}
-    for c_key, c in controllers.items():
-        s = {}
-        s['targetValue'] = 0
-        s['active'] = False
-        settings[c_key] = s
+    # This is a little clumsy, but during refactoring keep the option of dict
+    if isinstance(controllers, dict):
+        for c_key, c in controllers.items():
+            s = {}
+            s['targetValue'] = 0
+            s['active'] = False
+            settings[c_key] = s
+    elif isinstance(controllers, list):
+        for c_key in controllers:
+            s = {}
+            s['targetValue'] = 0
+            s['active'] = False
+            settings[c_key] = s
+    else:
+        print "What the heck is controllers?"
+
     return(settings)
+
+
+def bsmxReadFromString(bsmxStr):
+    bsmxCleanData = bsmxStr.replace('&', 'AMP')
+    doc = xml.dom.minidom.parseString(bsmxCleanData)
+    return(doc)
 
 
 def bsmxReadFile(bsmxFile):
@@ -105,8 +195,7 @@ def bsmxReadFile(bsmxFile):
     bsmxRawData = bsmxFD.read()
     bsmxFD.close()
 
-    bsmxCleanData = bsmxRawData.replace('&', 'AMP')
-    doc = xml.dom.minidom.parseString(bsmxCleanData)
+    doc = bsmxReadFromString(bsmxRawData)
     return(doc)
 
 
@@ -401,7 +490,7 @@ def bsmxRead2DataStore(doc):
     bsmxMisc2Recipe(doc)
 
 
-if __name__ == "__main__":
+def readDemo():
     print "start"
     c = ctrl.controllerList()
     c.load()
