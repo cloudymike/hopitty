@@ -5,20 +5,21 @@
 import dataMemcache
 import ctrl
 import datetime
+import recipeReader
 
 
-def testStart():
+def testSkip():
     mydata = dataMemcache.brewData()
     ru = ctrl.rununit()
     clist = ru.getControllers()
 
     stages = {}
-    s1 = ctrl.stageCtrl(clist)
-    s1["delayTimer"] = ctrl.setDict(1)
+    s1 = recipeReader.stageCtrl(clist)
+    s1["delayTimer"] = recipeReader.setDict(1)
     stages["1"] = s1
 
-    s2 = ctrl.stageCtrl(clist)
-    s2["delayTimer"] = ctrl.setDict(0.03)
+    s2 = recipeReader.stageCtrl(clist)
+    s2["delayTimer"] = recipeReader.setDict(0.03)
     stages["2"] = s2
     ru.stagesIn(stages)
 
@@ -48,4 +49,4 @@ def testStart():
     print "OK"
 
 if __name__ == "__main__":
-    testStart()
+    testSkip()

@@ -8,7 +8,7 @@ import pickle
 import xml.dom.minidom
 import ctrl
 import recipelistmgr
-
+import recipeReader
 import dataMemcache
 
 
@@ -56,7 +56,7 @@ class recipeListClass():
     def readBMXdoc(self, doc):
         cloudRecipes = doc.getElementsByTagName("Cloud")
         for recipe in cloudRecipes:
-            name = ctrl.bsmxReadString(recipe, "F_R_NAME")
+            name = recipeReader.bsmxReadString(recipe, "F_R_NAME")
             r = self.newRecipe(name)
             r.readBMXdoc(recipe)
             #r.setEquipment(ctrl.bsmxReadString(recipe, "F_E_NAME"))

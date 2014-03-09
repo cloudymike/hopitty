@@ -111,7 +111,7 @@ if __name__ == "__main__":
     print "OK"
     ru.stop()
 
-    ctrl.prettyPrintStages(ru.getStages())
+    recipeReader.prettyPrintStages(ru.getStages())
     print "Shutting down"
     del ru
 

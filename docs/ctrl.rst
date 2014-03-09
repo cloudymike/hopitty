@@ -33,22 +33,6 @@ ctrl Package
     :undoc-members:
     :show-inheritance:
 
-:mod:`mashProfiles` Module
---------------------------
-
-.. automodule:: ctrl.mashProfiles
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`parseBSMX` Module
------------------------
-
-.. automodule:: ctrl.parseBSMX
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 :mod:`rununit` Module
 ---------------------
 
@@ -61,14 +45,6 @@ ctrl Package
 ---------------------
 
 .. automodule:: ctrl.scanrun
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`test_bsmxStages` Module
------------------------------
-
-.. automodule:: ctrl.test_bsmxStages
     :members:
     :undoc-members:
     :show-inheritance:

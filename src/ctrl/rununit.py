@@ -119,7 +119,7 @@ class rununit():
         print "==================bsmx"
         #self.recipeName = ctrl.bsmxReadName(xml)
         #self.stages = ctrl.bsmxReadRecipe(xml, self.controllers)
-        bx = ctrl.bsmxStages(xml, self.controllers)
+        bx = recipeReader.bsmxStages(xml, self.controllers)
         self.recipeName = bx.getRecipeName()
         self.stages = bx.getStages()
 
@@ -170,7 +170,7 @@ class rununit():
         Checks the BSMX recipe against controllers without loading it
         TODO, this seems to be in the wrong place
         """
-        bx = ctrl.bsmxStages(xml, self.controllers)
+        bx = recipeReader.bsmxStages(xml, self.controllers)
         return(bx.isValid())
 
     def quickRecipe(self):

@@ -9,6 +9,7 @@ To be used by other modules, including web server
 
 import sys
 import ctrl
+import recipeReader
 
 
 class recipeClass():
@@ -45,8 +46,9 @@ class recipeClass():
 
     def readBMXdoc(self, doc):
         self.doc = doc
-        self.setEquipment(ctrl.bsmxReadString(doc, "F_E_NAME"))
-        self.recipeDict['equipment'] = ctrl.bsmxReadString(doc, "F_E_NAME")
+        self.setEquipment(recipeReader.bsmxReadString(doc, "F_E_NAME"))
+        self.recipeDict['equipment'] =\
+            recipeReader.bsmxReadString(doc, "F_E_NAME")
 
     def printRecipeInfo(self):
         print "    ", self.getEquipment()
