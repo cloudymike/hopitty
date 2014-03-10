@@ -1,0 +1,185 @@
+# This file includes defs that are removed from parseBSMX as refactoring is done.
+
+def bsmxReadRecipe(doc, controllers):
+    """
+    Reads the bsmx file and creates a stages list.
+    The stages list is created based on Equipment name.
+    If no matching Equipemnt name is found, returns None
+
+    Returns None if any error is found and a stages list could not be created
+
+    The bulk of this def is moved into mashProfiles, as this is where
+    customization is kept.
+
+    Also reads recipe to data store
+    """
+    bsmxRead2DataStore(doc)
+
+    return(mashProfiles.txBSMXtoStages(doc, controllers))
+
+
+def notworkingest_bsmxReader():
+    """
+    This is the beginning of a test file, not working yet though....
+    """
+    filename = "../../beersmith/anchor-porter-clone.bsmx"
+    c = ctrl.controllerList()
+    c.load()
+    myStages = bsmxReadRecipe(filename, c)
+    assert len(myStages) > 6
+    assert ctrl.checkRecipe(c, myStages, True)
+
+
+def printSomeBsmx(filename):
+    """
+    This is an example file, reading some useful value in a recipe file
+    Mostly for debugging
+    """
+    bsmxFD = open(filename)
+    bsmxRawData = bsmxFD.read()
+    bsmxFD.close()
+
+    bsmxCleanData = bsmxRawData.replace('&', 'AMP')
+    doc = xml.dom.minidom.parseString(bsmxCleanData)
+
+    print "Recipe:", bsmxReadString(doc, "F_R_NAME")
+
+    print "================ Equipment and Mash profile ================"
+    equipmentName = bsmxReadString(doc, "F_E_NAME")
+    print "Equipment:", equipmentName
+
+    validEquipment = [
+        'Pot and Cooler ( 5 Gal/19 L) - All Grain'
+        ]
+    if equipmentName in validEquipment:
+        print "Equipment selected is OK"
+    else:
+        print "Equipment selected is not available"
+
+    mashMethod = bsmxReadString(doc, "F_MH_NAME")
+    print "Mash method:", mashMethod
+    validMethods = [
+        'Single Infusion, Light Body, Batch Sparge',
+        'Single Infusion, Medium Body, Batch Sparge',
+        'Single Infusion, Full Body, Batch Sparge',
+        'Single Infusion, Medium Body, No Mash Out'
+        ]
+    if mashMethod in validMethods:
+        print "Mash Method OK"
+    else:
+        print "Mash Method not supported"
+
+    print "================ Sparge raw data ================"
+
+    print "Infusion temperature:", \
+        bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"), "F"
+
+    print "Mash Time:", bsmxReadTimeMin(doc, "F_MS_STEP_TIME"), "min"
+
+    infuseVolNet = bsmxReadVolQt(doc, "F_MS_INFUSION")
+
+    print "Infusion Volume Net:", infuseVolNet, "qt", \
+        infuseVolNet, "Gallons"
+
+    infuseVolTot = bsmxReadVolQt(doc, "F_MS_INFUSION") + \
+        bsmxReadVolQt(doc, "F_MS_TUN_ADDITION")
+    print "Infusion Volume Total:", infuseVolTot, "qt", \
+        infuseVolTot / 4, "Gallons"
+    tunDeadSpace = bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
+    print "Tun dead space:", tunDeadSpace, "qt", \
+          tunDeadSpace / 4, "Gallons"
+
+    grainAbsorption = bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
+    preboilVol = bsmxReadVolQt(doc, "F_E_BOIL_VOL")
+
+    print "Sparge Temperature:", bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
+    print "Est Pre-boil volume:", preboilVol, 'qt,', preboilVol / 4, 'Gal'
+
+    print "Grain weight: ", bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT"), "lb"
+
+    print "Grain absorption:", grainAbsorption, "qt", \
+          grainAbsorption / 4, "Gallons"
+
+    totSparge = preboilVol + grainAbsorption - infuseVolNet
+    print "Total Sparge vol:", totSparge, "qt", totSparge / 4, "Gallons"
+    print "Pre-boil volume:", preboilVol, "qt", preboilVol / 4, "Gallons"
+
+    print "================ Factor Summary================"
+    print "Infusion", infuseVolTot, "qt", infuseVolTot / 4, "Gallons"
+    print "Sparge", totSparge, "qt", totSparge / 4, "Gallons"
+    print "Loss Grain", grainAbsorption, "qt", grainAbsorption / 4, "Gallons"
+    print "Dead Space", tunDeadSpace, "qt", tunDeadSpace / 4, "Gallons"
+    print "Boil", preboilVol, "qt", preboilVol / 4, "Gallons"
+    print "================ Math check ================"
+    print "Vol in +", infuseVolTot + totSparge
+    print "Loss -", grainAbsorption - tunDeadSpace
+    print "Remainder=", infuseVolTot + totSparge \
+          - grainAbsorption - tunDeadSpace
+    print "Pre Boil Volume", preboilVol
+
+    print "================ Batch Sparge ================"
+    sparge1 = preboilVol / 2 + grainAbsorption - infuseVolNet
+    sparge2 = preboilVol / 2
+    print "Sparge volume 1:", sparge1, "qt", sparge1 / 4, "Gallons"
+    print "Sparge volume 2:", sparge2, "qt", sparge2 / 4, "Gallons"
+
+    boilVol1 = preboilVol / 2
+    boilVol2 = preboilVol / 2
+    print "Wort pump1", boilVol1, "qt", boilVol1 / 4, "Gallons"
+    print "Wort pump1", boilVol2, "qt", boilVol2 / 4, "Gallons"
+
+    print "Total boil pumped is ", boilVol1 + boilVol2, "qt", \
+          (boilVol1 + boilVol2) / 4, "Gallons"
+
+    print "Math Check in", sparge1 + sparge2 + infuseVolTot - \
+          grainAbsorption - tunDeadSpace
+    print "Math Check out:", boilVol1 + boilVol2
+
+    print "================ Almost Fly Sparge ================"
+    print "Inital available wort:", infuseVolTot - grainAbsorption
+    flySteps = 8
+    flySpargeIn = totSparge / flySteps
+    flyWortOut = flySpargeIn
+    lastWortOut = preboilVol - (flySteps * flyWortOut)
+
+    if flyWortOut > infuseVolNet - grainAbsorption:
+        print "ERROR: First with out step too big"
+
+    print "Steps:", flySteps
+    print "Sparge volumes:", flySpargeIn, "qt", flySpargeIn / 4, "Gallons"
+    print "Wort volumes:", flyWortOut, "qt", flyWortOut / 4, "Gallons"
+    print "Last Wort volumes:", lastWortOut, "qt", lastWortOut / 4, "Gallons"
+    print "Math Check in", flySteps * flySpargeIn + infuseVolTot \
+          - grainAbsorption - tunDeadSpace
+    print "Math Check out:", flySteps * flyWortOut + lastWortOut
+
+def readDemo():
+    print "start"
+    c = ctrl.controllerList()
+    c.load()
+
+    # filename = "../../beersmith/spargetest.bsmx"
+
+    # filename = "../../beersmith/SilverDollarPorter.bsmx"
+    # filename = "../../beersmith/barbary-coast-common-beer.bsmx"
+    filename = "../../beersmith/29BitterAmerican.bsmx"
+    d1 = dataMemcache.brewData()
+    d1.clearRecipe()
+    print('before')
+
+    # printSomeBsmx(filename)
+    doc = bsmxReadFile(filename)
+    myStages = bsmxReadRecipe(doc, c)
+    # prettyPrintStages(myStages)
+    # bsmxReadDispense(doc)
+    # bsmxRead2DataStore(doc)
+    c = d1.getRecipeContainers()
+    for container in c:
+        mt = d1.getItemsInContainer(container)
+        print "================", container
+        print mt
+
+    # print(bsmxReadHops(doc))
+    # print(bsmxReadMisc(doc))
+    # print(bsmxReadDispense(doc))
+    print('after')
