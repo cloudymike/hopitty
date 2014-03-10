@@ -29,6 +29,13 @@ boilTempConstant = 179
 coolTempConstant = 72
 
 
+#################################################
+# Helper functions
+#################################################
+def mkSname(title, number):
+    return("%02d %s" % (number, title))
+
+
 def grainAbsorption(doc):
     ga = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
     return(ga)
@@ -53,6 +60,9 @@ def spargeVolume(doc):
     return(preBoilVolume(doc) + grainAbsorption(doc) - strikeVolNet)
 
 
+#################################################
+# Main function to translate to stages
+#################################################
 def txBSMXtoStages(bsmxObj):
     """
     Reads the bsmx file and creates a stages list.
@@ -61,8 +71,6 @@ def txBSMXtoStages(bsmxObj):
 
     Returns None if any error is found and a stages list could not be created
     """
-    doc = bsmxObj.getDocTree()
-    controllers = bsmxObj.getControllers()
     stages = None
     equipmentName = bsmxObj.getEquipment()
     validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
@@ -80,14 +88,14 @@ def txBSMXtoStages(bsmxObj):
                            'Single Infusion, Medium Body, Batch Sparge',
                            'Single Infusion, Full Body, Batch Sparge']:
 
-            stages = SingleInfusionBatch(doc, controllers)
+            stages = SingleInfusionBatch(bsmxObj)
 
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
-            stages = MultiBatchMash(doc, controllers)
+            stages = MultiBatchMash(bsmxObj)
         elif mashProfile in ['testonly']:
-            stages = onlyTestMash(doc, controllers)
+            stages = onlyTestMash(bsmxObj)
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
@@ -149,6 +157,9 @@ def checkVolBSMX(bsmxObj):
     return(True)
 
 
+#################################################
+# Functions that are generic to all mashes
+#################################################
 # Cooling down the worth
 def cooling(doc, controllers, stageCount, coolTemp):
     stages = {}
@@ -269,7 +280,12 @@ def boiling(doc, controllers, stageCount, boilTemp):
     return(stages)
 
 
-def SingleInfusionBatch(doc, controllers):
+#################################################
+# Specifics of different types of mashes
+#################################################
+def SingleInfusionBatch(bsmxObj):
+    doc = bsmxObj.getDocTree()
+    controllers = bsmxObj.getControllers()
     print "====================SingleInfusionBatch"
     stages = {}
     s1 = parseBSMX.stageCtrl(controllers)
@@ -332,15 +348,13 @@ def SingleInfusionBatch(doc, controllers):
     return(stages)
 
 
-def mkSname(title, number):
-    return("%02d %s" % (number, title))
-
-
-def MultiBatchMash(doc, controllers):
+def MultiBatchMash(bsmxObj):
     """
     Multi batch sparging mash
     """
     print "====================MultiBatchMash"
+    doc = bsmxObj.getDocTree()
+    controllers = bsmxObj.getControllers()
     stages = {}
 
     totVolIn = 0
@@ -468,11 +482,13 @@ def MultiBatchMash(doc, controllers):
 # test mash
 # Different shortcust to allow for a shorter test cycle
 # The boiling temp as example is low (60F)
-def onlyTestMash(doc, controllers):
+def onlyTestMash(bsmxObj):
     """
     Testing mash
     """
     print "====================TestingMash"
+    doc = bsmxObj.getDocTree()
+    controllers = bsmxObj.getControllers()
     stages = {}
 
     totVolIn = 0
