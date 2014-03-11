@@ -301,7 +301,8 @@ def SingleInfusionBatch(bsmxObj):
     stages["02 Pump rest"] = s2
 
     s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolTot = strikeVolume(doc)
+    ############################################### First Try
+    strikeVolTot = bsmxObj.getStrikeVolume()
     s3["waterHeater"] = parseBSMX.setDict(
         parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)

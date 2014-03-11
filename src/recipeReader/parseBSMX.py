@@ -100,12 +100,17 @@ class bsmxStages():
             ctrlLst.append(c_key)
         return(ctrlLst)
 
+##############################################################################
+# Get fields from key from bsmx file
+##############################################################################
     def getFieldStr(self, key):
         """
         Reads a field from xml, and returns the value as a string.
         The field can be anywhere in the doc-tree hierarchy.
         """
-        return(bsmxReadString(self.doc, key))
+        recipeStringNode = self.doc.getElementsByTagName(key)
+        recipeString = recipeStringNode[0].firstChild.nodeValue
+        return(recipeString)
 
     def getVolG(self, tagName):
         """Translates a Volume field to gallons, as a float"""
@@ -127,7 +132,9 @@ class bsmxStages():
         """Translates a Time field to minutes, as a float"""
         return(float(self.getFieldStr(tagName)))
 
-    # Start of specific field values. Returns a specific field in right format
+##############################################################################
+# Start of specific field values. Returns a specific field in right format
+##############################################################################
     def getEquipment(self):
         """Return specific BSMX field, name of equipment"""
         return(bsmxReadString(self.doc, "F_E_NAME"))
@@ -136,7 +143,30 @@ class bsmxStages():
         """Return specific BSMX field, name of mash profile"""
         return(bsmxReadString(self.doc, "F_MH_NAME"))
 
+    def getGrainAbsorption(self):
+        ga = self.getWeightLb("F_MS_GRAIN_WEIGHT") / 8.3 * 4
+        return(ga)
 
+    def getTunDeadSpace(self):
+        return(self.getVolQt("F_MS_TUN_ADDITION"))
+
+    def getStrikeVolume(self):
+        strikeVolNet = self.getVolQt("F_MS_INFUSION")
+        strikeVolTot = strikeVolNet + self.getTunDeadSpace()
+        return(strikeVolTot)
+
+    def getPreBoilVolume(self):
+        return(self.getVolQt("F_E_BOIL_VOL"))
+
+    def getSpargeVolume(self):
+        strikeVolNet = self.getVolQt("F_MS_INFUSION")
+        return(self.getPreBoilVolume() + self.getGrainAbsorption()
+               - strikeVolNet)
+
+
+##############################################################################
+# Old stuff that should be removed at the end.
+##############################################################################
 def bsmxReadString(doc, tagName):
     recipeStringNode = doc.getElementsByTagName(tagName)
     recipeString = recipeStringNode[0].firstChild.nodeValue

@@ -33,6 +33,7 @@ def elaborateBsmx():
    <F_R_EQUIPMENT>
     <F_E_NAME>Grain 2.5G, 5Gcooler, 4Gpot</F_E_NAME>
     <F_E_MASH_VOL>640.0000000</F_E_MASH_VOL>
+    <F_E_BOIL_VOL>436.7360000</F_E_BOIL_VOL>
    </F_R_EQUIPMENT>
    <F_R_MASH>
     <F_MH_NAME>Single Infusion, Medium Body, No Mash Out</F_MH_NAME>
@@ -42,8 +43,12 @@ def elaborateBsmx():
    <Data>
     <MashStep>
       <F_MS_NAME>Mash In</F_MS_NAME>
+      <F_MS_INFUSION>290.0000000</F_MS_INFUSION>
+      <F_MS_TUN_ADDITION>6.4000000</F_MS_TUN_ADDITION>
       <F_MS_STEP_TEMP>152.0000000</F_MS_STEP_TEMP>
       <F_MS_STEP_TIME>60.0000000</F_MS_STEP_TIME>
+      <F_MS_GRAIN_WEIGHT>116.0000000</F_MS_GRAIN_WEIGHT>
+      <F_MS_INFUSION>290.0000000</F_MS_INFUSION>
      </MashStep>
    </Data>
   </Recipe>
@@ -165,6 +170,46 @@ def test_getEquipment():
     print myname(), "OK"
 
 
+def test_getGrainAbsorption():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    g = bx.getGrainAbsorption()
+    assert isinstance(g, float)
+    assert abs(g - 3.49) < 0.01
+    print myname(), "OK"
+
+
+def test_getTunDeadSpace():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    ds = bx.getTunDeadSpace()
+    assert isinstance(ds, float)
+    assert abs(ds - 0.2) < 0.01
+    print myname(), "OK"
+
+
+def test_getStrikeVolume():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    ds = bx.getStrikeVolume()
+    assert isinstance(ds, float)
+    assert abs(ds - 9.2625) < 0.01
+    print myname(), "OK"
+
+
+def test_getPreBoilVolume():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    ds = bx.getPreBoilVolume()
+    assert isinstance(ds, float)
+    assert abs(ds - 13.648) < 0.01
+    print myname(), "OK"
+
+
+def test_getSpargeVolume():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    ds = bx.getSpargeVolume()
+    assert isinstance(ds, float)
+    assert abs(ds - 8.07947590361) < 0.01
+    print myname(), "OK"
+
+
 if __name__ == "__main__":
     test_init_bsmxStages_string()
     test_init_bsmxStages_file()
@@ -177,3 +222,8 @@ if __name__ == "__main__":
     test_getTimeMin()
     test_getMashProfile()
     test_getEquipment()
+    test_getGrainAbsorption()
+    test_getTunDeadSpace()
+    test_getStrikeVolume()
+    test_getPreBoilVolume()
+    test_getSpargeVolume()
