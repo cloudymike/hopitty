@@ -1,4 +1,3 @@
-#!/usr/bin/python
 # TODO
 # Check validity of json vs controller
 
@@ -90,7 +89,8 @@ class jsonStages():
 
     def mkControllerList(self, controllers):
         ctrlLst = []
-        for c_key, c in controllers.items():
+        #for c_key, c in controllers.items():
+        for c_key in controllers.keys():
             ctrlLst.append(c_key)
         return(ctrlLst)
 

@@ -19,8 +19,6 @@ the translation, and then add this def as an alternative in txBSMXtoStages,
 selected based on the Equipment Name, and the Mash Profile Name.
 """
 import parseBSMX
-import ctrl
-import sys
 
 empty = 0
 full = 1
@@ -34,30 +32,6 @@ coolTempConstant = 72
 #################################################
 def mkSname(title, number):
     return("%02d %s" % (number, title))
-
-
-def grainAbsorption(doc):
-    ga = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT") / 8.3 * 4
-    return(ga)
-
-
-def tunDeadSpace(doc):
-    return(parseBSMX.bsmxReadVolQt(doc, "F_MS_TUN_ADDITION"))
-
-
-def strikeVolume(doc):
-    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    strikeVolTot = strikeVolNet + tunDeadSpace(doc)
-    return(strikeVolTot)
-
-
-def preBoilVolume(doc):
-    return(parseBSMX.bsmxReadVolQt(doc, "F_E_BOIL_VOL"))
-
-
-def spargeVolume(doc):
-    strikeVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
-    return(preBoilVolume(doc) + grainAbsorption(doc) - strikeVolNet)
 
 
 #################################################
@@ -108,7 +82,6 @@ def txBSMXtoStages(bsmxObj):
 
 
 def checkVolBSMX(bsmxObj):
-    doc = bsmxObj.getDocTree()
     maxInfusionVol = 18  # quarts, before it goes below heater element
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
@@ -117,39 +90,41 @@ def checkVolBSMX(bsmxObj):
 
     # return(True)
     # Check tunDead Space
-    if tunDeadSpace(doc) < tunDeadSpaceMin:
-        print "Error: Tun dead space:", tunDeadSpace(doc), "requires:", \
-            tunDeadSpaceMin, "qt"
+    if bsmxObj.getTunDeadSpace() < tunDeadSpaceMin:
+        print "Error: Tun dead space:", bsmxObj.getTunDeadSpace(),\
+            "requires:", tunDeadSpaceMin, "qt"
         return(False)
 
     # Check boiler volume
-    if preBoilVolume(doc) > boilerVolumeMax:
-        print "Error: ", preBoilVolume(doc), "exceeding boiler volume"
+    if bsmxObj.getPreBoilVolume() > boilerVolumeMax:
+        print "Error: ", bsmxObj.getPreBoilVolume(), "exceeding boiler volume"
         return(False)
 
-    if strikeVolume(doc) > maxInfusionVol:
-        print "Error: ", strikeVolume(doc), "exceeding infusions volume"
+    if bsmxObj.getStrikeVolume() > maxInfusionVol:
+        print("Error: ", bsmxObj.getStrikeVolume(),
+              "exceeding infusions volume")
         return(False)
 
-    totInVol = strikeVolume(doc) + spargeVolume(doc)
+    totInVol = bsmxObj.getStrikeVolume() + bsmxObj.getSpargeVolume()
     if totInVol > maxTotalInVol:
         print "Error: ", totInVol, "exceeding total in volume"
         return(False)
 
-    outLoss = grainAbsorption(doc) + tunDeadSpace(doc) + preBoilVolume(doc)
+    outLoss = bsmxObj.getGrainAbsorption() + bsmxObj.getTunDeadSpace() +\
+        bsmxObj.getPreBoilVolume()
 
     inV = round(totInVol, 4)
     outV = round(outLoss, 4)
 
     if inV != outV:
-        print "Deadspace", tunDeadSpace(doc)
+        print "Deadspace", bsmxObj.getTunDeadSpace()
         print "Error: In and outvolume mismatch"
         print "In volume ", totInVol, "qt"
         print "Out Volume", outLoss, "qt"
         return(False)
 
-    grainWeight = parseBSMX.bsmxReadWeightLb(doc, "F_MS_GRAIN_WEIGHT")
-    fluidWeight = strikeVolume(doc) * 2.08
+    grainWeight = bsmxObj.getWeightLb("F_MS_GRAIN_WEIGHT")
+    fluidWeight = bsmxObj.getStrikeVolume() * 2.08
     totWeight = grainWeight + fluidWeight
     if totWeight > maxTotalWeight:
         print "Total weight ", totWeight, "exceeding max", maxTotalWeight
@@ -161,7 +136,8 @@ def checkVolBSMX(bsmxObj):
 # Functions that are generic to all mashes
 #################################################
 # Cooling down the worth
-def cooling(doc, controllers, stageCount, coolTemp):
+def cooling(bsmxObj, stageCount, coolTemp):
+    controllers = bsmxObj.getControllers()
     stages = {}
     stageCount = stageCount + 1
 
@@ -199,7 +175,9 @@ def cooling(doc, controllers, stageCount, coolTemp):
 # Boil for the suitable time
 # Add hops and other additions with the dispensers
 # at suitable times.
-def boiling(doc, controllers, stageCount, boilTemp):
+def boiling(bsmxObj, stageCount, boilTemp):
+    doc = bsmxObj.getDocTree()
+    controllers = bsmxObj.getControllers()
     stages = {}
     stageCount = stageCount + 1
     print "boiling start"
@@ -225,7 +203,7 @@ def boiling(doc, controllers, stageCount, boilTemp):
     stages[mkSname("start boil", stageCount)] = step
     stageCount = stageCount + 1
 
-    boilTime = parseBSMX.bsmxReadTimeMin(doc, "F_E_BOIL_TIME")
+    boilTime = bsmxObj.getTimeMin("F_E_BOIL_TIME")
     dispenseTimeList = parseBSMX.bsmxReadDispense(doc)
 
     if len(dispenseTimeList) > 0:
@@ -284,19 +262,18 @@ def boiling(doc, controllers, stageCount, boilTemp):
 # Specifics of different types of mashes
 #################################################
 def SingleInfusionBatch(bsmxObj):
-    doc = bsmxObj.getDocTree()
     controllers = bsmxObj.getControllers()
     print "====================SingleInfusionBatch"
     stages = {}
     s1 = parseBSMX.stageCtrl(controllers)
     s1["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
     stages["01 Heating"] = s1
 
     s2 = parseBSMX.stageCtrl(controllers)
     s2["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages["02 Pump rest"] = s2
 
@@ -304,45 +281,45 @@ def SingleInfusionBatch(bsmxObj):
     ############################################### First Try
     strikeVolTot = bsmxObj.getStrikeVolume()
     s3["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     stages["03 StrikeWater"] = s3
 
     s4 = parseBSMX.stageCtrl(controllers)
     s4["delayTimer"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME"))
+        bsmxObj.getTimeMin("F_MS_STEP_TIME"))
     s4["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+        bsmxObj.getTempF("F_MH_SPARGE_TEMP"))
     s4["waterCirculationPump"] = parseBSMX.setDict(1)
     s4["mashStirrer"] = parseBSMX.setDict(1)
     stages["04 Mashing"] = s4
 
     s6 = parseBSMX.stageCtrl(controllers)
     s6["hotWaterPump"] = parseBSMX.setDict(
-        preBoilVolume(doc) / 2 +
-        grainAbsorption(doc) -
+        bsmxObj.getPreBoilVolume() / 2 +
+        bsmxObj.getGrainAbsorption() -
         strikeVolTot)
     stages["06 Sparge in 1"] = s6
 
     s7 = parseBSMX.stageCtrl(controllers)
-    s7["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
+    s7["wortPump"] = parseBSMX.setDict(bsmxObj.getPreBoilVolume() / 2)
     s7["boiler"] = parseBSMX.setDict(1)
     stages["07 Wort out 1"] = s7
 
     s8 = parseBSMX.stageCtrl(controllers)
-    s8["hotWaterPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
+    s8["hotWaterPump"] = parseBSMX.setDict(bsmxObj.getPreBoilVolume() / 2)
     s8["boiler"] = parseBSMX.setDict(1)
     stages["08 Sparge in 2"] = s8
 
     s10 = parseBSMX.stageCtrl(controllers)
-    s10["wortPump"] = parseBSMX.setDict(preBoilVolume(doc) / 2)
+    s10["wortPump"] = parseBSMX.setDict(bsmxObj.getPreBoilVolume() / 2)
     s10["boiler"] = parseBSMX.setDict(1)
     stages["10 Wort out 2"] = s10
 
     try:
-        stages.update(boiling(doc, controllers, 11, boilTempConstant))
+        stages.update(boiling(bsmxObj, 11, boilTempConstant))
         stageCount = len(stages)
-        stages.update(cooling(doc, controllers, stageCount, coolTempConstant))
+        stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
     except:
         stages = None
 
@@ -354,7 +331,6 @@ def MultiBatchMash(bsmxObj):
     Multi batch sparging mash
     """
     print "====================MultiBatchMash"
-    doc = bsmxObj.getDocTree()
     controllers = bsmxObj.getControllers()
     stages = {}
 
@@ -365,7 +341,7 @@ def MultiBatchMash(bsmxObj):
 
     s1 = parseBSMX.stageCtrl(controllers)
     s1["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
 
     stages[mkSname("Heating", stageCount)] = s1
@@ -373,41 +349,40 @@ def MultiBatchMash(bsmxObj):
 
     s2 = parseBSMX.stageCtrl(controllers)
     s2["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s2["delayTimer"] = parseBSMX.setDict(0.30)
     stages[mkSname("Pump rest", stageCount)] = s2
     stageCount = stageCount + 1
 
     s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolTot = strikeVolume(doc)
+    strikeVolTot = bsmxObj.getStrikeVolume()
     s3["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     totVolIn = totVolIn + strikeVolTot
     stages[mkSname("StrikeWater", stageCount)] = s3
     stageCount = stageCount + 1
 
-    mashTime = parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME")
-    spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
+    mashTime = bsmxObj.getTimeMin("F_MS_STEP_TIME")
 
     step = parseBSMX.stageCtrl(controllers)
     step["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+        bsmxObj.getTempF("F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
     step["mashStirrer"] = parseBSMX.setDict(1)
     step["delayTimer"] = parseBSMX.setDict(mashTime)
     stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
 
-    infuseVolNet = parseBSMX.bsmxReadVolQt(doc, "F_MS_INFUSION")
+    infuseVolNet = bsmxObj.getVolQt("F_MS_INFUSION")
 
-    totSparge = spargeVolume(doc)
+    totSparge = bsmxObj.getSpargeVolume()
     spargeSteps = 4
     volSpargeIn = totSparge / spargeSteps
     volWortOut = volSpargeIn
-    lastWortOut = preBoilVolume(doc) - (spargeSteps * volWortOut)
+    lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut)
 
-    if volWortOut > infuseVolNet - grainAbsorption(doc):
+    if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
         print "volWothOut failed"
         return(None)
 
@@ -453,14 +428,14 @@ def MultiBatchMash(bsmxObj):
         stageCount = stageCount + 1
 
     try:
-        stages.update(boiling(doc, controllers, stageCount, boilTempConstant))
+        stages.update(boiling(bsmxObj, stageCount, boilTempConstant))
         stageCount = len(stages)
     except:
         print "Boiling profile failed"
         stages = None
 
     try:
-        stages.update(cooling(doc, controllers, stageCount, coolTempConstant))
+        stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
     except:
         print "Cooling profile failed"
         stages = None
@@ -469,12 +444,13 @@ def MultiBatchMash(bsmxObj):
     # tunDeadSpace = parseBSMX.bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
 
     if round(totVolIn, 4) != \
-       round(totVolOut + tunDeadSpace(doc) + grainAbsorption(doc), 4):
+       round(totVolOut + bsmxObj.getTunDeadSpace() +
+             bsmxObj.getGrainAbsorption(), 4):
         print "Error in/out flow not matching"
         print "In vol:", round(totVolIn, 4)
         print "Out Vol:", round(totVolOut, 4)
         print "Grain absorb and dead space:", \
-              round(tunDeadSpace(doc) + grainAbsorption(doc), 4)
+            round(bsmxObj.getTunDeadSpace() + bsmxObj.getGrainAbsorption(), 4)
         stages = None
 
     return(stages)
@@ -488,7 +464,6 @@ def onlyTestMash(bsmxObj):
     Testing mash
     """
     print "====================TestingMash"
-    doc = bsmxObj.getDocTree()
     controllers = bsmxObj.getControllers()
     stages = {}
 
@@ -499,35 +474,34 @@ def onlyTestMash(bsmxObj):
 
     s1 = parseBSMX.stageCtrl(controllers)
     s1["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s1["waterCirculationPump"] = parseBSMX.setDict(1)
 
     stages[mkSname("Heating", stageCount)] = s1
     stageCount = stageCount + 1
 
     s3 = parseBSMX.stageCtrl(controllers)
-    strikeVolTot = strikeVolume(doc)
+    strikeVolTot = bsmxObj.getStrikeVolume()
     s3["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MS_INFUSION_TEMP"))
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
     s3["hotWaterPump"] = parseBSMX.setDict(strikeVolTot)
     totVolIn = totVolIn + strikeVolTot
     stages[mkSname("StrikeWater", stageCount)] = s3
     stageCount = stageCount + 1
 
-    mashTime = parseBSMX.bsmxReadTimeMin(doc, "F_MS_STEP_TIME")
-    spargeTemp = parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP")
+    mashTime = bsmxObj.getTimeMin("F_MS_STEP_TIME")
 
     step = parseBSMX.stageCtrl(controllers)
     step["waterHeater"] = parseBSMX.setDict(
-        parseBSMX.bsmxReadTempF(doc, "F_MH_SPARGE_TEMP"))
+        bsmxObj.getTempF("F_MH_SPARGE_TEMP"))
     step["waterCirculationPump"] = parseBSMX.setDict(1)
     step["mashStirrer"] = parseBSMX.setDict(1)
     step["delayTimer"] = parseBSMX.setDict(mashTime)
     stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
 
-    volSpargeIn = spargeVolume(doc)
-    lastWortOut = preBoilVolume(doc) / 2  # Just cut it down a little
+    volSpargeIn = bsmxObj.getSpargeVolume()
+    lastWortOut = bsmxObj.getPreBoilVolume() / 2  # Just cut it down a little
 
     sIn = parseBSMX.stageCtrl(controllers)
     sIn["hotWaterPump"] = parseBSMX.setDict(volSpargeIn)
@@ -544,14 +518,14 @@ def onlyTestMash(bsmxObj):
     stageCount = stageCount + 1
 
     try:
-        stages.update(boiling(doc, controllers, stageCount, 60))
+        stages.update(boiling(bsmxObj, stageCount, 60))
         stageCount = len(stages)
     except:
         print "Boiling profile failed"
         stages = None
 
     try:
-        stages.update(cooling(doc, controllers, stageCount, 90))
+        stages.update(cooling(bsmxObj, stageCount, 90))
     except:
         print "Cooling profile failed"
         stages = None

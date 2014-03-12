@@ -1,6 +1,7 @@
 import os
 import recipeReader
 import inspect
+import xml.dom.minidom
 
 
 def simpleBsmx():
@@ -63,6 +64,14 @@ def ctrlBsmxList():
     return(retlst)
 
 
+def txDocFromString(bsmxStr):
+    """
+    Creates doc from an xml string
+    """
+    bsmxCleanData = bsmxStr.replace('&', 'AMP')
+    return(xml.dom.minidom.parseString(bsmxCleanData))
+
+
 def test_init_bsmxStages_string():
     bx = recipeReader.bsmxStages(simpleBsmx(), ctrlBsmxList())
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
@@ -91,7 +100,7 @@ def test_init_bsmxStages_file():
 
 
 def test_init_bsmxStages_doc():
-    doc = recipeReader.bsmxReadFromString(simpleBsmx())
+    doc = txDocFromString(simpleBsmx())
     bx = recipeReader.bsmxStages(doc, ctrlBsmxList())
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     doc = bx.getDocTree()

@@ -22,11 +22,11 @@ class bsmxStages():
 
         self.valid = True
         try:
-            self.doc = bsmxReadFile(bsmx)
+            self.docFromFile(bsmx)
             self.inputTypeDebug = 'file'
         except:
             try:
-                self.doc = bsmxReadFromString(bsmx)
+                self.docFromString(bsmx)
                 self.inputTypeDebug = 'string'
             except:
                 self.doc = bsmx
@@ -99,6 +99,19 @@ class bsmxStages():
         for c_key, c in controllers.items():
             ctrlLst.append(c_key)
         return(ctrlLst)
+
+    def docFromString(self, bsmxStr):
+        """
+        Creates doc from an xml string
+        """
+        bsmxCleanData = bsmxStr.replace('&', 'AMP')
+        self.doc = xml.dom.minidom.parseString(bsmxCleanData)
+
+    def docFromFile(self, bsmxFile):
+        bsmxFD = open(bsmxFile)
+        bsmxRawData = bsmxFD.read()
+        bsmxFD.close()
+        self.docFromString(bsmxRawData)
 
 ##############################################################################
 # Get fields from key from bsmx file
@@ -201,22 +214,6 @@ def bsmxReadDispenseOld(doc):
     return(dedupedAddTimes)
 
 
-def bsmxReadTempF(doc, tagName):
-    return(float(bsmxReadString(doc, tagName)))
-
-
-def bsmxReadTimeMin(doc, tagName):
-    return(float(bsmxReadString(doc, tagName)))
-
-
-def bsmxReadVolQt(doc, tagName):
-    return(float(bsmxReadString(doc, tagName)) / 32)
-
-
-def bsmxReadWeightLb(doc, tagName):
-    return(float(bsmxReadString(doc, tagName)) / 16)
-
-
 def setDict(val):
     t = {}
     t['targetValue'] = val
@@ -243,21 +240,6 @@ def stageCtrl(controllers):
         print "What the heck is controllers?"
 
     return(settings)
-
-
-def bsmxReadFromString(bsmxStr):
-    bsmxCleanData = bsmxStr.replace('&', 'AMP')
-    doc = xml.dom.minidom.parseString(bsmxCleanData)
-    return(doc)
-
-
-def bsmxReadFile(bsmxFile):
-    bsmxFD = open(bsmxFile)
-    bsmxRawData = bsmxFD.read()
-    bsmxFD.close()
-
-    doc = bsmxReadFromString(bsmxRawData)
-    return(doc)
 
 
 def bsmxReadName(doc):
