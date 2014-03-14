@@ -35,10 +35,9 @@ def testRecipeScanner(user=None):
     assert rl.len() == len(rl2)
     return(rl)
 
+
 if __name__ == "__main__":
     user = getpass.getuser()
     print "Getting cloud recipes for", user
-    for n in range(1, 10):
-        rl = testRecipeScanner(user)
-        print rl.len()
-        time.sleep(10)
+    rl = testRecipeScanner(user)
+    print rl.len()

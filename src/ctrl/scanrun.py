@@ -96,7 +96,7 @@ class scanrun():
         r = self.rl.getRecipe(self.mydata.getSelectedRecipe())
         if run(self.mydata):
             if r is not None:
-                self.mydata.setCurrentRecipe(r)
+                self.mydata.setCurrentRecipe(r.getName())
                 bsxml = r.getBSMXdoc()
                 self.runner.bsmxIn(bsxml)
                 print "+++++++++++++++",\

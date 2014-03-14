@@ -77,7 +77,32 @@ def test3():
         assert not d.getCtrlRunning()
         return
 
+
+def test4():
+    """
+    Based on test1
+    Check that current recipe is set with start  of scanrun
+    """
+    sr = ctrl.scanrun(getBSMXfile())
+    rl = sr.getRecipeList()
+    l = rl.getlist()
+    d = dataMemcache.brewData()
+    d.setCurrentRecipe('bogus')
+    assert d.getCurrentRecipe() == 'bogus'
+    print d.getCurrentRecipe()
+
+    for key, recipe in l.items():
+        print "=========", key
+        d.setSelectedRecipe(key)
+        d.setCtrlRunning(True)
+        sr.runSelectedRecipe(True)
+        print "xxxxxxxxxxx3"
+        assert not d.getCtrlRunning()
+        print d.getCurrentRecipe()
+        assert d.getCurrentRecipe() == key
+        return
+
 if __name__ == "__main__":
-    test1()
+    test4()
     # test2()
     # test3()

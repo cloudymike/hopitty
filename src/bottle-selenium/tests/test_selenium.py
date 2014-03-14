@@ -2,7 +2,7 @@ from bottle import app
 from selenium import webdriver
 from xvfbwrapper import Xvfb
 
-from wsgi_liveserver import LiveServerTestCase
+from my_wsgi_liveserver import LiveServerTestCase
 
 # required to load the routes
 import main

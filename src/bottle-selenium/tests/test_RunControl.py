@@ -1,7 +1,7 @@
 from bottle import app
 from selenium import webdriver
 
-from wsgi_liveserver import LiveServerTestCase
+from my_wsgi_liveserver import LiveServerTestCase
 from xvfbwrapper import Xvfb
 
 # required to load the routes
@@ -9,7 +9,7 @@ import hopmain
 import dataMemcache
 
 
-class hopTestPageButtons(LiveServerTestCase):
+class hopTestRunControl(LiveServerTestCase):
     def create_app(self):
         return app()
 
