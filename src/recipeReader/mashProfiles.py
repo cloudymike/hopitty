@@ -204,7 +204,7 @@ def boiling(bsmxObj, stageCount, boilTemp):
     stageCount = stageCount + 1
 
     boilTime = bsmxObj.getTimeMin("F_E_BOIL_TIME")
-    dispenseTimeList = parseBSMX.bsmxReadDispense(doc)
+    dispenseTimeList = bsmxObj.getDispense()
 
     if len(dispenseTimeList) > 0:
         for dispenseTime in dispenseTimeList:

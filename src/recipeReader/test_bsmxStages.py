@@ -52,6 +52,37 @@ def elaborateBsmx():
       <F_MS_INFUSION>290.0000000</F_MS_INFUSION>
      </MashStep>
    </Data>
+    <Ingredients>
+     <Data>
+      <Grain>
+      </Grain>
+      <Hops>
+        <F_H_NAME>Columbus (Tomahawk)</F_H_NAME>
+        <F_H_TYPE>0</F_H_TYPE>
+        <F_H_FORM>0</F_H_FORM>
+        <F_H_AMOUNT>1.0000000</F_H_AMOUNT>
+        <F_H_BOIL_TIME>60.0000000</F_H_BOIL_TIME>
+        <F_H_DRY_HOP_TIME>0.0000000</F_H_DRY_HOP_TIME>
+        <F_H_IN_RECIPE>1</F_H_IN_RECIPE>
+        <F_H_USE>0</F_H_USE>
+      </Hops>
+      <Misc>
+        <F_M_NAME>Whirlfloc Tablet</F_M_NAME>
+        <F_M_TYPE>1</F_M_TYPE>
+        <F_M_USE_FOR>Clarity</F_M_USE_FOR>
+        <F_M_TEMP_VOL>320.0000000</F_M_TEMP_VOL>
+        <F_M_UNITS>13</F_M_UNITS>
+        <F_M_AMOUNT>0.5000000</F_M_AMOUNT>
+        <F_M_VOLUME>640.0000000</F_M_VOLUME>
+        <F_M_USE>0</F_M_USE>
+        <F_M_TIME_UNITS>0</F_M_TIME_UNITS>
+        <F_M_TIME>15.0000000</F_M_TIME>
+        <F_M_IMPORT_AS_WEIGHT>1</F_M_IMPORT_AS_WEIGHT>
+        <F_M_IMPORT_UNITS>0</F_M_IMPORT_UNITS>
+        <F_ORDER>4</F_ORDER>
+      </Misc>
+     </Data>
+    </Ingredients>
   </Recipe>
  </Data>
 </Recipes>
@@ -219,6 +250,31 @@ def test_getSpargeVolume():
     print myname(), "OK"
 
 
+def test_getDispense():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    d = bx.getDispense()
+    assert isinstance(d, list)
+    assert d == [60.0, 15.0]
+    print myname(), "OK"
+
+
+def test_getDispenserAtTime():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    d1 = bx.getDispenserAtTime(60)
+    assert isinstance(d1, str)
+    assert d1 == 'dispenser1'
+
+    d2 = bx.getDispenserAtTime(15.1)
+    assert isinstance(d2, str)
+    assert d2 == 'dispenser2'
+
+    d3 = bx.getDispenserAtTime(0.0)
+    assert isinstance(d3, str)
+    assert d3 == 'error'
+
+    print myname(), "OK"
+
+
 if __name__ == "__main__":
     test_init_bsmxStages_string()
     test_init_bsmxStages_file()
@@ -236,3 +292,5 @@ if __name__ == "__main__":
     test_getStrikeVolume()
     test_getPreBoilVolume()
     test_getSpargeVolume()
+    test_getDispense()
+    test_getDispenserAtTime()

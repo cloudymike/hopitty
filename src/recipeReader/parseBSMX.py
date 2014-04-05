@@ -176,6 +176,27 @@ class bsmxStages():
         return(self.getPreBoilVolume() + self.getGrainAbsorption()
                - strikeVolNet)
 
+    def getDispense(self):
+        addTimes = bsmxReadHops(self.doc) + bsmxReadMisc(self.doc)
+        dedupedAddTimes = list(set(addTimes))
+        dedupedAddTimes.sort(reverse=True)
+
+        print dedupedAddTimes
+        return(dedupedAddTimes)
+
+    def getDispenserAtTime(self, t):
+        hlist = self.getDispense()
+        i = 1
+        for h in hlist:
+            a = int(float(t))
+            b = int(h)
+            if a == b:
+                dispenser = 'dispenser' + str(i)
+                return(dispenser)
+            else:
+                i = i + 1
+        return('error')
+
 
 ##############################################################################
 # Old stuff that should be removed at the end.
@@ -275,58 +296,58 @@ def bsmxReadHops(doc):
     return(hlist)
 
 
-def returnDispenser(doc, t):
-    hlist = bsmxReadDispense(doc)
-    i = 1
-    for h in hlist:
-        a = int(float(t))
-        b = int(h)
-        if a == b:
-            dispenser = 'dispenser' + str(i)
-            return(dispenser)
-        else:
-            i = i + 1
-    return('error')
+#def returnDispenser(doc, t):
+#    hlist = bsmxReadDispense(doc)
+#    i = 1
+#    for h in hlist:
+#        a = int(float(t))
+#        b = int(h)
+#        if a == b:
+#            dispenser = 'dispenser' + str(i)
+#            return(dispenser)
+#        else:
+#            i = i + 1
+#    return('error')
 
 
-def bsmxHops2Recipe(doc):
-    d = dataMemcache.brewData()
-    tagName = 'Hops'
-    hops = doc.getElementsByTagName(tagName)
-    for hop in hops:
-        name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
-        weight = round(float(hop.getElementsByTagName("F_H_AMOUNT")[0].
-                       firstChild.nodeValue), 2)
-        boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
-            firstChild.nodeValue
-        dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
-            firstChild.nodeValue
-        use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
-        if use == '0':
-            d.addToRecipe(name, weight, returnDispenser(doc, boil))
+#def bsmxHops2Recipe(doc):
+#    d = dataMemcache.brewData()
+#    tagName = 'Hops'
+#    hops = doc.getElementsByTagName(tagName)
+#    for hop in hops:
+#        name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
+#        weight = round(float(hop.getElementsByTagName("F_H_AMOUNT")[0].
+#                       firstChild.nodeValue), 2)
+#        boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
+#            firstChild.nodeValue
+#        dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
+#            firstChild.nodeValue
+#        use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+#        if use == '0':
+#            d.addToRecipe(name, weight, returnDispenser(doc, boil))
 
 
-def bsmxMisc2Recipe(doc):
-    d = dataMemcache.brewData()
-    tagName = 'Misc'
-    misc = doc.getElementsByTagName(tagName)
-    for m in misc:
-        name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
-
-        t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
-        timeunit = m.getElementsByTagName(
-            "F_M_TIME_UNITS")[0].firstChild.nodeValue
-        amount = round(float(m.getElementsByTagName(
-                       "F_M_AMOUNT")[0].firstChild.nodeValue), 2)
-        unit = ""
-        use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
-        if timeunit == '0':
-            tu = 'minutes'
-        if timeunit == '1':
-            tu = 'days'
-
-        if use == '0':
-            d.addToRecipe(name, amount, returnDispenser(doc, t), unit)
+#def bsmxMisc2Recipe(doc):
+#    d = dataMemcache.brewData()
+#    tagName = 'Misc'
+#    misc = doc.getElementsByTagName(tagName)
+#    for m in misc:
+#        name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
+#
+#        t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
+#        timeunit = m.getElementsByTagName(
+#            "F_M_TIME_UNITS")[0].firstChild.nodeValue
+#        amount = round(float(m.getElementsByTagName(
+#                       "F_M_AMOUNT")[0].firstChild.nodeValue), 2)
+#        unit = ""
+#        use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
+#        if timeunit == '0':
+#            tu = 'minutes'
+#        if timeunit == '1':
+#            tu = 'days'
+#
+#        if use == '0':
+#            d.addToRecipe(name, amount, returnDispenser(doc, t), unit)
 
 
 def bsmxGrains2Recipe(doc):
@@ -362,18 +383,18 @@ def bsmxReadMisc(doc):
     return(mlist)
 
 
-def bsmxReadDispense(doc):
-    addTimes = bsmxReadHops(doc) + bsmxReadMisc(doc)
-    dedupedAddTimes = list(set(addTimes))
-    dedupedAddTimes.sort(reverse=True)
+#def bsmxReadDispense(doc):
+#    addTimes = bsmxReadHops(doc) + bsmxReadMisc(doc)
+#    dedupedAddTimes = list(set(addTimes))
+#    dedupedAddTimes.sort(reverse=True)
+#
+#    print dedupedAddTimes
+#    return(dedupedAddTimes)
 
-    print dedupedAddTimes
-    return(dedupedAddTimes)
 
-
-def bsmxRead2DataStore(doc):
-    d1 = dataMemcache.brewData()
-    d1.clearRecipe()
-    bsmxGrains2Recipe(doc)
-    bsmxHops2Recipe(doc)
-    bsmxMisc2Recipe(doc)
+#def bsmxRead2DataStore(doc):
+#    d1 = dataMemcache.brewData()
+#    d1.clearRecipe()
+#    bsmxGrains2Recipe(doc)
+#    bsmxHops2Recipe(doc)
+#    bsmxMisc2Recipe(doc)
