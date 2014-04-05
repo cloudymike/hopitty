@@ -275,6 +275,28 @@ def test_getDispenserAtTime():
     print myname(), "OK"
 
 
+def test_getMisc():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    m = bx.getMisc()
+    assert isinstance(m, list)
+    assert m == [15.0]
+    print myname(), "OK"
+
+
+def test_getHops():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    h = bx.getHops()
+    assert isinstance(h, list)
+    assert h == [60]
+    print myname(), "OK"
+
+
+def test_prettyPrintStages():
+    bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
+    bx.prettyPrintStages()
+    print myname(), "OK"
+
+
 if __name__ == "__main__":
     test_init_bsmxStages_string()
     test_init_bsmxStages_file()
@@ -294,3 +316,6 @@ if __name__ == "__main__":
     test_getSpargeVolume()
     test_getDispense()
     test_getDispenserAtTime()
+    test_getMisc()
+    test_getHops()
+    test_prettyPrintStages()

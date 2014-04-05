@@ -269,3 +269,11 @@ class rununit():
             else:
                 sys.stdout.write(crumb)
                 sys.stdout.flush()
+
+    def prettyPrintStages(self):
+        for stage, step in sorted(self.stages.items()):
+            print stage
+            for ctrl, val in step.items():
+                if val['active']:
+                    print "    ", ctrl, ":", val['targetValue']
+

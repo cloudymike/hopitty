@@ -32,7 +32,7 @@ class bsmxStages():
                 self.doc = bsmx
                 try:
                     # Maybe a better check on valid bsmx doc?
-                    self.name = bsmxReadName(self.doc)
+                    self.name = bsmxReadString(self.doc, "F_R_NAME")
                     self.valid = self.name != ""
                     self.inputTypeDebug = 'doc'
                 except:
@@ -42,7 +42,7 @@ class bsmxStages():
 
         if self.valid:
             try:
-                self.name = bsmxReadName(self.doc)
+                self.name = bsmxReadString(self.doc, "F_R_NAME")
             except:
                 self.valid = False
         if self.valid:
@@ -177,7 +177,7 @@ class bsmxStages():
                - strikeVolNet)
 
     def getDispense(self):
-        addTimes = bsmxReadHops(self.doc) + bsmxReadMisc(self.doc)
+        addTimes = self.getHops() + self.getMisc()
         dedupedAddTimes = list(set(addTimes))
         dedupedAddTimes.sort(reverse=True)
 
@@ -197,204 +197,146 @@ class bsmxStages():
                 i = i + 1
         return('error')
 
+    def getMisc(self):
+        tagName = 'Misc'
+        ms = self.doc.getElementsByTagName(tagName)
+        mlist = []
+        for m in ms:
+            name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
+
+            t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
+            unit = m.getElementsByTagName("F_M_TIME_UNITS")[0].\
+                firstChild.nodeValue
+            use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
+            if unit == '0':
+                tu = 'minutes'
+            if unit == '0':
+                tu = 'days'
+            if use == '0':
+                print "Boil", name, t, tu
+                mlist.append(float(t))
+            else:
+                print "Other", name, t, tu
+        return(mlist)
+
+    def getHops(self):
+        tagName = 'Hops'
+        hops = self.doc.getElementsByTagName(tagName)
+        hlist = []
+        for hop in hops:
+            name = hop.getElementsByTagName("F_H_NAME")[0].\
+                firstChild.nodeValue
+
+            boil = hop.getElementsByTagName(
+                "F_H_BOIL_TIME")[0].firstChild.nodeValue
+            dry = hop.getElementsByTagName(
+                "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
+            use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+            if use == '0':
+                print "Boil", name, boil, "minutes"
+                hlist.append(float(boil))
+            if use == '1':
+                print "Dryhop", name, dry, "days"
+        return(hlist)
+
+    def prettyPrintStages(self):
+        for stage, step in sorted(self.stages.items()):
+            print stage
+            for ctrl, val in step.items():
+                if val['active']:
+                    print "    ", ctrl, ":", val['targetValue']
+
 
 ##############################################################################
 # Old stuff that should be removed at the end.
 ##############################################################################
 def bsmxReadString(doc, tagName):
+    """
+    Reads a string from a doc file with tagName tagName.
+    In most cases this should not be needed as the above object methods
+    should be used, but, for reading a doc file with multiple recipes
+    and finding all recipes, it can be useful, as example
+    """
     recipeStringNode = doc.getElementsByTagName(tagName)
     recipeString = recipeStringNode[0].firstChild.nodeValue
     return(recipeString)
 
 
-def bsmxReadDispenseOld(doc):
-    boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
-    addTimes = []
-
-    print "boiltime", boiltime
+#def bsmxReadDispenseOld(doc):
+#    boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
+#    addTimes = []
+#
+#    print "boiltime", boiltime
     # Find hop additions times
-    tagName = "F_H_BOIL_TIME"
-    additions = doc.getElementsByTagName(tagName)
-    for addItem in additions:
-        at = addItem.firstChild.nodeValue
+#    tagName = "F_H_BOIL_TIME"
+#    additions = doc.getElementsByTagName(tagName)
+#    for addItem in additions:
+#        at = addItem.firstChild.nodeValue
         # if at != boiltime:
-        addTimes.append(float(at))
-
+#        addTimes.append(float(at))
+#
     # Find misc additions times
-    tagName = "F_M_TIME"
-    additions = doc.getElementsByTagName(tagName)
-    for addItem in additions:
-        at = addItem.firstChild.nodeValue
+#    tagName = "F_M_TIME"
+#    additions = doc.getElementsByTagName(tagName)
+#    for addItem in additions:
+#        at = addItem.firstChild.nodeValue
         # if at != boiltime:
-        addTimes.append(float(at))
+#        addTimes.append(float(at))
 
-    dedupedAddTimes = list(set(addTimes))
-    dedupedAddTimes.sort(reverse=True)
-
-    print dedupedAddTimes
-    return(dedupedAddTimes)
-
-
-def setDict(val):
-    t = {}
-    t['targetValue'] = val
-    t['active'] = True
-    return(t)
-
-
-def stageCtrl(controllers):
-    settings = {}
-    # This is a little clumsy, but during refactoring keep the option of dict
-    if isinstance(controllers, dict):
-        for c_key, c in controllers.items():
-            s = {}
-            s['targetValue'] = 0
-            s['active'] = False
-            settings[c_key] = s
-    elif isinstance(controllers, list):
-        for c_key in controllers:
-            s = {}
-            s['targetValue'] = 0
-            s['active'] = False
-            settings[c_key] = s
-    else:
-        print "What the heck is controllers?"
-
-    return(settings)
-
-
-def bsmxReadName(doc):
-    name = bsmxReadString(doc, "F_R_NAME")
-    return(name)
-
-
-def prettyPrintStages(stages):
-    for stage, step in sorted(stages.items()):
-        print stage
-        for ctrl, val in step.items():
-            if val['active']:
-                print "    ", ctrl, ":", val['targetValue']
-
-
-def bsmxReadHops(doc):
-    tagName = 'Hops'
-    hops = doc.getElementsByTagName(tagName)
-    hlist = []
-    for hop in hops:
-        name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
-
-        boil = hop.getElementsByTagName(
-            "F_H_BOIL_TIME")[0].firstChild.nodeValue
-        dry = hop.getElementsByTagName(
-            "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
-        use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
-        if use == '0':
-            print "Boil", name, boil, "minutes"
-            hlist.append(float(boil))
-        if use == '1':
-            print "Dryhop", name, dry, "days"
-    return(hlist)
-
-
-#def returnDispenser(doc, t):
-#    hlist = bsmxReadDispense(doc)
-#    i = 1
-#    for h in hlist:
-#        a = int(float(t))
-#        b = int(h)
-#        if a == b:
-#            dispenser = 'dispenser' + str(i)
-#            return(dispenser)
-#        else:
-#            i = i + 1
-#    return('error')
-
-
-#def bsmxHops2Recipe(doc):
-#    d = dataMemcache.brewData()
-#    tagName = 'Hops'
-#    hops = doc.getElementsByTagName(tagName)
-#    for hop in hops:
-#        name = hop.getElementsByTagName("F_H_NAME")[0].firstChild.nodeValue
-#        weight = round(float(hop.getElementsByTagName("F_H_AMOUNT")[0].
-#                       firstChild.nodeValue), 2)
-#        boil = hop.getElementsByTagName("F_H_BOIL_TIME")[0].\
-#            firstChild.nodeValue
-#        dry = hop.getElementsByTagName("F_H_DRY_HOP_TIME")[0].\
-#            firstChild.nodeValue
-#        use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
-#        if use == '0':
-#            d.addToRecipe(name, weight, returnDispenser(doc, boil))
-
-
-#def bsmxMisc2Recipe(doc):
-#    d = dataMemcache.brewData()
-#    tagName = 'Misc'
-#    misc = doc.getElementsByTagName(tagName)
-#    for m in misc:
-#        name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
-#
-#        t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
-#        timeunit = m.getElementsByTagName(
-#            "F_M_TIME_UNITS")[0].firstChild.nodeValue
-#        amount = round(float(m.getElementsByTagName(
-#                       "F_M_AMOUNT")[0].firstChild.nodeValue), 2)
-#        unit = ""
-#        use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
-#        if timeunit == '0':
-#            tu = 'minutes'
-#        if timeunit == '1':
-#            tu = 'days'
-#
-#        if use == '0':
-#            d.addToRecipe(name, amount, returnDispenser(doc, t), unit)
-
-
-def bsmxGrains2Recipe(doc):
-    d = dataMemcache.brewData()
-    tagName = 'Grain'
-    hops = doc.getElementsByTagName(tagName)
-    for hop in hops:
-        name = hop.getElementsByTagName("F_G_NAME")[0].firstChild.nodeValue
-        weight = round(float(hop.getElementsByTagName("F_G_AMOUNT")[0].
-                       firstChild.nodeValue), 2)
-        d.addToRecipe(name, weight, 'mashtun')
-
-
-def bsmxReadMisc(doc):
-    tagName = 'Misc'
-    ms = doc.getElementsByTagName(tagName)
-    mlist = []
-    for m in ms:
-        name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
-
-        t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
-        unit = m.getElementsByTagName("F_M_TIME_UNITS")[0].firstChild.nodeValue
-        use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
-        if unit == '0':
-            tu = 'minutes'
-        if unit == '0':
-            tu = 'days'
-        if use == '0':
-            print "Boil", name, t, tu
-            mlist.append(float(t))
-        else:
-            print "Other", name, t, tu
-    return(mlist)
-
-
-#def bsmxReadDispense(doc):
-#    addTimes = bsmxReadHops(doc) + bsmxReadMisc(doc)
 #    dedupedAddTimes = list(set(addTimes))
 #    dedupedAddTimes.sort(reverse=True)
-#
+
 #    print dedupedAddTimes
 #    return(dedupedAddTimes)
 
 
-#def bsmxRead2DataStore(doc):
-#    d1 = dataMemcache.brewData()
-#    d1.clearRecipe()
-#    bsmxGrains2Recipe(doc)
-#    bsmxHops2Recipe(doc)
-#    bsmxMisc2Recipe(doc)
+#def setDict(val):
+#    t = {}
+#    t['targetValue'] = val
+#    t['active'] = True
+#    return(t)
+
+
+#def stageCtrl(controllers):
+#    settings = {}
+    # This is a little clumsy, but during refactoring keep the option of dict
+#    if isinstance(controllers, dict):
+#        for c_key, c in controllers.items():
+#            s = {}
+#            s['targetValue'] = 0
+#            s['active'] = False
+#            settings[c_key] = s
+#    elif isinstance(controllers, list):
+#        for c_key in controllers:
+#            s = {}
+#            s['targetValue'] = 0
+#            s['active'] = False
+#            settings[c_key] = s
+#    else:
+#        print "What the heck is controllers?"
+
+#    return(settings)
+
+
+#def bsmxReadName(doc):
+#    name = bsmxReadString(doc, "F_R_NAME")
+#    return(name)
+
+
+#def prettyPrintStages(stages):
+#    for stage, step in sorted(stages.items()):
+#        print stage
+#        for ctrl, val in step.items():
+#            if val['active']:
+#                print "    ", ctrl, ":", val['targetValue']
+
+
+#def bsmxGrains2Recipe(doc):
+#    d = dataMemcache.brewData()
+#    tagName = 'Grain'
+#    hops = doc.getElementsByTagName(tagName)
+#    for hop in hops:
+#        name = hop.getElementsByTagName("F_G_NAME")[0].firstChild.nodeValue
+#        weight = round(float(hop.getElementsByTagName("F_G_AMOUNT")[0].
+#                       firstChild.nodeValue), 2)
+#        d.addToRecipe(name, weight, 'mashtun')
