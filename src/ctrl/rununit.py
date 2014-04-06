@@ -276,4 +276,3 @@ class rununit():
             for ctrl, val in step.items():
                 if val['active']:
                     print "    ", ctrl, ":", val['targetValue']
-
