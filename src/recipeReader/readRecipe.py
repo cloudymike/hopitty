@@ -6,8 +6,8 @@ import json
 
 class jsonStages():
     """
-    This class will wrap all the bsmx functions. On instantiation, the
-    object needs to be passed an xml file and a controller list.
+    This class will wrap all the json functions. On instantiation, the
+    object needs to be passed an json file and a controller list.
     The strings in the controller list needs to match the strings in the json
     If the json file is not a valid recipe, and can not be brewed with the
     controllers, then the validRecipe will be false and any return of

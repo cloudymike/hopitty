@@ -23,6 +23,7 @@ Contents:
    runbottle
    unerror
    sensors
+   stages2beer
    switches
 
    
