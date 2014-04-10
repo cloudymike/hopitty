@@ -1,6 +1,8 @@
+import json
 import stages2beer
 import ctrl
 import appliances
+import recipeReader
 
 
 def simpleCtrl():
@@ -14,7 +16,7 @@ def simpleStages():
 {
 "name":"IPA",
   "recipe":   {
-    "1":{
+    "1stage":{
       "genctrl":1
     }
   }
@@ -26,7 +28,7 @@ def simpleStages():
 def sStages():
     stages = """
 {
-    "1":{
+    "1 stage":{
       "genctrl":1
     }
 }
@@ -46,8 +48,15 @@ def mediumCtrl():
     return(ctrl1)
 
 
+def timerCtrl():
+    """Instantiate a list of several controllers"""
+    ctrl1 = ctrl.controllerList()
+    ctrl1.addController('timer', appliances.hoptimer())
+    return(ctrl1)
+
+
 def test_instantiate():
-    a = stages2beer.s2b(None)
+    a = stages2beer.s2b()
     assert a is not None
 
 
@@ -60,12 +69,51 @@ def test_controllerInstantiate():
 
 
 def test_simpleStages():
-    a = stages2beer.s2b(simpleCtrl())
-    a.check(sStages())
+    stages = sStages()
+    a = stages2beer.s2b(simpleCtrl(), stages)
+    a.check()
+
+
+def test_basicThread():
+    """
+    Basic testing that the thread is working
+    """
+    a = stages2beer.s2b(None)
+    a.start()
+    assert a.isAlive()
+    a.join()
+    assert not a.isAlive()
+    print "Yep, it finished"
+
+
+def test_quickRun():
+    r = recipeReader.jsonStages(simpleStages(), simpleCtrl())
+    a = stages2beer.s2b(simpleCtrl(), r.getStages())
+    assert a.quickRun()
+
+
+def test_check():
+    r = recipeReader.jsonStages(simpleStages(), simpleCtrl())
+    a = stages2beer.s2b(simpleCtrl(), r.getStages())
+    assert a.check()
+
+
+def test_getStages():
+    """
+    Try different input format for stages
+       dict
+       json string
+       json from recipeReader
+    """
+    pass
 
 
 if __name__ == "__main__":
     test_instantiate()
     test_controllerInstantiate()
     test_simpleStages()
+    test_basicThread()
+    test_quickRun()
+    test_check()
+    test_getStages()
     print "All is good"

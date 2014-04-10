@@ -9,42 +9,69 @@
 # In addition control functions are added to stop, pause and skip a step
 # Help functions are included to get and check data.
 
+import time
 import ctrl
 import json
+from threading import Thread
 
 
-class s2b():
+class s2b(Thread):
 
-    def __init__(self, controllers):
+    def __init__(self, controllers=None, stages=None):
         """
-        Run equipment based on json file provided
+        Run equipment in controllers based on json file provided
         """
-        self.controllers = None
-        self.running = False
+        super(s2b, self).__init__()
+
         self.paused = False
         self.verbose = False
 
         self.controllers = controllers
+        try:
+            self.stages = json.loads(stages)
+        except:
+            if isinstance(stages, dict):
+                self.stages = stages
+            else:
+                self.stages = None
 
-    def run(self, stages_json):
+    def run(self):
         #no blocking, I.e a separate thread
-        pass
+        time.sleep(1)
 
-    def isRunning(self):
-        return(False)
-
-    def check(self, stages_json):
+    def check(self):
         """
-        Simple check to validate that the recipe usees controllers
+        Simple check to validate that the recipe uses controllers
         in the controller list.
         """
-        stages = json.loads(stages_json)
-        return(ctrl.checkers.checkRecipe(self.controllers,
-                                         stages,
-                                         self.verbose))
-
-    def quickRun(self, stages_json):
+        if self.stages is not None:
+            for r_key, settings in sorted(self.stages.items()):
+                if not self.controllers.check(settings):
+                    return(False)
+            return(True)
         return(False)
+
+    def quickRun(self):
+        """
+        Runs through the recipe without any delay to just check it is OK
+        This is different from check recipe in that it will also run
+        each controller, thus test hardware if connected and not
+        permissive
+        """
+        self.controllers.stop()
+        for r_key, settings in sorted(self.stages.items()):
+            try:
+                self.controllers.run(settings)
+                self.controllers.stopCurrent(settings)
+            except:
+                return(False)
+        return(True)
+
+    def getCtrl(self):
+        return(self.controllers)
+
+    def getStages(self):
+        return(self.stages)
 
     def isError(self):
         return(False)
@@ -78,25 +105,3 @@ class s2b():
 
     def setLogOutput(self, file_handle):
         pass
-
-    def getCtrl(self):
-        return(self.controllers)
-
-    def quickRecipe(self):
-        """
-        Runs through the recipe without any delay to just check it is OK
-        This is different from check recipe in that it will also run
-        each controller, thus test hardware if connected and not
-        permissive
-        """
-        self.controllers.stop()
-        for r_key, settings in sorted(self.stages.items()):
-            self.controllers.run(settings)
-            if True:
-                print ""
-                print "Stage: ", r_key
-            if not ctrl.checkHardware(self.controllers):
-                self.controllers.shutdown()
-                return(False)
-            self.controllers.stopCurrent(settings)
-        return(True)

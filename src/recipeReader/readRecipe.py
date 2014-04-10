@@ -13,21 +13,25 @@ class jsonStages():
     controllers, then the validRecipe will be false and any return of
     a stages list will be an empty list.
     """
-    def __init__(self, json, controllerList):
+    def __init__(self, jsonS, controllerList):
         self.valid = False
         self.stages = {}
         self.ctrlList = []
 
         try:
-            self.jsonDict = self.readJson(json)
+            self.jsonDict = self.readJson(jsonS)
             self.valid = True
         except:
-            if isinstance(json, dict):
-                self.jsonDict = json
+            try:
+                self.jsonDict = json.loads(jsonS)
                 self.valid = True
-            else:
-                self.jsonDict = {}
-                self.valid = False
+            except:
+                if isinstance(jsonS, dict):
+                    self.jsonDict = jsonS
+                    self.valid = True
+                else:
+                    self.jsonDict = {}
+                    self.valid = False
 
         try:
             self.ctrlList = self.mkControllerList(controllerList)
@@ -68,7 +72,6 @@ class jsonStages():
 
     def readRecipe(self, data, controllerList):
         stages = {}
-        print data
         recipe = data['recipe']
         for stage, step in recipe.items():
             settings = {}
