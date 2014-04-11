@@ -12,10 +12,11 @@
 import time
 import ctrl
 import json
-from threading import Thread
+#from threading import Thread
+import threading
 
 
-class s2b(Thread):
+class s2b(threading.Thread):
 
     def __init__(self, controllers=None, stages=None):
         """
@@ -23,21 +24,41 @@ class s2b(Thread):
         """
         super(s2b, self).__init__()
 
-        self.paused = False
         self.verbose = False
 
+        self.pwait = threading.Event()
+        self.pwait.set()
+
+        self._stopflag = threading.Event()
+
         self.controllers = controllers
-        try:
-            self.stages = json.loads(stages)
-        except:
-            if isinstance(stages, dict):
-                self.stages = stages
-            else:
-                self.stages = None
+
+        if isinstance(stages, dict):
+            self.stages = stages
+        else:
+            self.stages = None
 
     def run(self):
-        #no blocking, I.e a separate thread
-        time.sleep(1)
+        """
+        Main run loop. Go through each stage of recipe and
+        for each stage loop until all targets met.
+        no blocking, I.e a separate thread
+        """
+        if self.stages is None:
+            return
+        if self.stages == {}:
+            return
+        if self.controllers is None:
+            return
+
+        for r_key, settings in sorted(self.stages.items()):
+            self.controllers.stop()
+            self.controllers.run(settings)
+            while ((not self.controllers.done()) and
+                  (not self._stopflag.isSet())):
+                self.pwait.wait()
+                self.controllers.run(settings)
+                time.sleep(0.5)
 
     def check(self):
         """
@@ -67,6 +88,21 @@ class s2b(Thread):
                 return(False)
         return(True)
 
+    def stop(self):
+        self._stopflag.set()
+
+    def stopped(self):
+        return not self.isAlive()
+
+    def pause(self):
+        self.pwait.clear()
+
+    def unpause(self):
+        self.pwait.set()
+
+    def paused(self):
+        return not self.pwait.isSet()
+
     def getCtrl(self):
         return(self.controllers)
 
@@ -82,19 +118,7 @@ class s2b(Thread):
     def setError(self):
         pass
 
-    def pause(self):
-        pass
-
-    def unPause(self):
-        pass
-
-    def isPause(self):
-        return(False)
-
     def skip(self):
-        pass
-
-    def stop(self):
         pass
 
     def getStatus(self):

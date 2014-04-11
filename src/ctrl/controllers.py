@@ -11,7 +11,7 @@ class controllerList(dict):
             print "WARNING: Running in stress test mode"
 
     def addController(self, name, ctrl):
-        print "Adding ", name
+        #print "Adding ", name
         self[name] = ctrl
 
     def addControllerList(self, l):

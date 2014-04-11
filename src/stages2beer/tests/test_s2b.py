@@ -3,6 +3,12 @@ import stages2beer
 import ctrl
 import appliances
 import recipeReader
+import inspect
+import time
+
+
+def myname():
+    return(inspect.stack()[1][3])
 
 
 def simpleCtrl():
@@ -25,15 +31,29 @@ def simpleStages():
     return(stages)
 
 
-def sStages():
-    stages = """
-{
-    "1 stage":{
-      "genctrl":1
+def simpleDict():
+    stages = {
+        "1 stage": {
+            "genctrl": {
+                "active": True,
+                "targetValue": 1
+            }
+        }
     }
-}
-    """
+
     return(stages)
+
+
+def timerDict():
+    td = {
+        "1 stage": {
+            "timer": {
+                "active": True,
+                "targetValue": 0.01
+            }
+        }
+    }
+    return td
 
 
 def mediumCtrl():
@@ -58,6 +78,7 @@ def timerCtrl():
 def test_instantiate():
     a = stages2beer.s2b()
     assert a is not None
+    print myname(), "OK"
 
 
 def test_controllerInstantiate():
@@ -66,54 +87,124 @@ def test_controllerInstantiate():
     b = stages2beer.s2b(simpleCtrl())
     assert isinstance(b.getCtrl(), dict)
     assert 'genctrl' in b.getCtrl()
+    print myname(), "OK"
 
 
 def test_simpleStages():
-    stages = sStages()
+    stages = simpleDict()
     a = stages2beer.s2b(simpleCtrl(), stages)
     a.check()
+    print myname(), "OK"
 
 
 def test_basicThread():
     """
     Basic testing that the thread is working
     """
-    a = stages2beer.s2b(None)
+    a = stages2beer.s2b(simpleCtrl(), simpleDict())
     a.start()
     assert a.isAlive()
+    a.stop()
     a.join()
     assert not a.isAlive()
-    print "Yep, it finished"
+    print myname(), "OK"
+
+
+def test_ThreadEdgeCases():
+    a = stages2beer.s2b(None, None)
+    a.start()
+    time.sleep(0.1)
+    assert not a.isAlive()
+
+    b = stages2beer.s2b(simpleCtrl(), None)
+    b.start()
+    time.sleep(0.1)
+    assert not b.isAlive()
+
+    c = stages2beer.s2b(simpleCtrl(), {})
+    c.start()
+    time.sleep(0.1)
+    assert not c.isAlive()
+
+    d = stages2beer.s2b(None, simpleDict())
+    d.start()
+    time.sleep(0.1)
+    assert not d.isAlive()
+
+    print myname(), "OK"
 
 
 def test_quickRun():
     r = recipeReader.jsonStages(simpleStages(), simpleCtrl())
     a = stages2beer.s2b(simpleCtrl(), r.getStages())
     assert a.quickRun()
+    print myname(), "OK"
 
 
 def test_check():
     r = recipeReader.jsonStages(simpleStages(), simpleCtrl())
     a = stages2beer.s2b(simpleCtrl(), r.getStages())
     assert a.check()
+    print myname(), "OK"
 
 
 def test_getStages():
     """
-    Try different input format for stages
-       dict
-       json string
+    Try different input format for stages and read them back.
        json from recipeReader
+       json string
+       dict
     """
-    pass
+    r1 = recipeReader.jsonStages(simpleStages(), simpleCtrl())
+    a1 = stages2beer.s2b(simpleCtrl(), r1.getStages())
+    stages1 = a1.getStages()
+    assert isinstance(stages1, dict)
+    assert '1stage' in stages1
+    assert 'name' not in stages1
+
+    a2 = stages2beer.s2b(simpleCtrl(), simpleDict())
+    stages2 = a2.getStages()
+    assert isinstance(stages2, dict)
+    assert '1 stage' in stages2
+    assert 'name' not in stages2
+
+    a4 = stages2beer.s2b(simpleCtrl(), timerDict())
+    stages4 = a4.getStages()
+    assert isinstance(stages4, dict)
+    assert '1 stage' in stages4
+    assert 'name' not in stages4
+    print myname(), "OK"
+
+
+def test_runShortTimer():
+    a = stages2beer.s2b(timerCtrl(), timerDict())
+    a.start()
+    assert a.isAlive()
+    a.join()
+    assert not a.isAlive()
+    print myname(), "OK"
+
+
+def test_runStop():
+    a = stages2beer.s2b(simpleCtrl(), simpleDict())
+    a.start()
+    assert a.isAlive()
+    a.stop()
+    time.sleep(0.6)
+    assert not a.isAlive()
+    print myname(), "OK"
 
 
 if __name__ == "__main__":
+    test_runShortTimer()
+    test_runStop()
+
     test_instantiate()
     test_controllerInstantiate()
     test_simpleStages()
     test_basicThread()
+    test_ThreadEdgeCases()
     test_quickRun()
     test_check()
     test_getStages()
-    print "All is good"
+    print "====SUCCESS===="
