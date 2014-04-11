@@ -25,11 +25,14 @@ class s2b(threading.Thread):
         super(s2b, self).__init__()
 
         self.verbose = False
+        self.runOK = True
+        self.currentStage = None
 
         self.pwait = threading.Event()
         self.pwait.set()
 
         self._stopflag = threading.Event()
+        self._skipflag = threading.Event()
 
         self.controllers = controllers
 
@@ -44,27 +47,38 @@ class s2b(threading.Thread):
         for each stage loop until all targets met.
         no blocking, I.e a separate thread
         """
-        if self.stages is None:
-            return
-        if self.stages == {}:
-            return
-        if self.controllers is None:
+        self.runOK = self.check()
+
+        if not self.runOK:
             return
 
         for r_key, settings in sorted(self.stages.items()):
+            self.currentStage = r_key
             self.controllers.stop()
             self.controllers.run(settings)
+            skipone = False
             while ((not self.controllers.done()) and
-                  (not self._stopflag.isSet())):
-                self.pwait.wait()
-                self.controllers.run(settings)
-                time.sleep(0.5)
+                  (not self._stopflag.isSet()) and
+                  (not skipone)):
+                if self._skipflag.isSet():
+                    skipone = True
+                    self._skipflag.clear()
+                else:
+                    if self.paused():
+                        self.controllers.pause(settings)
+                    else:
+                        self.controllers.run(settings)
+                    time.sleep(0.5)
 
     def check(self):
         """
         Simple check to validate that the recipe uses controllers
         in the controller list.
         """
+        if self.stages == {}:
+            return(False)
+        if self.controllers is None:
+            return(False)
         if self.stages is not None:
             for r_key, settings in sorted(self.stages.items()):
                 if not self.controllers.check(settings):
@@ -103,29 +117,60 @@ class s2b(threading.Thread):
     def paused(self):
         return not self.pwait.isSet()
 
+    def skip(self):
+        self._skipflag.set()
+
     def getCtrl(self):
+        """
+        Returns the controller dict object.
+        Mostly for testing purposes
+        """
         return(self.controllers)
 
     def getStages(self):
+        """
+        Returns all the stages read in
+        Mostly for testing purposes
+        """
         return(self.stages)
 
-    def isError(self):
-        return(False)
-
-    def resetError(self):
-        pass
-
-    def setError(self):
-        pass
-
-    def skip(self):
-        pass
+    def getStage(self):
+        """
+        Returns the current stage
+        """
+        return(self.currentStage)
 
     def getStatus(self):
-        return({})
+        """
+        Returns the status of the controllers
+        This should be checked for thread safeness
+        """
+        statusNow = self.controllers.status()
+        return(statusNow)
 
     def HWOK(self):
-        return(False)
+        return(self.controllers.HWOK())
 
-    def setLogOutput(self, file_handle):
-        pass
+#    def isError(self):
+#        return(False)
+#
+#    def resetError(self):
+#        pass
+#
+#    def setError(self):
+#        pass
+#
+#    def printCrumb(self):
+#        if myData.getError():
+#            crumb = 'E'
+#        elif myData.getPause():
+#            crumb = 'P'
+#        else:
+#            crumb = '.'
+#
+#        sys.stdout.write(crumb)
+#        sys.stdout.flush()
+#        return({})
+#
+#    def setLogOutput(self, file_handle):
+#        pass

@@ -40,13 +40,36 @@ def simpleDict():
             }
         }
     }
-
     return(stages)
 
 
 def timerDict():
     td = {
         "1 stage": {
+            "timer": {
+                "active": True,
+                "targetValue": 0.01
+            }
+        }
+    }
+    return td
+
+
+def multiTimerDict():
+    td = {
+        "1 stage": {
+            "timer": {
+                "active": True,
+                "targetValue": 0.01
+            }
+        },
+        "2 stage": {
+            "timer": {
+                "active": True,
+                "targetValue": 0.01
+            }
+        },
+        "3 stage": {
             "timer": {
                 "active": True,
                 "targetValue": 0.01
@@ -185,6 +208,15 @@ def test_runShortTimer():
     print myname(), "OK"
 
 
+def test_runLongTimer():
+    a = stages2beer.s2b(timerCtrl(), multiTimerDict())
+    a.start()
+    assert a.isAlive()
+    a.join()
+    assert not a.isAlive()
+    print myname(), "OK"
+
+
 def test_runStop():
     a = stages2beer.s2b(simpleCtrl(), simpleDict())
     a.start()
@@ -195,9 +227,43 @@ def test_runStop():
     print myname(), "OK"
 
 
+def test_runPause():
+    a = stages2beer.s2b(timerCtrl(), timerDict())
+    a.start()
+    assert a.isAlive()
+    a.pause()
+    time.sleep(0.6)
+    assert a.isAlive()
+    a.unpause()
+    a.join()
+    assert not a.isAlive()
+    print myname(), "OK"
+
+
+def test_runSkip():
+    a = stages2beer.s2b(simpleCtrl(), simpleDict())
+    a.start()
+    assert a.isAlive()
+    a.skip()
+    a.join()
+    assert not a.isAlive()
+    print myname(), "OK"
+
+
+def test_checkStage():
+    a = stages2beer.s2b(timerCtrl(), timerDict())
+    assert a.getStage() is None
+    a.start()
+    time.sleep(0.1)
+    a.pause()
+    assert a.getStage() == "1 stage"
+    a.unpause()
+    a.join()
+    assert not a.isAlive()
+    print myname(), "OK"
+
+
 if __name__ == "__main__":
-    test_runShortTimer()
-    test_runStop()
 
     test_instantiate()
     test_controllerInstantiate()
@@ -207,4 +273,10 @@ if __name__ == "__main__":
     test_quickRun()
     test_check()
     test_getStages()
+    test_runShortTimer()
+    test_runLongTimer()
+    test_runStop()
+    test_runPause()
+    test_runSkip()
+    test_checkStage()
     print "====SUCCESS===="
