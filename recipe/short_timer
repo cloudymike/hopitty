@@ -1,0 +1,14 @@
+{
+"name":"short_timer",
+  "recipe":   {
+    "1 05s":{
+      "delayTimer":0.08
+    },
+    "2 10s": {
+     "delayTimer":0.167
+    },
+    "3 05s": {
+      "delayTimer":0.08
+    }
+  }
+}

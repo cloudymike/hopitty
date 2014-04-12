@@ -13,14 +13,16 @@ Contents:
 
    appliances
    bottleweb
+   checker
    ctrl
    dataMemcache
    hoplog
    recipelistmgr
    recipeReader
+   runbottle
    runctrl
    runscan
-   runbottle
+   runthread
    unerror
    sensors
    stages2beer

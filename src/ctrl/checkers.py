@@ -45,7 +45,6 @@ def checkRecipeVsController(mycontrollers, recipe, verbose):
     """
     if recipe is not None:
         for r_key, settings in sorted(recipe.items()):
-            print r_key
             if verbose:
                 print r_key
             if not mycontrollers.check(settings):
