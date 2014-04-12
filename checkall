@@ -20,7 +20,19 @@ fi
 echo "BeerSmith bsmx test.."
 ./testbsmx > /dev/null
 if [ "$?" != "0" ]; then
-    echo "!!!!!!!!!! Recipe Tests Failed !!!!!!!!!!"
+    echo "!!!!!!!!!! BeerSmith Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+echo "Recipe test with thread version.."
+./threadrecipe > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Thread Recipe Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+echo "Thread BeerSmith bsmx test.."
+./threadbsmx > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Thread BeerSmith Tests Failed !!!!!!!!!!"
     exit 1
 fi
 echo "Testing HW specific software..."

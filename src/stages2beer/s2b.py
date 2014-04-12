@@ -70,6 +70,9 @@ class s2b(threading.Thread):
                         self.controllers.run(settings)
                     time.sleep(0.5)
 
+    def OK(self):
+        return(self.runOK)
+
     def check(self):
         """
         Simple check to validate that the recipe uses controllers
