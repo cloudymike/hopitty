@@ -143,6 +143,7 @@ def test_checkHotwaterVolume():
     c = checker.equipment(mediumCtrl(), s)
     c.updateEquipmentItem('maxTotalInVol', 0.5)
     assert not c.check()
+
     t = {"1": {"hotWaterPump": {"active": True, "targetValue": 1.0}},
          "2": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
     d = checker.equipment(mediumCtrl(), t)
@@ -150,29 +151,28 @@ def test_checkHotwaterVolume():
 
     e = checker.equipment(mediumCtrl(), t)
     e.updateEquipmentItem('maxTotalInVol', 1.5)
-    assert not e._equipment__checkHotwaterVolume()
+    assert not e.check()
     print myname(), "OK"
 
 
-def test_checkSomething():
+def test_checkHotwaterHeaterVolume():
     a = checker.equipment(simpleCtrl(), simpleDict())
-    assert a._equipment__checkHotwaterVolume()
+    assert a.check()
 
     s = {"1s": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
     b = checker.equipment(mediumCtrl(), s)
-    assert b._equipment__checkHotwaterVolume()
+    assert b.check()
 
     c = checker.equipment(mediumCtrl(), s)
-    c.updateEquipmentItem('maxTotalInVol', 0.5)
-    assert not c._equipment__checkHotwaterVolume()
-    t = {"1": {"hotWaterPump": {"active": True, "targetValue": 1.0}},
-         "2": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
-    d = checker.equipment(mediumCtrl(), t)
-    assert d._equipment__checkHotwaterVolume()
+    c.updateEquipmentItem('maxInfusionVol', 0.5)
+    assert c.check()
 
-    e = checker.equipment(mediumCtrl(), t)
-    e.updateEquipmentItem('maxTotalInVol', 1.5)
-    assert not e._equipment__checkHotwaterVolume()
+    s2 = {"1hw": {"hotWaterPump": {"active": True, "targetValue": 1.0},
+                  "waterHeater": {"active": True, "targetValue": 165}}}
+    c2 = checker.equipment(mediumCtrl(), s2)
+    c2.updateEquipmentItem('maxInfusionVol', 0.5)
+    assert not c2.check()
+
     print myname(), "OK"
 
 
@@ -182,5 +182,6 @@ if __name__ == "__main__":
     test_check_checkRecipeVsController()
     test_checkBoilVolume()
     test_checkHotwaterVolume()
+    test_checkHotwaterHeaterVolume()
 
     print "=====SUCCESS!====="

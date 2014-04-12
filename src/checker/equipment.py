@@ -86,6 +86,9 @@ class equipment(object):
         if not self.__checkHotwaterVolume():
             print "Check Fail: HotwaterVolume"
             return(False)
+        if not self.__checkHotwaterHeaterVolume():
+            print "Check Fail: HotwaterVolume"
+            return(False)
         return(True)
 
     def __checkRecipeVsController(self):
@@ -113,12 +116,23 @@ class equipment(object):
         totHWVol = 0.0
         if self.stages is not None:
             for s_key, settings in sorted(self.stages.items()):
-                print "Stage ", s_key
-                print "Equipment in use ", settings
                 for e_key, e_val in settings.items():
-                    print "Appliance ", e_key
                     if e_key == 'hotWaterPump':
                         totHWVol = totHWVol + float(e_val['targetValue'])
-        print "Total HW volume", totHWVol
-        print "Max HW volume", self.equipmentdata['maxTotalInVol']
         return(totHWVol <= self.equipmentdata['maxTotalInVol'])
+
+    def __checkHotwaterHeaterVolume(self):
+        """
+        Check that the water heater is not used after water is below
+        water heater element.
+        """
+        totHWVol = 0.0
+        if self.stages is not None:
+            for s_key, settings in sorted(self.stages.items()):
+                for e_key, e_val in settings.items():
+                    if e_key == 'hotWaterPump':
+                        totHWVol = totHWVol + float(e_val['targetValue'])
+                    if e_key == 'waterHeater':
+                        if (totHWVol > self.equipmentdata['maxInfusionVol']):
+                            return(False)
+        return(True)
