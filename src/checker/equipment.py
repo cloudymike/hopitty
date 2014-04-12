@@ -31,7 +31,19 @@ Created on Apr 12, 2014
 </F_R_EQUIPMENT>
 """
 
+"""
+maxInfusionVol = 18  # quarts, before it goes below heater element
+maxTotalInVol = 26  # quarts, before it goes below out spigot
+tunDeadSpaceMin = 0.19
+boilerVolumeMax = 17
+maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
+"""
+
 defaultEquipment = {}
+defaultEquipment['NAME'] = 'Grain 3G, 5Gcooler, 5Gpot'
+defaultEquipment['boilerVolumeMax'] = 17  # Max quarts in boiler
+defaultEquipment['maxTotalInVol'] = 26  # quarts, in hw tun
+defaultEquipment['maxInfusionVol'] = 18  # quarts, in hw tun above heater
 
 
 class equipment(object):
@@ -50,10 +62,29 @@ class equipment(object):
         self.controllers = controllers
         self.stages = stages
         self.ingredients = ingredients
-        self.equipmentdata = equipmentdata
+        self.equipmentdata = equipmentdata.copy()
+
+    def updateEquipmentItem(self, equipment, value):
+        """
+        Update an individual equipments value
+        If the equipment does not exist, return false
+        This helps finding mistakes by mistyped strings
+        """
+        if equipment in self.equipmentdata:
+            self.equipmentdata[equipment] = value
+            return(True)
+        else:
+            return(False)
 
     def check(self):
         if not self.__checkRecipeVsController():
+            print "Check Fail: RecipeVsController"
+            return(False)
+        if not self.__checkBoilVolume():
+            print "Check Fail: BoilVolume"
+            return(False)
+        if not self.__checkHotwaterVolume():
+            print "Check Fail: HotwaterVolume"
             return(False)
         return(True)
 
@@ -68,3 +99,26 @@ class equipment(object):
                     return(False)
             return(True)
         return(False)
+
+    def __checkBoilVolume(self):
+        totBoilVol = 0.0
+        if self.stages is not None:
+            for s_key, settings in sorted(self.stages.items()):
+                for e_key, e_val in settings.items():
+                    if e_key == 'wortPump':
+                        totBoilVol = totBoilVol + float(e_val['targetValue'])
+        return(totBoilVol <= self.equipmentdata['boilerVolumeMax'])
+
+    def __checkHotwaterVolume(self):
+        totHWVol = 0.0
+        if self.stages is not None:
+            for s_key, settings in sorted(self.stages.items()):
+                print "Stage ", s_key
+                print "Equipment in use ", settings
+                for e_key, e_val in settings.items():
+                    print "Appliance ", e_key
+                    if e_key == 'hotWaterPump':
+                        totHWVol = totHWVol + float(e_val['targetValue'])
+        print "Total HW volume", totHWVol
+        print "Max HW volume", self.equipmentdata['maxTotalInVol']
+        return(totHWVol <= self.equipmentdata['maxTotalInVol'])

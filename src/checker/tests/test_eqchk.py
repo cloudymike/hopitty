@@ -5,7 +5,7 @@ Created on Apr 12, 2014
 
 testing of equipment checker, module eqchk
 '''
-
+import inspect
 import checker
 import ctrl
 import appliances
@@ -72,6 +72,19 @@ def simpleStages():
     return(stages)
 
 
+def mediumCtrl():
+    """Instantiate a list of several controllers"""
+    ctrl1 = ctrl.controllerList()
+    ctrl1.addController('genctrl', appliances.genctrl())
+    ctrl1.addController('timer', appliances.hoptimer())
+    ctrl1.addController('hotWaterPump', appliances.hwPump())
+    ctrl1.addController('circulationPump', appliances.circulationPump())
+    ctrl1.addController('wortPump', appliances.wortPump())
+    ctrl1.addController('heater', appliances.hotWaterTun.hwt())
+    ctrl1.addController('boiler', appliances.boiler())
+    return(ctrl1)
+
+
 def test_instantiate():
     """
     Slightly silly test but a minimum to start with
@@ -80,6 +93,7 @@ def test_instantiate():
     assert a is not None
     b = checker.equipment(simpleCtrl(), simpleDict())
     assert b is not None
+    print myname(), "OK"
 
 
 def test_check_checkRecipeVsController():
@@ -92,10 +106,81 @@ def test_check_checkRecipeVsController():
     assert b.check()
     c = checker.equipment(simpleCtrl(), simpleBadDict())
     assert not c.check()
+    print myname(), "OK"
+
+
+def test_checkBoilVolume():
+    a = checker.equipment(simpleCtrl(), simpleDict())
+    assert a.check()
+
+    s1 = {"1s": {"wortPump": {"active": True, "targetValue": 1.0}}}
+    b = checker.equipment(mediumCtrl(), s1)
+    assert b.check()
+
+    c = checker.equipment(mediumCtrl(), s1)
+    c.updateEquipmentItem('boilerVolumeMax', 0.5)
+    assert not c.check()
+
+    s2 = {"1": {"wortPump": {"active": True, "targetValue": 1.0}},
+          "2": {"wortPump": {"active": True, "targetValue": 1.0}}}
+    d = checker.equipment(mediumCtrl(), s2)
+    assert d.check()
+
+    e = checker.equipment(mediumCtrl(), s2)
+    e.updateEquipmentItem('boilerVolumeMax', 1.5)
+    assert not e.check()
+    print myname(), "OK"
+
+
+def test_checkHotwaterVolume():
+    a = checker.equipment(simpleCtrl(), simpleDict())
+    assert a.check()
+
+    s = {"1s": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
+    b = checker.equipment(mediumCtrl(), s)
+    assert b.check()
+
+    c = checker.equipment(mediumCtrl(), s)
+    c.updateEquipmentItem('maxTotalInVol', 0.5)
+    assert not c.check()
+    t = {"1": {"hotWaterPump": {"active": True, "targetValue": 1.0}},
+         "2": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
+    d = checker.equipment(mediumCtrl(), t)
+    assert d.check()
+
+    e = checker.equipment(mediumCtrl(), t)
+    e.updateEquipmentItem('maxTotalInVol', 1.5)
+    assert not e._equipment__checkHotwaterVolume()
+    print myname(), "OK"
+
+
+def test_checkSomething():
+    a = checker.equipment(simpleCtrl(), simpleDict())
+    assert a._equipment__checkHotwaterVolume()
+
+    s = {"1s": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
+    b = checker.equipment(mediumCtrl(), s)
+    assert b._equipment__checkHotwaterVolume()
+
+    c = checker.equipment(mediumCtrl(), s)
+    c.updateEquipmentItem('maxTotalInVol', 0.5)
+    assert not c._equipment__checkHotwaterVolume()
+    t = {"1": {"hotWaterPump": {"active": True, "targetValue": 1.0}},
+         "2": {"hotWaterPump": {"active": True, "targetValue": 1.0}}}
+    d = checker.equipment(mediumCtrl(), t)
+    assert d._equipment__checkHotwaterVolume()
+
+    e = checker.equipment(mediumCtrl(), t)
+    e.updateEquipmentItem('maxTotalInVol', 1.5)
+    assert not e._equipment__checkHotwaterVolume()
+    print myname(), "OK"
 
 
 if __name__ == "__main__":
 
     test_instantiate()
     test_check_checkRecipeVsController()
-    print "=====SUCCESS====="
+    test_checkBoilVolume()
+    test_checkHotwaterVolume()
+
+    print "=====SUCCESS!====="
