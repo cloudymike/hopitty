@@ -25,7 +25,7 @@ class boiler(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        print 'Powering down'
+        #print 'Powering down'
 
     def setx(self, x10):
         self.x10 = x10

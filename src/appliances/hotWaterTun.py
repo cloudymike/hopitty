@@ -19,7 +19,7 @@ class hwt(appliances.genctrl):
 
     def __del__(self):
         self.stop()
-        print 'Powering down'
+        #print 'Powering down'
 
     def setx(self, x10):
         self.x10 = x10

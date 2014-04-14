@@ -19,7 +19,7 @@ class cooler(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        print 'Powering down'
+        #print 'Powering down'
 
     def connectSwitch(self, switch):
         self.coolerSwitch = switch

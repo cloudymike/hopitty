@@ -89,6 +89,12 @@ class equipment(object):
         if not self.__checkHotwaterHeaterVolume():
             print "Check Fail: HotwaterVolume"
             return(False)
+        if not self.__checkBoilerAndWaterHeater():
+            print "Check Fail: water Heater and boiler on in same stage"
+            return(False)
+        if not self.__checkPumpsNoOverlap():
+            print "Check Fail: pumps overlapping"
+            return(False)
         return(True)
 
     def __checkRecipeVsController(self):
@@ -135,4 +141,46 @@ class equipment(object):
                     if e_key == 'waterHeater':
                         if (totHWVol > self.equipmentdata['maxInfusionVol']):
                             return(False)
+        return(True)
+
+    def __checkBoilerAndWaterHeater(self):
+        """
+        Check that Boiler and WaterHeater is not on in the same step.
+        """
+        for r_key, settings in sorted(self.stages.items()):
+            try:
+                waterHeater = int(settings['waterHeater']['targetValue']) != 0
+            except:
+                waterHeater = False
+            try:
+                boiler = int(settings['boiler']['targetValue']) != 0
+            except:
+                boiler = False
+            if waterHeater and boiler:
+                return(False)
+        return(True)
+
+    def __checkPumpsNoOverlap(self):
+        """
+        Checks hardware conditions that should be met
+        If any is false return false
+        Default is true
+        """
+        for r_key, settings in sorted(self.stages.items()):
+            try:
+                hwp = int(settings['hotWaterPump']['targetValue']) != 0
+            except:
+                hwp = False
+            try:
+                wortPump = int(settings['wortPump']['targetValue']) != 0
+            except:
+                wortPump = False
+            try:
+                cp = int(settings['circulationPump']['targetValue']) != 0
+            except:
+                cp = False
+            if hwp and wortPump:
+                return(False)
+            if hwp and cp:
+                return(False)
         return(True)

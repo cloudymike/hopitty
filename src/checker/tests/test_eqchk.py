@@ -11,8 +11,8 @@ import ctrl
 import appliances
 
 
-def myname():
-    return(inspect.stack()[1][3])
+def printMyname():
+    print "....................", inspect.stack()[1][3]
 
 
 def simpleCtrl():
@@ -80,7 +80,7 @@ def mediumCtrl():
     ctrl1.addController('hotWaterPump', appliances.hwPump())
     ctrl1.addController('circulationPump', appliances.circulationPump())
     ctrl1.addController('wortPump', appliances.wortPump())
-    ctrl1.addController('heater', appliances.hotWaterTun.hwt())
+    ctrl1.addController('waterHeater', appliances.hotWaterTun.hwt())
     ctrl1.addController('boiler', appliances.boiler())
     return(ctrl1)
 
@@ -93,7 +93,7 @@ def test_instantiate():
     assert a is not None
     b = checker.equipment(simpleCtrl(), simpleDict())
     assert b is not None
-    print myname(), "OK"
+    printMyname()
 
 
 def test_check_checkRecipeVsController():
@@ -106,7 +106,7 @@ def test_check_checkRecipeVsController():
     assert b.check()
     c = checker.equipment(simpleCtrl(), simpleBadDict())
     assert not c.check()
-    print myname(), "OK"
+    printMyname()
 
 
 def test_checkBoilVolume():
@@ -129,7 +129,7 @@ def test_checkBoilVolume():
     e = checker.equipment(mediumCtrl(), s2)
     e.updateEquipmentItem('boilerVolumeMax', 1.5)
     assert not e.check()
-    print myname(), "OK"
+    printMyname()
 
 
 def test_checkHotwaterVolume():
@@ -152,7 +152,7 @@ def test_checkHotwaterVolume():
     e = checker.equipment(mediumCtrl(), t)
     e.updateEquipmentItem('maxTotalInVol', 1.5)
     assert not e.check()
-    print myname(), "OK"
+    printMyname()
 
 
 def test_checkHotwaterHeaterVolume():
@@ -173,10 +173,72 @@ def test_checkHotwaterHeaterVolume():
     c2.updateEquipmentItem('maxInfusionVol', 0.5)
     assert not c2.check()
 
-    print myname(), "OK"
+    printMyname()
+
+
+def test_checkBoilerAndWaterHeater():
+    """
+    Test that boiler and water heater is not on at the same time
+    For initial equipment that would use too much electrical power
+    """
+    sa = {"1s": {"waterHeater": {"active": True, "targetValue": 165}}}
+    a = checker.equipment(mediumCtrl(), sa)
+    assert a.check()
+
+    sb = {"1s": {"boiler": {"active": True, "targetValue": 165}}}
+    b = checker.equipment(mediumCtrl(), sb)
+    assert b.check()
+
+    sc = {"1s": {"waterHeater": {"active": True, "targetValue": 165},
+                 "boiler": {"active": True, "targetValue": 165}}}
+    c = checker.equipment(mediumCtrl(), sc)
+    assert not c.check()
+
+    printMyname()
+
+
+def test_checkPumpsNoOverlap():
+    """
+    Test that recipe and stages has to match
+    """
+    sa = {"1s": {"hotWaterPump": {"active": True, "targetValue": 1}}}
+    a = checker.equipment(mediumCtrl(), sa)
+    assert a.check()
+
+    sb = {"1s": {"wortPump": {"active": True, "targetValue": 1}}}
+    b = checker.equipment(mediumCtrl(), sb)
+    assert b.check()
+
+    sc = {"1s": {"circulationPump": {"active": True, "targetValue": 1}}}
+    c = checker.equipment(mediumCtrl(), sc)
+    assert c.check()
+
+    sd = {"1s": {"hotWaterPump": {"active": True, "targetValue": 1},
+                 "wortPump": {"active": True, "targetValue": 1}}}
+    d = checker.equipment(mediumCtrl(), sd)
+    assert not d.check()
+
+    se = {"1s": {"hotWaterPump": {"active": True, "targetValue": 1},
+                 "circulationPump": {"active": True, "targetValue": 1}}}
+    e = checker.equipment(mediumCtrl(), se)
+    assert not e.check()
+
+    printMyname()
+
+
+def test_template():
+    """
+    Test template
+    """
+    sa = {"1s": {"waterHeater": {"active": True, "targetValue": 165}}}
+    a = checker.equipment(mediumCtrl(), sa)
+    assert a._equipment__checkBoilerAndWaterHeater()
+    printMyname()
 
 
 if __name__ == "__main__":
+    test_checkPumpsNoOverlap()
+    test_checkBoilerAndWaterHeater()
 
     test_instantiate()
     test_check_checkRecipeVsController()
