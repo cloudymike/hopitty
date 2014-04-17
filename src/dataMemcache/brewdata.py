@@ -180,6 +180,24 @@ class brewData(object):
             return(False)
         return(skipStatus == 'True')
 
+    def setTerminate(self, value):
+        """
+        Hard terminate, stop all and exit.
+        """
+        if value:
+            self.setToMemcache('terminate', 'True')
+        else:
+            self.setToMemcache('terminate', 'False')
+
+    def getTerminate(self):
+        """
+        Hard terminate, if true stop all and exit.
+        """
+        skipStatus = self.getFromMemcache('terminate')
+        if skipStatus is None:
+            return(False)
+        return(skipStatus == 'True')
+
     def addToRecipe(self, ingredience, amount, container, unit='oz'):
         recipe = self.getRecipe()
         recipeItem = [ingredience, amount, container, unit]
