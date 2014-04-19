@@ -41,6 +41,9 @@ class s2b(threading.Thread):
         else:
             self.stages = None
 
+#    def __del__(self):
+#        print "s2b died", self.name
+
     def run(self):
         """
         Main run loop. Go through each stage of recipe and
@@ -57,7 +60,7 @@ class s2b(threading.Thread):
             self.controllers.stop()
             self.controllers.run(settings)
             skipone = False
-            while ((not self.controllers.done()) and
+            while ((not self.controllers.done() or self.paused()) and
                   (not self._stopflag.isSet()) and
                   (not skipone)):
                 if self._skipflag.isSet():

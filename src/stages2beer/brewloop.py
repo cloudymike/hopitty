@@ -25,39 +25,58 @@ class brewloop(threading.Thread):
         self.loopdelay = loopdelay
         self._stopflag = threading.Event()
         self.myData = datastore.brewData()
-        self.sb = None
+        self.sb = stages2beer.s2b()
+        self.wasRunning = False
 
     def run(self):
-        print "going"
         crumb = '.'
+        self.wasRunning = False
         while(not self._stopflag.isSet()):
             if self.myData.getTerminate():
                 crumb = 't'
                 self._stopflag.set()
-            if self.sb is None:
-                crumb = 's'
-                if self.myData.getCtrlRunning():
-                    self.sb = stages2beer.s2b(self.controllers,
-                                              self.myData.getCurrentRecipe())
-                    self.sb.start()
-            if (self.sb is not None) and (not self.sb.isAlive()):
-                crumb = 'S'
-                self.sb = None
-                self.myData.setCtrlRunning(False)
-            if self.sb is not None:
+            if self.sb.isAlive():
+                """
+                Thread is running, read data and control thread
+                This is the main activity section
+                """
+                self.wasRunning = True
                 crumb = 'r'
                 self.myData.setCurrentStage(self.sb.getStage())
                 if self.myData.getSkip():
                     self.myData.setSkip(False)
                     self.sb.skip()
+                if self.myData.getPause():
+                    self.sb.pause()
+                    crumb = 'p'
+                else:
+                    self.sb.unpause()
+            else:
+                """
+                If thread just stopped, set CtrlRunning to False, else
+                read setCtrlRunning to see if it is time to start again.
+                """
+                if self.wasRunning:
+                    crumb = 'S'
+                    self.myData.setCtrlRunning(False)
+                    self.wasRunning = False
+                else:
+                    crumb = 's'
+                    if self.myData.getCtrlRunning():
+                        self.sb = \
+                            stages2beer.s2b(self.controllers,
+                                            self.myData.getCurrentRecipe())
+                        self.sb.start()
 
             sys.stdout.write(crumb)
             sys.stdout.flush()
 
             time.sleep(self.loopdelay)
+
         if self.sb is not None:
             self.sb.stop()
             self.sb.join()
+        print ""
 
     def stop(self):
         self._stopflag.set()

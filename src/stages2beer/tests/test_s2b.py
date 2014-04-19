@@ -232,7 +232,7 @@ def test_runPause():
     a.start()
     assert a.isAlive()
     a.pause()
-    time.sleep(0.6)
+    time.sleep(2)
     assert a.isAlive()
     a.unpause()
     a.join()

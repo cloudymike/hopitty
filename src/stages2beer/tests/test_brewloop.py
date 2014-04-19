@@ -7,6 +7,7 @@ import recipeReader
 import inspect
 import time
 import dataMemcache as datastore
+import sys
 
 
 def printMyName():
@@ -54,8 +55,14 @@ def test_stop():
     """
     Test that stop method and stopflag event works
     """
-    bl = stages2beer.brewloop()
+    md = datastore.brewData()
+    md.setTerminate(False)
+    bl = stages2beer.brewloop(timerCtrl())
     bl.start()
+    md.setCurrentRecipe(timerDict())
+    md.setCtrlRunning(True)
+    time.sleep(0.5)
+    assert bl.isAlive()
     bl.stop()
     bl.join(5)
     assert not bl.isAlive()
@@ -138,11 +145,56 @@ def test_runSkip():
     printMyName()
 
 
+def test_runPause():
+    """
+    Test skipping
+    """
+    s = {"1 stage": {"timer": {"active": True, "targetValue": 0.1}},
+         "2 stage": {"timer": {"active": True, "targetValue": 1}}}
+    md = datastore.brewData()
+    resetData(md)
+    bl = stages2beer.brewloop(timerCtrl())
+    bl.start()
+    md.setCurrentRecipe(s)
+    md.setCtrlRunning(True)
+    md.setPause(True)
+    print md.getPause()
+    time.sleep(2)
+    assert md.getCurrentStage() == '1 stage'
+    time.sleep(6)
+    assert md.getCurrentStage() == '1 stage'
+    md.setPause(False)
+
+    md.setCtrlRunning(False)
+    bl.stop()
+    bl.join()
+    assert not bl.isAlive()
+    printMyName()
+
+
+def test_threadUpAndDown():
+    """
+    Test that reassign of name works
+    """
+    a = stages2beer.s2b(timerCtrl(), timerDict())
+    a.start()
+    assert a.isAlive()
+    a.stop()
+    a.join()
+    assert not a.isAlive()
+    print a
+    a = stages2beer.s2b()
+    print a
+    printMyName()
+
+
 if __name__ == "__main__":
-    print threading.activeCount()
+    test_runPause()
+    test_threadUpAndDown()
+    #print threading.activeCount()
     test_stop()
-    print threading.activeCount()
-    print threading.enumerate()
+    #print threading.activeCount()
+    #print threading.enumerate()
     test_instantiate()
     test_runSkip()
     test_runFast()
