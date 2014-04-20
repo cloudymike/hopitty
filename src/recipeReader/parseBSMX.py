@@ -4,6 +4,8 @@ import ctrl
 import sys
 import mashProfiles
 import dataMemcache
+import getopt
+import json
 
 
 class bsmxStages():
@@ -50,6 +52,8 @@ class bsmxStages():
                 self.stages = mashProfiles.txBSMXtoStages(self)
             except:
                 self.valid = False
+        if self.valid:
+            self.valid = self.validateRecipe()
 
     def __del__(self):
         pass
@@ -84,10 +88,19 @@ class bsmxStages():
         return(self.valid)
 
     def validateRecipe(self):
+        """
+        Simple validation that all appliances in recipe stages
+        are also present in the controller.
+        """
+        if self.ctrl == None:
+            return(self.stages == None)
+        if self.stages == None:
+            return(True)
         retval = True
+
         for s_key, stage in self.stages.items():
             for c_key, ctrlType in stage.items():
-                if not c_key in self.ctrlList:
+                if not c_key in self.ctrl:
                     retval = False
         return(retval)
 
@@ -261,82 +274,4 @@ def bsmxReadString(doc, tagName):
     recipeString = recipeStringNode[0].firstChild.nodeValue
     return(recipeString)
 
-
-#def bsmxReadDispenseOld(doc):
-#    boiltime = bsmxReadString(doc, "F_E_BOIL_TIME")
-#    addTimes = []
-#
-#    print "boiltime", boiltime
-    # Find hop additions times
-#    tagName = "F_H_BOIL_TIME"
-#    additions = doc.getElementsByTagName(tagName)
-#    for addItem in additions:
-#        at = addItem.firstChild.nodeValue
-        # if at != boiltime:
-#        addTimes.append(float(at))
-#
-    # Find misc additions times
-#    tagName = "F_M_TIME"
-#    additions = doc.getElementsByTagName(tagName)
-#    for addItem in additions:
-#        at = addItem.firstChild.nodeValue
-        # if at != boiltime:
-#        addTimes.append(float(at))
-
-#    dedupedAddTimes = list(set(addTimes))
-#    dedupedAddTimes.sort(reverse=True)
-
-#    print dedupedAddTimes
-#    return(dedupedAddTimes)
-
-
-#def setDict(val):
-#    t = {}
-#    t['targetValue'] = val
-#    t['active'] = True
-#    return(t)
-
-
-#def stageCtrl(controllers):
-#    settings = {}
-    # This is a little clumsy, but during refactoring keep the option of dict
-#    if isinstance(controllers, dict):
-#        for c_key, c in controllers.items():
-#            s = {}
-#            s['targetValue'] = 0
-#            s['active'] = False
-#            settings[c_key] = s
-#    elif isinstance(controllers, list):
-#        for c_key in controllers:
-#            s = {}
-#            s['targetValue'] = 0
-#            s['active'] = False
-#            settings[c_key] = s
-#    else:
-#        print "What the heck is controllers?"
-
-#    return(settings)
-
-
-#def bsmxReadName(doc):
-#    name = bsmxReadString(doc, "F_R_NAME")
-#    return(name)
-
-
-#def prettyPrintStages(stages):
-#    for stage, step in sorted(stages.items()):
-#        print stage
-#        for ctrl, val in step.items():
-#            if val['active']:
-#                print "    ", ctrl, ":", val['targetValue']
-
-
-#def bsmxGrains2Recipe(doc):
-#    d = dataMemcache.brewData()
-#    tagName = 'Grain'
-#    hops = doc.getElementsByTagName(tagName)
-#    for hop in hops:
-#        name = hop.getElementsByTagName("F_G_NAME")[0].firstChild.nodeValue
-#        weight = round(float(hop.getElementsByTagName("F_G_AMOUNT")[0].
-#                       firstChild.nodeValue), 2)
-#        d.addToRecipe(name, weight, 'mashtun')
+    

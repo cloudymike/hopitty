@@ -2,7 +2,8 @@ import os
 import recipeReader
 import inspect
 import xml.dom.minidom
-
+import sys
+import ctrl
 
 def simpleBsmx():
     retval = """
@@ -297,7 +298,23 @@ def test_prettyPrintStages():
     print myname(), "OK"
 
 
+def test_isValid():
+    bx = recipeReader.bsmxStages(simpleBsmx(), ctrlBsmxList())
+    assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
+    assert not bx.isValid()
+    cx = recipeReader.bsmxStages(elaborateBsmx(), ctrl.setupControllers(False, True, True))
+    assert not cx.isValid()
+    cp = os.path.dirname(__file__)
+    print cp
+    rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
+    print rp
+    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True))
+    assert dx.isValid()
+    print myname(), "OK"
+
+
 if __name__ == "__main__":
+    test_isValid()
     test_init_bsmxStages_string()
     test_init_bsmxStages_file()
     test_init_bsmxStages_doc()
@@ -319,3 +336,4 @@ if __name__ == "__main__":
     test_getMisc()
     test_getHops()
     test_prettyPrintStages()
+    print "=====SUCCESS====="

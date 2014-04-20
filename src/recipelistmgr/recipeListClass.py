@@ -85,3 +85,14 @@ class recipeListClass():
 
     def len(self):
         return (len(self.list))
+
+    def removeBadRecipesList(self, controller):
+        deleteList = []
+        for key, recipeObject in self.list.items():
+            recipeBSMX = recipeObject.getBSMXdoc()
+            if not self.runner.checkBSMX(recipeBSMX):
+                deleteList.append(recipeName)
+        for deleteName in deleteList:
+            self.rl.deleteRecipe(deleteName)
+
+        self.rl.nameListToMemcache()
