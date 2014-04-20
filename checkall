@@ -23,6 +23,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! BeerSmith Tests Failed !!!!!!!!!!"
     exit 1
 fi
+echo "bsmx to stages test.."
+./testbsmx2stages > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! bsxm to stages Tests Failed !!!!!!!!!!"
+    exit 1
+fi
 echo "Recipe test with thread version.."
 ./threadrecipe > /dev/null
 if [ "$?" != "0" ]; then
