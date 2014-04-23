@@ -5,6 +5,7 @@ import xml.dom.minidom
 import sys
 import ctrl
 
+
 def simpleBsmx():
     retval = """
 <Recipes>
@@ -302,7 +303,8 @@ def test_isValid():
     bx = recipeReader.bsmxStages(simpleBsmx(), ctrlBsmxList())
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     assert not bx.isValid()
-    cx = recipeReader.bsmxStages(elaborateBsmx(), ctrl.setupControllers(False, True, True))
+    cx = recipeReader.bsmxStages(elaborateBsmx(),
+                                 ctrl.setupControllers(False, True, True))
     assert not cx.isValid()
     cp = os.path.dirname(__file__)
     print cp

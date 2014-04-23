@@ -92,9 +92,9 @@ class bsmxStages():
         Simple validation that all appliances in recipe stages
         are also present in the controller.
         """
-        if self.ctrl == None:
-            return(self.stages == None)
-        if self.stages == None:
+        if self.ctrl is None:
+            return(self.stages is None)
+        if self.stages is None:
             return(True)
         retval = True
 
@@ -273,5 +273,3 @@ def bsmxReadString(doc, tagName):
     recipeStringNode = doc.getElementsByTagName(tagName)
     recipeString = recipeStringNode[0].firstChild.nodeValue
     return(recipeString)
-
-    
