@@ -1,4 +1,4 @@
-runscan Module
+runscan module
 ==============
 
 .. automodule:: runscan

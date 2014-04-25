@@ -1,0 +1,20 @@
+#!/bin/bash
+FAIL=0
+for json in recipe/*
+do
+  echo -n "."
+  fbname=$(basename "$json" )
+  tstfile="jsonStages/$fbname.tmp"
+  goldfile="jsonStages/$fbname.golden"
+  rm -f $tstfile > /dev/null
+  src/json2stages.py -i $json -o $tstfile > /dev/null
+  diff $tstfile $goldfile > /dev/null
+  if [ "$?" != "0" ]; then
+    echo "$fbname does not match"
+    FAIL=1
+  fi
+  # Uncomment this line to make new goldfiles
+  # cp $tstfile $goldfile
+done
+echo ""
+exit $FAIL

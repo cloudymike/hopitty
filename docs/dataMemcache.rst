@@ -1,35 +1,38 @@
-dataMemcache Package
+dataMemcache package
 ====================
 
-:mod:`dataMemcache` Package
----------------------------
+Submodules
+----------
 
-.. automodule:: dataMemcache
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`brewdata` Module
-----------------------
+dataMemcache.brewdata module
+----------------------------
 
 .. automodule:: dataMemcache.brewdata
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`helloData` Module
------------------------
+dataMemcache.helloData module
+-----------------------------
 
 .. automodule:: dataMemcache.helloData
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`test_brewdata` Module
----------------------------
+dataMemcache.test_brewdata module
+---------------------------------
 
 .. automodule:: dataMemcache.test_brewdata
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: dataMemcache
+    :members:
+    :undoc-members:
+    :show-inheritance:

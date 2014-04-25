@@ -1,4 +1,4 @@
-threadscan Module
+threadscan module
 =================
 
 .. automodule:: threadscan

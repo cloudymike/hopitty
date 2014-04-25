@@ -23,6 +23,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! BeerSmith Tests Failed !!!!!!!!!!"
     exit 1
 fi
+echo "json to stages test.."
+./testjson2stages > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! json to stages Tests Failed !!!!!!!!!!"
+    exit 1
+fi
 echo "bsmx to stages test.."
 ./testbsmx2stages > /dev/null
 if [ "$?" != "0" ]; then

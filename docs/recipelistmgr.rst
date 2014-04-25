@@ -1,27 +1,30 @@
-recipelistmgr Package
+recipelistmgr package
 =====================
 
-:mod:`recipelistmgr` Package
-----------------------------
+Submodules
+----------
 
-.. automodule:: recipelistmgr
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`recipeClass` Module
--------------------------
+recipelistmgr.recipeClass module
+--------------------------------
 
 .. automodule:: recipelistmgr.recipeClass
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`recipeListClass` Module
------------------------------
+recipelistmgr.recipeListClass module
+------------------------------------
 
 .. automodule:: recipelistmgr.recipeListClass
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: recipelistmgr
+    :members:
+    :undoc-members:
+    :show-inheritance:

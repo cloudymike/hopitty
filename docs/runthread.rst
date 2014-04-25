@@ -1,4 +1,4 @@
-runthread Module
+runthread module
 ================
 
 .. automodule:: runthread

@@ -1,0 +1,176 @@
+{
+  "1": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": true,
+      "targetValue": 162
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  },
+  "2": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": true,
+      "targetValue": 4.2
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  },
+  "3": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": true,
+      "targetValue": 61
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  }
+}

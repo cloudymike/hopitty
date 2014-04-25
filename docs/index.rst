@@ -13,10 +13,12 @@ Contents:
 
    appliances
    bottleweb
+   bsmx2stages
    checker
    ctrl
    dataMemcache
    hoplog
+   json2stages
    recipelistmgr
    recipeReader
    runbottle
@@ -27,7 +29,7 @@ Contents:
    sensors
    stages2beer
    switches
-
+   threadscan
    
 
 

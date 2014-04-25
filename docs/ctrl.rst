@@ -1,51 +1,54 @@
-ctrl Package
+ctrl package
 ============
 
-:mod:`ctrl` Package
--------------------
+Submodules
+----------
 
-.. automodule:: ctrl
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`checkers` Module
-----------------------
+ctrl.checkers module
+--------------------
 
 .. automodule:: ctrl.checkers
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`controllers` Module
--------------------------
+ctrl.controllers module
+-----------------------
 
 .. automodule:: ctrl.controllers
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`findcontrollers` Module
------------------------------
+ctrl.findcontrollers module
+---------------------------
 
 .. automodule:: ctrl.findcontrollers
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`rununit` Module
----------------------
+ctrl.rununit module
+-------------------
 
 .. automodule:: ctrl.rununit
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`scanrun` Module
----------------------
+ctrl.scanrun module
+-------------------
 
 .. automodule:: ctrl.scanrun
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: ctrl
+    :members:
+    :undoc-members:
+    :show-inheritance:

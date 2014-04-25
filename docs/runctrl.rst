@@ -1,4 +1,4 @@
-runctrl Module
+runctrl module
 ==============
 
 .. automodule:: runctrl

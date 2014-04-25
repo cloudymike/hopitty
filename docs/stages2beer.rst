@@ -1,27 +1,30 @@
-stages2beer Package
+stages2beer package
 ===================
 
-:mod:`stages2beer` Package
---------------------------
+Submodules
+----------
 
-.. automodule:: stages2beer
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`brewloop` Module
-----------------------
+stages2beer.brewloop module
+---------------------------
 
 .. automodule:: stages2beer.brewloop
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`s2b` Module
------------------
+stages2beer.s2b module
+----------------------
 
 .. automodule:: stages2beer.s2b
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: stages2beer
+    :members:
+    :undoc-members:
+    :show-inheritance:

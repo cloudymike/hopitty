@@ -1,19 +1,22 @@
-checker Package
+checker package
 ===============
 
-:mod:`checker` Package
-----------------------
+Submodules
+----------
 
-.. automodule:: checker
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`equipment` Module
------------------------
+checker.equipment module
+------------------------
 
 .. automodule:: checker.equipment
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: checker
+    :members:
+    :undoc-members:
+    :show-inheritance:

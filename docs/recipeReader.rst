@@ -1,51 +1,54 @@
-recipeReader Package
+recipeReader package
 ====================
 
-:mod:`recipeReader` Package
----------------------------
+Submodules
+----------
 
-.. automodule:: recipeReader
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-:mod:`mashProfiles` Module
---------------------------
+recipeReader.mashProfiles module
+--------------------------------
 
 .. automodule:: recipeReader.mashProfiles
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`parseBSMX` Module
------------------------
+recipeReader.parseBSMX module
+-----------------------------
 
 .. automodule:: recipeReader.parseBSMX
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`readRecipe` Module
-------------------------
+recipeReader.readRecipe module
+------------------------------
 
 .. automodule:: recipeReader.readRecipe
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`test_bsmxStages` Module
------------------------------
+recipeReader.test_bsmxStages module
+-----------------------------------
 
 .. automodule:: recipeReader.test_bsmxStages
     :members:
     :undoc-members:
     :show-inheritance:
 
-:mod:`test_jsonStages` Module
------------------------------
+recipeReader.test_jsonStages module
+-----------------------------------
 
 .. automodule:: recipeReader.test_jsonStages
     :members:
     :undoc-members:
     :show-inheritance:
 
+
+Module contents
+---------------
+
+.. automodule:: recipeReader
+    :members:
+    :undoc-members:
+    :show-inheritance:
