@@ -9,14 +9,16 @@ import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
 sys.path.append("/home/mikael/workspace/hoppity/src/recipelistmgr")
 import getpass
+import os
 import recipelistmgr
+import time
 import ctrl
 import dataMemcache
+import stages2beer
 import getopt
 from os import path, access, R_OK  # W_OK for write permission.
 import checker
 import recipeReader
-import webctrl
 
 
 def usage():
@@ -58,6 +60,7 @@ def getOptions():
 
 def readRecipeFile(ctrl, recipefile=None, user=None):
     rl = recipelistmgr.recipeListClass()
+    mydata = dataMemcache.brewData()
 
     # Try to find a recipe file
     if recipefile is not None:
@@ -125,6 +128,8 @@ if __name__ == "__main__":
         sys.exit(1)
 
     # Start daemon loop
-    print "Starting brew daemon"
-    brewdaemon = webctrl.runbrew(controllers, recipelist)
+    brewdaemon = stages2beer.brewloop(controllers, recipelist, 1)
+    brewdaemon.start()
+    print "Started brew daemon"
+    brewdaemon.join()
     print 'Done!'

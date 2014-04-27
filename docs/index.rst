@@ -26,10 +26,12 @@ Contents:
    runscan
    runthread
    unerror
+   scantry1
    sensors
    stages2beer
    switches
    threadscan
+   webctrl
    
 
 

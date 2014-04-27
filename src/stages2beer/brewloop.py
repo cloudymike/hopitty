@@ -32,12 +32,13 @@ class brewloop(threading.Thread):
         self.myData = datastore.brewData()
         self.sb = stages2beer.s2b()
         self.wasRunning = False
-        self.verbose = False
+        self.verbose = True
         self.stages = {}
         self.recipelist = recipelist
 
     def run(self):
         crumb = '.'
+        print "starting brewloop"
         self.wasRunning = False
         while(not self._stopflag.isSet()):
             if self.myData.getTerminate():
@@ -112,6 +113,7 @@ class brewloop(threading.Thread):
             self.sb.stop()
             self.sb.join()
         print ""
+        print "brewloop stopped"
 
     def stop(self):
         self._stopflag.set()

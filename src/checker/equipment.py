@@ -87,7 +87,7 @@ class equipment(object):
             print "Check Fail: HotwaterVolume"
             return(False)
         if not self.__checkHotwaterHeaterVolume():
-            print "Check Fail: HotwaterVolume"
+            print "Check Fail: Hotwater above Heater Volume"
             return(False)
         if not self.__checkBoilerAndWaterHeater():
             print "Check Fail: water Heater and boiler on in same stage"
@@ -125,7 +125,11 @@ class equipment(object):
                 for e_key, e_val in settings.items():
                     if e_key == 'hotWaterPump':
                         totHWVol = totHWVol + float(e_val['targetValue'])
-        return(totHWVol <= self.equipmentdata['maxTotalInVol'])
+        if totHWVol > self.equipmentdata['maxTotalInVol']:
+            print "Hot water volume:", totHWVol
+            return(False)
+        else:
+            return(True)
 
     def __checkHotwaterHeaterVolume(self):
         """
@@ -138,8 +142,9 @@ class equipment(object):
                 for e_key, e_val in settings.items():
                     if e_key == 'hotWaterPump':
                         totHWVol = totHWVol + float(e_val['targetValue'])
-                    if e_key == 'waterHeater':
+                    if (e_key == 'waterHeater') and (e_val['active']):
                         if (totHWVol > self.equipmentdata['maxInfusionVol']):
+                            print "Hot water above heater volume:", totHWVol
                             return(False)
         return(True)
 

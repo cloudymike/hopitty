@@ -23,6 +23,13 @@ class recipeListClass():
     def getlist(self):
         return(self.list)
 
+    def getNameList(self):
+        """ Writes a list of all the recipe names"""
+        mylist = []
+        for key, recipe in self.list.items():
+            mylist.append(key)
+        return(mylist)
+
     def getRecipe(self, name):
         try:
             recipe = self.list[name]

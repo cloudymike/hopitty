@@ -51,8 +51,9 @@ class s2b(threading.Thread):
         no blocking, I.e a separate thread
         """
         self.runOK = self.check()
-
+        print "run"
         if not self.runOK:
+            print "check failed"
             return
 
         for r_key, settings in sorted(self.stages.items()):
