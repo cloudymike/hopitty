@@ -37,7 +37,7 @@ STATSFILE="stats-${DATESTRING}.log"
 
 # Initial cleanup
 pkill -9 -f logActual.py &> /dev/null
-pkill -9 -f threadscan.py &> /dev/null
+sudo pkill -9 -f threadscan.py &> /dev/null
 
 echo "Output log copied to ${LOGFILE}"
 echo "Status, of all sensors and switches logged to ${STATSFILE}"
@@ -52,5 +52,5 @@ else
 fi
 
 pkill -9 -f logActual.py &> /dev/null
-pkill -9 -f threadscan.py &> /dev/null
+sudo pkill -9 -f threadscan.py &> /dev/null
 
