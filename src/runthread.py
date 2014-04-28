@@ -127,9 +127,10 @@ if __name__ == "__main__":
             brun.start()
             brun.join()
 
-    if (brun is not None) and (not brun.OK()):
-        print "ERROR: Run of controller failed"
-        sys.exit(1)
+    if brun is not None:
+        if not brun.OK():
+            print "ERROR: Run of controller failed"
+            sys.exit(1)
 
     print " "
     print "OK"
