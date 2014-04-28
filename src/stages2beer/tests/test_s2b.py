@@ -222,7 +222,7 @@ def test_runStop():
     a.start()
     assert a.isAlive()
     a.stop()
-    time.sleep(0.6)
+    time.sleep(2)
     assert not a.isAlive()
     print myname(), "OK"
 

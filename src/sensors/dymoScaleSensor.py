@@ -66,7 +66,17 @@ class dymoScaleSensor(sensors.genericSensor):
             dev.detach_kernel_driver(interface)
             # use the first/default configuration
             dev.set_configuration()
-            usb.util.claim_interface(dev, interface)
+            try:
+                usb.util.claim_interface(dev, interface)
+            except:
+                # For some unknown reason it is claimed
+                # Release and re-claim
+                try:
+                    usb.util.release_interface(dev, interface)
+                    usb.util.claim_interface(dev, interface)
+                except:
+                    print "ERROR: Can not claim scale interface"
+
         else:
             dev.set_configuration()
 

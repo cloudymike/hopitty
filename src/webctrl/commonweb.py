@@ -11,7 +11,7 @@ class commonweb():
        <title>%s</title>
         """ % title
         if refresh:
-            retstr = retstr + '<META HTTP-EQUIV="REFRESH" CONTENT="1">'
+            retstr = retstr + '<META HTTP-EQUIV="REFRESH" CONTENT="10">'
         retstr = retstr + """
         </head>
         <body>

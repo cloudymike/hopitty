@@ -72,7 +72,9 @@ class s2b(threading.Thread):
                         self.controllers.pause(settings)
                     else:
                         self.controllers.run(settings)
-                    time.sleep(0.5)
+                    time.sleep(1)
+
+        #self.controllers.stop()
 
     def OK(self):
         return(self.runOK)

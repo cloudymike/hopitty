@@ -35,7 +35,7 @@ class runbrew():
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
 
-        self.wapp.run(host='0.0.0.0', port=8080)
+        self.wapp.run(host='0.0.0.0', port=8080, debug=False)
 
     def __del__(self):
         if self.s2b.isAlive():
