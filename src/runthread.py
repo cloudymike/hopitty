@@ -129,12 +129,13 @@ if __name__ == "__main__":
 
         if not brun.OK():
             print "ERROR: Run of controller failed"
+            del brun
             sys.exit(1)
+        del brun
 
     print " "
     print "OK"
     print "Shutting down"
-    del brun
     del controllers
 
     sys.exit(0)
