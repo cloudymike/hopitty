@@ -4,14 +4,6 @@ webctrl package
 Submodules
 ----------
 
-webctrl.basicbottle module
---------------------------
-
-.. automodule:: webctrl.basicbottle
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 webctrl.commonweb module
 ------------------------
 

@@ -42,6 +42,10 @@ class runbrew():
             self.s2b.stop()
         del(self.s2b)
 
+    #@error(404)
+    #def error404(self, error):
+    #    return 'These are not the droids you are looking for'
+
     def indexPage(self):
         return(index.index())
 

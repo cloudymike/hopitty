@@ -1,5 +1,5 @@
 {
-"name":"precleaning",
+"name":"pumptst",
   "recipe":   {
     "01": {
       "hotWaterPump":0.1

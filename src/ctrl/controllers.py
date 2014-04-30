@@ -1,12 +1,18 @@
 
 import appliances.myloader
 import time
+import rununit
+import threading
 
 STRESSTEST = False
 
 
 class controllerList(dict):
     def __init__(self):
+        # Lock the hardware anytime it is accessed
+        self.HWlock = threading.RLock()
+        #self.HWlock.release()
+
         if STRESSTEST:
             print "WARNING: Running in stress test mode"
 
@@ -15,17 +21,21 @@ class controllerList(dict):
         self[name] = ctrl
 
     def addControllerList(self, l):
+        self.HWlock.acquire()
         for className, instance in l.iteritems():
             self.addController(className, instance)
+        self.HWlock.release()
 
     def load(self):
         """
         This should really be init, but is left as a function until all
         other calls to controllers are rewritten
         """
+        self.HWlock.acquire()
         l = appliances.myloader.myQuickLoader()
         l.build()
         self.addControllerList(l.instances())
+        self.HWlock.release()
 
     def shutdown(self):
         """
@@ -33,15 +43,20 @@ class controllerList(dict):
         This means removing them from the list and destroying them
         The controllers should also be stopped
         """
+
+        self.HWlock.acquire()
         for key, c in self.items():
             c.stop()
             del self[key]
             del c
+        self.HWlock.release()
 
     def stop(self):
         """Stop all controllers"""
+        self.HWlock.acquire()
         for c in self.itervalues():
             c.stop()
+        self.HWlock.release()
 
     def HWOK(self):
         """
@@ -49,6 +64,7 @@ class controllerList(dict):
         False.
         On Failure, list what appliances are OK and failing.
         """
+        self.HWlock.acquire()
         usbOK = True
         for c in self.itervalues():
             if not c.HWOK():
@@ -61,6 +77,7 @@ class controllerList(dict):
                 else:
                     print "    Fail:", key
             print "-----------------------------------"
+        self.HWlock.release()
         return(usbOK)
 
     def check(self, settings):
@@ -85,18 +102,21 @@ class controllerList(dict):
         Run all controllers
         Take a measure, check settings and update controllers
         """
+        self.HWlock.acquire()
         for key, c in self.items():
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.pause()
                 c.update()
+        self.HWlock.release()
 
     def run(self, settings):
         """
         Run all controllers
         Take a measure, check settings and update controllers
         """
+        self.HWlock.acquire()
         for key, c in self.items():
 #            if not STRESSTEST:
 #                time.sleep(0.01)
@@ -112,22 +132,26 @@ class controllerList(dict):
             # else:
                 if STRESSTEST:
                     c.stop()
+        self.HWlock.release()
 
     def stopCurrent(self, settings):
         """
         Stops controllers that are currently in the stage
         Significant speedup for quickRecipe
         """
+        self.HWlock.acquire()
         for key, c in self.items():
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.stop()
+        self.HWlock.release()
 
     def status(self):
         """
         Save the status of the controller in a dictionary
         """
+        self.HWlock.acquire()
         ctrlStat = {}
         for key, c in self.items():
             curr = {}
@@ -138,11 +162,22 @@ class controllerList(dict):
             curr['powerOn'] = c.getPowerOn()
             curr['targetMet'] = c.targetMet()
             ctrlStat[key] = curr
+        self.HWlock.release()
         return ctrlStat
 
     def done(self):
+        self.HWlock.acquire()
         alldone = True
         for key, c in self.items():
             if c.isActive():
                 alldone = alldone and c.targetMet()
+        self.HWlock.release()
         return(alldone)
+
+if __name__ == "__main__":
+    controllers = rununit.setupControllers(True, True, True)
+    stat = controllers.status()
+    if controllers.done():
+        print "Nothing to do"
+
+    print "=====SUCCESS!====="
