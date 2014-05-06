@@ -93,6 +93,38 @@ class runbrew():
         rs = rs + "Start/stop brewing program"
         rs = rs + '</form>'
 
+        rs = rs + '<form method="post" action="/start">'
+        if self.s2b.paused():
+            rs = rs + '<input type="hidden" name="pauseState" value="False">'
+            rs = rs + '<input type="submit"'
+            rs = rs + """
+            style="color: white; background-color: green; font-size: larger;
+            height:50px;width:80px;"
+            """
+            rs = rs + ' value="Resume">'
+        else:
+            rs = rs + '<input type="hidden" name="pauseState" value="True">'
+            rs = rs + '<input type="submit"'
+            rs = rs + """
+            style="color: black; background-color: yellow; font-size: larger;
+            height:50px;width:80px;"
+            """
+            rs = rs + ' value="Pause">'
+        rs = rs + "Pause brewing process temporarily"
+        rs = rs + '</form>'
+
+        rs = rs + '<form method="post" action="/start">'
+
+        rs = rs + '<input type="hidden" name="skipState" value="True">'
+        rs = rs + '<input type="submit"'
+        rs = rs + """
+        style="color: black; background-color: white; font-size: larger;
+        height:50px;width:80px;"
+        """
+        rs = rs + ' value="Skip">'
+        rs = rs + "Skip one stage forward."
+        rs = rs + '</form>'
+
         rs = rs + common.footer()
 
         return(rs)
@@ -103,6 +135,7 @@ class runbrew():
 
         if runStatus == 'stop':
             self.s2b.stop()
+            self.s2b.unpause()
         elif runStatus == 'run':
             print "starting"
             print self.s2b.isAlive()
@@ -110,6 +143,17 @@ class runbrew():
                 self.runningRecipeName = self.selectedRecipeName
                 self.s2b = stages2beer.s2b(self.controllers, self.stages)
                 self.s2b.start()
+
+        pauseState = request.forms.get('pauseState')
+        if pauseState == "True":
+            self.s2b.pause()
+        else:
+            self.s2b.unpause()
+
+        skipState = request.forms.get('skipState')
+        if skipState == "True":
+            self.s2b.skip()
+
         return(self.commandPage())
 
     def dorecipeliststatus(self):
