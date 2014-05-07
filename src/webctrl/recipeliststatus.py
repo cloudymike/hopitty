@@ -22,7 +22,7 @@ def recipeliststatus(recipeList, selectedRecipe, currentRecipe):
         selectedRecipe + "<br><br>\n"
     retstr = retstr + '<form method="post" action="/recipelist">'
 
-    for recipeName in recipeList:
+    for recipeName in sorted(recipeList):
         rnstr = "\"" + recipeName + "\""
         if recipeName == selectedRecipe:
             sel = "checked"
