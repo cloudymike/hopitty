@@ -41,12 +41,14 @@ python -c 'import memcache; print memcache.__version__'
 ######################################
 sudo apt-get -y install python-gtk2
 pip install PyGTK
+easy_install -U pygtk
 python -c 'import pygtk; print pygtk.__name__'
 
-# pip install Sphinx
 sudo apt-get -y  install sphinx-common
+pip install Sphinx
+easy_install -U sphinx
 python -c 'import sphinx; print sphinx.__version__'
-
+if [ "$?" != "0" ]; then exit 1; fi
 
 # GoIO
 #######################################
