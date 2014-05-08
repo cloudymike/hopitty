@@ -13,8 +13,10 @@ fi
 pip install bottle
 python -c 'import bottle; print bottle.__version__'
 
+sudo apt-get install libusb-dev
 sudo apt-get install python-usb
-pip install pyusb
+pip install --pre pyusb
+easy_install pyusb
 python -c 'import usb; print usb.__version__'
 
 pip install pyserial
