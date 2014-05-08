@@ -47,8 +47,6 @@ python -c 'import pygtk; print pygtk.__name__'
 if [ "$?" != "0" ]; then exit 1; fi
 
 sudo apt-get -y  install sphinx-common
-pip install Sphinx
-easy_install -U sphinx
 python -c 'import sphinx; print sphinx.__version__'
 if [ "$?" != "0" ]; then exit 1; fi
 

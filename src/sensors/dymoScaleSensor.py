@@ -21,8 +21,11 @@ class dymoScaleSensor(sensors.genericSensor):
         self.id = 'mashScale'
         self.simulation = False
         # find the USB device
-        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
-                              stderr=subprocess.STDOUT)
+        try:
+            ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
+                                  stderr=subprocess.STDOUT)
+        except:
+            ret = 9
         if ret != 0:
             self.simulation = True
         else:
