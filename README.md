@@ -8,28 +8,20 @@ How to run
 cd src
 
 For one recipe run:
-./runctrl.py -f ../recipes/something
+./runthread.py -f ../recipes/something
 
 Reading all beersmith recipes:
-./runscan.py
+./threadscan.py
 
 Got to web page:
-http://localhost
+http://localhost:8080
 
 
 Web pages
 =========
 (This may change)
-The web pages are independent of the controller and communicates
-with memcache
-
-The scripts are mainly status script with addition of, when using runscan.py,
-allowing for selection of recipe and start a run
-
-To install cgi-bin scripts, cd into src/cgibin and type sudo INSTALL
-
-Note cgi-bin is not a valid python module name so the dir needs to be cgibin.
-Otherwise many things will break including nosetests.
+The controller is now integrated with a bottlw web server, when running threadscan.py
+Thus starting this program will enable it all.
 
 How to build
 ============
