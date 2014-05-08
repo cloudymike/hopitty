@@ -16,13 +16,16 @@ sudo apt-get -y  install sphinx-common
 # Python packages. May require github downloads
 sudo easy_install pyusb
 sudo easy_install pyserial
-sudo easy_install bottle
+
+sudo pip install bottle
+python -c 'import bottle; print bottle.__version__'
 
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
 
 sudo apt-get install -y memcached
-sudo easy_install python-memcached
+sudo pip install python-memcached
+python -c 'import memcache; print memcache.__version__'
 
 # Potential futures
 #sudo apt-get install -y python-sqlalchemy
