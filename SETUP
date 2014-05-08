@@ -13,10 +13,12 @@ fi
 pip install bottle
 python -c 'import bottle; print bottle.__version__'
 
+# Overkill to install python module usb
+# Cleanup later, figure out what works for travis
 sudo apt-get install libusb-dev
 sudo apt-get install python-usb
 pip install --pre pyusb
-easy_install pyusb
+easy_install -U pyusb
 python -c 'import usb; print usb.__version__'
 
 pip install pyserial
@@ -35,13 +37,16 @@ python -c 'import memcache; print memcache.__version__'
 # Potential futures
 #sudo apt-get install -y python-sqlalchemy
 
-# pip install Sphinx
-sudo apt-get -y  install sphinx-common
-
-
 # Additional stuff based on testing
 ######################################
 sudo apt-get -y install python-gtk2
+pip install PyGTK
+python -c 'import pygtk; print pygtk.__name__'
+
+# pip install Sphinx
+sudo apt-get -y  install sphinx-common
+python -c 'import sphinx; print sphinx.__version__'
+
 
 # GoIO
 #######################################
