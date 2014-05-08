@@ -1,6 +1,6 @@
 #!/bin/bash
 set -x
-set -e
+#set -e
 
 HOMEDIR=`pwd`
 
@@ -15,8 +15,6 @@ python -c 'import bottle; print bottle.__version__'
 
 sudo apt-get -y install g++ make
 sudo apt-get install -y unzip
-sudo apt-get -y  install sphinx-common
-
 # Python packages. May require github downloads
 #pip install pyusb
 sudo apt-get install python-usb
@@ -33,6 +31,9 @@ python -c 'import memcache; print memcache.__version__'
 
 # Potential futures
 #sudo apt-get install -y python-sqlalchemy
+
+sudo apt-get -y  install sphinx-common
+
 
 # Additional stuff based on testing
 ######################################
