@@ -36,7 +36,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", inline: "sudo apt-get update"
   config.vm.provision "shell", inline: "sudo apt-get -y install git"
   config.vm.provision "shell", inline: "git clone https://github.com/cloudymike/hopitty.git"
-  config.vm.provision "shell", inline: "cd hopitty && ./SETUP && ./checkall"
+  config.vm.provision "shell", inline: "cd hopitty && sudo ./SETUP && ./checkall"
 
   # Enable provisioning with Puppet stand alone.  Puppet manifests
   # are contained in a directory path relative to this Vagrantfile.
