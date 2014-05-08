@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+set -e
 
 HOMEDIR=`pwd`
 
@@ -9,7 +10,7 @@ if [ "$?" != "0" ]; then
   sudo apt-get -y install python-pip
 fi
 
-sudo pip install bottle
+pip install bottle
 python -c 'import bottle; print bottle.__version__'
 
 sudo apt-get -y install g++ make
@@ -17,15 +18,15 @@ sudo apt-get install -y unzip
 sudo apt-get -y  install sphinx-common
 
 # Python packages. May require github downloads
-pip install pyusb
+#pip install pyusb
+sudo apt-get install python-usb
+
 pip install pyserial
 
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
 
 sudo apt-get install -y memcached
-pip install bottle
-python -c 'import bottle; print bottle.__version__'
 
 pip install python-memcached
 python -c 'import memcache; print memcache.__version__'
