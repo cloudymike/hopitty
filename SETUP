@@ -1,4 +1,6 @@
 #!/bin/bash
+set -x
+
 
 HOMEDIR=`pwd`
 
@@ -138,6 +140,6 @@ sudo easy_install xvfbwrapper
 # This should be the end of the install file
 ######################################
 cd $HOMEDIR
-./checkall
+#./checkall
 
 
