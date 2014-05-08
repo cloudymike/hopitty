@@ -32,6 +32,7 @@ sudo apt-get install -y python-nose
 sudo apt-get install -y memcached
 
 pip install python-memcached
+sudo apt-get install python-memcache
 python -c 'import memcache; print memcache.__version__'
 
 # Potential futures
