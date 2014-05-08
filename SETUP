@@ -13,13 +13,14 @@ fi
 pip install bottle
 python -c 'import bottle; print bottle.__version__'
 
-sudo apt-get -y install g++ make
-sudo apt-get install -y unzip
-# Python packages. May require github downloads
-#pip install pyusb
 sudo apt-get install python-usb
+pip install pyusb
+python -c 'import usb; print usb.__version__'
 
 pip install pyserial
+
+sudo apt-get -y install g++ make
+sudo apt-get install -y unzip
 
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
@@ -32,6 +33,7 @@ python -c 'import memcache; print memcache.__version__'
 # Potential futures
 #sudo apt-get install -y python-sqlalchemy
 
+# pip install Sphinx
 sudo apt-get -y  install sphinx-common
 
 
