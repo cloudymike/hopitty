@@ -1,6 +1,9 @@
 #!/bin/bash
 set -x
 
+pip install bottle
+python -c 'import bottle; print bottle.__version__'
+
 
 HOMEDIR=`pwd`
 
