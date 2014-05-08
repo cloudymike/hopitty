@@ -17,14 +17,17 @@ sudo apt-get install -y unzip
 sudo apt-get -y  install sphinx-common
 
 # Python packages. May require github downloads
-sudo easy_install pyusb
-sudo easy_install pyserial
+pip install pyusb
+pip install pyserial
 
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
 
 sudo apt-get install -y memcached
-sudo pip install python-memcached
+pip install bottle
+python -c 'import bottle; print bottle.__version__'
+
+pip install python-memcached
 python -c 'import memcache; print memcache.__version__'
 
 # Potential futures
@@ -135,9 +138,9 @@ sudo apt-get install -y firefox
 sudo apt-get install -y xvfb
 sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
-sudo easy_install selenium
+pip install selenium
 # sudo easy_install wsgi_liveserver # Kept locally to manage ports
-sudo easy_install xvfbwrapper
+pip install xvfbwrapper
 
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
