@@ -95,8 +95,11 @@ class TemperDevice():
 class TemperHandler():
     def __init__(self):
         self._devices = []
-        ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
-                              stderr=subprocess.STDOUT)
+        try:
+            ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
+                                  stderr=subprocess.STDOUT)
+        except:
+            ret = 9
         if ret == 0:
             busses = usb.busses()
             for bus in busses:
