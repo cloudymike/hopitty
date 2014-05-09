@@ -7,7 +7,6 @@ import subprocess
 import os
 import switches
 import time
-import dataMemcache
 
 
 class boilerValveSwitch(switches.simSwitch):
@@ -21,7 +20,7 @@ class boilerValveSwitch(switches.simSwitch):
         Constructor
         '''
         self.simulation = False
-        self.data = dataMemcache.brewData()
+        self.errorStatus = False
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../boilerValve/boilerValve'
         print self.exe
@@ -48,10 +47,9 @@ class boilerValveSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(myid=__name__,
-                                 errorText="boilerValve switch failing")
+            self.forceError()
         else:
-            self.data.unsetHWerror(myid=__name__)
+            self.clearError()
 
     def off(self):
         try:
@@ -62,10 +60,9 @@ class boilerValveSwitch(switches.simSwitch):
         except:
             returnCode = 1
         if returnCode != 0:
-            self.data.setHWerror(myid=__name__,
-                                 errorText="boilerValve switch failing")
+            self.forceError()
         else:
-            self.data.unsetHWerror(myid=__name__)
+            self.clearError()
 
     def HWOK(self):
         try:
@@ -73,6 +70,15 @@ class boilerValveSwitch(switches.simSwitch):
             return(returnCode == 0)
         except:
             return(False)
+
+    def hasError(self):
+        return(self.errorStatus)
+
+    def clearError(self):
+        self.errorStatus = False
+
+    def forceError(self):
+        self.errorStatus = True
 
 if __name__ == '__main__':
     testSW = boilerValveSwitch()

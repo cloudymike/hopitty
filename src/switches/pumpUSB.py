@@ -17,31 +17,40 @@ from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs
 from Phidgets.Events.Events import ErrorEventArgs, InputChangeEventArgs
 from Phidgets.Events.Events import OutputChangeEventArgs, SensorChangeEventArgs
 from Phidgets.Devices.InterfaceKit import InterfaceKit
-import dataMemcache
 
 
 class onePump():
-    def __init__(self, usb, index):
+    def __init__(self, usb=None, index=0):
+        self.error = False
         self.usb = usb
         self.index = index
-        self.data = dataMemcache.brewData()
+        self.errorStatus = False
 
     def on(self):
         try:
             self.usb.setOutputState(self.index, True)
-            self.data.unsetHWerror(myid=__name__)
+            self.clearError()
         except:
-            self.data.setHWerror(myid=__name__, errorText="usb pump failing")
+            self.setError()
 
     def off(self):
         try:
             self.usb.setOutputState(self.index, False)
-            self.data.unsetHWerror(myid=__name__)
+            self.clearError()
         except:
-            self.data.setHWerror(myid=__name__, errorText="usb pump failing")
+            self.setError()
 
     def HWOK(self):
         return(True)
+
+    def hasError(self):
+        return(self.errorStatus)
+
+    def clearError(self):
+        self.errorStatus = False
+
+    def forceError(self):
+        self.errorStatus = True
 
 
 class pumpUSB():
