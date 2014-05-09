@@ -6,7 +6,6 @@ import usb.core
 import usb.util
 import pygtk
 pygtk.require('2.0')
-import math
 import subprocess
 
 # DYMO 100lb scale
@@ -17,6 +16,7 @@ PRODUCT_ID = 0x8007
 class dymoScaleSensor(sensors.genericSensor):
 
     def __init__(self):
+        self.errorState = False
         self.val = 0
         self.id = 'mashScale'
         self.simulation = False

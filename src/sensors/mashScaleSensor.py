@@ -1,17 +1,15 @@
 import sensors
 import subprocess
 import os
-import signal
-import dataMemcache
 import random
 
 
 class mashScaleSensor(sensors.genericSensor):
 
     def __init__(self):
+        self.errorState = False
         self.errorTesting = False
         self.errorModeFailing = False
-        self.myData = dataMemcache.brewData()
         self.warningCount = 0
         self.id = 'mashScale'
         self.simulation = False
@@ -55,10 +53,10 @@ class mashScaleSensor(sensors.genericSensor):
                 localstr = subprocess.check_output(execstring, shell=True)
                 if float(localstr) > 65534:
                     print "Error, hold everything"
-                    self.myData.setError()
+                    self.forceError()
                 if int(localstr) > 8200:
                     print "Error hold everything"
-                    self.myData.setError()
+                    self.forceError()
 
                 if int(localstr) == 0:
                     print "Warning: Scale value 0 return previous value"

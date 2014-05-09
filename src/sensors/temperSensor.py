@@ -1,15 +1,15 @@
 import temper
-import dataMemcache
+import sensors
 
 
-class temperSensor():
+class temperSensor(sensors.genericSensor):
     def __init__(self):
+        self.errorState = False
         self.id = 'temper'
         self.val = 90
         self.devs = None
         self.device = self.connect()
         self.simulation = (self.device is None)
-        self.data = dataMemcache.brewData()
 
     def connect(self):
         try:
@@ -43,10 +43,9 @@ class temperSensor():
         else:
             try:
                 self.val = self.device.get_temperature(format="fahrenheit")
-                self.data.unsetHWerror(myid=__name__)
+                self.clearError()
             except:
-                self.data.setHWerror(myid=__name__,
-                                     errorText="temper value fail")
+                self.forceError()
                 self.device = self.connect()
             return(self.val)
 

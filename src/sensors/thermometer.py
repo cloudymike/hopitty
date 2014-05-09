@@ -1,16 +1,15 @@
 import sensors
 import subprocess
 import os
-import dataMemcache
 
 
 class thermometer(sensors.genericSensor):
 
     def __init__(self):
+        self.errorState = False
         self.id = 'thermometer'
         self.simulation = False
         self.errorcount = 0
-        self.data = dataMemcache.brewData()
         self.val = 40.0
 
         scriptdir = os.path.dirname(os.path.abspath(__file__))
@@ -41,11 +40,9 @@ class thermometer(sensors.genericSensor):
                 t = float(scaleStr)
                 self.val = t
                 self.errorcount = 0
-                self.data.unsetHWerror(myid=__name__)
+                self.clearError()
             except:
-                self.data.setHWerror(myid=__name__,
-                                     errorText="Thermometer read error",
-                                     retries=10)
+                self.forceError()
             return(self.val)
 
     def setValue(self, powerOn):
