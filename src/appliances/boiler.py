@@ -1,7 +1,6 @@
 # import subprocess
 import appliances.genctrl
 import sensors
-import dataMemcache
 
 
 class boiler(appliances.genctrl):
@@ -13,7 +12,7 @@ class boiler(appliances.genctrl):
     Consider to not check when boil has started once...
     """
     def __init__(self):
-        self.data = dataMemcache.brewData()
+        self.errorState = False  # If an error has occured
         self.x10 = None  # Pointer back to X10 to re-open
         self.boilerSwitch = None
         self.powerOn = False
@@ -68,9 +67,9 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch is not None:
             try:
                 self.boilerSwitch.on()
-                self.data.unsetHWerror(myid=__name__)
+                self.clearError()
             except:
-                self.data.setHWerror(myid=__name__, errorText="X10 failed")
+                self.forceError()
                 try:
                     self.x10.open()
                 except:
@@ -82,9 +81,9 @@ class boiler(appliances.genctrl):
         if self.boilerSwitch is not None:
             try:
                 self.boilerSwitch.off()
-                self.data.unsetHWerror(myid=__name__)
+                self.clearError()
             except:
-                self.data.setHWerror(myid=__name__, errorText="X10 failed")
+                self.forceError()
                 try:
                     self.x10.open()
                 except:

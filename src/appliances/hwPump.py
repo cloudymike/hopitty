@@ -2,13 +2,12 @@ import time
 import appliances.genctrl
 import sensors
 import datetime
-import dataMemcache
 
 
 class hwPump(appliances.genctrl):
 
     def __init__(self):
-        self.data = dataMemcache.brewData()
+        self.errorState = False  # If an error has occured
         self.actual = 0.000
         self.target = 0
         self.startVol = 0.000
@@ -47,7 +46,7 @@ class hwPump(appliances.genctrl):
             self.actual = self.sensor.getValue() - self.startVol
             if not self.checkFlow():
                 print "Error: Flow not detected in ", __name__
-                self.data.setError()
+                self.forceError()
 
     def checkFlow(self):
         """
@@ -153,4 +152,3 @@ class wortPump(hwPump):
             self.actual = self.startVol - sensorValue
             if not self.checkFlow():
                 print "FAKE Error: Flow not detected in ", __name__
-#                self.data.setError()

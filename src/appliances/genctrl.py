@@ -22,6 +22,7 @@ class genctrl():
         could be off, as example, heater goes
         on and off, while controller is active
         '''
+        self.errorState = False  # If an error has occured
         self.actual = 0  # Actual measured value, ex temp
         self.target = 0  # Target value
         self.unit = 'U'  # Unit of measure
@@ -145,3 +146,21 @@ class genctrl():
         Non HW devices (as a timer) should alway return True
         """
         return(True)
+
+    def hasError(self):
+        """
+        Return true if an error has occurred
+        """
+        return(self.errorState)
+
+    def clearError(self):
+        """
+        Clear the error state
+        """
+        self.errorState = False
+
+    def forceError(self):
+        """
+        Force the device into error state
+        """
+        self.errorState = True

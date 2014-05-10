@@ -9,6 +9,7 @@ class hoptimer(appliances.genctrl):
         """
         Switch is not used, just to be consistent with other modules
         """
+        self.errorState = False  # If an error has occured
         self.actual = 0.0
         self.target = 0.0
         self.active = False

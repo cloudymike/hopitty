@@ -13,6 +13,7 @@ class aerator(appliances.genctrl):
     Manage the aerator
     """
     def __init__(self):
+        self.errorState = False  # If an error has occured
         self.switch = None
         self.powerOn = False
         self.active = False

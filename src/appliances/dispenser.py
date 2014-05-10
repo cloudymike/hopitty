@@ -28,6 +28,7 @@ class dispenser(appliances.genctrl):
         could be off, as example, heater goes
         on and off, while controller is active
         '''
+        self.errorState = False  # If an error has occured
         self.deviceNumber = number
         self.servo = str(number)
         self.actual = full       # Actual measured value, ex temp

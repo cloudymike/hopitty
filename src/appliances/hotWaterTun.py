@@ -1,12 +1,11 @@
 # import subprocess
 import appliances.genctrl
 import sensors
-import dataMemcache
 
 
 class hwt(appliances.genctrl):
     def __init__(self):
-        self.data = dataMemcache.brewData()
+        self.errorState = False  # If an error has occured
         self.x10 = None  # Pointer back to the X10 so it can be reopened
 #        self.hotWaterTun = switch
         self.hotWaterTun = None
@@ -66,9 +65,9 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun is not None:
             try:
                 self.hotWaterTun.on()
-                self.data.unsetHWerror(myid=__name__)
+                self.clearError()
             except:
-                self.data.setHWerror(myid=__name__, errorText="X10 failed")
+                self.forceError()
                 try:
                     self.x10.open()
                 except:
@@ -80,9 +79,9 @@ class hwt(appliances.genctrl):
         if self.hotWaterTun is not None:
             try:
                 self.hotWaterTun.off()
-                self.data.unsetHWerror(myid=__name__)
+                self.clearError()
             except:
-                self.data.setHWerror(myid=__name__, errorText="X10 failed")
+                self.forceError()
                 try:
                     self.x10.open()
                 except:

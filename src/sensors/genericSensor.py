@@ -17,7 +17,7 @@ class genericSensor():
 
     def hasError(self):
         """
-        Return true if an error has occured
+        Return true if an error has occurred
         """
         return(self.errorState)
 

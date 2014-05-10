@@ -13,6 +13,7 @@ class circulationPump(appliances.genctrl):
     """
 
     def __init__(self):
+        self.errorState = False  # If an error has occured
         self.actual = 0.000
         self.target = 0
         self.active = False

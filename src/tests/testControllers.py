@@ -141,5 +141,20 @@ def testPowerOn():
         c.stop()
         assert not c.getPowerOn()
 
+def testError():
+    """
+    Test that power is off after stop, and it is a boolean
+    """
+    ctrl1 = ctrl.controllerList()
+    ctrl1.load()
+    for key, c in ctrl1.items():
+        print key
+        assert not c.hasError()
+        c.forceError()
+        assert c.hasError()
+        c.clearError()
+        assert not c.hasError()
+
 if __name__ == '__main__':
+    testError()
     testHWOK()

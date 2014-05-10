@@ -8,6 +8,7 @@ class cooler(appliances.genctrl):
     Manage the wort cooler
     """
     def __init__(self):
+        self.errorState = False  # If an error has occured
         self.coolerSwitch = None
         self.powerOn = False
         self.active = False
