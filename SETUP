@@ -20,6 +20,7 @@ sudo apt-get install python-usb
 pip install --pre pyusb
 easy_install -U pyusb
 python -c 'import usb; print usb.__version__'
+python -c 'import usb.core; print usb.core__name__'
 
 pip install pyserial
 

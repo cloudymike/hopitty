@@ -8,4 +8,4 @@ install: ./SETUP
 # command to run tests, e.g. python setup.py test
 script:
   - ./testunit
-  - ./threadrecipe
+
