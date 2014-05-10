@@ -15,10 +15,10 @@ python -c 'import bottle; print bottle.__version__'
 
 # Overkill to install python module usb
 # Cleanup later, figure out what works for travis
-sudo apt-get install libusb-dev
-sudo apt-get install python-usb
-pip install --pre pyusb
-easy_install -U pyusb
+#sudo apt-get install libusb-dev
+#sudo apt-get install python-usb
+#pip install --pre pyusb
+easy_install pyusb
 python -c 'import usb; print usb.__version__'
 python -c 'import usb.core; print usb.core__name__'
 
