@@ -9,5 +9,6 @@ install: ./SETUP
 script:
   - ./testunit
   - ./testjson2stages
+  - ./testbsmx2stages
   - ./threadrecipe
   - ./threadbsmx
