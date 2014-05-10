@@ -141,6 +141,7 @@ def testPowerOn():
         c.stop()
         assert not c.getPowerOn()
 
+
 def testError():
     """
     Test that power is off after stop, and it is a boolean
@@ -154,6 +155,7 @@ def testError():
         assert c.hasError()
         c.clearError()
         assert not c.hasError()
+
 
 if __name__ == '__main__':
     testError()
