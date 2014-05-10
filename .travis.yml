@@ -13,3 +13,4 @@ script:
   - ./testbsmx2stages
   - ./threadrecipe
   - ./threadbsmx
+  - ./testHWcode
