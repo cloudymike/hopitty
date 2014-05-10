@@ -9,3 +9,4 @@ install: ./SETUP
 script:
   - ./testunit
   - ./threadrecipe
+  - ./threadbsmx
