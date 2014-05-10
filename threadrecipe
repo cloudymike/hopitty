@@ -7,7 +7,7 @@
 pushd recipe
 for recipe in *; do
   echo ".......................$recipe"
-  ../src/runthread.py -q -f $recipe
+  python ../src/runthread.py -q -f $recipe
   if [ "$?" != "0" ] ; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
