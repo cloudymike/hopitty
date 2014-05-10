@@ -7,7 +7,7 @@ do
   tstfile="bsmxStages/$fbname.tmp"
   goldfile="bsmxStages/$fbname.golden"
   rm -f $tstfile > /dev/null
-  src/bsmx2stages.py -i $bsmx -o $tstfile > /dev/null
+  python src/bsmx2stages.py -i $bsmx -o $tstfile > /dev/null
   diff $tstfile $goldfile > /dev/null
   if [ "$?" != "0" ]; then
     echo "$fbname does not match"

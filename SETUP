@@ -3,6 +3,8 @@ set -x
 #set -e
 
 HOMEDIR=`pwd`
+which python
+python --version
 
 pip --version
 if [ "$?" != "0" ]; then

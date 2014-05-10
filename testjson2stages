@@ -7,7 +7,7 @@ do
   tstfile="jsonStages/$fbname.tmp"
   goldfile="jsonStages/$fbname.golden"
   rm -f $tstfile > /dev/null
-  src/json2stages.py -i $json -o $tstfile > /dev/null
+  python src/json2stages.py -i $json -o $tstfile > /dev/null
   diff $tstfile $goldfile > /dev/null
   if [ "$?" != "0" ]; then
     echo "$fbname does not match"
