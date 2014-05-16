@@ -20,10 +20,10 @@ webctrl.index module
     :undoc-members:
     :show-inheritance:
 
-webctrl.mybottle module
+webctrl.myserver module
 -----------------------
 
-.. automodule:: webctrl.mybottle
+.. automodule:: webctrl.myserver
     :members:
     :undoc-members:
     :show-inheritance:

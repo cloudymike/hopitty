@@ -2,21 +2,25 @@
 The main brew loop with integrated bottle and brew2stages.
 """
 
-from bottle import Bottle, request
+from bottle import Bottle, request, run
+from threading import Thread
 import stages2beer
 import recipeReader
+import time
 
 # Import of the pages views
 import commonweb
 import statusView
 import index
 import recipeliststatus
+import myserver
 
 
 class runbrew():
     def __init__(self, controllers, recipelist):
         self.count = 0
         self.wapp = Bottle()
+        self.server = myserver.myserver(host="0.0.0.0", port=8080)
         self.controllers = controllers
         self.recipelist = recipelist
         self.stages = {}
@@ -35,12 +39,26 @@ class runbrew():
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
 
-        self.wapp.run(host='0.0.0.0', port=8080, debug=False)
+    def startBlocking(self):
+        """
+        Run in blocking mode. No way to stop this train...
+        """
+        run(self.wapp, self.server)
 
-    def __del__(self):
+    def startNonBlocking(self):
+        """
+        Run in non-blocking mode as a thread
+        """
+        Thread(target=self.begin).start()
+
+    def stop(self):
+        self.server.stop()
         if self.s2b.isAlive():
             self.s2b.stop()
         del(self.s2b)
+
+    def begin(self):
+        run(self.wapp, self.server)
 
     #@error(404)
     #def error404(self, error):

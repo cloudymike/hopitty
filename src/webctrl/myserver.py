@@ -3,15 +3,12 @@ from threading import Thread
 import time
 import urllib2
 
-import index
-import recipeliststatus
-import recipe
-from webctrl import statusView
-import stagestatus
-import start
 
-
-class mybottle(ServerAdapter):
+class myserver(ServerAdapter):
+    """
+    An alternative server that can be better controlled with
+    threading
+    """
     server = None
 
     def run(self, handler):
@@ -36,7 +33,7 @@ def begin():
     run(server=server)
 
 if __name__ == '__main__':
-    server = mybottle(host="0.0.0.0", port=8080)
+    server = myserver(host="0.0.0.0", port=8080)
     server.quiet = False
     print "Starting"
     Thread(target=begin).start()

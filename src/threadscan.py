@@ -127,4 +127,5 @@ if __name__ == "__main__":
     # Start daemon loop
     print "Starting brew daemon"
     brewdaemon = webctrl.runbrew(controllers, recipelist)
+    brewdaemon.startBlocking()
     print 'Done!'
