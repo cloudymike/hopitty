@@ -1,13 +1,43 @@
-from bottle import route, run, template, Bottle, request
-import stages2beer
+from bottle import Bottle, ServerAdapter, route, run
+import socket
+
 import ctrl
 import appliances
 import recipelistmgr
 import os
 import xml.dom.minidom
-import webctrl
-import time
-from threading import Thread
+
+
+def findPort():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    for p in range(8080, 8099):
+        print "try port ", p
+        try:
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+            s.bind(('127.0.0.1', p))
+            break
+        except socket.error, e:
+            print p, "already in use, try", p+1
+    return(p)
+
+
+class MyWSGIRefServer(ServerAdapter):
+    server = None
+
+    def run(self, handler):
+        from wsgiref.simple_server import make_server, WSGIRequestHandler
+        if self.quiet:
+            class QuietHandler(WSGIRequestHandler):
+                def log_request(*args, **kw):
+                    pass
+            self.options['handler_class'] = QuietHandler
+        self.server = make_server(self.host, self.port,
+                                  handler, **self.options)
+        self.server.serve_forever()
+
+    def stop(self):
+        self.server.shutdown()
 
 
 def timerDict():
@@ -90,19 +120,3 @@ def getTestRecipeList():
                     print "Could not find test file"
                     print os.getcwd()
     return(rl)
-
-
-def testNonBlocking():
-    controllers = ctrl.setupControllers(False, True, True)
-    brewme = webctrl.runbrew(controllers, getTestRecipeList())
-    brewme.startNonBlocking()
-
-    print "up and running"
-    time.sleep(1)
-    print "time to go"
-    brewme.stop()
-    #brewme.__del__()
-
-
-if __name__ == "__main__":
-    testNonBlocking()

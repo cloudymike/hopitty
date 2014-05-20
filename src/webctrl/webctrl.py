@@ -17,12 +17,13 @@ import myserver
 
 
 class runbrew():
-    def __init__(self, controllers, recipelist):
+    def __init__(self, controllers, recipelist,
+                 server=myserver.myserver(host="0.0.0.0", port=8080)):
         self.count = 0
         self.wapp = Bottle()
-        self.server = myserver.myserver(host="0.0.0.0", port=8080)
         self.controllers = controllers
         self.recipelist = recipelist
+        self.server = server
         self.stages = {}
         self.runningRecipeName = ""
         self.selectedRecipeName = ""

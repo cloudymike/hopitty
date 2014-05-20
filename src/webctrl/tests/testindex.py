@@ -4,6 +4,7 @@ import time
 import urllib2
 
 import webctrl
+import helpers
 
 
 class MyWSGIRefServer(ServerAdapter):
@@ -33,13 +34,17 @@ def testIndex():
     def begin():
         run(server=server)
 
-    server = MyWSGIRefServer(host="localhost", port=8080)
+    p = helpers.findPort()
+    print "Using port ", p
+    server = MyWSGIRefServer(host="localhost", port=p)
+
     server.quiet = True
 
     Thread(target=begin).start()
     print "Server started"
     time.sleep(0.1)
-    aResp = urllib2.urlopen("http://localhost:8080")
+    url = "http://localhost:" + str(p)
+    aResp = urllib2.urlopen(url)
     server.stop()
     print "Server stopped"
 

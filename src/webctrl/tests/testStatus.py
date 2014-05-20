@@ -8,6 +8,8 @@ import appliances
 
 from webctrl import statusView
 
+import helpers
+
 
 def timerDict():
     td = {
@@ -43,13 +45,17 @@ def testStatus():
     def begin():
         run(server=server)
 
-    server = MyWSGIRefServer(host="localhost", port=8080)
+    p = helpers.findPort()
+    print "Using port ", p
+
+    server = MyWSGIRefServer(host="localhost", port=p)
     server.quiet = True
 
     Thread(target=begin).start()
     print "Server started"
     time.sleep(0.1)
-    aResp = urllib2.urlopen("http://localhost:8080/status")
+
+    aResp = urllib2.urlopen("http://localhost:%i/status" % p)
     server.stop()
     print "Server stopped"
 
