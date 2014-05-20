@@ -18,7 +18,7 @@ def findPort():
             s.bind(('127.0.0.1', p))
             break
         except socket.error, e:
-            print p, "already in use, try", p+1
+            print p, "already in use, try", p + 1
     return(p)
 
 
