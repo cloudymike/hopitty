@@ -17,6 +17,7 @@ from os import path, access, R_OK  # W_OK for write permission.
 import checker
 import recipeReader
 import webctrl
+import recipeModel
 
 
 def usage():
@@ -57,7 +58,8 @@ def getOptions():
 
 
 def readRecipeFile(ctrl, recipefile=None, user=None):
-    rl = recipelistmgr.recipeListClass()
+    #rl = recipelistmgr.recipeListClass()
+    rl = recipeModel.RecipeList()
 
     # Try to find a recipe file
     if recipefile is not None:
@@ -85,12 +87,14 @@ def readRecipeFile(ctrl, recipefile=None, user=None):
 
 
 def updateRecipes(rl, bsmxfile):
+    print "...1"
     rl.readBeerSmith(bsmxfile)
     iterlist = rl.getlist()
     deleteList = []
+    print "...2"
     for recipeName in iterlist:
         recipeObjBsmx = rl.getRecipe(recipeName)
-        recipeBSMX = recipeObjBsmx.getBSMXdoc()
+        recipeBSMX = recipeObjBsmx.getBSMXstring()
         recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
         if not recipeObjParsed.isValid():
             deleteList.append(recipeName)
@@ -101,9 +105,10 @@ def updateRecipes(rl, bsmxfile):
                 deleteList.append(recipeName)
                 print "**********Fail on equipment check:", recipeName
     for deleteName in deleteList:
+        print "deleting", deleteName
         rl.deleteRecipe(deleteName)
 
-    rl.nameListToMemcache()
+    #rl.nameListToMemcache()
     return(rl)
 
 
