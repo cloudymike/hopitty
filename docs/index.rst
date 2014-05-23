@@ -20,6 +20,7 @@ Contents:
    hoplog
    json2stages
    recipelistmgr
+   recipeModel
    recipeReader
    runbottle
    runctrl
