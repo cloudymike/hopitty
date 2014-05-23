@@ -12,7 +12,6 @@ Contents:
    :maxdepth: 4
 
    appliances
-   bottleweb
    bsmx2stages
    checker
    ctrl
@@ -22,9 +21,6 @@ Contents:
    recipelistmgr
    recipeModel
    recipeReader
-   runbottle
-   runctrl
-   runscan
    runthread
    unerror
    scantry1

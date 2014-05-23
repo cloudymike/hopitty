@@ -84,30 +84,6 @@ webctrl.stopmybottle module
     :undoc-members:
     :show-inheritance:
 
-webctrl.testRecipe module
--------------------------
-
-.. automodule:: webctrl.testRecipe
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-webctrl.testStagestatus module
-------------------------------
-
-.. automodule:: webctrl.testStagestatus
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-webctrl.testrecipeliststatus module
------------------------------------
-
-.. automodule:: webctrl.testrecipeliststatus
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 webctrl.webctrl module
 ----------------------
 
