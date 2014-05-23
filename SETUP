@@ -39,7 +39,7 @@ sudo apt-get install python-memcache
 python -c 'import memcache; print memcache.__version__'
 
 # Potential futures
-#sudo apt-get install -y python-sqlalchemy
+sudo apt-get install -y python-sqlalchemy
 
 # Additional stuff based on testing
 ######################################
