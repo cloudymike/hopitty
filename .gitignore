@@ -34,6 +34,7 @@ a.out
 ################
 .coverage
 htmlcov/
+cover/
 
 # python X10 is dowloaded from github and unmodified
 python-x10

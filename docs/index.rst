@@ -23,7 +23,6 @@ Contents:
    recipeReader
    runthread
    unerror
-   scantry1
    sensors
    stages2beer
    switches

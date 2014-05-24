@@ -4,14 +4,6 @@ stages2beer package
 Submodules
 ----------
 
-stages2beer.brewloop module
----------------------------
-
-.. automodule:: stages2beer.brewloop
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 stages2beer.s2b module
 ----------------------
 

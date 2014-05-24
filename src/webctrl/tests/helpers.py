@@ -4,6 +4,7 @@ import socket
 import ctrl
 import appliances
 import recipelistmgr
+import recipeModel
 import os
 import xml.dom.minidom
 
@@ -91,6 +92,7 @@ def simpleBsmx():
 def getSimpleBSMX():
     """ Get recipe from simpleBSMX, and return a recipe list"""
     rl = recipelistmgr.recipeListClass()
+    #rl = recipeModel.RecipeList
     doc = xml.dom.minidom.parseString(simpleBsmx())
     rl.readBMXdoc(doc)
     rl.printNameList()
