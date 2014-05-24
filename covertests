@@ -6,7 +6,6 @@ nosetests --cover-erase  --with-coverage --cover-html\
  --cover-package=appliances\
  --cover-package=checker\
  --cover-package=ctrl\
- --cover-package=recipelistmgr\
  --cover-package=recipeModel\
  --cover-package=recipeReader\
  --cover-package=sensors\

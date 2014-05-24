@@ -53,7 +53,7 @@ class onePump():
         self.errorStatus = True
 
 
-class pumpUSB():
+class pumpUSB():  # pragma: no cover
     def __init__(self):
         print("Initiating pumps")
         try:
@@ -95,7 +95,7 @@ class pumpUSB():
     def close(self):
         self.interfaceKit.closePhidget()
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
 
 # Create an interfacekit object
 

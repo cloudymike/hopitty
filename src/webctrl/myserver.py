@@ -32,7 +32,7 @@ class myserver(ServerAdapter):
 def begin():
     run(server=server)
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     server = myserver(host="0.0.0.0", port=8080)
     server.quiet = False
     print "Starting"

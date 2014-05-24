@@ -14,7 +14,7 @@ class myX10(CM11):
 #    def __init__(self, X10connection, addr):
 #        pass
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     x10 = myX10('/dev/serial/by-id/usb-Prolific_Technology'
                 '_Inc._USB-Serial_Controller-if00-port0')
     x10.open()

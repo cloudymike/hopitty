@@ -90,7 +90,7 @@ class bsmxStages():
         if self.ctrl is None:
             return(self.stages is None)
         if self.stages is None:
-            return(True)
+            return(False)
         retval = True
 
         for s_key, stage in self.stages.items():

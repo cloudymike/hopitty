@@ -91,9 +91,6 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 3G, 5Gcooler, 5Gpot',
                        'Grain 3G, 5Gcooler 5Gpot']
 
-    if not checkVolBSMX(bsmxObj):
-        return(None)
-
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
@@ -116,6 +113,10 @@ def txBSMXtoStages(bsmxObj):
 
     else:
         print ":", equipmentName, ":Not valid equipment"
+
+    if not checkVolBSMX(bsmxObj):
+        return(None)
+
     return(stages)
 
 

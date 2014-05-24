@@ -20,7 +20,7 @@ REQ_BULK_LEN = 8
 TIMEOUT = 2000
 
 
-class TemperDevice():
+class TemperDevice():  # pragma: no cover
     def __init__(self, device):
         self._device = device
         self._handle = None
@@ -98,7 +98,7 @@ class TemperHandler():
         try:
             ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
                                   stderr=subprocess.STDOUT)
-        except:
+        except:  # pragma: no cover
             ret = 9
         if ret == 0:
             busses = usb.busses()
@@ -110,7 +110,7 @@ class TemperHandler():
     def get_devices(self):
         return self._devices
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     th = TemperHandler()
     devs = th.get_devices()
     print "Found %i devices" % len(devs)

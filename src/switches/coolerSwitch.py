@@ -80,7 +80,7 @@ class coolerSwitch(switches.simSwitch):
     def forceError(self):
         self.errorStatus = True
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testSW = coolerSwitch()
     time.sleep(2)
     testSW.on()

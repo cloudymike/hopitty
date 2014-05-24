@@ -81,7 +81,7 @@ class mashStirSwitch(switches.simSwitch):
         self.errorStatus = True
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testSW = mashStirSwitch()
     time.sleep(2)
     testSW.on()

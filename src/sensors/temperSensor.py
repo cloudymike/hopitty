@@ -52,7 +52,7 @@ class temperSensor(sensors.genericSensor):
     def HWOK(self):
         return(not self.simulation)
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     ts = temperSensor()
     print ts.getValue()
     print ts.getValue()

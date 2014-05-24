@@ -61,7 +61,7 @@ class dymoScaleSensor(sensors.genericSensor):
     def setID(self, newID):
         self.id = newID
 
-    def readVol(self):
+    def readVol(self):  # pragma: no cover
         dev = usb.core.find(idVendor=VENDOR_ID,
                             idProduct=PRODUCT_ID)
         interface = 0
@@ -145,7 +145,7 @@ class dymoScaleSensor(sensors.genericSensor):
         return(True)
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     d = dymoScaleSensor()
     t = sensors.temperSensor()
     while (1):

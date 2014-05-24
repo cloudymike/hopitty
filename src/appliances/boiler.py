@@ -64,7 +64,7 @@ class boiler(appliances.genctrl):
         self.off()
 
     def on(self):
-        if self.boilerSwitch is not None:
+        if self.boilerSwitch is not None:  # pragma: no cover
             try:
                 self.boilerSwitch.on()
                 self.clearError()
@@ -78,7 +78,7 @@ class boiler(appliances.genctrl):
         self.powerOn = True
 
     def off(self):
-        if self.boilerSwitch is not None:
+        if self.boilerSwitch is not None:  # pragma: no cover
             try:
                 self.boilerSwitch.off()
                 self.clearError()
