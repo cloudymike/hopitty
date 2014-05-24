@@ -33,17 +33,11 @@ echo $SIMULATE
 
 DATESTRING=`date +%F-%H-%M`
 LOGFILE="brew-${DATESTRING}.log"
-STATSFILE="stats-${DATESTRING}.log"
 
 # Initial cleanup
-pkill -9 -f logActual.py &> /dev/null
 sudo pkill -9 -f threadscan.py &> /dev/null
 
 echo "Output log copied to ${LOGFILE}"
-echo "Status, of all sensors and switches logged to ${STATSFILE}"
-pushd hoplog
-python logActual.py > /tmp/${STATSFILE} &
-popd
 
 if [ "$SIMULATE" == "1" ]; then
   sudo ./threadscan.py -u mikael | /usr/bin/tee /tmp/${LOGFILE}
@@ -51,6 +45,5 @@ else
   sudo ./threadscan.py -u mikael -e | /usr/bin/tee /tmp/${LOGFILE}
 fi
 
-pkill -9 -f logActual.py &> /dev/null
 sudo pkill -9 -f threadscan.py &> /dev/null
 
