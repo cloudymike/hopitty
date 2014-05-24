@@ -2,18 +2,28 @@
 HTMLDIR='htmlcov'
 rm -rf $HTMLDIR
 #nosetests --cover-erase  --with-coverage --cover-package=ctrl
-nosetests --cover-erase  --with-coverage 
+nosetests --cover-erase  --with-coverage --cover-html\
+ --cover-package=appliances\
+ --cover-package=checker\
+ --cover-package=ctrl\
+ --cover-package=dataMemcache\
+ --cover-package=hoplog\
+ --cover-package=recipelistmgr\
+ --cover-package=recipeModel\
+ --cover-package=recipeReader\
+ --cover-package=sensors\
+ --cover-package=stages2beer\
+ --cover-package=switches\
+ --cover-package=webctrl\
 
-for recipe in beersmith/*; do
-  python-coverage run -a src/runctrl.py -q -b $recipe
-done
+#for recipe in beersmith/*; do
+#  python-coverage run -a src/runctrl.py -q -b $recipe
+#done
 
-for recipe in recipe/*; do
-  python-coverage run -a src/runctrl.py -q -f $recipe
-done
 
-python-coverage combine
-python-coverage html
-python-coverage report --include=src/*
+#python-coverage combine
+#python-coverage html
+#python-coverage report --include=src/*
 
+firefox cover/index.html &
 
