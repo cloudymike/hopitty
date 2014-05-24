@@ -7,7 +7,6 @@ import commonweb
 
 def recipeliststatus(recipeList, selectedRecipe, currentRecipe):
     retstr = "<h1>Recipe list</h1>"
-    #myData = dataMemcache.brewData()
     cweb = commonweb.commonweb()
     print recipeList
     if selectedRecipe is None:

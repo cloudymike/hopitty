@@ -99,7 +99,7 @@ class boiler(appliances.genctrl):
     def getSensor(self):
         return(self.sensor)
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testBoiler = boiler()
     testBoiler.on()
     while not testBoiler.targetMet():

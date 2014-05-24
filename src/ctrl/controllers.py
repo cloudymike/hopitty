@@ -1,7 +1,5 @@
 
 import appliances.myloader
-import time
-import rununit
 import threading
 
 STRESSTEST = False
@@ -173,11 +171,3 @@ class controllerList(dict):
                 alldone = alldone and c.targetMet()
         self.HWlock.release()
         return(alldone)
-
-if __name__ == "__main__":
-    controllers = rununit.setupControllers(True, True, True)
-    stat = controllers.status()
-    if controllers.done():
-        print "Nothing to do"
-
-    print "=====SUCCESS!====="

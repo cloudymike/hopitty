@@ -28,22 +28,6 @@ webctrl.myserver module
     :undoc-members:
     :show-inheritance:
 
-webctrl.pretty module
----------------------
-
-.. automodule:: webctrl.pretty
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-webctrl.recipe module
----------------------
-
-.. automodule:: webctrl.recipe
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 webctrl.recipeliststatus module
 -------------------------------
 
@@ -52,34 +36,10 @@ webctrl.recipeliststatus module
     :undoc-members:
     :show-inheritance:
 
-webctrl.stagestatus module
---------------------------
-
-.. automodule:: webctrl.stagestatus
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-webctrl.start module
---------------------
-
-.. automodule:: webctrl.start
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 webctrl.statusView module
 -------------------------
 
 .. automodule:: webctrl.statusView
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-webctrl.stopmybottle module
----------------------------
-
-.. automodule:: webctrl.stopmybottle
     :members:
     :undoc-members:
     :show-inheritance:

@@ -79,7 +79,7 @@ class mashStirrer(appliances.genctrl):
             return 'Off'
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testmashStirrer = mashStirrer()
     testmashStirrer.on()
     print testmashStirrer.get()

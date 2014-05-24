@@ -15,13 +15,10 @@ Contents:
    bsmx2stages
    checker
    ctrl
-   dataMemcache
-   hoplog
    json2stages
    recipeModel
    recipeReader
    runthread
-   unerror
    sensors
    stages2beer
    switches

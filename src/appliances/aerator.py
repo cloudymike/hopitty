@@ -79,7 +79,7 @@ class aerator(appliances.genctrl):
             return 'Off'
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testaerator = aerator()
     testaerator.on()
     print testaerator.get()

@@ -1,8 +1,6 @@
 import os
 import getpass
 import recipeModel
-import time
-import dataMemcache
 
 
 def getTestRecipeList():

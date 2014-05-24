@@ -79,7 +79,7 @@ class boilerValve(appliances.genctrl):
             return 'Off'
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testboilerValve = boilerValve()
     testboilerValve.on()
     print testboilerValve.get()

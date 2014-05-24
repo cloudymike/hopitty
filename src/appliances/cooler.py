@@ -76,7 +76,7 @@ class cooler(appliances.genctrl):
             return(False)
         return(self.sensor.HWOK())
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
     testCooler = cooler()
     testCooler.on()
     while not testCooler.targetMet():

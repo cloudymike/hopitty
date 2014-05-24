@@ -28,10 +28,10 @@ ctrl.findcontrollers module
     :undoc-members:
     :show-inheritance:
 
-ctrl.rununit module
--------------------
+ctrl.setupControllers module
+----------------------------
 
-.. automodule:: ctrl.rununit
+.. automodule:: ctrl.setupControllers
     :members:
     :undoc-members:
     :show-inheritance:

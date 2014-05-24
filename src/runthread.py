@@ -8,7 +8,6 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import getopt
 import ctrl
-import dataMemcache
 import recipeReader
 import stages2beer
 import checker
@@ -74,8 +73,6 @@ if __name__ == "__main__":
     recipeName = ""
     simulation = (simulation or (not HWcheck))
     controllers = ctrl.setupControllers(verbose, simulation, permissive)
-
-    myData = dataMemcache.brewData()
 
     if HWcheck:
         if controllers.HWOK():

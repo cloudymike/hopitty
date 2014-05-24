@@ -1,3 +1,3 @@
 from controllers import *
-from rununit import *
+from ctrl.setupControllers import *
 from checkers import *

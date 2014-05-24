@@ -2,7 +2,7 @@
 
 pkill -9 -f bottleweb &> /dev/null
 
-nosetests $1 src/hoplog . 
+nosetests $1 . 
 if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
