@@ -1,13 +1,13 @@
 import os
 import getpass
-import recipelistmgr
+import recipeModel
 import time
 import dataMemcache
 
 
 def getTestRecipeList():
     """ Get recipe list in test directory, and return a recipe list"""
-    rl = recipelistmgr.recipeListClass()
+    rl = recipeModel.RecipeList()
     try:
         rl.readBeerSmith('../tests/Cloud.bsmx')
     except:
@@ -26,13 +26,10 @@ def testRecipeScanner(user=None):
     if user is None:
         rl = getTestRecipeList()
     else:
-        rl = recipelistmgr.recipeListClass()
+        rl = recipeModel.RecipeList()
         bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
         rl.readBeerSmith(bsmxfile)
-    rl.nameListToMemcache()
-    myData = dataMemcache.brewData()
-    rl2 = myData.getRecipeList()
-    assert rl.len() == len(rl2)
+    assert len(rl.getNameList()) > 0
     return(rl)
 
 

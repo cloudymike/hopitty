@@ -2,7 +2,7 @@ from bottle import route, run, template, Bottle, request
 import stages2beer
 import ctrl
 import appliances
-import recipelistmgr
+import recipeModel
 import os
 import xml.dom.minidom
 import webctrl
@@ -58,7 +58,7 @@ def simpleBsmx():
 
 def getSimpleBSMX():
     """ Get recipe from simpleBSMX, and return a recipe list"""
-    rl = recipelistmgr.recipeListClass()
+    rl = recipeModel.RecipeList()
     doc = xml.dom.minidom.parseString(simpleBsmx())
     rl.readBMXdoc(doc)
     rl.printNameList()
@@ -67,7 +67,7 @@ def getSimpleBSMX():
 
 def getTestRecipeList():
     """ Get recipe list in test directory, and return a recipe list"""
-    rl = recipelistmgr.recipeListClass()
+    rl = recipeModel.RecipeList()
     #cp = os.getcwd()
     cp = os.path.dirname(__file__)
     filename = cp + '/../../tests/Cloud.bsmx'

@@ -7,7 +7,6 @@ Also pushes recipe name list to memcache for use by web pages
 
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
-sys.path.append("/home/mikael/workspace/hoppity/src/recipelistmgr")
 import ctrl
 import getopt
 import recipeReader

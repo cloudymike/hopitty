@@ -7,11 +7,8 @@ Also pushes recipe name list to memcache for use by web pages
 
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
-sys.path.append("/home/mikael/workspace/hoppity/src/recipelistmgr")
 import getpass
-import recipelistmgr
 import ctrl
-import dataMemcache
 import getopt
 from os import path, access, R_OK  # W_OK for write permission.
 import checker
@@ -58,7 +55,6 @@ def getOptions():
 
 
 def readRecipeFile(ctrl, recipefile=None, user=None):
-    #rl = recipelistmgr.recipeListClass()
     rl = recipeModel.RecipeList()
 
     # Try to find a recipe file

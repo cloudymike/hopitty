@@ -58,17 +58,13 @@ class RecipeList():
             print "....reading ", name
             print recipe
             xmlstring = recipe.toxml()
-            print "...A"
             if self.session.query(Recipe).filter_by(name=name).first() is None:
                 equipment = recipeReader.bsmxReadString(recipe, "F_E_NAME")
-                print "....B"
                 r = Recipe(name=name,
                            equipment=equipment,
                            bsmx=xmlstring)
-                print "....C"
                 self.session.add(r)
                 self.session.commit()
-                print "....D"
 
     def printNameList(self):
         """ Writes a list of all the recipe names"""

@@ -18,7 +18,6 @@ Contents:
    dataMemcache
    hoplog
    json2stages
-   recipelistmgr
    recipeModel
    recipeReader
    runthread

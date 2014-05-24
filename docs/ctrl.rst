@@ -36,14 +36,6 @@ ctrl.rununit module
     :undoc-members:
     :show-inheritance:
 
-ctrl.scanrun module
--------------------
-
-.. automodule:: ctrl.scanrun
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------
