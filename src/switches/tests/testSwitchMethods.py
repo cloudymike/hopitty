@@ -27,8 +27,34 @@ def test_error():
         assert not sobj.hasError()
 
 
+def test_on():
+    """
+    Check that the errors can be checked and reset on
+    each sensor
+    """
+    allS = mySwitchLoader.mySwitchLoader()
+    allS.build()
+    for sname, sobj in allS.instances().iteritems():
+        sobj.on()
+        sobj.off()
+        assert not sobj.hasError()
+
+
+def test_HWOK():
+    """
+    Check that the errors can be checked and reset on
+    each sensor
+    """
+    allS = mySwitchLoader.mySwitchLoader()
+    allS.build()
+    for sname, sobj in allS.instances().iteritems():
+        assert not sobj.HWOK()
+
+
 if __name__ == "__main__":
     test_load()
     test_error()
+    test_HWOK()
+    test_on()
 
     print "=====SUCCESS====="

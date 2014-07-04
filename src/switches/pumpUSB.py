@@ -27,21 +27,23 @@ class onePump():
         self.errorStatus = False
 
     def on(self):
-        try:
-            self.usb.setOutputState(self.index, True)
-            self.clearError()
-        except:
-            self.setError()
+        if self.usb is not None:
+            try:
+                self.usb.setOutputState(self.index, True)
+                self.clearError()
+            except:
+                self.forceError()
 
     def off(self):
-        try:
-            self.usb.setOutputState(self.index, False)
-            self.clearError()
-        except:
-            self.setError()
+        if self.usb is not None:
+            try:
+                self.usb.setOutputState(self.index, False)
+                self.clearError()
+            except:
+                self.forceError()
 
     def HWOK(self):
-        return(True)
+        return (self.usb is not None)
 
     def hasError(self):
         return(self.errorStatus)
