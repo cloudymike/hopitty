@@ -15,6 +15,9 @@ import index
 import recipeliststatus
 import myserver
 
+import recipeModel
+import os
+
 
 class runbrew():
     def __init__(self, controllers, recipelist,
@@ -37,8 +40,33 @@ class runbrew():
         self.wapp.route('/recipelist', 'GET', self.recipeliststatusPage)
         self.wapp.route('/recipelist', 'POST', self.dorecipeliststatus)
         self.wapp.route('/debugStages', 'GET', self.debugStages)
+        self.wapp.route('/readrecipes', 'GET', self.getTestRecipeList)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
+
+    def getTestRecipeList(self):
+        """ Get recipe list in test directory, and return a recipe list"""
+        rl = recipeModel.RecipeList()
+        #cp = os.getcwd()
+        cp = os.path.dirname(__file__)
+        filename = cp + '/../tests/Cloud.bsmx'
+        print filename
+        try:
+            rl.readBeerSmith(filename)
+            print "Right first time"
+        except:
+            try:
+                rl.readBeerSmith('../tests/Cloud.bsmx')
+            except:
+                try:
+                    rl.readBeerSmith('./tests/Cloud.bsmx')
+                except:
+                    try:
+                        rl.readBeerSmith('src/tests/Cloud.bsmx')
+                    except:
+                        print "Could not find test file"
+                        print os.getcwd()
+        self.recipelist = rl
 
     def startBlocking(self):
         """
@@ -183,6 +211,8 @@ class runbrew():
     def recipeliststatusPage(self):
         rs = recipeliststatus.recipeliststatus(
             self.recipelist.getNameList(),
+            #DEBUG dealing with multithread issue and sqllite
+            #self.recipelist.getFixedNameList(),
             self.selectedRecipeName,
             self.runningRecipeName)
         return(rs)

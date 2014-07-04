@@ -1,3 +1,7 @@
+"""
+This is a test harness to run runbrew in manual mode and manually test
+different pages.
+"""
 from bottle import route, run, template, Bottle, request
 import stages2beer
 import ctrl
@@ -6,6 +10,8 @@ import recipeModel
 import os
 import xml.dom.minidom
 import webctrl
+import time
+import helpers
 
 
 def timerDict():
@@ -89,8 +95,18 @@ def getTestRecipeList():
                     print os.getcwd()
     return(rl)
 
+
 if __name__ == "__main__":
     #brewer = webctrl.runbrew(timerCtrl(), getSimpleBSMX())
 
     controllers = ctrl.setupControllers(False, True, True)
-    brewer = webctrl.runbrew(controllers, getTestRecipeList())
+    r1 = getTestRecipeList()
+    brewer = webctrl.runbrew(controllers, r1)
+    brewer.startNonBlocking()
+
+    # This has a problem with sqlite running in a separate thread
+    #uptime = 60
+    #print "Running for ", uptime, " seconds"
+    #time.sleep(uptime)
+    #brewer.stop()
+    #print "Done"

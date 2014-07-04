@@ -9,6 +9,7 @@ from sqlalchemy.ext.declarative import declarative_base
 
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import scoped_session
 
 import recipeReader
 import xml.dom.minidom
@@ -46,10 +47,13 @@ class RecipeList():
     def __init__(self):
         Base.metadata.create_all(engine)
 
+        #session_factory = sessionmaker(bind=engine)
+        #Session = scoped_session(session_factory)
         Session = sessionmaker(bind=engine)
         self.session = Session()
+        self.fixednamelist = []
 
-        print "=== init DONE==="
+        print "=== RecipeList init DONE==="
 
     def readBMXdoc(self, doc):
         cloudRecipes = doc.getElementsByTagName("Cloud")
@@ -65,6 +69,10 @@ class RecipeList():
                            bsmx=xmlstring)
                 self.session.add(r)
                 self.session.commit()
+        print "==== Recipelist read ===="
+        self.printNameList()
+        self.fixednamelist = self.getNameList()
+        print "========================="
 
     def printNameList(self):
         """ Writes a list of all the recipe names"""
@@ -81,6 +89,14 @@ class RecipeList():
         for instance in self.session.query(Recipe).order_by(Recipe.name):
             namelist.append(instance.name)
         return(namelist)
+
+    def getFixedNameList(self):
+        """
+        DEBUGGING
+        Returns a list of all the recipe names as in the fixednamelist
+        For debugging when sql in multithread not working
+        """
+        return(self.fixednamelist)
 
     def getRecipe(self, name):
         return(self.getRecipeByName(name))
