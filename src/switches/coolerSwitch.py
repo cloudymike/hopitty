@@ -30,12 +30,12 @@ class coolerSwitch(switches.simSwitch):
             returnCode = subprocess.call(self.exe)
             if returnCode != 0:
                 self.simulation = True
-        except:
+        except:  # pragma: no cover
             self.simulation = True
 
         if self.simulation:
             print "**********Cooler switch not found, simulating HW"
-        else:
+        else:  # pragma: no cover
             print "**********Cooler switch found, "
 
     def on(self):
