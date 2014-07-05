@@ -48,45 +48,28 @@ class T2w(unittest.TestCase):
     def url_base(self):
         return(self.base_url)
 
-    def test_index(self):
-
-        driver = self.driver
-        self.driver.get(self.url_base())
-        self.assertTrue('Hopitty' in self.driver.title)
-
-        driver.find_element_by_css_selector("button").click()
-        self.assertEqual("Hopitty",
-                         driver.find_element_by_css_selector("h1").text)
-
-    def test_recipeliststatusHeader(self):
+    def test_recipeliststatus(self):
         print "test_recipeliststatus"
         driver = self.driver
         recipeloadpath = self.url_base() + '/readrecipes'
         print recipeloadpath
         self.driver.get(recipeloadpath)
+        print "recipe loaded"
+        time.sleep(5)
         self.driver.get(self.url_base())
+        print "index page loaded"
+        time.sleep(5)
         # Make sure we start on home page
         self.assertTrue('Hopitty' in self.driver.title)
 
         driver.find_element_by_xpath("//a[5]/button").click()
         self.assertEqual("Recipe list",
                          driver.find_element_by_css_selector("h1").text)
-
-    def test_recipeliststatusBasic(self):
-        print "test_recipeliststatus"
-        driver = self.driver
-        recipeloadpath = self.url_base() + '/readrecipes'
-        print recipeloadpath
-        self.driver.get(recipeloadpath)
-        self.driver.get(self.url_base())
-        # Make sure we start on home page
-        self.assertTrue('Hopitty' in self.driver.title)
-
-        driver.find_element_by_xpath("//a[5]/button").click()
         driver.find_element_by_xpath("(//input[@name='recipe'])[12]").click()
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         self.assertEqual("17 Falconers Flight IPA",
                          driver.find_element_by_css_selector("form > b").text)
+        print "===== SUCCESS test_recipeliststatus ====="
 
     def is_element_present(self, how, what):
         try:
