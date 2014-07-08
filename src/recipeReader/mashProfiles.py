@@ -116,8 +116,18 @@ def txBSMXtoStages(bsmxObj):
 
     if not checkVolBSMX(bsmxObj):
         return(None)
+    if not checkTempAdjust(bsmxObj):
+        return(None)
 
     return(stages)
+
+
+def checkTempAdjust(bsmxObj):
+    if bsmxObj.getFieldStr('F_MH_EQUIP_ADJUST') != '1':
+        print "Error: Not adjusted for temperature"
+        return(False)
+    else:
+        return(True)
 
 
 def checkVolBSMX(bsmxObj):
@@ -304,6 +314,11 @@ def SingleInfusionBatch(bsmxObj):
     controllers = bsmxObj.getControllers()
     print "====================SingleInfusionBatch"
     stages = {}
+    s0 = stageCtrl(controllers)
+    s0["waterCirculationPump"] = setDict(1)
+    s0["delayTimer"] = setDict(1.0)
+    stages["00 Pre-circulate"] = s0
+
     s1 = stageCtrl(controllers)
     s1["waterHeater"] = setDict(
         bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
@@ -377,6 +392,11 @@ def MultiBatchMash(bsmxObj):
     totVolOut = 0
 
     stageCount = 1
+
+    s0 = stageCtrl(controllers)
+    s0["waterCirculationPump"] = setDict(1)
+    s0["delayTimer"] = setDict(1.0)
+    stages["00 Pre-circulate"] = s0
 
     s1 = stageCtrl(controllers)
     s1["waterHeater"] = setDict(

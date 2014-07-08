@@ -1,4 +1,62 @@
 {
+  "00 Pre-circulate": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": true,
+      "targetValue": 1.0
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": true,
+      "targetValue": 1
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  },
   "01 Heating": {
     "aerator": {
       "active": false,
@@ -811,64 +869,6 @@
       "targetValue": 0
     }
   },
-  "17 cool": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": true,
-      "targetValue": 72
-    },
-    "delayTimer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
   "18 Boil": {
     "aerator": {
       "active": false,
@@ -927,7 +927,7 @@
       "targetValue": 0
     }
   },
-  "18 re-charge": {
+  "18 cool": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -941,12 +941,12 @@
       "targetValue": 0
     },
     "cooler": {
-      "active": false,
-      "targetValue": 0
+      "active": true,
+      "targetValue": 72
     },
     "delayTimer": {
-      "active": true,
-      "targetValue": 1
+      "active": false,
+      "targetValue": 0
     },
     "dispenser1": {
       "active": false,
@@ -1043,7 +1043,65 @@
       "targetValue": 0
     }
   },
-  "19 Empty out": {
+  "19 re-charge": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": true,
+      "targetValue": 1
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  },
+  "20 Empty out": {
     "aerator": {
       "active": false,
       "targetValue": 0
