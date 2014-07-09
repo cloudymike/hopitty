@@ -164,7 +164,7 @@ pip install xvfbwrapper
 ######################################
 cd $HOMEDIR
 
-sudo /etc/init.d/memcached start
+#sudo /etc/init.d/memcached start
 
 #./checkall
 
