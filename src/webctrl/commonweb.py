@@ -24,8 +24,8 @@ class commonweb():
         retstr = retstr + '<a href="/"><button>Home</button></a>'
         retstr = retstr + '<a href="/start"><button>Run Control</button></a>'
         retstr = retstr + '<a href="/status"><button>Status</button></a>'
-        retstr = retstr + '<a href="/stagestatus"><button>Stages</button></a>'
+        #retstr = retstr + '<a href="/stagestatus"><button>Stages</button></a>'
         retstr = retstr + \
             '<a href="/recipelist"><button>RecipeList</button></a>'
-        retstr = retstr + '<a href="/recipe"><button>Recipe</button></a>'
+        #retstr = retstr + '<a href="/recipe"><button>Recipe</button></a>'
         return(retstr)

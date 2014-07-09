@@ -62,7 +62,7 @@ class T2w(unittest.TestCase):
         # Make sure we start on home page
         self.assertTrue('Hopitty' in self.driver.title)
 
-        driver.find_element_by_xpath("//a[5]/button").click()
+        driver.find_element_by_xpath("//a[4]/button").click()
         self.assertEqual("Recipe list",
                          driver.find_element_by_css_selector("h1").text)
         driver.find_element_by_xpath("(//input[@name='recipe'])[12]").click()
