@@ -24,6 +24,10 @@ class TemperDevice():  # pragma: no cover
     def __init__(self, device):
         self._device = device
         self._handle = None
+        self.termName = 'nonesofar'
+
+    def get_name(self):
+        return(self.termName)
 
     def get_temperature(self, format='celsius'):
         try:
@@ -58,7 +62,17 @@ class TemperDevice():  # pragma: no cover
             self._control_transfer(self._handle,
                                    "\x01\x80\x33\x01\x00\x00\x00\x00")  # uTemp
             data = self._interrupt_read(self._handle)
+
+            #print data[7]
+            if data[7] == 49:
+                self.termName = 'environment'
+            elif data[7] == 70:
+                self.termName = 'boiler'
+            else:
+                self.termName = 'unknown'
+
             data_s = "".join([chr(byte) for byte in data])
+
             temp_c = 125.0 / 32000.0 * (struct.unpack('>h', data_s[2:4])[0])
             if format == 'celsius':
                 return temp_c
@@ -116,8 +130,9 @@ if __name__ == '__main__':  # pragma: no cover
     print "Found %i devices" % len(devs)
     for i, dev in enumerate(devs):
         try:
-            print "Device #%i: %0.1f°C %0.1f°F" %\
+            print "Device #%i: %0.1f°C %0.1f°F %s" %\
                   (i, dev.get_temperature(),
-                   dev.get_temperature(format="fahrenheit"))
+                   dev.get_temperature(format="fahrenheit"),
+                   dev.get_name())
         except:
             print "Try using sudo"
