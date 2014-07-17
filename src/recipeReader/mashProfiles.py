@@ -72,6 +72,41 @@ def stageCtrl(controllers):
     return(settings)
 
 
+def strikeTemp(bsmxObj, envT):
+    """
+    Returns the temperature of the mash in water based on the recipe in
+    bsmjObj and the environment temperature, that is applied to both
+    grain and equipment
+    """
+    Mtun = bsmxObj.getWeightLb('F_E_TUN_MASS')
+    Ttun = envT
+    Mgrain = bsmxObj.getWeightLb('F_MH_GRAIN_WEIGHT')
+    Tgrain = envT
+
+    Vtun = bsmxObj.getVolG('F_E_MASH_VOL')
+    Qtun = float(bsmxObj.getFieldStr('F_E_TUN_SPECIFIC_HEAT'))
+
+    Vwater = bsmxObj.getStrikeVolume()
+    Tmash = bsmxObj.getTempF('F_MS_STEP_TEMP')
+
+    Ffull = 0.39
+
+    Tstrike = (((((Tmash - 32) / 1.8) * (((Mtun / Vtun * Vwater * Ffull)
+                * 453.592 * Qtun) + (Mgrain * 453.592 * 0.38) +
+                (Vwater * 946.353)) -
+        ((Mtun / Vtun * Vwater * Ffull) *
+            453.592 * Qtun * ((Ttun - 32) / 1.8)) -
+        (Mgrain * 453.592 * 0.38 * ((Tgrain - 32) / 1.8))) /
+        (Vwater * 946.353)) * 1.8) + 32
+
+    # Use this for validation and testing
+    beersmithTstrike = bsmxObj.getTempF("F_MS_INFUSION_TEMP")
+    print "beersmith strike T ", beersmithTstrike
+    print "calculated strike T ", Tstrike
+
+    return(Tstrike)
+
+
 #################################################
 # Main function to translate to stages
 #################################################
