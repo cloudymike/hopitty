@@ -929,8 +929,8 @@
   },
   "17 Empty out": {
     "aerator": {
-      "active": false,
-      "targetValue": 0
+      "active": true,
+      "targetValue": 1
     },
     "boiler": {
       "active": false,
@@ -941,12 +941,12 @@
       "targetValue": 1
     },
     "cooler": {
-      "active": true,
-      "targetValue": 50
+      "active": false,
+      "targetValue": 0
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 60
+      "targetValue": 15
     },
     "dispenser1": {
       "active": false,
