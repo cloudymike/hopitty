@@ -352,7 +352,7 @@ def SingleInfusionBatch(bsmxObj):
     stages = {}
     s0 = stageCtrl(controllers)
     s0["waterCirculationPump"] = setDict(1)
-    s0["delayTimer"] = setDict(1.0)
+    s0["delayTimer"] = setDict(3.0)
     stages["00 Pre-circulate"] = s0
 
     s1 = stageCtrl(controllers)
@@ -431,7 +431,7 @@ def MultiBatchMash(bsmxObj):
 
     s0 = stageCtrl(controllers)
     s0["waterCirculationPump"] = setDict(1)
-    s0["delayTimer"] = setDict(1.0)
+    s0["delayTimer"] = setDict(3.0)
     stages["00 Pre-circulate"] = s0
 
     s1 = stageCtrl(controllers)
