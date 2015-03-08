@@ -13,6 +13,7 @@ import commonweb
 import statusView
 import index
 import recipeliststatus
+import switchliststatus
 import myserver
 
 import recipeModel
@@ -32,6 +33,8 @@ class runbrew():
         self.selectedRecipeName = ""
         self.recipeObject = None
 
+        self.switchdict = {"lights": True, "camera": False, "sound": True}
+
         # Routing statements
         self.wapp.route('/status', 'GET', self.statusPage)
         self.wapp.route('/', 'GET', self.indexPage)
@@ -41,6 +44,9 @@ class runbrew():
         self.wapp.route('/recipelist', 'POST', self.dorecipeliststatus)
         self.wapp.route('/debugStages', 'GET', self.debugStages)
         self.wapp.route('/readrecipes', 'GET', self.getTestRecipeList)
+
+        self.wapp.route('/switchlist', 'GET', self.switchliststatusPage)
+        self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
 
@@ -231,3 +237,21 @@ class runbrew():
         rs = str(self.stages)
         rs = rs + common.footer()
         return(rs)
+
+    def doswitchliststatus(self):
+        print "doswitchliststatus"
+        self.selectedSwitchName = request.forms.get('switch')
+        print self.selectedSwitchName
+        self.switchdict[self.selectedSwitchName] = \
+            not self.switchdict[self.selectedSwitchName]
+        return(self.switchliststatusPage())
+
+    def switchliststatusPage(self):
+        boguslist = ["lights", "camera"]
+        ss = switchliststatus.switchliststatus(
+            self.switchdict,
+            #DEBUG dealing with multithread issue and sqllite
+            #self.recipelist.getFixedNameList(),
+            "lights",
+            "camera")
+        return(ss)
