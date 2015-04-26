@@ -44,6 +44,14 @@ webctrl.statusView module
     :undoc-members:
     :show-inheritance:
 
+webctrl.switchliststatus module
+-------------------------------
+
+.. automodule:: webctrl.switchliststatus
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 webctrl.webctrl module
 ----------------------
 
