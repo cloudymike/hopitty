@@ -243,14 +243,23 @@ def cooling(bsmxObj, stageCount, coolTemp):
     stageCount = stageCount + 1
 
     # Open the valve
-    # Keep on cooling
-    # Keep this stage in essence forever
     step = stageCtrl(controllers)
     #step["cooler"] = setDict(coolTemp - 40)
     step["delayTimer"] = setDict(15)
     step["boilerValve"] = setDict(1)
     step["aerator"] = setDict(1)
     stages[mkSname("Empty out", stageCount)] = step
+    stageCount = stageCount + 1
+
+    # Done
+    # shutdown everything
+    # Keep this stage in essence forever, well 10h
+    step = stageCtrl(controllers)
+    #step["cooler"] = setDict(coolTemp - 40)
+    step["delayTimer"] = setDict(600)
+    #step["boilerValve"] = setDict(0)
+    #step["aerator"] = setDict(0)
+    stages[mkSname("Done", stageCount)] = step
     stageCount = stageCount + 1
 
     return(stages)
