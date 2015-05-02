@@ -10,6 +10,7 @@ class temperSensor(sensors.genericSensor):
         self.devs = None
         self.device = self.connect()
         self.simulation = (self.device is None)
+        self.incVal = 1.3
 
     def connect(self):
         try:
@@ -32,7 +33,7 @@ class temperSensor(sensors.genericSensor):
         self.id = newID
 
     def setSimValue(self):
-        self.val = self.val + 1.3
+        self.val = self.val + self.incVal
         if self.val > 212:
             self.val = 212
 

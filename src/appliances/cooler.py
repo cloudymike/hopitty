@@ -63,6 +63,7 @@ class cooler(appliances.genctrl):
         if self.coolerSwitch is not None:
             self.coolerSwitch.on()
         self.powerOn = True
+        self.sensor.setIncremental(-3)
 
     def off(self):
         if self.coolerSwitch is not None:

@@ -76,6 +76,7 @@ class boiler(appliances.genctrl):
                     print 'x10 open failed'
 
         self.powerOn = True
+        self.sensor.setIncremental(2)
 
     def off(self):
         if self.boilerSwitch is not None:  # pragma: no cover

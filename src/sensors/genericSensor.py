@@ -2,6 +2,8 @@ class genericSensor():
     def __init__(self):
         self.id = 'nobody'
         self.errorState = False
+        self.val = 100
+        self.incVal = 0
 
     def getID(self):
         return(self.id)
@@ -13,7 +15,14 @@ class genericSensor():
         """
         Return the current sensor value
         """
-        return(42)
+        self.val = self.val + self.incVal
+        return(self.val)
+
+    def setIncremental(self, incVal):
+        """
+        Set the incremental, for simulation
+        """
+        self.incVal = incVal
 
     def hasError(self):
         """
