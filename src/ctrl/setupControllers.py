@@ -41,8 +41,9 @@ def setupControllers(verbose, simulation, permissive):
     print "Setting up appliances"
     hwTunSwitch = x10.getSwitch("H14")
     boilerSwitch = x10.getSwitch("I12")
-    aeratorSwitch = x10.getSwitch("G10")
+    #aeratorSwitch = x10.getSwitch("G10")
     #aeratorSwitch = switches.simSwitch()
+    aeratorSwitch = switches.air8800Switch()
     coolerSwitch = switches.coolerSwitch()
     mashStirSwitch = switches.mashStirSwitch()
     #mashStirSwitch = switches.mashStir8800Switch()
