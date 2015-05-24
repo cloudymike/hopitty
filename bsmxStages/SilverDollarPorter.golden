@@ -353,8 +353,8 @@
       "targetValue": 0
     },
     "boiler": {
-      "active": true,
-      "targetValue": 1
+      "active": false,
+      "targetValue": 0
     },
     "boilerValve": {
       "active": false,
