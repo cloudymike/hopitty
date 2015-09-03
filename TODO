@@ -1,6 +1,13 @@
 Where to start
 ===============
 
+Reset dispenser in every cycle
+
+Create a new equipment profile with plate chiller
+
+
+
+
 Cleanup data module and make it atomic. 
 ONe set and get for each set of data
 Start with status
