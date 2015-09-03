@@ -36,6 +36,8 @@ class temperSensor(sensors.genericSensor):
         self.val = self.val + self.incVal
         if self.val > 212:
             self.val = 212
+        if self.val < 32:
+            self.val = 32
 
     def getValue(self):
         if self.simulation:
