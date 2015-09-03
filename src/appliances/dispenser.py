@@ -78,8 +78,11 @@ class dispenser(appliances.genctrl):
         meaning turning off or on power
         Probably a good idea to do a self.measure() first
         """
-        if self.active:
-            self.move()
+#        if self.active:
+#            self.move()
+
+        # Try to set every update
+        self.move()
 
     def targetMet(self):
         """ Function for target met. Rewrite for each implementation"""
