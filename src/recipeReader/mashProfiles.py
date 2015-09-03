@@ -124,22 +124,28 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 2.5G, 5Gcooler 4Gpot',
                        'Grain 2.5G, 5Gcooler, 4Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot',
+                       'Grain 3G, 5Gcooler, 5Gpot, platechiller',
                        'Grain 3G, 5Gcooler 5Gpot']
 
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
+        if equipmentName == 'Grain 3G, 5Gcooler, 5Gpot, platechiller':
+            chiller = 'plate'
+        else:
+            chiller = 'immersion'
+
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
                            'Single Infusion, Medium Body, Batch Sparge',
                            'Single Infusion, Full Body, Batch Sparge']:
 
-            stages = SingleInfusionBatch(bsmxObj)
+            stages = SingleInfusionBatch(bsmxObj, chiller)
 
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
-            stages = MultiBatchMash(bsmxObj)
+            stages = MultiBatchMash(bsmxObj, chiller)
         elif mashProfile in ['testonly']:
-            stages = onlyTestMash(bsmxObj)
+            stages = onlyTestMash(bsmxObj, chiller)
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
@@ -221,6 +227,51 @@ def checkVolBSMX(bsmxObj):
 #################################################
 # Cooling down the worth
 def cooling(bsmxObj, stageCount, coolTemp):
+    controllers = bsmxObj.getControllers()
+    stages = {}
+    stageCount = stageCount + 1
+
+    # Cool down the wort to cool temperature
+    # Keep going for at least 20 minutes or to cooling
+    # temp
+    step = stageCtrl(controllers)
+    step["cooler"] = setDict(coolTemp)
+    stages[mkSname("cool", stageCount)] = step
+    stageCount = stageCount + 1
+
+    # Hold a  minute to recharge switch
+    # We should be done now but in case we are wrong on temperature
+    # we will just keep cooling after this step.
+    step = stageCtrl(controllers)
+    # step["boiler"] = setDict(0)
+    step["delayTimer"] = setDict(1)
+    stages[mkSname("re-charge", stageCount)] = step
+    stageCount = stageCount + 1
+
+    # Open the valve
+    step = stageCtrl(controllers)
+    #step["cooler"] = setDict(coolTemp - 40)
+    step["delayTimer"] = setDict(15)
+    step["boilerValve"] = setDict(1)
+    step["aerator"] = setDict(1)
+    stages[mkSname("Empty out", stageCount)] = step
+    stageCount = stageCount + 1
+
+    # Done
+    # shutdown everything
+    # Keep this stage in essence forever, well 10h
+    step = stageCtrl(controllers)
+    #step["cooler"] = setDict(coolTemp - 40)
+    step["delayTimer"] = setDict(600)
+    #step["boilerValve"] = setDict(0)
+    #step["aerator"] = setDict(0)
+    stages[mkSname("Done", stageCount)] = step
+    stageCount = stageCount + 1
+
+    return(stages)
+
+
+def plateCooling(bsmxObj, stageCount, coolTemp):
     controllers = bsmxObj.getControllers()
     stages = {}
     stageCount = stageCount + 1
@@ -355,7 +406,7 @@ def boiling(bsmxObj, stageCount, boilTemp):
 #################################################
 # Specifics of different types of mashes
 #################################################
-def SingleInfusionBatch(bsmxObj):
+def SingleInfusionBatch(bsmxObj, chiller):
     controllers = bsmxObj.getControllers()
     print "====================SingleInfusionBatch"
     stages = {}
@@ -420,14 +471,20 @@ def SingleInfusionBatch(bsmxObj):
     try:
         stages.update(boiling(bsmxObj, 11, boilTempConstant))
         stageCount = len(stages)
-        stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
+        if chiller == 'immersion':
+            stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
+        elif chiller == 'plate':
+            stages.update(plateCooling(bsmxObj, stageCount, coolTempConstant))
+        else:
+            print 'Unknown cooler type'
+            stages = None
     except:
         stages = None
 
     return(stages)
 
 
-def MultiBatchMash(bsmxObj):
+def MultiBatchMash(bsmxObj, chiller):
     """
     Multi batch sparging mash
     """
@@ -544,7 +601,13 @@ def MultiBatchMash(bsmxObj):
         stages = None
 
     try:
-        stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
+        if chiller == 'immersion':
+            stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
+        elif chiller == 'plate':
+            stages.update(plateCooling(bsmxObj, stageCount, coolTempConstant))
+        else:
+            print 'Unknown cooler type'
+            stages = None
     except:
         print "Cooling profile failed"
         stages = None
@@ -568,7 +631,7 @@ def MultiBatchMash(bsmxObj):
 # test mash
 # Different shortcust to allow for a shorter test cycle
 # The boiling temp as example is low (60F)
-def onlyTestMash(bsmxObj):
+def onlyTestMash(bsmxObj, chiller):
     """
     Testing mash
     """
@@ -634,7 +697,13 @@ def onlyTestMash(bsmxObj):
         stages = None
 
     try:
-        stages.update(cooling(bsmxObj, stageCount, 90))
+        if chiller == 'immersion':
+            stages.update(cooling(bsmxObj, stageCount, 90))
+        elif chiller == 'plate':
+            stages.update(plateCooling(bsmxObj, stageCount, 90))
+        else:
+            print 'Unknown cooler type'
+            stages = None
     except:
         print "Cooling profile failed"
         stages = None
