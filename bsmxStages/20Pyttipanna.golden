@@ -44,6 +44,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": true,
       "targetValue": 1
@@ -99,6 +103,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -160,6 +168,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -215,6 +227,10 @@
       "targetValue": 9.73125
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -276,6 +292,10 @@
       "active": true,
       "targetValue": 1
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": true,
       "targetValue": 1
@@ -331,6 +351,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -392,6 +416,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -447,6 +475,10 @@
       "targetValue": 1.94786219879518
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -508,6 +540,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -563,6 +599,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -624,6 +664,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -679,6 +723,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -740,6 +788,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -795,6 +847,10 @@
       "targetValue": 1.94786219879518
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -856,6 +912,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -911,6 +971,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -972,6 +1036,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1027,6 +1095,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1088,6 +1160,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1143,6 +1219,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1204,6 +1284,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1259,6 +1343,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1320,6 +1408,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1375,6 +1467,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1436,6 +1532,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1491,6 +1591,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1552,6 +1656,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1607,6 +1715,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1668,6 +1780,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1723,6 +1839,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },
@@ -1784,6 +1904,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": false,
       "targetValue": 0
@@ -1839,6 +1963,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },

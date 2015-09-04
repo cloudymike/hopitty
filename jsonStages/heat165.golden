@@ -44,6 +44,10 @@
       "active": false,
       "targetValue": 0
     },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
     "waterCirculationPump": {
       "active": true,
       "targetValue": 1
@@ -99,6 +103,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
       "active": false,
       "targetValue": 0
     },

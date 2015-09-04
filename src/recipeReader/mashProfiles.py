@@ -276,29 +276,13 @@ def plateCooling(bsmxObj, stageCount, coolTemp):
     stages = {}
     stageCount = stageCount + 1
 
-    # Cool down the wort to cool temperature
-    # Keep going for at least 20 minutes or to cooling
-    # temp
-    step = stageCtrl(controllers)
-    step["cooler"] = setDict(coolTemp)
-    stages[mkSname("cool", stageCount)] = step
-    stageCount = stageCount + 1
-
-    # Hold a  minute to recharge switch
-    # We should be done now but in case we are wrong on temperature
-    # we will just keep cooling after this step.
-    step = stageCtrl(controllers)
-    # step["boiler"] = setDict(0)
-    step["delayTimer"] = setDict(1)
-    stages[mkSname("re-charge", stageCount)] = step
-    stageCount = stageCount + 1
-
     # Open the valve
     step = stageCtrl(controllers)
     #step["cooler"] = setDict(coolTemp - 40)
-    step["delayTimer"] = setDict(15)
+    step["delayTimer"] = setDict(7)
     step["boilerValve"] = setDict(1)
     step["aerator"] = setDict(1)
+    step["plateValve"] = setDict(1)
     stages[mkSname("Empty out", stageCount)] = step
     stageCount = stageCount + 1
 
