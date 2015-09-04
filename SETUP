@@ -12,15 +12,15 @@ if [ "$?" != "0" ]; then
   sudo apt-get -y install python-pip
 fi
 
-pip install bottle
+sudo pip install bottle
 python -c 'import bottle; print bottle.__version__'
 
 # Overkill to install python module usb
-easy_install pyusb
+sudo easy_install pyusb
 python -c 'import usb; print usb.__version__'
 python -c 'import usb.core; print usb.core.__name__'
 
-pip install pyserial
+sudo pip install pyserial
 
 sudo apt-get -y install g++ make
 sudo apt-get install -y unzip
@@ -34,9 +34,9 @@ sudo apt-get install -y python-sqlalchemy
 # Additional stuff based on testing
 ######################################
 sudo apt-get -y install python-gtk2
-apt-get -y install python-gtk2
-pip install PyGTK
-easy_install -U pygtk
+sudo apt-get -y install python-gtk2
+sudo pip install PyGTK
+sudo easy_install -U pygtk
 python -c 'import pygtk; print pygtk.__name__'
 if [ "$?" != "0" ]; then exit 1; fi
 
@@ -145,9 +145,10 @@ sudo apt-get install -y firefox
 sudo apt-get install -y xvfb
 sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
-pip install selenium
+#sudo pip install selenium
+sudo easy_install selenium
 # sudo easy_install wsgi_liveserver # Kept locally to manage ports
-pip install xvfbwrapper
+sudo pip install xvfbwrapper
 
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
