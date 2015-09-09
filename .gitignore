@@ -55,6 +55,9 @@ mashStirUSB/mashStirUSB
 # boilerValve
 boilerValve/boilerValve
 
+# airPumpUSB
+ftdi/airPumpUSB/airPumpUSB
+
 # pololu Maestro USB cmd
 UscCmd
 

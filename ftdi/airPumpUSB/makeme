@@ -1,0 +1,4 @@
+#!/bin/bash
+
+gcc -I/usr/local/include/ -L/usr/local/lib/ -o airPumpUSB  airPumpUSB.c -lftdi
+
