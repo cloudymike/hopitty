@@ -1,0 +1,15 @@
+
+First Try
+----------
+To test start with mm to create a working problem
+hf2.c is using the new functions.
+
+Using Serial number
+-------------------
+The selSer.c uses the serial number to find the device. Note that the 
+description can be used as well, but if not then set it to NULL (char *descriptor= NULL;)
+
+The serial number can be found by:
+   sudo lsusb -v -d 0x403: | grep iSerial
+
+
