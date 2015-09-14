@@ -1,0 +1,10 @@
+#!/bin/bash
+
+pushd bsmxStages
+for f in *.golden; do cp  ${f%.*}.tmp $f; done
+popd
+
+pushd jsonstages
+for f in *.golden; do cp  ${f%.*}.tmp $f; done
+popd
+

@@ -439,12 +439,12 @@ def SingleInfusionBatch(bsmxObj, chiller):
     s7["wortPump"] = setDict(bsmxObj.getPreBoilVolume() / 2)
     # Do not start boiler until after first fillup
     # In case of pump problems, you may burn the pot
-    #s7["boiler"] = setDict(1)
+    s7["boiler"] = setDict(0)
     stages["07 Wort out 1"] = s7
 
     s8 = stageCtrl(controllers)
     s8["hotWaterPump"] = setDict(bsmxObj.getPreBoilVolume() / 2)
-    s8["boiler"] = setDict(1)
+    s8["boiler"] = setDict(0)
     stages["08 Sparge in 2"] = s8
 
     s10 = stageCtrl(controllers)
@@ -541,7 +541,10 @@ def MultiBatchMash(bsmxObj, chiller):
         sOut = stageCtrl(controllers)
         sOut["wortPump"] = setDict(volWortOut)
         totVolOut = totVolOut + volWortOut
-        sOut["boiler"] = setDict(1)
+        if i < 1:
+            sOut["boiler"] = setDict(0)
+        else:
+            sOut["boiler"] = setDict(1)
         stages[mkSname("Wort out", stageCount)] = sOut
         stageCount = stageCount + 1
 

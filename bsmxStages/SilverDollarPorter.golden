@@ -377,7 +377,7 @@
       "targetValue": 0
     },
     "boiler": {
-      "active": false,
+      "active": true,
       "targetValue": 0
     },
     "boilerValve": {
@@ -440,7 +440,7 @@
     },
     "boiler": {
       "active": true,
-      "targetValue": 1
+      "targetValue": 0
     },
     "boilerValve": {
       "active": false,
