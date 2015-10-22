@@ -186,6 +186,10 @@ class bsmxStages():
 
     def getDispense(self):
         addTimes = self.getHops() + self.getMisc()
+        steepTimes = self.getSteep()
+        if steepTimes:
+            print "Steeping required"
+            addTimes.append(0)
         dedupedAddTimes = list(set(addTimes))
         dedupedAddTimes.sort(reverse=True)
 
@@ -204,6 +208,14 @@ class bsmxStages():
             else:
                 i = i + 1
         return('error')
+
+    def getSteepTime(self):
+        slist = self.getSteep()
+        stime = 0
+        for s in slist:
+            stime = max(stime, s)
+        print "Steep time is:", stime
+        return stime
 
     def getMisc(self):
         tagName = 'Misc'
@@ -246,6 +258,24 @@ class bsmxStages():
             if use == '1':
                 print "Dryhop", name, dry, "days"
         return(hlist)
+
+    def getSteep(self):
+        tagName = 'Hops'
+        hops = self.doc.getElementsByTagName(tagName)
+        slist = []
+        for hop in hops:
+            name = hop.getElementsByTagName("F_H_NAME")[0].\
+                firstChild.nodeValue
+
+            boil = hop.getElementsByTagName(
+                "F_H_BOIL_TIME")[0].firstChild.nodeValue
+            dry = hop.getElementsByTagName(
+                "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
+            use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+            if use == '4':
+                print "Steep", name, boil, "minutes"
+                slist.append(float(boil))
+        return(slist)
 
     def prettyPrintStages(self):
         for stage, step in sorted(self.stages.items()):
