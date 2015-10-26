@@ -6,31 +6,32 @@ import recipeReader
 import appliances.boiler
 import switches
 import sys
+import logging
 
 
 def setupControllers(verbose, simulation, permissive):
     controllers = ctrl.controllerList()
     # Try to find hw switches
     if not simulation:
-        print "Initializing hardware"
+        logging.info("Initializing hardware")
         try:
             x10 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
                                  '_Inc._USB-Serial_Controller-if00-port0')
             x10.open()
         except:
             if permissive:
-                print "**********X10 not found, simulating HW"
+                logging.info("**********X10 not found, simulating HW")
                 x10 = switches.simSwitchList()
                 #simX10 = True
             else:
-                print "X10 not available"
+                logging.info("X10 not available")
                 sys.exit()
 
         try:
             usbPumps = switches.pumpUSB()
         except:
             if permissive:
-                print "**********USB pumps not found, simulating HW"
+                logging.info("**********USB pumps not found, simulating HW")
                 usbPumps = switches.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
@@ -38,7 +39,7 @@ def setupControllers(verbose, simulation, permissive):
         x10 = switches.simSwitchList()
         usbPumps = switches.simSwitchList()
 
-    print "Setting up appliances"
+    logging.info("Setting up appliances")
     hwTunSwitch = x10.getSwitch("H14")
     boilerSwitch = x10.getSwitch("I12")
     #aeratorSwitch = x10.getSwitch("G10")
@@ -93,7 +94,7 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('dispenser3', appliances.dispenser(3))
     controllers.addController('dispenser4', appliances.dispenser(4))
 
-    print "appliance setup done"
+    logging.info("appliance setup done")
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)

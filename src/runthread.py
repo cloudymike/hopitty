@@ -11,6 +11,7 @@ import ctrl
 import recipeReader
 import stages2beer
 import checker
+import logging
 
 
 def usage():
@@ -28,6 +29,13 @@ def usage():
 if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
+
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=logging.INFO,
+                        stream=sys.stdout)
+    logging.warning('warning test')
+    logging.info('Starting...')
 
     options, remainder = getopt.getopt(sys.argv[1:], 'b:cef:hqpuv', [
         'bsmx=',
@@ -76,9 +84,9 @@ if __name__ == "__main__":
 
     if HWcheck:
         if controllers.HWOK():
-            print('USB devices connected')
+            logging.info('USB devices connected')
         else:
-            print('ERROR: Missing USB devices, exiting')
+            logging.info('ERROR: Missing USB devices, exiting')
             sys.exit(1)
 
     # Read one of the recipe files

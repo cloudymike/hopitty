@@ -6,6 +6,7 @@ Created on March 7, 2015
 import switches
 import time
 import usb.core
+import logging
 
 
 class Power8800(object):
@@ -46,10 +47,10 @@ class air8800Switch(switches.simSwitch):
             self.simulation = True
 
         if self.simulation:
-            print "**********air switch not found, simulating HW"
+            logging.info("**********air switch not found, simulating HW")
             self.HWOKval = False
         else:
-            print "**********air switch found, "
+            logging.info("**********air switch found, ")
             self.HWOKval = True
 
     def on(self):
@@ -97,6 +98,6 @@ if __name__ == '__main__':  # pragma: no cover
     testSW.off()
     hwok = testSW.HWOK()
     if hwok:
-        print "Hardware switch found with HWOK method"
+        logging.info("Hardware switch found with HWOK method")
     else:
-        print "Hardware switch not found with HWOK method"
+        logging.info("Hardware switch not found with HWOK method")
