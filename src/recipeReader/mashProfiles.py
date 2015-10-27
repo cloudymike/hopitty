@@ -19,6 +19,7 @@ the translation, and then add this def as an alternative in txBSMXtoStages,
 selected based on the Equipment Name, and the Mash Profile Name.
 """
 import parseBSMX
+import logging
 
 empty = 0
 full = 1
@@ -67,7 +68,7 @@ def stageCtrl(controllers):
             s['active'] = False
             settings[c_key] = s
     else:
-        print "What the heck is controllers?"
+        logging.info("What the heck is controllers?")
 
     return(settings)
 
@@ -309,7 +310,7 @@ def boiling(bsmxObj, stageCount, boilTemp):
     controllers = bsmxObj.getControllers()
     stages = {}
     stageCount = stageCount + 1
-    print "boiling start"
+    logging.info("boiling start")
     # This step is just bringing up temperature to preboil
     # by checking the temperature
     # So no delay required
@@ -318,7 +319,7 @@ def boiling(bsmxObj, stageCount, boilTemp):
     stages[mkSname("pre-boil", stageCount)] = step
     stageCount = stageCount + 1
 
-    print "preboiling done"
+    logging.info("preboiling done")
     # hold a  few min just below boil to let foam settle
     # Turn off boiler to let things settle
     step = stageCtrl(controllers)
@@ -355,13 +356,16 @@ def boiling(bsmxObj, stageCount, boilTemp):
             if dispenser > 0:
                 dispenserDevice = "dispenser%d" % (dispenser)
                 step[dispenserDevice] = setDict(empty)
-                print "================", bt1, dispenserDevice
+                logging.info("================ " +
+                             str(bt1) + " " +
+                             dispenserDevice)
 
             stages[mkSname("Boil", stageCount)] = step
             stageCount = stageCount + 1
             dispenser = dispenser + 1
 
-        print "================", bt2, dispenserDevice
+        dispenserDevice = "dispenser%d" % (dispenser)
+        logging.info("================ " + str(bt2) + " " + dispenserDevice)
 
         step = stageCtrl(controllers)
         step["delayTimer"] = setDict(bt2)
@@ -386,13 +390,13 @@ def boiling(bsmxObj, stageCount, boilTemp):
     steepTime = bsmxObj.getSteepTime()
 
     if (steepTime > 1):
-        print "Steeping for ", steepTime, " minutes"
+        logging.info("Steeping for " + str(steepTime) + " minutes")
         step = stageCtrl(controllers)
         step["delayTimer"] = setDict(steepTime)
         stages[mkSname("Steeping", stageCount)] = step
         stageCount = stageCount + 1
 
-    print "Boiling done"
+    logging.info("Boiling done")
     return(stages)
 
 
@@ -401,7 +405,7 @@ def boiling(bsmxObj, stageCount, boilTemp):
 #################################################
 def SingleInfusionBatch(bsmxObj, chiller):
     controllers = bsmxObj.getControllers()
-    print "====================SingleInfusionBatch"
+    logging.info("====================SingleInfusionBatch")
     stages = {}
     s0 = stageCtrl(controllers)
     s0["waterCirculationPump"] = setDict(1)
@@ -469,7 +473,7 @@ def SingleInfusionBatch(bsmxObj, chiller):
         elif chiller == 'plate':
             stages.update(plateCooling(bsmxObj, stageCount, coolTempConstant))
         else:
-            print 'Unknown cooler type'
+            logging.info('Unknown cooler type')
             stages = None
     except:
         stages = None
@@ -481,7 +485,7 @@ def MultiBatchMash(bsmxObj, chiller):
     """
     Multi batch sparging mash
     """
-    print "====================MultiBatchMash"
+    logging.info("====================MultiBatchMash")
     controllers = bsmxObj.getControllers()
     stages = {}
 
@@ -539,7 +543,7 @@ def MultiBatchMash(bsmxObj, chiller):
     lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut)
 
     if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
-        print "volWothOut failed"
+        logging.info("volWothOut failed")
         return(None)
 
     for i in range(spargeSteps):
@@ -593,7 +597,7 @@ def MultiBatchMash(bsmxObj, chiller):
         stages.update(boiling(bsmxObj, stageCount, boilTempConstant))
         stageCount = len(stages)
     except:
-        print "Boiling profile failed"
+        logging.error("Boiling profile failed")
         stages = None
 
     try:
@@ -602,10 +606,10 @@ def MultiBatchMash(bsmxObj, chiller):
         elif chiller == 'plate':
             stages.update(plateCooling(bsmxObj, stageCount, coolTempConstant))
         else:
-            print 'Unknown cooler type'
+            logging.error('Unknown cooler type')
             stages = None
     except:
-        print "Cooling profile failed"
+        logging.error("Cooling profile failed")
         stages = None
 
     # Check and balances
@@ -614,11 +618,12 @@ def MultiBatchMash(bsmxObj, chiller):
     if round(totVolIn, 4) != \
        round(totVolOut + bsmxObj.getTunDeadSpace() +
              bsmxObj.getGrainAbsorption(), 4):
-        print "Error in/out flow not matching"
-        print "In vol:", round(totVolIn, 4)
-        print "Out Vol:", round(totVolOut, 4)
-        print "Grain absorb and dead space:", \
-            round(bsmxObj.getTunDeadSpace() + bsmxObj.getGrainAbsorption(), 4)
+        logging.error("Error in/out flow not matching")
+        logging.error("In vol: ", str(round(totVolIn, 4)))
+        logging.error("Out Vol: ", str(round(totVolOut, 4)))
+        logging.error("Grain absorb and dead space: " +
+                      str(round(bsmxObj.getTunDeadSpace() +
+                          bsmxObj.getGrainAbsorption(), 4)))
         stages = None
 
     return(stages)
@@ -631,7 +636,7 @@ def onlyTestMash(bsmxObj, chiller):
     """
     Testing mash
     """
-    print "====================TestingMash"
+    logging.info("====================TestingMash")
     controllers = bsmxObj.getControllers()
     stages = {}
 
@@ -689,7 +694,7 @@ def onlyTestMash(bsmxObj, chiller):
         stages.update(boiling(bsmxObj, stageCount, 60))
         stageCount = len(stages)
     except:
-        print "Boiling profile failed"
+        logging.error("Boiling profile failed")
         stages = None
 
     try:
@@ -698,10 +703,10 @@ def onlyTestMash(bsmxObj, chiller):
         elif chiller == 'plate':
             stages.update(plateCooling(bsmxObj, stageCount, 90))
         else:
-            print 'Unknown cooler type'
+            logging.error('Unknown cooler type')
             stages = None
     except:
-        print "Cooling profile failed"
+        logging.error("Cooling profile failed")
         stages = None
 
     return(stages)

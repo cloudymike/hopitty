@@ -1,4 +1,6 @@
 import switches
+import logging
+
 from x10.controllers.cm11 import CM11
 
 

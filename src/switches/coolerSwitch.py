@@ -7,6 +7,7 @@ import subprocess
 import os
 import switches
 import time
+import logging
 
 
 class coolerSwitch(switches.simSwitch):
@@ -34,9 +35,9 @@ class coolerSwitch(switches.simSwitch):
             self.simulation = True
 
         if self.simulation:
-            print "**********Cooler switch not found, simulating HW"
+            logging.info("**********Cooler switch not found, simulating HW")
         else:  # pragma: no cover
-            print "**********Cooler switch found, "
+            logging.info("**********Cooler switch found, ")
 
     def on(self):
         try:

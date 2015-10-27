@@ -7,6 +7,7 @@ import subprocess
 import os
 import switches
 import time
+import logging
 
 
 class mashStirSwitch(switches.simSwitch):
@@ -23,7 +24,7 @@ class mashStirSwitch(switches.simSwitch):
         self.errorStatus = False
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../mashStirUSB/mashStirUSB'
-        print self.exe
+        logging.info(self.exe)
         self.mashStirOn = self.exe + ' 1'
         self.mashStirOff = self.exe + ' 0'
         try:
@@ -34,9 +35,9 @@ class mashStirSwitch(switches.simSwitch):
             self.simulation = True
 
         if self.simulation:
-            print "**********mashStir switch not found, simulating HW"
+            logging.info("**********mashStir switch not found, simulating HW")
         else:
-            print "**********mashStir switch found, "
+            logging.info("**********mashStir switch found, ")
 
     def on(self):
         try:
@@ -65,7 +66,7 @@ class mashStirSwitch(switches.simSwitch):
             self.clearError()
 
     def HWOK(self):
-        print "Do not use me"
+        logging.info("Do not use me")
         try:
             returnCode = subprocess.call(self.exe)
             return(returnCode == 0)

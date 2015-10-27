@@ -1,6 +1,7 @@
 import xml.dom.minidom
 import ctrl
 import mashProfiles
+import logging
 
 
 class bsmxStages():
@@ -188,12 +189,12 @@ class bsmxStages():
         addTimes = self.getHops() + self.getMisc()
         steepTimes = self.getSteep()
         if steepTimes:
-            print "Steeping required"
+            logging.info("Steeping required")
             addTimes.append(0)
         dedupedAddTimes = list(set(addTimes))
         dedupedAddTimes.sort(reverse=True)
 
-        print dedupedAddTimes
+        logging.info(str(dedupedAddTimes))
         return(dedupedAddTimes)
 
     def getDispenserAtTime(self, t):
@@ -214,7 +215,7 @@ class bsmxStages():
         stime = 0
         for s in slist:
             stime = max(stime, s)
-        print "Steep time is:", stime
+        logging.info("Steep time is:" + str(stime))
         return stime
 
     def getMisc(self):
@@ -230,13 +231,13 @@ class bsmxStages():
             use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
             if unit == '0':
                 tu = 'minutes'
-            if unit == '0':
+            if unit == '1':
                 tu = 'days'
             if use == '0':
-                print "Boil", name, t, tu
+                logging.info("Boil " + name + " " + str(t) + " " + tu)
                 mlist.append(float(t))
             else:
-                print "Other", name, t, tu
+                logging.info("Other " + name + " " + str(t) + " " + tu)
         return(mlist)
 
     def getHops(self):
@@ -253,10 +254,10 @@ class bsmxStages():
                 "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
             use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
             if use == '0':
-                print "Boil", name, boil, "minutes"
+                logging.info("Boil " + name + " " + str(boil) + " minutes")
                 hlist.append(float(boil))
             if use == '1':
-                print "Dryhop", name, dry, "days"
+                logging.info("Dryhop " + name + " " + str(dry) + " days")
         return(hlist)
 
     def getSteep(self):
@@ -273,7 +274,7 @@ class bsmxStages():
                 "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
             use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
             if use == '4':
-                print "Steep", name, boil, "minutes"
+                logging.info("Steep " + name + " " + str(boil) + " minutes")
                 slist.append(float(boil))
         return(slist)
 

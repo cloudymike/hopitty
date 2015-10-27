@@ -7,6 +7,7 @@ import subprocess
 import os
 import switches
 import time
+import logging
 
 
 class boilerValveSwitch(switches.simSwitch):
@@ -23,7 +24,7 @@ class boilerValveSwitch(switches.simSwitch):
         self.errorStatus = False
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../boilerValve/boilerValve'
-        print self.exe
+        logging.info(self.exe)
         self.boilerValveOn = self.exe + ' 1'
         self.boilerValveOff = self.exe + ' 0'
         try:
@@ -34,9 +35,9 @@ class boilerValveSwitch(switches.simSwitch):
             self.simulation = True
 
         if self.simulation:
-            print "**********boilerValve switch not found, simulating HW"
+            logging.info("********boilerValve switch not found, simulating HW")
         else:
-            print "**********boilerValve switch found, "
+            logging.info("********boilerValve switch found, ")
 
     def on(self):
         try:

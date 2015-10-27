@@ -6,6 +6,7 @@ Created on March 7, 2015
 import switches
 import time
 import usb.core
+import logging
 
 
 class Power8800(object):
@@ -46,10 +47,10 @@ class mashStir8800Switch(switches.simSwitch):
             self.simulation = True
 
         if self.simulation:
-            print "**********mashStir switch not found, simulating HW"
+            logging.info("**********mashStir switch not found, simulating HW")
             self.HWOKval = False
         else:
-            print "**********mashStir switch found, "
+            logging.info("**********mashStir switch found, ")
             self.HWOKval = True
 
     def on(self):

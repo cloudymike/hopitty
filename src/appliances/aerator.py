@@ -6,6 +6,7 @@ Created on Nov 20, 2013
 # import subprocess
 import appliances.genctrl
 import sensors
+import logging
 
 
 class aerator(appliances.genctrl):
