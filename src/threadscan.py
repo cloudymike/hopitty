@@ -15,6 +15,7 @@ import checker
 import recipeReader
 import webctrl
 import recipeModel
+import logging
 
 
 def usage():
@@ -109,6 +110,14 @@ def updateRecipes(rl, bsmxfile):
 
 
 if __name__ == "__main__":
+
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=logging.INFO,
+                        stream=sys.stdout)
+    logging.warning('warning test')
+    logging.info('Starting...')
+
     options = getOptions()
     controllers = ctrl.setupControllers(options['verbose'], False, True)
     if options['HWcheck']:

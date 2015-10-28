@@ -93,14 +93,14 @@ if __name__ == "__main__":
     if recipeFile != "":
         j = recipeReader.jsonStages(recipeFile, controllers)
         if not j.isValid():
-            print "Error: bad recipe"
+            logging.error("Error: bad recipe")
         else:
             recipeName = j.getRecipeName()
             stages = j.getStages()
     elif bsmxFile != "":
         b = recipeReader.bsmxStages(bsmxFile, controllers)
         if not b.isValid():
-            print "Error: bad recipe"
+            logging.error("Error: bad recipe")
         else:
             recipeName = b.getRecipeName()
             stages = b.getStages()
@@ -110,37 +110,37 @@ if __name__ == "__main__":
 
     equipmentchecker = checker.equipment(controllers, stages)
     if not equipmentchecker.check():
-        print"Error: equipment vs recipe validation failed"
+        logging.error("Error: equipment vs recipe validation failed")
 
-    print "Running ", recipeName
+    logging.info("Running " + recipeName)
 
     if (stages != {}) and (stages is not None):
         brun = stages2beer.s2b(controllers, stages)
         if checkonly:
             if brun.check():
-                print "Check OK"
+                logging.info("Check OK")
             else:
-                print "ERROR: Check failed"
+                logging.info("ERROR: Check failed")
                 sys.exit(1)
         elif quick:
             if brun.quickRun():
-                print "Quick run OK"
+                logging.info("Quick run OK")
             else:
-                print "ERROR: Quick run failed"
+                logging.error("ERROR: Quick run failed")
                 sys.exit(1)
         else:
             brun.start()
             brun.join()
 
         if not brun.OK():
-            print "ERROR: Run of controller failed"
+            logging.error("ERROR: Run of controller failed")
             del brun
             sys.exit(1)
         del brun
 
-    print " "
-    print "OK"
-    print "Shutting down"
+    logging.info(" ")
+    logging.info("OK")
+    logging.info("Shutting down")
     del controllers
 
     sys.exit(0)
