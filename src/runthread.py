@@ -12,6 +12,8 @@ import recipeReader
 import stages2beer
 import checker
 import logging
+import threading
+import time
 
 
 def usage():
@@ -116,6 +118,8 @@ if __name__ == "__main__":
 
     if (stages != {}) and (stages is not None):
         brun = stages2beer.s2b(controllers, stages)
+        dl = ctrl.datalogger(controllers)
+
         if checkonly:
             if brun.check():
                 logging.info("Check OK")
@@ -130,13 +134,16 @@ if __name__ == "__main__":
                 sys.exit(1)
         else:
             brun.start()
+            dl.start()
             brun.join()
+            dl.stop()
 
         if not brun.OK():
             logging.error("ERROR: Run of controller failed")
             del brun
             sys.exit(1)
         del brun
+        del dl
 
     logging.info(" ")
     logging.info("OK")

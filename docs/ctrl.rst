@@ -20,6 +20,14 @@ ctrl.controllers module
     :undoc-members:
     :show-inheritance:
 
+ctrl.datalog module
+-------------------
+
+.. automodule:: ctrl.datalog
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 ctrl.findcontrollers module
 ---------------------------
 

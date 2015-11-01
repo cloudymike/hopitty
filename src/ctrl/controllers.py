@@ -1,6 +1,8 @@
 
 import appliances.myloader
 import threading
+import time
+import datetime
 
 STRESSTEST = False
 
@@ -160,6 +162,29 @@ class controllerList(dict):
             curr['powerOn'] = c.getPowerOn()
             curr['targetMet'] = c.targetMet()
             ctrlStat[key] = curr
+        self.HWlock.release()
+        return ctrlStat
+
+    def csv(self):
+        """
+        Save the status of the controller in a dictionary
+        """
+        self.HWlock.acquire()
+        t = datetime.datetime.now().time()
+        ctrlStat = str(t)
+        for key, c in self.items():
+            ctrlStat = ctrlStat + "," + str(c.get())
+        self.HWlock.release()
+        return ctrlStat
+
+    def csvheader(self):
+        """
+        Save the status of the controller in a dictionary
+        """
+        self.HWlock.acquire()
+        ctrlStat = "Time"
+        for key, c in self.items():
+            ctrlStat = ctrlStat + "," + key
         self.HWlock.release()
         return ctrlStat
 

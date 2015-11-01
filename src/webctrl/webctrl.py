@@ -15,6 +15,7 @@ import index
 import recipeliststatus
 import switchliststatus
 import myserver
+import ctrl
 
 import recipeModel
 import os
@@ -49,6 +50,7 @@ class runbrew():
         self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
+        self.dl = ctrl.datalogger(controllers)
 
     def getTestRecipeList(self):
         """ Get recipe list in test directory, and return a recipe list"""
@@ -90,7 +92,9 @@ class runbrew():
         self.server.stop()
         if self.s2b.isAlive():
             self.s2b.stop()
+            self.dl.stop()
         del(self.s2b)
+        del(self.dl)
 
     def begin(self):
         run(self.wapp, self.server)
@@ -188,6 +192,7 @@ class runbrew():
 
         if runStatus == 'stop':
             self.s2b.stop()
+            self.dl.stop()
             self.s2b.unpause()
         elif runStatus == 'run':
             print "starting"
@@ -195,7 +200,9 @@ class runbrew():
             if not self.s2b.isAlive():
                 self.runningRecipeName = self.selectedRecipeName
                 self.s2b = stages2beer.s2b(self.controllers, self.stages)
+                self.dl = ctrl.datalogger(self.controllers)
                 self.s2b.start()
+                self.dl.start()
 
         pauseState = request.forms.get('pauseState')
         if pauseState == "True":
