@@ -110,12 +110,12 @@ if __name__ == "__main__":  # pragma: no cover
 
     for x in range(0, 3):
        print "Pump %d" % (x)
-       pu.getPump(0).off()
+       pu.getPump(x).off()
        print "Pump on"
-       pu.getPump(0).on()
+       pu.getPump(x).on()
        time.sleep(1)
        print "Pump off"
-       pu.getPump(0).off() 
+       pu.getPump(x).off() 
        time.sleep(1)
 
 
