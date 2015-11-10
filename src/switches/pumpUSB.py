@@ -108,14 +108,16 @@ if __name__ == "__main__":  # pragma: no cover
     pump2 = pu.getPump(2)
     pump3 = pu.getPump(3)
 
-    print("Pump 0 off")
-    pump0.off()
-    time.sleep(5)
-    print("Pump 0 on")
-    pump0.on()
-    time.sleep(5)
-    print("Pump 0 off")
-    pump0.off()
+    for x in range(0, 3):
+       print "Pump %d" % (x)
+       pu.getPump(0).off()
+       print "Pump on"
+       pu.getPump(0).on()
+       time.sleep(1)
+       print "Pump off"
+       pu.getPump(0).off() 
+       time.sleep(1)
+
 
     print("Closing...")
     pu.close()
