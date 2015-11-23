@@ -40,8 +40,13 @@ def setupControllers(verbose, simulation, permissive):
         usbPumps = switches.simSwitchList()
 
     logging.info("Setting up appliances")
-    hwTunSwitch = x10.getSwitch("H14")
-    boilerSwitch = x10.getSwitch("I12")
+
+    hwTunSwitch = switches.powerSwitch(1)
+    boilerSwitch = switches.powerSwitch(2)
+
+    #hwTunSwitch = x10.getSwitch("H14")
+    #boilerSwitch = x10.getSwitch("I12")
+
     #aeratorSwitch = x10.getSwitch("G10")
     #aeratorSwitch = switches.simSwitch()
     aeratorSwitch = switches.air8800Switch()

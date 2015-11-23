@@ -16,7 +16,7 @@ class datalogger(threading.Thread):
 
     def run(self):
         self._stopflag.clear()
-        datafile = open(self.filename, 'w',1)
+        datafile = open(self.filename, 'w', 1)
         datafile.write(self.controllers.csvheader() + "\n")
         while not self._stopflag.isSet():
             datafile.write(self.controllers.csv() + "\n")
