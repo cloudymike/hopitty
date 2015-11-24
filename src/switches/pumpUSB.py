@@ -20,6 +20,7 @@ from Phidgets.Devices.InterfaceKit import InterfaceKit
 
 
 class onePump():
+
     def __init__(self, usb=None, index=0):
         self.error = False
         self.usb = usb
@@ -109,15 +110,14 @@ if __name__ == "__main__":  # pragma: no cover
     pump3 = pu.getPump(3)
 
     for x in range(0, 3):
-       print "Pump %d" % (x)
-       pu.getPump(x).off()
-       print "Pump on"
-       pu.getPump(x).on()
-       time.sleep(1)
-       print "Pump off"
-       pu.getPump(x).off() 
-       time.sleep(1)
-
+        print "Pump %d" % (x)
+        pu.getPump(x).off()
+        print "Pump on"
+        pu.getPump(x).on()
+        time.sleep(1)
+        print "Pump off"
+        pu.getPump(x).off()
+        time.sleep(1)
 
     print("Closing...")
     pu.close()
