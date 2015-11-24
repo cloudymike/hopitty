@@ -1,0 +1,11 @@
+#!/bin/bash
+
+pkill -9 -f bottleweb &> /dev/null
+
+nosetests -v $1 src/checker
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+
+echo "===========All Tests Passed================"
