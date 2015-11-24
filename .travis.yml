@@ -8,7 +8,6 @@ install: ./SETUP
 # command to run tests, e.g. python setup.py test
 script:
   - pep8 -r src
-  - ./testunit
   - ./testjson2stages
   - ./testbsmx2stages
   - ./threadrecipe
