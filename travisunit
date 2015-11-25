@@ -17,7 +17,6 @@ TESTDIRS="src/appliances
 src/checker
 src/ctrl
 src/stages2beer
-src/switches
 src/tests
 src/webctrl
 "
