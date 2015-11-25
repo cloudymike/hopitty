@@ -23,7 +23,7 @@ src/tests
 src/webctrl
 "
 
-for d in $TESTDIRS; dod
+for d in $TESTDIRS; do
    echo $
    nosetests -v $d 2>&1
    if [ "$?" != "0" ]; then
