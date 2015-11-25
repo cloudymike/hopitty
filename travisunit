@@ -24,7 +24,7 @@ src/webctrl
 "
 
 for d in $TESTDIRS; do
-   echo $
+   echo $d
    nosetests -v $d 2>&1
    if [ "$?" != "0" ]; then
        echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
