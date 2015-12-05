@@ -84,13 +84,17 @@ class s2b(threading.Thread):
         Simple check to validate that the recipe uses controllers
         in the controller list.
         """
+        print "Stages", self.stages
         if self.stages == {}:
+            print "empty stages"
             return(False)
         if self.controllers is None:
+            print "no controllers"
             return(False)
         if self.stages is not None:
             for r_key, settings in sorted(self.stages.items()):
                 if not self.controllers.check(settings):
+                    "print missing controller check"
                     return(False)
             return(True)
         return(False)

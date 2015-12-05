@@ -84,25 +84,27 @@ def readRecipeFile(ctrl, recipefile=None, user=None):
 
 
 def updateRecipes(rl, bsmxfile):
-    print "...1"
+    """
+    Update Recipe list by removing all recipes that does not work.
+    This is checked by doing a check against recipe and equipment
+    """
     rl.readBeerSmith(bsmxfile)
     iterlist = rl.getlist()
     deleteList = []
-    print "...2"
     for recipeName in iterlist:
         recipeObjBsmx = rl.getRecipe(recipeName)
         recipeBSMX = recipeObjBsmx.getBSMXstring()
         recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
         if not recipeObjParsed.isValid():
             deleteList.append(recipeName)
-            print "**********Fail on parseBSMX:", recipeName
+            logging.info("**********Fail on parseBSMX:" + recipeName)
         else:
             ce = checker.equipment(controllers, recipeObjParsed.getStages())
             if not ce.check():
                 deleteList.append(recipeName)
-                print "**********Fail on equipment check:", recipeName
+                logging.info("**********Fail on equipment check:" + recipeName)
     for deleteName in deleteList:
-        print "deleting", deleteName
+        logging.info("deleting" + deleteName)
         rl.deleteRecipe(deleteName)
 
     #rl.nameListToMemcache()

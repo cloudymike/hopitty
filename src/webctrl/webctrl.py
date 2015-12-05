@@ -182,6 +182,18 @@ class runbrew():
         rs = rs + "Skip one stage forward."
         rs = rs + '</form>'
 
+        rs = rs + '<form method="post" action="/start">'
+
+        rs = rs + '<input type="hidden" name="preHeatState" value="True">'
+        rs = rs + '<input type="submit"'
+        rs = rs + """
+        style="color: white; background-color: blue; font-size: larger;
+        height:50px;width:80px;"
+        """
+        rs = rs + ' value="PreHeat">'
+        rs = rs + "Pre heat the strike water to 170F"
+        rs = rs + '</form>'
+
         rs = rs + common.footer()
 
         return(rs)
@@ -213,6 +225,17 @@ class runbrew():
         skipState = request.forms.get('skipState')
         if skipState == "True":
             self.s2b.skip()
+
+        preHeatState = request.forms.get('preHeatState')
+        if preHeatState == "True":
+            if not self.s2b.isAlive():
+                preHeat = {"name": "heat_only", "recipe":
+                           {"01": {"waterHeater": 170}}}
+                js = recipeReader.jsonStages(preHeat, self.controllers)
+                self.s2b = stages2beer.s2b(self.controllers, js.getStages())
+                self.s2b.start()
+            else:
+                print "Already running, can not switch to preheat"
 
         return(self.commandPage())
 
