@@ -2,10 +2,10 @@
 "name":"heat_only",
   "recipe":   {
     "01":{
-      "waterHeater":160
+      "waterHeater":80
      },
      "02":{
-      "waterHeater":160,
+      "waterHeater":80,
       "delayTimer": 0.1
      }
      

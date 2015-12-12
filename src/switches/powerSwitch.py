@@ -66,6 +66,7 @@ class powerSwitch(object):
             self.simulation = True
 
     def on(self):
+        #print "Power switch " + str(self.relay) + " on"
         if self.simulation:
             pass
         else:
@@ -75,6 +76,7 @@ class powerSwitch(object):
                 send_command(commands['relay_2_on'])
 
     def off(self):
+        #print "Power switch " + str(self.relay) + " off"
         if self.simulation:
             pass
         else:
@@ -96,7 +98,7 @@ if __name__ == '__main__':  # pragma: no cover
     else:
         print("Hardware switch not found with HWOK method")
 
-    for i in range (1, 10):
+    for i in range(1, 10):
         print("HWtun on")
         testHWtun.on()
         time.sleep(1)
@@ -110,5 +112,3 @@ if __name__ == '__main__':  # pragma: no cover
         print("Boiler off")
         testBoiler.off()
         time.sleep(1)
-
-

@@ -14,19 +14,19 @@ def setupControllers(verbose, simulation, permissive):
     # Try to find hw switches
     if not simulation:
         logging.info("Initializing hardware")
-        try:
-            x10 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
-                                 '_Inc._USB-Serial_Controller-if00-port0')
-            x10.open()
-        except:
-            if permissive:
-                logging.info("**********X10 not found, simulating HW")
-                x10 = switches.simSwitchList()
-                #simX10 = True
-            else:
-                logging.info("X10 not available")
-                sys.exit()
-
+#       try:
+#           x10 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
+#                                '_Inc._USB-Serial_Controller-if00-port0')
+#           x10.open()
+#       except:
+#           if permissive:
+#               logging.info("**********X10 not found, simulating HW")
+#               x10 = switches.simSwitchList()
+#               #simX10 = True
+#           else:
+#               logging.info("X10 not available")
+#               sys.exit()
+        x10 = None
         try:
             usbPumps = switches.pumpUSB()
         except:
