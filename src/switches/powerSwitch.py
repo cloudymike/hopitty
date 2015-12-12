@@ -24,10 +24,14 @@ commands = {
 
 
 def send_command(cmd, read_response=False):
-    ser = serial.Serial('/dev/ttyACM0', 9600)
-    ser.write(chr(cmd) + '\n')
-    response = read_response and ser.read() or None
-    ser.close()
+    try:
+        ser = serial.Serial('/dev/ttyACM0', 9600)
+        ser.write(chr(cmd) + '\n')
+        response = read_response and ser.read() or None
+        ser.close()
+    except:
+        print "ERROR, can not connect to powerswitch"
+        response = None
     return response
 
 
@@ -92,15 +96,19 @@ if __name__ == '__main__':  # pragma: no cover
     else:
         print("Hardware switch not found with HWOK method")
 
-    print("HWtun on")
-    testHWtun.on()
-    time.sleep(2)
-    print("HWtun off")
-    testHWtun.off()
+    for i in range (1, 10):
+        print("HWtun on")
+        testHWtun.on()
+        time.sleep(1)
+        print("HWtun off")
+        testHWtun.off()
 
-    time.sleep(2)
-    print("Boiler on")
-    testBoiler.on()
-    time.sleep(2)
-    print("Boiler off")
-    testBoiler.off()
+        time.sleep(1)
+        print("Boiler on")
+        testBoiler.on()
+        time.sleep(1)
+        print("Boiler off")
+        testBoiler.off()
+        time.sleep(1)
+
+

@@ -109,7 +109,7 @@ if __name__ == "__main__":  # pragma: no cover
     pump2 = pu.getPump(2)
     pump3 = pu.getPump(3)
 
-    for x in range(0, 3):
+    for x in range(0, 4):
         print "Pump %d" % (x)
         pu.getPump(x).off()
         print "Pump on"
