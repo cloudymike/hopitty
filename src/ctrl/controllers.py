@@ -12,6 +12,7 @@ class controllerList(dict):
         # Lock the hardware anytime it is accessed
         self.HWlock = threading.RLock()
         #self.HWlock.release()
+        self.mylog = {}
 
         if STRESSTEST:
             print "WARNING: Running in stress test mode"
@@ -165,9 +166,19 @@ class controllerList(dict):
         self.HWlock.release()
         return ctrlStat
 
+    def logstatus(self):
+        """
+        Add status to mylog dictionary with a timestamp as key
+        """
+        t = datetime.datetime.now()
+        self.mylog[t] = self.status()
+
+    def getMyLog(self):
+        return self.mylog
+
     def csv(self):
         """
-        Save the status of the controller in a dictionary
+        Save the status of the controller in a csv line
         """
         self.HWlock.acquire()
         t = datetime.datetime.now().time()
@@ -179,7 +190,7 @@ class controllerList(dict):
 
     def csvheader(self):
         """
-        Save the status of the controller in a dictionary
+        Save the values of the controller names as header
         """
         self.HWlock.acquire()
         ctrlStat = "Time"

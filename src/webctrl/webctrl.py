@@ -6,7 +6,6 @@ from bottle import Bottle, request, run
 from threading import Thread
 import stages2beer
 import recipeReader
-import time
 
 # Import of the pages views
 import commonweb
@@ -16,6 +15,7 @@ import recipeliststatus
 import switchliststatus
 import myserver
 import ctrl
+import graphPage
 
 import recipeModel
 import os
@@ -48,6 +48,8 @@ class runbrew():
 
         self.wapp.route('/switchlist', 'GET', self.switchliststatusPage)
         self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
+
+        self.wapp.route('/temp', 'GET', self.tempPage)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
         self.dl = ctrl.datalogger(controllers)
@@ -285,3 +287,7 @@ class runbrew():
             "lights",
             "camera")
         return(ss)
+
+    def tempPage(self):
+        mylog = self.controllers.getMyLog()
+        return(graphPage.graphPage(mylog, 'waterHeater', 'boiler'))
