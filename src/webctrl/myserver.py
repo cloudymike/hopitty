@@ -1,3 +1,9 @@
+'''
+This is a test web server to test the individual pages.
+Not all pages are tested as the datastructure needs to be stubbed.
+Start with http://localhost:8080 and try the button links!
+'''
+
 from bottle import Bottle, ServerAdapter, route, run, template
 import matplotlib.pyplot as plt, mpld3
 import matplotlib
