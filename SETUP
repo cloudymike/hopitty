@@ -150,6 +150,14 @@ sudo easy_install selenium
 # sudo easy_install wsgi_liveserver # Kept locally to manage ports
 sudo pip install xvfbwrapper
 
+# For graphing tool
+sudo apt-get -y install python-dev
+sudo apt-get -y install freetype*
+sudo apt-get -y install libpng-dev
+sudo easy_install -U distribute
+sudo pip install matplotlib
+sudo pip install mpld3
+
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
 ######################################
