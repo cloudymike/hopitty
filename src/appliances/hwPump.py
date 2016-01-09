@@ -24,6 +24,7 @@ class hwPump(appliances.genctrl):
         self.actual = 0
         self.lastActual = 0
         self.lastCheck = datetime.datetime.now()
+        self.oldSensor = 0
 
     def connectSwitch(self, switch):
         """
@@ -100,6 +101,7 @@ class hwPump(appliances.genctrl):
     def stop(self):
         self.target = 0
         self.actual = 0
+        self.oldActual = 0
         self.startVol = self.sensor.getValue()
         self.active = False
         self.pumpOff()
@@ -149,6 +151,26 @@ class wortPump(hwPump):
             sensorValue = self.sensor.getValue()
             self.sensor.setValue(sensorValue - deltavol)
             # self.sensor.setValue(sensorValue)
+
+            # Calculate 1/2 interval of last run to interpolate between sampling
+            roundup = 0
+            if self.oldSensor != 0:
+                roundup = (self.oldSensor - sensorValue) / 2
             self.actual = self.startVol - sensorValue
+
+            # print \
+            #       " Newactual:{0:2f}".format(self.actual+roundup), \
+            #       " actual:{0:2f}".format(self.actual), \
+            #       " oldActual:{0:2f}".format(self.oldActual), \
+            #       " sensor:{0:2f}".format(sensorValue), \
+            #       " oldSensor:{0:2f}".format(self.oldSensor), \
+            #       " roundup:{0:2f}".format(roundup), \
+            #       " 2roundup:{0:2f}".format(2*roundup), \
+            #       " deltaAct:{0:2f}".format(self.actual-self.oldActual), \
+            #       "..."
+
+            self.oldSensor = sensorValue
+            self.oldActual = self.actual
+
             if not self.checkFlow():
                 print "FAKE Error: Flow not detected in ", __name__

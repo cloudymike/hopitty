@@ -28,7 +28,7 @@ def graphPage(mylog, label1, label2):
     dates = matplotlib.dates.date2num(dx)
     ax.plot_date(dates, dy, 'r-', label=label1)
     bx.plot_date(dates, dz, 'b-', label=label2)
-    plt.legend()
+    plt.legend(bbox_to_anchor=(1, 0.2))
 
     common = commonweb.commonweb()
 
