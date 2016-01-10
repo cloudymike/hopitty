@@ -26,14 +26,19 @@ class mashTempSensor(sensors.genericSensor):
                 serPort = serial.Serial(altPortName, 19200, timeout=0.1)
             except:
                 return(None)
-        if self.simulation:
-            raw = "123"
-        else:
+
+        try:
             serPort.write("adc read "+ str(analogChannel) + "\r")
             response = serPort.read(25)
-            serPort.close()
+
+        except:
+            logging.error("Reading mashTemp")
+    
+        serPort.close()
+
         try:
             rawval = response[10:-3].strip()
+
             bitval = float(rawval)
             mV = bitval/1023 * 5000
             C = (mV - 500) / 10
@@ -46,6 +51,8 @@ class mashTempSensor(sensors.genericSensor):
         except:
             logging.error("Error converting MashTemp value")
             F = self.val
+        if self.simulation:
+            raw = "123"
         return(F)
 
     def getValue(self):
