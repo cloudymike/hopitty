@@ -290,4 +290,4 @@ class runbrew():
 
     def tempPage(self):
         mylog = self.controllers.getMyLog()
-        return(graphPage.graphPage(mylog, 'waterHeater', 'boiler'))
+        return(graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashHeater'))

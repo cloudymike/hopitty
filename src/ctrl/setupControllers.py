@@ -81,6 +81,8 @@ def setupControllers(verbose, simulation, permissive):
 
     controllers.addController('mashStirrer', appliances.mashStirrer())
     controllers['mashStirrer'].connectSwitch(mashStirSwitch)
+    controllers.addController('mashHeater', appliances.mashHeater())
+
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
     controllers.addController('delayTimer', appliances.hoptimer())

@@ -40,6 +40,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -99,6 +103,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },

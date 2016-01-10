@@ -7,6 +7,7 @@ from hwPump import *
 from dispenser import *
 from cooler import *
 from mashStirrer import *
+from mashHeater import *
 from boilerValve import *
 from plateValve import *
 from aerator import *

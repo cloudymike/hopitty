@@ -17,8 +17,9 @@ import graphPage
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
       '11:11:47.031451', '11:11:56.059317', '11:12:03.541168',
       '11:12:11.182522', '11:12:18.252898']
-ty = [156, 157, 157, 157, 157, 157, 157, 158]
-tz = [160, 159, 158, 157, 156, 155, 154, 153]
+ty = [90, 120, 130, 145, 150, 157, 157, 158]
+tz = [90, 100, 120, 140, 160, 180, 200, 212]
+tm = [150, 149, 148, 149, 150, 151, 150, 150]
 
 
 def mktj():
@@ -27,7 +28,8 @@ def mktj():
     for i in range(0, len(tx)):
         hwa = {'actual': ty[i]}
         boila = {'actual': tz[i]}
-        status = {'hwt': hwa, 'boiler': boila}
+        masha = {'actual': tm[i]}
+        status = {'hwt': hwa, 'boiler': boila, 'mash': masha}
         tt = time.strptime(tx[i], "%H:%M:%S.%f")
         dt = datetime.datetime(*tt[:6])
 
@@ -83,7 +85,7 @@ class myserver(ServerAdapter):
 
     @route('/temp')
     def stat():
-        return (graphPage.graphPage(mktj(), "hwt", "boiler"))
+        return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash"))
 
 
 ##########################

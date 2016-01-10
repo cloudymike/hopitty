@@ -40,6 +40,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -102,6 +106,10 @@
       "active": true,
       "targetValue": 2.0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -161,6 +169,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -226,6 +238,10 @@
       "active": true,
       "targetValue": 17.434827310278614
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -285,6 +301,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -350,6 +370,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -409,6 +433,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -474,6 +502,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -533,6 +565,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -598,6 +634,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -657,6 +697,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -722,6 +766,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -781,6 +829,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -846,6 +898,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -905,6 +961,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -970,6 +1030,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1032,6 +1096,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1091,6 +1159,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
