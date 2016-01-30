@@ -2,8 +2,13 @@
 "name":"wort_pump_test",
   "recipe":   {
     "01":{
-      "wortPump":8.0,
-      "boiler":200
+      "wortPump":2.0
+    },
+    "02":{
+      "hotWaterPump":1.0
+    },
+    "03":{
+      "wortPump":2.0
     }
   }
 }

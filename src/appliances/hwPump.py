@@ -15,7 +15,7 @@ class hwPump(appliances.genctrl):
         self.totalVol = 0
         self.powerOn = False
         self.absSec = time.time()
-        self.SEC_PER_QUART = 39.0
+        self.SEC_PER_QUART = 3.0
         self.unit = 'Qt'
         self.pumpMotor = None
         self.sensor = sensors.dymoScaleSensor()
