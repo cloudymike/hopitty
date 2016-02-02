@@ -25,7 +25,7 @@ class boilerVolume():
         self.errorState = False  # If an error has occured
         self.actual = 0  # Actual measured value, ex temp
         self.target = 0  # Target value
-        self.unit = 'U'  # Unit of measure
+        self.unit = 'Qt'  # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
         self.switch = None  # Switch object. Should have method on and off
@@ -81,7 +81,7 @@ class boilerVolume():
 
     def targetMet(self):
         """ Function for target met. Rewrite for each implementation"""
-        return(self.actual >= self.target)
+        return(True)
 
     def set(self, value):
         """ Sets a target value and start controller.

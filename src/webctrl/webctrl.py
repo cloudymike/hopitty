@@ -16,6 +16,7 @@ import switchliststatus
 import myserver
 import ctrl
 import graphPage
+import ingredients
 
 import recipeModel
 import os
@@ -50,6 +51,7 @@ class runbrew():
         self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
 
         self.wapp.route('/temp', 'GET', self.tempPage)
+        self.wapp.route('/ingredients', 'GET', self.ingredientsPage)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
         self.dl = ctrl.datalogger(controllers)
@@ -291,3 +293,7 @@ class runbrew():
     def tempPage(self):
         mylog = self.controllers.getMyLog()
         return(graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashHeater'))
+
+    def ingredientsPage(self):
+        #myIngredients = self.controllers.getMyLog()
+        return(ingredients.ingredients())

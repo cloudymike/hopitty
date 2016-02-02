@@ -12,6 +12,7 @@ import time
 import datetime
 import index
 import graphPage
+import ingredients
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -86,6 +87,10 @@ class myserver(ServerAdapter):
     @route('/temp')
     def stat():
         return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash"))
+
+    @route('/ingredients')
+    def stat():
+        return (ingredients.ingredients())
 
 
 ##########################
