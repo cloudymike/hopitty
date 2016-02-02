@@ -22,6 +22,10 @@ ty = [90, 120, 130, 145, 150, 157, 157, 158]
 tz = [90, 100, 120, 140, 160, 180, 200, 212]
 tm = [150, 149, 148, 149, 150, 151, 150, 150]
 
+class dummyRecipe():
+    def ingredientsHops(self):
+        return([["dispenser1", "Columbus (Tomahawk)", 1.0000000],["dispenser3", "Centennial", 0.4999252]]
+)
 
 def mktj():
     tj = {}
@@ -90,7 +94,8 @@ class myserver(ServerAdapter):
 
     @route('/ingredients')
     def stat():
-        return (ingredients.ingredients())
+        recipe=dummyRecipe()
+        return (ingredients.ingredients(recipe))
 
 
 ##########################

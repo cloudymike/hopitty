@@ -296,4 +296,4 @@ class runbrew():
 
     def ingredientsPage(self):
         #myIngredients = self.controllers.getMyLog()
-        return(ingredients.ingredients())
+        return(ingredients.ingredients(self.recipeObject))

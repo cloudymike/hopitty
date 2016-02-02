@@ -2,7 +2,7 @@ import bottle
 import commonweb
 
 
-def ingredients():
+def ingredients(recipeObject):
     common = commonweb.commonweb()
     indexpage = """
          <head>
@@ -11,7 +11,9 @@ def ingredients():
 <body>
 
 <h1>Current Ingredients</h1>
-
+"""
+    if recipeObject == None:
+        hops = """
 <h2>Stuff</h2>
 <ul>
 <li>dispenser 1 </li>
@@ -19,6 +21,9 @@ def ingredients():
 
 </ul>
 """
+    else:
+        hops = str(recipeObject.ingredientsHops())
+    indexpage = indexpage + hops
     indexpage = indexpage + common.footer()
     indexpage = indexpage + "</body>"
 

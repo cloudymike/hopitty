@@ -260,6 +260,29 @@ class bsmxStages():
                 logging.info("Dryhop " + name + " " + str(dry) + " days")
         return(hlist)
 
+    def ingredientsHops(self):
+        tagName = 'Hops'
+        hops = self.doc.getElementsByTagName(tagName)
+        hlist = []
+        for hop in hops:
+            name = hop.getElementsByTagName("F_H_NAME")[0].\
+                firstChild.nodeValue
+
+            boil = hop.getElementsByTagName(
+                "F_H_BOIL_TIME")[0].firstChild.nodeValue
+            dry = hop.getElementsByTagName(
+                "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
+            use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+            if use == '0':
+                logging.info("Boil " + name + " " + str(boil) + " minutes")
+                dispenser = self.getDispenserAtTime(float(boil))
+                weight =  hop.getElementsByTagName(
+                "F_H_AMOUNT")[0].firstChild.nodeValue
+                hlist.append([dispenser, name, weight])
+            if use == '1':
+                logging.info("Dryhop " + name + " " + str(dry) + " days")
+        return(hlist)
+
     def getSteep(self):
         tagName = 'Hops'
         hops = self.doc.getElementsByTagName(tagName)

@@ -4,10 +4,13 @@ Created on Oct 17, 2012
 @author: mikael
 '''
 
+import appliances.genctrl
 import sensors
+import switches
+import logging
 
 
-class boilerVolume():
+class boilerVolume(appliances.genctrl):
     '''
     Generic controller
     Use this baseclass to derive the actual controllers
@@ -28,7 +31,7 @@ class boilerVolume():
         self.unit = 'Qt'  # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
-        self.switch = None  # Switch object. Should have method on and off
+        self.switch = switches.simSwitch  # Switch object. Should have method on and off
         self.sensor = sensors.genericSensor()
         self.host = None
         self.acc = 0
@@ -62,12 +65,13 @@ class boilerVolume():
 
         This functions MUST be rewritten for every controller!
         """
-        if self.host.isActive():
-            self.current = self.host.get()
-        else:
-            self.acc = self.acc + self.current
-            self.current = 0
-        self.actual = self.acc + self.current
+        if self.host is not None:
+            if self.host.isActive():
+                self.current = self.host.get()
+            else:
+                self.acc = self.acc + self.current
+                self.current = 0
+            self.actual = self.acc + self.current
 
     def update(self):
         """
