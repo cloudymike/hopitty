@@ -12,6 +12,10 @@
       "active": false,
       "targetValue": 0
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -78,6 +82,10 @@
       "active": true,
       "targetValue": 1
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -141,6 +149,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -210,6 +222,10 @@
       "active": true,
       "targetValue": 1
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -273,6 +289,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
