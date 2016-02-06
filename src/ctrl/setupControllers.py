@@ -93,6 +93,8 @@ def setupControllers(verbose, simulation, permissive):
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
     controllers.addController('wortPump', appliances.wortPump())
     controllers['wortPump'].connectSwitch(wortSwitch)
+    controllers.addController('boilerVolume', appliances.boilerVolume())
+    controllers['boilerVolume'].attachHost(controllers['wortPump'])
     # controllers.addController('mashCirculationPump', \
     #                          appliances.circulationPump())
     # controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)

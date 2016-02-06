@@ -12,10 +12,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -41,10 +37,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -82,10 +74,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -114,10 +102,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -132,7 +116,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 173.13322
+      "targetValue": 176.1623767
     },
     "wortPump": {
       "active": false,
@@ -149,10 +133,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -184,10 +164,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -202,7 +178,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 173.13322
+      "targetValue": 176.1623767
     },
     "wortPump": {
       "active": false,
@@ -219,10 +195,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -252,11 +224,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 9.8125
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
+      "targetValue": 9.08055125
     },
     "mashStirrer": {
       "active": false,
@@ -272,7 +240,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 173.13322
+      "targetValue": 176.1623767
     },
     "wortPump": {
       "active": false,
@@ -289,10 +257,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -321,10 +285,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -362,10 +322,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -391,10 +347,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -416,7 +368,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 2.5158189344879514
     }
   },
   "06 Sparge hold": {
@@ -429,10 +381,6 @@
       "targetValue": 1
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -461,10 +409,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -502,10 +446,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -532,11 +472,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
+      "targetValue": 2.5158189344879514
     },
     "mashStirrer": {
       "active": false,
@@ -572,10 +508,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -601,10 +533,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -626,7 +554,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 2.5158189344879514
     }
   },
   "09 Sparge hold": {
@@ -639,10 +567,6 @@
       "targetValue": 1
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -671,10 +595,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -712,10 +632,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -742,11 +658,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
+      "targetValue": 2.5158189344879514
     },
     "mashStirrer": {
       "active": false,
@@ -782,10 +694,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -811,10 +719,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -836,7 +740,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 2.5158189344879514
     }
   },
   "12 Sparge hold": {
@@ -849,10 +753,6 @@
       "targetValue": 1
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -881,10 +781,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -922,10 +818,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -952,11 +844,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
+      "targetValue": 2.5158189344879514
     },
     "mashStirrer": {
       "active": false,
@@ -992,10 +880,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1021,10 +905,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1046,7 +926,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 2.5158189344879514
     }
   },
   "15 Sparge hold": {
@@ -1059,10 +939,6 @@
       "targetValue": 1
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1091,10 +967,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1132,10 +1004,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1162,11 +1030,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
+      "targetValue": 2.5158189344879514
     },
     "mashStirrer": {
       "active": false,
@@ -1202,10 +1066,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1231,10 +1091,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1272,10 +1128,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1301,10 +1153,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1326,7 +1174,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.95323795180723
+      "targetValue": 2.728362131024097
     }
   },
   "19 Wort Final hold": {
@@ -1339,10 +1187,6 @@
       "targetValue": 1
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1371,10 +1215,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1412,10 +1252,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1441,10 +1277,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1466,7 +1298,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.95323795180723
+      "targetValue": 2.728362131024097
     }
   },
   "22 pre-boil": {
@@ -1479,10 +1311,6 @@
       "targetValue": 174
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1511,10 +1339,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1552,10 +1376,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1581,10 +1401,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1622,10 +1438,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -1651,10 +1463,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1692,17 +1500,13 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 0.0
+      "targetValue": 45.0
     },
     "dispenser1": {
       "active": false,
@@ -1721,10 +1525,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1762,17 +1562,13 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 45.0
+      "targetValue": 14.0
     },
     "dispenser1": {
       "active": true,
@@ -1791,10 +1587,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1832,17 +1624,13 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 15.0
+      "targetValue": 1.0
     },
     "dispenser1": {
       "active": false,
@@ -1861,10 +1649,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -1889,77 +1673,7 @@
       "targetValue": 0
     }
   },
-  "28 Boil": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": true,
-      "targetValue": 179
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "delayTimer": {
-      "active": true,
-      "targetValue": 0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": true,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "29 Cool down": {
+  "28 Cool down": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -1969,10 +1683,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2004,10 +1714,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2029,217 +1735,7 @@
       "targetValue": 0
     }
   },
-  "30 Steeping": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "delayTimer": {
-      "active": true,
-      "targetValue": 42.0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "31 cool": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": true,
-      "targetValue": 72
-    },
-    "delayTimer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "32 re-charge": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "delayTimer": {
-      "active": true,
-      "targetValue": 1
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "33 Empty out": {
+  "29 Empty out": {
     "aerator": {
       "active": true,
       "targetValue": 1
@@ -2252,17 +1748,13 @@
       "active": true,
       "targetValue": 1
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "cooler": {
       "active": false,
       "targetValue": 0
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 15
+      "targetValue": 7
     },
     "dispenser1": {
       "active": false,
@@ -2284,17 +1776,13 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "plateValve": {
-      "active": false,
-      "targetValue": 0
+      "active": true,
+      "targetValue": 1
     },
     "waterCirculationPump": {
       "active": false,
@@ -2309,7 +1797,7 @@
       "targetValue": 0
     }
   },
-  "34 Done": {
+  "30 Done": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -2319,10 +1807,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2351,10 +1835,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },

@@ -12,6 +12,10 @@
       "active": false,
       "targetValue": 0
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": true,
       "targetValue": 2000
@@ -75,6 +79,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -144,6 +152,10 @@
       "active": false,
       "targetValue": 0
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -207,6 +219,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -276,6 +292,10 @@
       "active": false,
       "targetValue": 0
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -339,6 +359,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -408,6 +432,10 @@
       "active": false,
       "targetValue": 0
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -471,6 +499,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -540,6 +572,10 @@
       "active": false,
       "targetValue": 0
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -605,6 +641,10 @@
     "boilerValve": {
       "active": true,
       "targetValue": 1
+    },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
     },
     "cooler": {
       "active": false,
@@ -672,6 +712,10 @@
       "active": true,
       "targetValue": 1
     },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "cooler": {
       "active": false,
       "targetValue": 0
@@ -735,6 +779,10 @@
       "targetValue": 0
     },
     "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },

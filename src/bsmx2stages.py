@@ -68,6 +68,9 @@ if __name__ == "__main__":
     inf.close()
     bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers)
     stagesStr = bsmxObj.getStages()
+    hops = bsmxObj.ingredientsHops()
+    for x in hops:
+        print x[0], x[1], x[2]
     stagesJson = json.dump(stagesStr, outf, sort_keys=True,
                            indent=2, separators=(',', ': '))
     outf.close()
