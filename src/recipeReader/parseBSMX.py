@@ -260,6 +260,34 @@ class bsmxStages():
                 logging.info("Dryhop " + name + " " + str(dry) + " days")
         return(hlist)
 
+    def ingredientsMisc(self):
+        tagName = 'Misc'
+        ms = self.doc.getElementsByTagName(tagName)
+        mlist = []
+        for m in ms:
+            name = m.getElementsByTagName("F_M_NAME")[0].firstChild.nodeValue
+
+            t = m.getElementsByTagName("F_M_TIME")[0].firstChild.nodeValue
+            unit = m.getElementsByTagName("F_M_TIME_UNITS")[0].\
+                firstChild.nodeValue
+            use = m.getElementsByTagName("F_M_USE")[0].firstChild.nodeValue
+            if unit == '0':
+                tu = 'minutes'
+            if unit == '1':
+                tu = 'days'
+            if use == '0':
+                logging.info("Boil " + name + " " + str(t) + " " + tu)
+                dispenser = self.getDispenserAtTime(float(t))
+                try:
+                    weight =  m.getElementsByTagName(
+                               "F_M_AMOUNT")[0].firstChild.nodeValue
+                except:
+                    weight = 0
+                mlist.append([dispenser, name, weight])
+            else:
+                logging.info("Other " + name + " " + str(t) + " " + tu)
+        return(mlist)
+
     def ingredientsHops(self):
         tagName = 'Hops'
         hops = self.doc.getElementsByTagName(tagName)
@@ -279,8 +307,21 @@ class bsmxStages():
                 weight =  hop.getElementsByTagName(
                 "F_H_AMOUNT")[0].firstChild.nodeValue
                 hlist.append([dispenser, name, weight])
+            if use == '3':
+                weight =  hop.getElementsByTagName(
+                "F_H_AMOUNT")[0].firstChild.nodeValue
+                hlist.append(['FWH', name, weight])
+            if use == '4':
+                boil = hop.getElementsByTagName(
+                    "F_H_BOIL_TIME")[0].firstChild.nodeValue
+                logging.info("Boil " + name + " " + str(boil) + " minutes")
+                dispenser = self.getDispenserAtTime(float(boil))
+                weight =  hop.getElementsByTagName(
+                "F_H_AMOUNT")[0].firstChild.nodeValue
+                hlist.append([dispenser, name, weight])
             if use == '1':
                 logging.info("Dryhop " + name + " " + str(dry) + " days")
+        print hlist
         return(hlist)
 
     def getSteep(self):

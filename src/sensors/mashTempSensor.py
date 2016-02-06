@@ -5,10 +5,13 @@ import time
 import serial
 import logging
 
-analogChannel = "0";
+analogChannel = "0"
+# pragma: no cover
+portName = \
+    '/dev/serial/by-id/usb-Microchip_Technology_Inc._CDC_RS-232_Emulation_Demo-if00'
+altPortName = \
+    '/dev/serial/by-id/pci-Microchip_Technology_Inc._CDC_RS-232_Emulation_Demo-if00'
 
-portName = '/dev/serial/by-id/usb-Microchip_Technology_Inc._CDC_RS-232_Emulation_Demo-if00'
-altPortName = '/dev/serial/by-id/pci-Microchip_Technology_Inc._CDC_RS-232_Emulation_Demo-if00'
 
 class mashTempSensor(sensors.genericSensor):
     def __init__(self):
@@ -19,7 +22,7 @@ class mashTempSensor(sensors.genericSensor):
         self.simulation = not self.HWOK()
 
     def readTemp(self):  # pragma: no cover
-        try: 
+        try:
             serPort = serial.Serial(portName, 19200, timeout=0.1)
         except:
             try:
@@ -28,19 +31,19 @@ class mashTempSensor(sensors.genericSensor):
                 return(None)
 
         try:
-            serPort.write("adc read "+ str(analogChannel) + "\r")
+            serPort.write("adc read " + str(analogChannel) + "\r")
             response = serPort.read(25)
 
         except:
             logging.error("Reading mashTemp")
-    
+
         serPort.close()
 
         try:
             rawval = response[10:-3].strip()
 
             bitval = float(rawval)
-            mV = bitval/1023 * 5000
+            mV = bitval / 1023 * 5000
             C = (mV - 500) / 10
             F = int(C * 1.8 + 32)
 #            print \
@@ -70,7 +73,7 @@ class mashTempSensor(sensors.genericSensor):
         For sensors without USB connection return true
         at all times
         """
-        try: 
+        try:
             serPort = serial.Serial(portName, 19200, timeout=1)
         except:
             try:

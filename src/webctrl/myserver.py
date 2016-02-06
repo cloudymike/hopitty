@@ -24,8 +24,10 @@ tm = [150, 149, 148, 149, 150, 151, 150, 150]
 
 class dummyRecipe():
     def ingredientsHops(self):
-        return([["dispenser1", "Columbus (Tomahawk)", 1.0000000],["dispenser3", "Centennial", 0.4999252]]
-)
+        return([["dispenser1", "Columbus (Tomahawk)", 1.0000000],["dispenser3", "Centennial", 0.4999252]])
+
+    def ingredientsMisc(self):
+        return([["dispenser2", "Whirlflock", 1.0000000]])
 
 def mktj():
     tj = {}
