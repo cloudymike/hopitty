@@ -10,7 +10,7 @@ import sys
 from struct import *
 import logging
 
-SERIAL_PATH = '/dev/ttyACM0'
+SERIAL_PATH = '/dev/serial/by-id/usb-Devantech_Ltd._USB-RLY02._00019896-if00'
 BAUD_RATE = 9600
 
 commands = {
@@ -25,7 +25,7 @@ commands = {
 
 def send_command(cmd, read_response=False):
     try:
-        ser = serial.Serial('/dev/ttyACM0', 9600)
+        ser = serial.Serial(SERIAL_PATH, BAUD_RATE)
         ser.write(chr(cmd) + '\n')
         response = read_response and ser.read() or None
         ser.close()
