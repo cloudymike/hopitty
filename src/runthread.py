@@ -81,7 +81,10 @@ if __name__ == "__main__":
 
     stages = {}
     recipeName = ""
-    simulation = (simulation or (not HWcheck))
+    if HWcheck:
+        simulation = (simulation or (not HWcheck))
+    else:
+        simulation = False
     controllers = ctrl.setupControllers(verbose, simulation, permissive)
 
     if HWcheck:
