@@ -25,8 +25,7 @@ class hwPump(appliances.genctrl):
         self.lastActual = 0
         self.lastCheck = datetime.datetime.now()
         self.oldSensor = 0
-        self.countMod = 2
-        self.speedCount = 0
+        self.speedcount = 0
         self.slowLimit = 0.5
 
     def connectSwitch(self, switch):
@@ -150,10 +149,11 @@ class wortPump(hwPump):
         Turn on the pumpmotor every countMod seconds (really runs) and keep
         it off for the rest of the time.
         """
-        self.speedcount = self.speedcount = 1
+        #print ">>>>>>>>>>>>>>slowing down", self.speedcount
+        self.speedcount = self.speedcount + 1
         if self.pumpMotor is not None:
             if self.powerOn and \
-                ( ( self.speedcount % self.countMod ) == 0) and \
+                ( ( self.speedcount % 3 ) == 0 ) and \
                 self.active:
                 self.pumpMotor.on()
             else:
@@ -168,14 +168,21 @@ class wortPump(hwPump):
         return(abs(self.actual - self.target) < self.slowLimit)
 
 
+    def pumpOn(self):
+        if not self.targetMet():
+            self.powerOn = True
+            if self.pumpMotor is not None:
+                if self.closeToLimit():
+                    self.slowPump()
+                else:
+                    self.pumpMotor.on()
+
     def update(self):
         self.measure()
         if self.targetMet():
             self.pumpOff()
         else:
-            if self.closeToLimit():
-                self.slowPump()
-
+            self.pumpOn()
 
     def measure(self):
         currSec = time.time()
