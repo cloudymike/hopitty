@@ -35,6 +35,8 @@ class s2b(threading.Thread):
         self._skipflag = threading.Event()
 
         self.controllers = controllers
+        
+        self.oldtime = 0
 
         if isinstance(stages, dict):
             self.stages = stages
@@ -72,7 +74,19 @@ class s2b(threading.Thread):
                         self.controllers.pause(settings)
                     else:
                         self.controllers.run(settings)
-                    time.sleep(1)
+                    nowtime = time.time()
+                    deltatime = nowtime - self.oldtime
+                    self.oldtime = nowtime
+                    difftime = 1.0 - deltatime
+                    if abs(difftime) > 10:
+                        difftime = 0
+                    sleeptime = max(1.0 + difftime, 0.0)
+                    sleeptime = min(1.0, sleeptime)
+                    print "Now:",nowtime, \
+                          " Delta:", deltatime, \
+                          " Difftime:", difftime, \
+                          " Sleep time", sleeptime
+                    time.sleep(sleeptime)
                 self.controllers.logstatus()
         #self.controllers.stop()
 
