@@ -153,7 +153,7 @@ class wortPump(hwPump):
         self.speedcount = self.speedcount + 1
         if self.pumpMotor is not None:
             if self.powerOn and \
-                ( ( self.speedcount % 3 ) == 0 ) and \
+                ( ( self.speedcount % 2 ) == 0 ) and \
                 self.active:
                 self.pumpMotor.on()
             else:
