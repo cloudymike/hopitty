@@ -2,7 +2,7 @@ import time
 import appliances.genctrl
 import sensors
 import datetime
-
+import traceback
 
 class hwPump(appliances.genctrl):
 
@@ -151,13 +151,18 @@ class wortPump(hwPump):
         """
         #print ">>>>>>>>>>>>>>slowing down", self.speedcount
         self.speedcount = self.speedcount + 1
+
+        #print inspect.stack()
+        epoch_time = int(time.time())
         if self.pumpMotor is not None:
             if self.powerOn and \
-                ( ( self.speedcount % 2 ) == 0 ) and \
+                ( ( epoch_time % 2 ) == 0 ) and \
                 self.active:
                 self.pumpMotor.on()
+                print epoch_time, "=====================================ON========================"
             else:
                 self.pumpMotor.off()
+                print epoch_time, "=====================================OFF========================"
 
 
     def closeToLimit(self):

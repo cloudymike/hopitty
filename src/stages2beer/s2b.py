@@ -82,10 +82,10 @@ class s2b(threading.Thread):
                         difftime = 0
                     sleeptime = max(1.0 + difftime, 0.0)
                     sleeptime = min(1.0, sleeptime)
-                    print "Now:",nowtime, \
-                          " Delta:", deltatime, \
-                          " Difftime:", difftime, \
-                          " Sleep time", sleeptime
+                    #print "Now:",nowtime, \
+                    #      " Delta:", deltatime, \
+                    #      " Difftime:", difftime, \
+                    #      " Sleep time", sleeptime
                     time.sleep(sleeptime)
                 self.controllers.logstatus()
         #self.controllers.stop()
