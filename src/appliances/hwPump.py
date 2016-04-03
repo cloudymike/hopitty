@@ -26,7 +26,7 @@ class hwPump(appliances.genctrl):
         self.lastCheck = datetime.datetime.now()
         self.oldSensor = 0
         self.speedcount = 0
-        self.slowLimit = 0.5
+        self.slowLimit = 0.8
 
     def connectSwitch(self, switch):
         """
@@ -186,8 +186,8 @@ class wortPump(hwPump):
         self.measure()
         if self.targetMet():
             self.pumpOff()
-        else:
-            self.pumpOn()
+        #else:
+        #    self.pumpOn()
 
     def measure(self):
         currSec = time.time()
