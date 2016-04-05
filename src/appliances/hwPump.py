@@ -186,8 +186,8 @@ class wortPump(hwPump):
         self.measure()
         if self.targetMet():
             self.pumpOff()
-        #else:
-        #    self.pumpOn()
+        else:
+            self.pumpOn()
 
     def measure(self):
         currSec = time.time()

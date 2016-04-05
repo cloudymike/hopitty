@@ -26,6 +26,7 @@ full = 1
 dispenserMax = 4
 boilTempConstant = 179
 coolTempConstant = 72
+pumpAdjust = 1.6
 
 
 #################################################
@@ -540,7 +541,7 @@ def MultiBatchMash(bsmxObj, chiller):
     spargeSteps = 4
     volSpargeIn = totSparge / spargeSteps
     volWortOut = volSpargeIn
-    lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut)
+    lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut) - pumpAdjust
 
     if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
         logging.info("volWothOut failed")
@@ -616,7 +617,7 @@ def MultiBatchMash(bsmxObj, chiller):
     # tunDeadSpace = bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
 
     if round(totVolIn, 4) != \
-       round(totVolOut + bsmxObj.getTunDeadSpace() +
+       round(totVolOut + pumpAdjust + bsmxObj.getTunDeadSpace() +
              bsmxObj.getGrainAbsorption(), 4):
         logging.error("Error in/out flow not matching")
         logging.error("In vol: ", str(round(totVolIn, 4)))
