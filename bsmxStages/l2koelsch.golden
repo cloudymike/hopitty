@@ -1326,7 +1326,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.5922439759036147
+      "targetValue": 1.7922439759036146
     }
   },
   "19 Wort Final hold": {
@@ -1466,7 +1466,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.5922439759036147
+      "targetValue": 1.7922439759036146
     }
   },
   "22 pre-boil": {
