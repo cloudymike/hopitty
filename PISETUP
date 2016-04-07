@@ -1,0 +1,124 @@
+#!/bin/bash
+set -x
+#set -e
+
+HOMEDIR=`pwd`
+which python
+python --version
+
+pip --version
+if [ "$?" != "0" ]; then
+  sudo apt-get -y install python-setuptools
+  sudo apt-get -y install python-pip
+fi
+
+# Overkill to install python module usb
+sudo easy_install pyusb
+python -c 'import usb; print usb.__version__'
+python -c 'import usb.core; print usb.core.__name__'
+
+sudo pip install pyserial
+
+sudo apt-get -y install g++ make
+sudo apt-get install -y unzip
+
+sudo apt-get install -y pep8
+sudo apt-get install -y python-nose
+
+
+# GoIO
+#######################################
+cd $HOMEDIR
+git clone https://github.com/VernierSoftwareTechnology/GoIO_SDK.git
+sudo apt-get install -y pkg-config
+sudo apt-get install -y aptitude
+sudo apt-get install -y build-essential
+sudo apt-get install -y automake1.9
+sudo apt-get install -y dpkg-dev
+sudo apt-get install -y libtool
+sudo apt-get install -y libusb-1.0-0-dev
+
+pushd GoIO_SDK/src
+./build.sh
+popd
+pushd mytemp
+make clean
+make
+popd
+
+# TemPER termometer
+#######################################
+sudo apt-get -y install python-usb
+sudo cp udev/99-tempsensor.rules /etc/udev/rules.d/
+
+#sudo easy_install python-x10
+#######################################
+git clone https://github.com/glibersat/python-x10.git
+cd python-x10
+sudo python setup.py install
+cd $HOMEDIR
+rm -rf python-x10
+
+# phidgets
+#######################################
+sudo apt-get install -y libusb-1.0-0-dev
+
+pushd /tmp
+wget http://www.phidgets.com/downloads/libraries/libphidget.tar.gz
+tar xvzf libphidget.tar.gz
+#cd libphidget-2.1.8.20120912
+cd libphidget-*
+./configure 
+make 
+sudo make install 
+popd
+
+pushd /tmp
+wget http://www.phidgets.com/downloads/libraries/PhidgetsPython.zip
+unzip PhidgetsPython.zip
+cd PhidgetsPython/
+sudo python setup.py install
+popd
+
+#Pololu, servo USB controller
+#######################################
+sudo apt-get install -y libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
+cd /tmp
+wget -O pololu-usb-sdk-120712.zip http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
+
+unzip pololu-usb-sdk-120712.zip
+cd pololu-usb-sdk
+# Avoid sudo requirement to access USB port
+sudo cp 99-pololu.rules /etc/udev/rules.d/
+
+# Everything is compiled for x86 so you could skip the below two lines
+# on an X86 machine
+make clean
+make
+cp -r Maestro/UscCmd $HOMEDIR
+
+cd $HOMEDIR
+
+#DigiWeight
+#######################################
+pushd $HOMEDIR/DigiWeight
+make
+popd
+
+# FTDI devices
+######################################
+sudo apt-get -y install libftdi-dev
+
+cd $HOMEDIR
+pushd ./boilerValve
+./makeme
+popd
+pushd ./coolerUSB
+./makeme
+popd
+pushd ./mashStirUSB
+./makeme
+popd
+
+
+
