@@ -82,7 +82,12 @@ popd
 
 #Pololu, servo USB controller
 #######################################
+sudo apt-get update
+sudo apt-get update --fix-missing
 sudo apt-get install -y libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
+sudo apt-get update
+sudo apt-get update --fix-missing
+sudo apt-get install mono-complete
 cd /tmp
 wget -O pololu-usb-sdk-120712.zip http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
 
