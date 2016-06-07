@@ -5,4 +5,5 @@ from thermometer import *
 from temperSensor import *
 from mashTempSensor import *
 from raspberryPiSensor import *
+from rapithermometer import *
 # from temperCoolerSensor import *

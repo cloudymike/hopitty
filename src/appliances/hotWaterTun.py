@@ -14,7 +14,7 @@ class hwt(appliances.genctrl):
         self.presetTemp = 40.0
         self.unit = 'F'
 #        self.currTemp = 70.0
-        self.sensor = sensors.thermometer()
+        self.sensor = sensors.rapithermometer()
 
     def __del__(self):
         self.stop()

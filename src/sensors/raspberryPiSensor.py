@@ -16,7 +16,7 @@ class raspberryPiSensor(sensors.genericSensor):
             th = rapitemp.raspberryPiTemp()
         except:
             return(None)
-        if th.check():
+        if th.check_device():
             return(th)
         else:
             return(None)
@@ -51,6 +51,6 @@ class raspberryPiSensor(sensors.genericSensor):
         return(not self.simulation)
 
 if __name__ == '__main__':  # pragma: no cover
-    ts = temperSensor()
+    ts = raspberryPiSensor()
     print ts.getValue()
     print ts.getValue()
