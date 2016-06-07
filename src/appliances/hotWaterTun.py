@@ -46,7 +46,13 @@ class hwt(appliances.genctrl):
             self.on()
 
     def targetMet(self):
-        if self.sensor.getValue() < self.presetTemp:
+        t = self.sensor.getValue()
+        if self.powerOn:
+            power = 'on '
+        else:
+            power = 'off'
+        print "Temp:", t, "F, Power:",power," Target temp:", self.presetTemp
+        if t < self.presetTemp:
             return(False)
         else:
             return(True)
