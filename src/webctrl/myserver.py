@@ -4,7 +4,7 @@ Not all pages are tested as the datastructure needs to be stubbed.
 Start with http://localhost:8080 and try the button links!
 '''
 
-from bottle import Bottle, ServerAdapter, route, run, template
+from bottle import Bottle, ServerAdapter, route, run, template, get, post, request
 import matplotlib.pyplot as plt, mpld3
 import matplotlib
 from threading import Thread
@@ -13,6 +13,7 @@ import datetime
 import index
 import graphPage
 import ingredients
+import jsonliststatus
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -21,6 +22,10 @@ tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
 ty = [90, 120, 130, 145, 150, 157, 157, 158]
 tz = [90, 100, 120, 140, 160, 180, 200, 212]
 tm = [150, 149, 148, 149, 150, 151, 150, 150]
+
+recipelist = ['makebeer', 'brewstuff']
+currentRecipe = None
+selectedRecipe = None
 
 class dummyRecipe():
     def ingredientsHops(self):
@@ -99,6 +104,18 @@ class myserver(ServerAdapter):
         recipe=dummyRecipe()
         return (ingredients.ingredients(recipe))
 
+    @get('/jsonlist')
+    def jsonliststatusPage():
+        rs = jsonliststatus.jsonliststatus(None, selectedRecipe, currentRecipe)
+        return(rs)
+
+    @post('/jsonlist')
+    def DOjsonliststatusPage():
+        selectedRecipe = request.forms.get('recipe')
+        # For now let them follow
+        currentRecipe = selectedRecipe
+        rs = jsonliststatus.jsonliststatus(None, selectedRecipe, currentRecipe)
+        return(rs)
 
 ##########################
 # Below this line is also in main program
