@@ -5,7 +5,7 @@ from bottle import request, response, redirect
 import commonweb
 import os
 
-def getJsonFiles():
+def getJsonDir():
     jsonlist = ['cleanup', 'flushme']
 
     cp = os.path.dirname(__file__)
@@ -17,11 +17,24 @@ def getJsonFiles():
     except:
         try:
             dirname = cp + '/../../recipe'
-            dirlist = os.listdir(dirname)
         except:
             print "Could not find test file"
             print os.getcwd()
-            dirlist = jsonlist
+            dirname = None
+
+    return(dirname)
+
+def getJsonFiles():
+    jsonlist = ['cleanup', 'flushme']
+    dirname = getJsonDir()
+    if dirname is None:
+        return(jsonlist)
+    try:
+        dirlist = os.listdir(dirname)
+    except:
+        print "Could not find any files"
+        print os.getcwd()
+        return(jsonlist)
 
     return(dirlist)
 

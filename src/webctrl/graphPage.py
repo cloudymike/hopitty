@@ -6,6 +6,7 @@ import sys
 
 
 def graphPage(mylog, label1, label2, label3):
+    print mylog
     fig = plt.figure()
 
     ax = fig.add_subplot(111)
@@ -24,8 +25,14 @@ def graphPage(mylog, label1, label2, label3):
     for dt in dx:
         status = mylog[dt]
         d1.append(status[label1]['actual'])
-        d2.append(status[label2]['actual'])
-        d3.append(status[label3]['actual'])
+        if label2  in status:
+            d2.append(status[label2]['actual'])
+        else:
+            d2.append(0)
+        if label3  in status:
+            d3.append(status[label3]['actual'])
+        else:
+            d3.append(0)
 
     print sys.getsizeof(mylog)
     dates = matplotlib.dates.date2num(dx)

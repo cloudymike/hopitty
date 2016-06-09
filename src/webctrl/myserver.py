@@ -48,6 +48,14 @@ def mktj():
         tj[dt] = status
     return (tj)
 
+def updateJsonStages(jsonFileName, controllers):
+    """
+    A helper function that should creates a jsonStages object
+    """
+    dirname = jsonliststatus.getJsonDir()
+    jsonFullName = dirname+'/'+jsonFileName
+    print jsonFullName
+
 
 class myserver(ServerAdapter):
     """
@@ -114,8 +122,12 @@ class myserver(ServerAdapter):
         selectedRecipe = request.forms.get('recipe')
         # For now let them follow
         currentRecipe = selectedRecipe
+        updateJsonStages(selectedRecipe, None)
         rs = jsonliststatus.jsonliststatus(None, selectedRecipe, currentRecipe)
         return(rs)
+
+        
+
 
 ##########################
 # Below this line is also in main program

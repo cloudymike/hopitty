@@ -12,6 +12,7 @@ import commonweb
 import statusView
 import index
 import recipeliststatus
+import jsonliststatus
 import switchliststatus
 import myserver
 import ctrl
@@ -19,6 +20,7 @@ import graphPage
 import ingredients
 
 import recipeModel
+import recipeReader
 import os
 
 
@@ -34,6 +36,8 @@ class runbrew():
         self.runningRecipeName = ""
         self.selectedRecipeName = ""
         self.recipeObject = None
+        self.currentJsonName = ""
+        self.selectedJsonName = ""
 
         self.switchdict = {"lights": True, "camera": False, "sound": True}
 
@@ -44,6 +48,8 @@ class runbrew():
         self.wapp.route('/start', 'POST', self.doCommand)
         self.wapp.route('/recipelist', 'GET', self.recipeliststatusPage)
         self.wapp.route('/recipelist', 'POST', self.dorecipeliststatus)
+        self.wapp.route('/jsonlist', 'GET', self.jsonliststatusPage)
+        self.wapp.route('/jsonlist', 'POST', self.DOjsonliststatusPage)
         self.wapp.route('/debugStages', 'GET', self.debugStages)
         self.wapp.route('/readrecipes', 'GET', self.getTestRecipeList)
 
@@ -265,6 +271,27 @@ class runbrew():
         bsmx = self.recipelist.getRecipe(self.selectedRecipeName).getBSMXdoc()
         self.recipeObject = recipeReader.bsmxStages(bsmx, self.controllers)
         self.stages = self.recipeObject.getStages()
+
+    def jsonliststatusPage(self):
+        rs = jsonliststatus.jsonliststatus(None, self.selectedRecipeName, 
+                                           self.runningRecipeName)
+        return(rs)
+
+    def DOjsonliststatusPage(self):
+        self.selectedRecipeName = request.forms.get('recipe')
+        # For now let them follow
+        self.updateJsonStages()
+        return(self.jsonliststatusPage())
+
+    def updateJsonStages(self):
+        """
+        A helper function that should creates a jsonStages object
+        """
+        dirname = jsonliststatus.getJsonDir()
+        jsonFullName = dirname+'/'+ self.selectedRecipeName
+        print jsonFullName
+        jsonStagesObject = recipeReader.jsonStages(jsonFullName, self.controllers)
+        self.stages = jsonStagesObject.getStages()
 
     def debugStages(self):
         common = commonweb.commonweb()
