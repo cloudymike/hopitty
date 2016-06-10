@@ -67,10 +67,9 @@ if __name__ == "__main__":
     bsmxStr = inf.read()
     inf.close()
     bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers)
+    if not bsmxObj.isValid():
+        print("Recipe not matching equipment")
     stagesStr = bsmxObj.getStages()
-    hops = bsmxObj.ingredientsHops()
-    for x in hops:
-        print x[0], x[1], x[2]
     stagesJson = json.dump(stagesStr, outf, sort_keys=True,
                            indent=2, separators=(',', ': '))
     outf.close()

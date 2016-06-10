@@ -151,16 +151,19 @@ def txBSMXtoStages(bsmxObj):
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
+
         if stages is None:
             print "Mash test failed"
-
+        if not checkVolBSMX(bsmxObj):
+            stages = None
+        if not checkTempAdjust(bsmxObj):
+            stages = None
+        if stages is None:
+            print "Volume or Temperature check failed"
     else:
-        print ":", equipmentName, ":Not valid equipment"
+        print ":", equipmentName, ":Not tested"
+        stages = experimental(bsmxObj)
 
-    if not checkVolBSMX(bsmxObj):
-        return(None)
-    if not checkTempAdjust(bsmxObj):
-        return(None)
 
     return(stages)
 
@@ -711,3 +714,30 @@ def onlyTestMash(bsmxObj, chiller):
         stages = None
 
     return(stages)
+
+def experimental(bsmxObj):
+    """
+    Experimental, may not work
+    """
+    logging.info("====================Experimental")
+    controllers = bsmxObj.getControllers()
+    stages = {}
+
+    stageCount = 1
+
+    s1 = stageCtrl(controllers)
+    s1["waterHeater"] = setDict(
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
+
+    stages[mkSname("Heating", stageCount)] = s1
+    stageCount = stageCount + 1
+
+    mashTime = bsmxObj.getTimeMin("F_MS_STEP_TIME")
+    s4 = stageCtrl(controllers)
+    s4["waterHeater"] = setDict(
+        bsmxObj.getTempF("F_MH_SPARGE_TEMP"))
+    s4["delayTimer"] = setDict(mashTime)
+    stages[mkSname("Mashing", stageCount)] = s4
+    stageCount = stageCount + 1
+    return(stages)
+
