@@ -177,10 +177,7 @@ class wortPump(hwPump):
         if not self.targetMet():
             self.powerOn = True
             if self.pumpMotor is not None:
-                if self.closeToLimit():
-                    self.slowPump()
-                else:
-                    self.pumpMotor.on()
+                self.pumpMotor.on()
 
     def update(self):
         self.measure()
