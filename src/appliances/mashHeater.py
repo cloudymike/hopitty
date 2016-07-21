@@ -21,7 +21,7 @@ class mashHeater(appliances.genctrl):
         self.active = False
         self.target = 150
         self.unit = 'F'
-        self.sensor = sensors.mashTempSensor()
+        self.sensor = sensors.pyboardTempSensor()
         self.actual = 100
 
     def measure(self):

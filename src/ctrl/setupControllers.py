@@ -14,18 +14,6 @@ def setupControllers(verbose, simulation, permissive):
     # Try to find hw switches
     if not simulation:
         logging.info("Initializing hardware")
-#       try:
-#           x10 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
-#                                '_Inc._USB-Serial_Controller-if00-port0')
-#           x10.open()
-#       except:
-#           if permissive:
-#               logging.info("**********X10 not found, simulating HW")
-#               x10 = switches.simSwitchList()
-#               #simX10 = True
-#           else:
-#               logging.info("X10 not available")
-#               sys.exit()
         x10 = None
         try:
             usbPumps = switches.pumpUSB()
@@ -44,11 +32,6 @@ def setupControllers(verbose, simulation, permissive):
     hwTunSwitch = switches.powerSwitch(1)
     boilerSwitch = switches.powerSwitch(2)
 
-    #hwTunSwitch = x10.getSwitch("H14")
-    #boilerSwitch = x10.getSwitch("I12")
-
-    #aeratorSwitch = x10.getSwitch("G10")
-    #aeratorSwitch = switches.simSwitch()
     aeratorSwitch = switches.air8800Switch()
     coolerSwitch = switches.coolerSwitch()
     mashStirSwitch = switches.mashStirSwitch()
