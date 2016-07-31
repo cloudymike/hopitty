@@ -98,14 +98,14 @@ if __name__ == "__main__":
     if recipeFile != "":
         j = recipeReader.jsonStages(recipeFile, controllers)
         if not j.isValid():
-            logging.error("Error: bad recipe")
+            logging.error("Error: bad json recipe")
         else:
             recipeName = j.getRecipeName()
             stages = j.getStages()
     elif bsmxFile != "":
         b = recipeReader.bsmxStages(bsmxFile, controllers)
         if not b.isValid():
-            logging.error("Error: bad recipe")
+            logging.error("Error: bad bsmx recipe")
         else:
             recipeName = b.getRecipeName()
             stages = b.getStages()
