@@ -4,6 +4,7 @@ import matplotlib
 import commonweb
 import sys
 
+matplotlib.use('Agg')
 
 def graphPage(mylog, label1, label2, label3):
     fig = plt.figure()

@@ -1,0 +1,35 @@
+#!/bin/bash
+
+pkill -9 -f bottleweb &> /dev/null
+
+TESTJOBS="nosetests -v $1 src/appliances
+nosetests -v $1 src/checker
+nosetests -v $1 src/ctrl
+#nosetests -v $1 src/recipeModel
+nosetests -v $1 src/recipeReader
+#nosetests -v $1 src/sensor
+nosetests -v $1 src/stages2beer
+nosetests -v $1 src/switches
+nosetests -v $1 src/tests
+#nosetests -v $1 src/webctrl
+"
+TESTDIRS="src/appliances
+src/recipeReader
+src/checker
+src/ctrl
+src/sensors
+src/stages2beer
+src/switches
+src/tests
+"
+
+for d in $TESTDIRS; do
+   echo $d
+   nosetests -v $d 2>&1
+   if [ "$?" != "0" ]; then
+       echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+       exit 1
+   fi
+done
+
+echo "===========All Tests Passed================"

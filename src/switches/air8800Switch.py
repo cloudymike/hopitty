@@ -7,14 +7,24 @@ import switches
 import time
 import usb.core
 import logging
+import cpuinfo
+
+def is_vm():
+    flags = cpuinfo.get_cpu_info()['flags']
+    return('hypervisor' in flags )
 
 
 class Power8800(object):
     def __init__(self):
-        # Find the device.
-        self.dev = usb.core.find(idVendor=0x067b, idProduct=0x2303)
-        if self.dev is None:
-            raise ValueError("Device not found")
+        self.dev = None
+
+        if not is_vm():
+            try:
+                self.dev = usb.core.find(idVendor=0x067b, idProduct=0x2303)
+                if self.dev is None:
+                    raise ValueError("Device not found")
+            except:
+                print "Device found...or not"
 
     def IsOn(self):
         # Return True if the power is currently switched on.
@@ -25,6 +35,9 @@ class Power8800(object):
         # If True, turn the power on, else turn it off.
         code = 0xa0 if on else 0x20
         self.dev.ctrl_transfer(0x40, 0x01, 0x0001, code, [])
+        
+    def HWOK(self):
+        return(self.dev is not None)
 
 
 class air8800Switch(switches.simSwitch):
@@ -46,13 +59,17 @@ class air8800Switch(switches.simSwitch):
         except:
             self.simulation = True
 
+        if not self.simulation:
+            self.simulation = not self.power.HWOK()
+
         if self.simulation:
             logging.info("**********air switch not found, simulating HW")
             self.HWOKval = False
         else:
             logging.info("**********air switch found, ")
             self.HWOKval = True
-
+        print "HWOK", self.HWOKval
+        
     def on(self):
         returnCode = 0
         try:
