@@ -2,6 +2,7 @@
 .settings
 *.tmp
 .idea
+geckodriver.log
 
 # Python artifacts #
 ###################
