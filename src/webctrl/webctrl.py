@@ -1,6 +1,8 @@
 """
 The main brew loop with integrated bottle and brew2stages.
 """
+import matplotlib
+matplotlib.use('Agg')
 
 from bottle import Bottle, request, run
 from threading import Thread
@@ -36,6 +38,8 @@ class runbrew():
         self.recipeObject = None
 
         self.switchdict = {"lights": True, "camera": False, "sound": True}
+
+        matplotlib.use('Agg')
 
         # Routing statements
         self.wapp.route('/status', 'GET', self.statusPage)
