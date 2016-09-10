@@ -109,10 +109,13 @@ def strikeTemp(bsmxObj, envT):
     return(Tstrike)
 
 
+def recalcTemp(envtemp, stages):
+    return None
+
 #################################################
 # Main function to translate to stages
 #################################################
-def txBSMXtoStages(bsmxObj):
+def txBSMXtoStages(bsmxObj, currentTemp=72):
     """
     Reads the bsmx file and creates a stages list.
     The stages list is created based on Equipment name.
@@ -160,7 +163,7 @@ def txBSMXtoStages(bsmxObj):
     if not checkVolBSMX(bsmxObj):
         return(None)
     if not checkTempAdjust(bsmxObj):
-        return(None)
+        stages = recalcTemp(currentTemp,stages)
 
     return(stages)
 

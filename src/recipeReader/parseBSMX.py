@@ -2,6 +2,7 @@ import xml.dom.minidom
 import ctrl
 import mashProfiles
 import logging
+import sys
 
 
 class bsmxStages():
@@ -19,6 +20,7 @@ class bsmxStages():
         self.inputTypeDebug = 'NA'
 
         self.valid = True
+
         try:
             self.docFromFile(bsmx)
             self.inputTypeDebug = 'file'
@@ -45,7 +47,7 @@ class bsmxStages():
                 self.valid = False
         if self.valid:
             try:
-                self.stages = mashProfiles.txBSMXtoStages(self)
+                self.stages = mashProfiles.txBSMXtoStages(self, self.getCurrentTemp())
             except:
                 self.valid = False
         if self.valid:
@@ -61,6 +63,19 @@ class bsmxStages():
         specific fields should be used.
         """
         return(self.doc)
+
+    def getCurrentTemp(self):
+        """
+        Returns the doctree, to allow standard dom operations to be applied.
+        This should be avoided and instead the built in operations to get
+        specific fields should be used.
+        """
+        try:
+            temp = self.ctrl['envTemp'].get()
+        except:
+            temp = 72
+            print "=================Environment temp not found=========================="
+        return(temp)
 
     def getControllers(self):
         """
