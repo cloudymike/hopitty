@@ -73,12 +73,12 @@ def stageCtrl(controllers):
 
     return(settings)
 
-
 def strikeTemp(bsmxObj, envT):
     """
     Returns the temperature of the mash in water based on the recipe in
     bsmjObj and the environment temperature, that is applied to both
     grain and equipment
+    NOTE: This is now replaced with a similar function in parse BSMX
     """
     Mtun = bsmxObj.getWeightLb('F_E_TUN_MASS')
     Ttun = envT
@@ -109,8 +109,7 @@ def strikeTemp(bsmxObj, envT):
     return(Tstrike)
 
 
-def recalcTemp(envtemp, stages):
-    return None
+
 
 #################################################
 # Main function to translate to stages
@@ -162,18 +161,9 @@ def txBSMXtoStages(bsmxObj, currentTemp=72):
 
     if not checkVolBSMX(bsmxObj):
         return(None)
-    if not checkTempAdjust(bsmxObj):
-        stages = recalcTemp(currentTemp,stages)
 
     return(stages)
 
-
-def checkTempAdjust(bsmxObj):
-    if bsmxObj.getFieldStr('F_MH_EQUIP_ADJUST') != '1':
-        print "Error: Not adjusted for temperature"
-        return(False)
-    else:
-        return(True)
 
 
 def checkVolBSMX(bsmxObj):
