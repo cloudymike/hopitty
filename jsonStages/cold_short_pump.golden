@@ -40,6 +40,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -107,6 +111,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -180,6 +188,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 0.25
@@ -247,6 +259,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },

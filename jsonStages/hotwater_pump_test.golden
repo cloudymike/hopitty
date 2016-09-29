@@ -40,6 +40,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 0.2
