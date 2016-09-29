@@ -8,9 +8,9 @@ import json
 import pprint
 
 portName = \
-    '/dev/serial/by-id/pci-Micro_Python_Pyboard_Virtual_Comm_Port_in_FS_Mode_000000000011-if01'
-altName = \
     '/dev/serial/by-id/usb-Micro_Python_Pyboard_Virtual_Comm_Port_in_FS_Mode_000000000011-if01'
+altName = \
+    '/dev/serial/by-id/pci-Micro_Python_Pyboard_Virtual_Comm_Port_in_FS_Mode_000000000011-if01'
 baud = 115200
 
 class pyboardread():  # pragma: no cover
@@ -49,6 +49,7 @@ class pyboardread():  # pragma: no cover
                                         xonxoff=False,
                                         rtscts=False,
                                         dsrdtr=False)
+
         except:
             try:
                 
@@ -62,15 +63,20 @@ class pyboardread():  # pragma: no cover
                                         rtscts=False,
                                         dsrdtr=False)
             except serial.serialutil.SerialException:
-                #print("Unable to open port '%s'\r" % portName)
+                print("Unable to open port '%s'\r" % portName)
                 sys.exit(1)
         
-        time.sleep(0.02)
+        time.sleep(0.3)
         
         # Read the buffer to end
         try:
             r = serPort.read(8)
             response = r
+            if len(r) == 0:
+                time.sleep(0.5)
+                r = serPort.read(8)
+                response = r
+                
             while len(r) > 0:
                 r = serPort.read(8)
                 response = response + r
