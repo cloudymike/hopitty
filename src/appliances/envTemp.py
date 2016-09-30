@@ -2,14 +2,13 @@ import appliances.genctrl
 import sensors
 
 
-class hoptimer(appliances.genctrl):
+class envTemp(appliances.genctrl):
 
     def __init__(self):
         """
         Switch is not used, just to be consistent with other modules
         """
         self.errorState = False  # If an error has occurred
-        self.switch = switches.simSwitch()
         self.powerOn = False
         self.active = False
         self.target = 72
