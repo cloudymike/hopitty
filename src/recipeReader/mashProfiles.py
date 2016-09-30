@@ -114,7 +114,7 @@ def strikeTemp(bsmxObj, envT):
 #################################################
 # Main function to translate to stages
 #################################################
-def txBSMXtoStages(bsmxObj, currentTemp=72):
+def txBSMXtoStages(bsmxObj):
     """
     Reads the bsmx file and creates a stages list.
     The stages list is created based on Equipment name.

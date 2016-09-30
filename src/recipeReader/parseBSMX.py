@@ -18,7 +18,6 @@ class bsmxStages():
         self.ctrl = controllers
         self.name = ""
         self.inputTypeDebug = 'NA'
-        self.F_MS_INFUSION_TEMP_override=None
 
         self.valid = True
 
@@ -48,17 +47,12 @@ class bsmxStages():
                 self.valid = False
         if self.valid:
             try:
-                if not self.checkTempAdjust():
-                    self.calcStrikeTemp()
-            except:
-                self.valid = False
-        if self.valid:
-            try:
-                self.stages = mashProfiles.txBSMXtoStages(self, self.getCurrentTemp())
+                self.stages = mashProfiles.txBSMXtoStages(self)
             except:
                 self.valid = False
         if self.valid:
             self.valid = self.validateRecipe()
+            
 
     def __del__(self):
         pass
@@ -71,29 +65,6 @@ class bsmxStages():
         """
         return(self.doc)
 
-
-    def checkTempAdjust(bsmxObj):
-        try:
-            if  bsmxObj.getFieldStr('F_MH_EQUIP_ADJUST') != '1':
-                print "Error: Not adjusted for temperature"
-                return(False)
-            else:
-                return(True)
-        except:
-            return(False)
-
-    def getCurrentTemp(self):
-        """
-        Returns the doctree, to allow standard dom operations to be applied.
-        This should be avoided and instead the built in operations to get
-        specific fields should be used.
-        """
-        try:
-            temp = self.ctrl['envTemp'].get()
-        except:
-            temp = 72
-            print "=================Environment temp not found=========================="
-        return(temp)
 
     def getControllers(self):
         """
@@ -181,8 +152,11 @@ class bsmxStages():
         
     def getTempF(self, tagName):
         """Translates a Temperature field to Fahrenheit, as a float"""
-        if tagName == "F_MS_INFUSION_TEMP" and self.F_MS_INFUSION_TEMP_override is not None:
-            return(self.F_MS_INFUSION_TEMP_override)
+        if tagName == "F_MS_INFUSION_TEMP":
+            if self.checkTempAdjust():
+                return(float(self.getFieldStr("F_MS_INFUSION_TEMP")))
+            else:
+                return(self.calcStrikeTemp())
         else:
             return(float(self.getFieldStr(tagName)))
 
@@ -385,13 +359,52 @@ class bsmxStages():
                 if val['active']:
                     print "    ", ctrl, ":", val['targetValue']
 
-    def calcStrikeTemp(self):
+##############################################################################
+# Temperature adjustment methods
+##############################################################################
+    def checkTempAdjust(self):
+        """ Check if temperature adjustment is in place """
+        try:
+            if  self.getFieldStr('F_MH_EQUIP_ADJUST') != '1':
+                return(False)
+            else:
+                return(True)
+        except:
+            return(False)
+
+    def getCurrentTemp(self):
+        """
+        Get environment temp from controller. If not available default to 72F
+        """
+        try:
+            temp = self.ctrl['envTemp'].get()
+        except:
+            temp = 72
+            print "=================Environment temp not found=========================="
+        return(temp)
+        
+    def compareStrikeTemp(self):
+        """ 
+        Method to compare calculated and Beersmith strike temp. For testing onlyTestMash.onlyTestMash.Method
+        TODO The temperature from beersmith grain and tun needs to be extracted 
+        """
+        beersmithTstrike = float(self.getFieldStr("F_MS_INFUSION_TEMP"))
+        bsmxGrainTemp = float(self.getFieldStr("F_MH_GRAIN_TEMP"))
+        calcTstrike = self.calcStrikeTemp(bsmxGrainTemp)
+        print "==================================>beersmith strike T ", beersmithTstrike
+        print "==================================>calculated strike T ", calcTstrike
+
+    def calcStrikeTemp(self, testTemp=None):
         """
         Sets the temperature of the mash in water based on the recipe in
         and the environment temperature, that is applied to both
         grain and equipment
         """
-        envT = self.getCurrentTemp()
+        if testTemp is None:
+            envT = self.getCurrentTemp()
+        else:
+            envT = testTemp
+        
         Mtun = self.getWeightLb('F_E_TUN_MASS')
         Ttun = envT
         Mgrain = self.getWeightLb('F_MH_GRAIN_WEIGHT')
@@ -414,11 +427,7 @@ class bsmxStages():
             (Vwater * 946.353)) * 1.8) + 32
     
         # Use this for validation and testing
-        beersmithTstrike = self.getTempF("F_MS_INFUSION_TEMP")
-        print "beersmith strike T ", beersmithTstrike
-        print "calculated strike T ", Tstrike
-        self.F_MS_INFUSION_TEMP_override = Tstrike
-        return
+        return(Tstrike)
 
 ##############################################################################
 # Old stuff that should be removed at the end.
