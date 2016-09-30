@@ -13,7 +13,7 @@ altPortName = \
     '/dev/serial/by-id/pci-Microchip_Technology_Inc._CDC_RS-232_Emulation_Demo-if00'
 
 
-class mashTempSensor(sensors.genericSensor):
+class envTempSensor(sensors.genericSensor):
     def __init__(self):
         self.id = 'mashTemp'
         self.errorState = False
@@ -85,7 +85,7 @@ class mashTempSensor(sensors.genericSensor):
         return(True)
 
 if __name__ == '__main__':  # pragma: no cover
-    t = mashTempSensor()
+    t = envTempSensor()
     if t.HWOK():
         print "HW used"
     else:
