@@ -87,6 +87,8 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('dispenser2', appliances.dispenser(2))
     controllers.addController('dispenser3', appliances.dispenser(3))
     controllers.addController('dispenser4', appliances.dispenser(4))
+    
+    controllers.addController('envTemp', appliances.envTemp())
 
     print("appliance setup done")
     # Testing of sensor object Remove me later

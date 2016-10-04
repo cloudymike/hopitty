@@ -1,10 +1,10 @@
-#!/bin/bash
+./#!/bin/bash
 
 pushd bsmxStages
-for f in *.golden; do cp  ${f%.*}.tmp $f; done
+for f in *.tmp; do cp  ${f%.*}.tmp ${f%.*}.golden; done
 popd
 
-pushd jsonstages
-for f in *.golden; do cp  ${f%.*}.tmp $f; done
+pushd jsonStages
+for f in *.tmp; do cp  ${f%.*}.tmp ${f%.*}.golden; done
 popd
 

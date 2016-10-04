@@ -1,4 +1,4 @@
-mport pyb
+import pyb
 import time
 import json
 

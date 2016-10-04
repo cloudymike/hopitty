@@ -12,10 +12,26 @@ webctrl.commonweb module
     :undoc-members:
     :show-inheritance:
 
+webctrl.graphPage module
+------------------------
+
+.. automodule:: webctrl.graphPage
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 webctrl.index module
 --------------------
 
 .. automodule:: webctrl.index
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+webctrl.ingredients module
+--------------------------
+
+.. automodule:: webctrl.ingredients
     :members:
     :undoc-members:
     :show-inheritance:
