@@ -28,6 +28,7 @@ sudo apt-get install -y unzip
 
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
+sudo apt-get install -y python-tk
 
 # sqlalchemy for database
 sudo apt-get install -y python-sqlalchemy

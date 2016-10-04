@@ -1,20 +1,6 @@
 Where to start
 ===============
 
-Pretty much all the action is in parseBSMX
-The temperature is checked and set there, with an override value so
-the strike temp will be either calculated or the one from BSMX file.
-
-Status tests passed
-
-Next figure out a test setup to compare beersmith calc temp with program calc
-Set measured temp to BSMX temp
-Run calculation
-Check strike temps
-
-Seems like a separate test program but iterating over all recipies
-As it uses bsmx calc it could stay.
-
 Check recipeReader.strikeTemp
 This function was useful to build on, but I have no clue why it is there. 
 The only place it seems to be used is in src/recipeModel/tests/testMashInT.py
