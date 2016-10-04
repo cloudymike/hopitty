@@ -18,7 +18,6 @@ src/checker
 src/ctrl
 src/stages2beer
 src/tests
-src/webctrl
 "
 
 for d in $TESTDIRS; do
