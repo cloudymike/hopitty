@@ -16,9 +16,12 @@ nosetests -v $1 src/webctrl
 TESTDIRS="src/appliances
 src/checker
 src/ctrl
+src/recipeModel
+src/recipeReader
+src/sensors
 src/stages2beer
+src/switches
 src/tests
-src/webctrl
 "
 
 for d in $TESTDIRS; do
