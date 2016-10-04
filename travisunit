@@ -18,7 +18,7 @@ src/checker
 src/ctrl
 src/recipeModel
 src/recipeReader
-src/sensor
+src/sensors
 src/stages2beer
 src/switches
 src/tests
