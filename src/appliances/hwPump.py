@@ -156,7 +156,11 @@ class wortPump(hwPump):
         epoch_time = int(time.time())
         if self.pumpMotor is not None:
             if self.powerOn and \
+<<<<<<< HEAD
                 ( ( epoch_time % 2 ) == 0 ) and \
+=======
+                ( ( self.speedcount % 2 ) == 0 ) and \
+>>>>>>> 3a2e713c1a7b683215837a243e7a5d71af18d41b
                 self.active:
                 self.pumpMotor.on()
                 print epoch_time, "=====================================ON========================"
