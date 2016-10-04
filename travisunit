@@ -16,6 +16,9 @@ nosetests -v $1 src/webctrl
 TESTDIRS="src/appliances
 src/checker
 src/ctrl
+src/recipeModel
+src/recipeReader
+src/sensor
 src/stages2beer
 src/switches
 src/tests
