@@ -8,11 +8,13 @@ class commonweb():
     def header(self, title, refresh=False):
         retstr = """
        <head>
+       <link rel="stylesheet" href="static/style.css">
        <title>%s</title>
         """ % title
         if refresh:
             retstr = retstr + '<META HTTP-EQUIV="REFRESH" CONTENT="10">'
         retstr = retstr + """
+       
         </head>
         <body>
         <h1>%s</h1>

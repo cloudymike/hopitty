@@ -33,7 +33,7 @@ def graphPage(mylog, label1, label2, label3, label4):
         d3.append(status[label3]['actual'])
         d4.append(status[label4]['actual'])
 
-    print sys.getsizeof(mylog)
+    #print sys.getsizeof(mylog)
     dates = matplotlib.dates.date2num(logdata)
     ax.plot_date(dates, d1, 'r-', label=label1)
     bx.plot_date(dates, d2, 'b-', label=label2)

@@ -14,14 +14,6 @@ def bulletedList(title, list):
 
 def ingredients(recipeObject):
     common = commonweb.commonweb()
-    indexpage = """
-         <head>
-         <title>Hopitty</title>
-        </head>
-<body>
-
-<h1>Current Ingredients</h1>
-"""
     if recipeObject is None:
         hops = """
 <h2>Stuff</h2>
@@ -35,8 +27,8 @@ def ingredients(recipeObject):
     else:
         hops = bulletedList('Hops', recipeObject.ingredientsHops())
         misc = bulletedList('Misc', recipeObject.ingredientsMisc())
-    indexpage = indexpage + hops + misc
-    indexpage = indexpage + common.footer()
-    indexpage = indexpage + "</body>"
+    page = common.header('Current Ingredients') + hops + misc
+    page = page + common.footer()
+    page = page + "</body>"
 
-    return(indexpage)
+    return(page)

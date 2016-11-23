@@ -4,14 +4,8 @@ import commonweb
 
 def index():
     common = commonweb.commonweb()
+    
     indexpage = """
-         <head>
-         <title>Hopitty</title>
-        </head>
-<body>
-
-<h1>Hopitty</h1>
-
 <h2>How to brew</h2>
 <ul>
 <li>Go to the <b>Recipe List</b> and select a recipe. Make sure you click the
@@ -26,7 +20,7 @@ are on.</li>
 process.</li>
 </ul>
 """
-    indexpage = indexpage + common.footer()
+    indexpage = common.header('Hopitty') + indexpage + common.footer()
     indexpage = indexpage + "</body>"
 
     return(indexpage)

@@ -4,7 +4,7 @@ Not all pages are tested as the datastructure needs to be stubbed.
 Start with http://localhost:8080 and try the button links!
 '''
 
-from bottle import Bottle, ServerAdapter, route, run, template
+from bottle import Bottle, ServerAdapter, route, run, template, static_file
 import matplotlib.pyplot as plt, mpld3
 import matplotlib
 from threading import Thread
@@ -99,6 +99,9 @@ class myserver(ServerAdapter):
         recipe=dummyRecipe()
         return (ingredients.ingredients(recipe))
 
+    @route('/static/<filename>')
+    def server_static(filename):
+        return static_file(filename, root='static/')
 
 ##########################
 # Below this line is also in main program
