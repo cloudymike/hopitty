@@ -4,7 +4,7 @@ The main brew loop with integrated bottle and brew2stages.
 import matplotlib
 matplotlib.use('Agg')
 
-from bottle import Bottle, request, run
+from bottle import Bottle, request, run, static_file
 from threading import Thread
 import stages2beer
 import recipeReader
@@ -56,6 +56,7 @@ class runbrew():
 
         self.wapp.route('/temp', 'GET', self.tempPage)
         self.wapp.route('/ingredients', 'GET', self.ingredientsPage)
+        self.wapp.route('/static/<filename>', 'GET', self.server_static)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
         self.dl = ctrl.datalogger(controllers)
@@ -120,6 +121,9 @@ class runbrew():
                                    self.runningRecipeName)
         return(rs)
 
+    def server_static(self,filename):
+        return static_file(filename, root='static/')
+        
     def commandPage(self):
         """
         Page to set the run status, i.e. to start the run

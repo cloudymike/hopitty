@@ -6,9 +6,9 @@ import commonweb
 
 
 def recipeliststatus(recipeList, selectedRecipe, currentRecipe):
-    retstr = "<h1>Recipe list</h1>"
     cweb = commonweb.commonweb()
-    print recipeList
+    retstr = cweb.header("Recipe list")
+    #print recipeList
     if selectedRecipe is None:
         selectedRecipe = ""
 
