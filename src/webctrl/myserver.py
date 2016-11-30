@@ -21,6 +21,7 @@ tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
 ty = [90, 120, 130, 145, 150, 157, 157, 158]
 tz = [90, 100, 120, 140, 160, 180, 200, 212]
 tm = [150, 149, 148, 149, 150, 151, 150, 150]
+te = [72, 73, 72, 71, 70, 71, 72, 72]
 
 class dummyRecipe():
     def ingredientsHops(self):
@@ -36,7 +37,8 @@ def mktj():
         hwa = {'actual': ty[i]}
         boila = {'actual': tz[i]}
         masha = {'actual': tm[i]}
-        status = {'hwt': hwa, 'boiler': boila, 'mash': masha}
+        enva = {'actual': te[i]}
+        status = {'hwt': hwa, 'boiler': boila, 'mash': masha, "env": enva}
         tt = time.strptime(tx[i], "%H:%M:%S.%f")
         dt = datetime.datetime(*tt[:6])
 
@@ -92,7 +94,7 @@ class myserver(ServerAdapter):
 
     @route('/temp')
     def stat():
-        return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash"))
+        return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash", "env"))
 
     @route('/ingredients')
     def stat():
