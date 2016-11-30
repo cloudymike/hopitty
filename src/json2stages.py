@@ -68,6 +68,6 @@ if __name__ == "__main__":
     inf.close()
     jsonObj = recipeReader.jsonStages(jsonStr, controllers)
     stagesStr = jsonObj.getStages()
-    stagesJson = json.dump(stagesStr, outf, sort_keys=True,
+    json.dump(stagesStr, outf, sort_keys=True,
                            indent=2, separators=(',', ': '))
     outf.close()
