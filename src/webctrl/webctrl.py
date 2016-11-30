@@ -122,7 +122,7 @@ class runbrew():
         return(rs)
 
     def server_static(self,filename):
-        return static_file(filename, root='static/')
+        return static_file(filename, root='webctrl/static/')
         
     def commandPage(self):
         """
