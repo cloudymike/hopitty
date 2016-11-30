@@ -34,6 +34,11 @@ echo $SIMULATE
 DATESTRING=`date +%F-%H-%M`
 LOGFILE="brew-${DATESTRING}.log"
 
+# Start and stop  beersmith to get an updated Cloud.bsmx file
+/usr/bin/beersmith2 &
+sleep 10
+xdotool windowactivate --sync $(xdotool search --name 'BeerSmith 2') key  --clearmodifiers --delay 100 alt+F4
+
 # Initial cleanup
 sudo pkill -9 -f threadscan.py &> /dev/null
 
