@@ -25,6 +25,7 @@ sudo pip install py-cpuinfo
 
 sudo apt-get -y install g++ make
 sudo apt-get install -y unzip
+sudo apt-get -y install xdotool
 
 sudo apt-get install -y pep8
 sudo apt-get install -y python-nose
