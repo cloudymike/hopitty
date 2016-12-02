@@ -51,7 +51,7 @@ class equipment(object):
     classdocs
     '''
 
-    def __init__(self,
+    def __init__(self,                       # noqa
                  controllers=None,
                  stages=None,
                  ingredients=None,

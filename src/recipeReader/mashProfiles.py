@@ -613,8 +613,8 @@ def MultiBatchMash(bsmxObj, chiller):
        round(totVolOut + pumpAdjust + bsmxObj.getTunDeadSpace() +
              bsmxObj.getGrainAbsorption(), 4):
         logging.error("Error in/out flow not matching")
-        logging.error("In vol: ", str(round(totVolIn, 4)))
-        logging.error("Out Vol: ", str(round(totVolOut, 4)))
+        logging.error("In vol: "+str(round(totVolIn, 4)))
+        logging.error("Out Vol: "+str(round(totVolOut, 4)))
         logging.error("Grain absorb and dead space: " +
                       str(round(bsmxObj.getTunDeadSpace() +
                           bsmxObj.getGrainAbsorption(), 4)))

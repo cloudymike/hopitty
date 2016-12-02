@@ -3,6 +3,9 @@ hopitty
 
 [![Build Status](https://travis-ci.org/cloudymike/hopitty.svg?branch=master)](https://travis-ci.org/cloudymike/hopitty)
 
+
+[![Code Health](https://landscape.io/github/cloudymike/hopitty/master/landscape.svg?style=flat)](https://landscape.io/github/cloudymike/hopitty/master)
+
 Python controller
 
 How to run
