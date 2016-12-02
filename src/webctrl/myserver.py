@@ -69,11 +69,11 @@ class myserver(ServerAdapter):
         self.server.shutdown()
 
     @route('/')
-    def indexPage():
+    def indexPage():            # noqa
         return (index.index())
 
     @route('/chart')
-    def chart():
+    def chart():                # noqa
         fig = plt.figure()
         ax = fig.add_subplot(111)
         bx = fig.add_subplot(111)
@@ -93,16 +93,16 @@ class myserver(ServerAdapter):
         return mpld3.fig_to_html(fig)
 
     @route('/temp')
-    def stat():
+    def stat():                 # noqa
         return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash", "env"))
 
     @route('/ingredients')
-    def stat():
+    def stat():                 # noqa
         recipe=dummyRecipe()
         return (ingredients.ingredients(recipe))
 
     @route('/static/<filename>')
-    def server_static(filename):
+    def server_static(filename):  # noqa
         return static_file(filename, root='static/')
 
 ##########################
