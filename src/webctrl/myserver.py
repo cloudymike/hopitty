@@ -57,7 +57,7 @@ class myserver(ServerAdapter):
         from wsgiref.simple_server import make_server, WSGIRequestHandler
         if self.quiet:
             class QuietHandler(WSGIRequestHandler):
-                def log_request(*args, **kw):
+                def log_request(*args, **kw):    # noqa
                     pass
 
             self.options['handler_class'] = QuietHandler
