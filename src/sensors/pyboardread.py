@@ -63,8 +63,9 @@ class pyboardread():  # pragma: no cover
                                         rtscts=False,
                                         dsrdtr=False)
             except serial.serialutil.SerialException:
-                print("Unable to open port '%s'\r" % portName)
-                sys.exit(1)
+                #print("Unable to open port '%s'\r" % portName)
+                return(None)
+                #sys.exit(1)
         
         time.sleep(0.3)
         

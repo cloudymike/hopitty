@@ -15,6 +15,8 @@ import logging
 import threading
 import time
 import json
+import fcntl
+import os
 
 
 def usage():
@@ -86,7 +88,8 @@ if __name__ == "__main__":
     if HWcheck:
         simulation = (simulation or (not HWcheck))
     else:
-        simulation = False
+        simulation = True
+    print "Simulation: ", simulation
     controllers = ctrl.setupControllers(verbose, simulation, permissive)
     if HWcheck:
         if controllers.HWOK():
@@ -94,40 +97,71 @@ if __name__ == "__main__":
         else:
             logging.info('ERROR: Missing USB devices, exiting')
             sys.exit(1)
-
-    # Read one of the recipe files
-    if recipeFile != "":
-        with open(recipeFile) as data_file:    
-            stages = json.load(data_file)
-    else:
-        stages = {}
-
-    equipmentchecker = checker.equipment(controllers, stages)
-    if not equipmentchecker.check():
-        logging.error("Error: equipment vs recipe validation failed")
-
-    if checkonly:
-        end_now(logging)
-    if (stages == {}) or (stages is None):
-        end_now(logging)
-        
-    brun = stages2beer.s2b(controllers, stages)
-    brun.start()
-
-    print "-------------------Running-------------------------------"
+    loopActive = True
     
-    while not brun.stopped():
-        try: input = sys.stdin.readline()
-        except: continue
-        print "INPUT:",input, ":"
-        if input[0] == "s":
-            brun.stop()
-            print "-----------------Call for stop ------------------------------------"
+    fd = sys.stdin.fileno()
+    fl = fcntl.fcntl(fd, fcntl.F_GETFL)
+    fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+    while loopActive:
+
+        # Read one of the recipe files
+        if recipeFile == "":
+                print "get recipe file name"
+                try:  recipefile = sys.stdin.readline()
+                except: continue
+        else:
+            with open(recipeFile) as data_file:    
+                stages = json.load(data_file)
+            recipeFile = ""
+
+            equipmentchecker = checker.equipment(controllers, stages)
+            if not equipmentchecker.check():
+                logging.error("Error: equipment vs recipe validation failed")
+                stages = None
+        
+            if (stages == {}) or (stages is None):
+                stages = None
+                
+            brun = stages2beer.s2b(controllers, stages)
+            brun.start()
+        
+            print "-------------------Running-------------------------------"
             
         
-    print "-----------------Stopping------------------------------------"
-    
-    brun.join()
+            while not brun.stopped() and stages is not None:
+                time.sleep(1)
+                if brun.paused():
+                    print "pause ",
+                else:
+                    print "run   ",
+                print brun.getStage(), " ",
+                sdict = brun.getStatus()
+                for key, val in sdict.iteritems():
+                    print val['actual'],
+                print " "
+                try:  input = sys.stdin.readline()
+                except: continue
+                print "INPUT:",input, ":"
+                if input[0] == "s":
+                    brun.stop()
+                    print "\n-----------------Call for stop ------------------------------------"
+                if input[0] == "p":
+                    brun.pause()
+                    print "\n-----------------Call for pause ------------------------------------"
+                if input[0] == "c":
+                    brun.unpause()
+                    print "\n-----------------Call for continue ------------------------------------"
+                if input[0] == "n":
+                    brun.skip()
+                    print "\n-----------------Call for next ------------------------------------"
+                    
+                
+            print "\n-----------------Stopping------------------------------------"
+            
+        brun.join()
+        time.sleep(1)
+        print "Recipe: ", recipe
+
     
     del controllers
     sys.exit(0)
