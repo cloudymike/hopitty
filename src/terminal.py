@@ -101,19 +101,28 @@ if __name__ == "__main__":
     
     fd = sys.stdin.fileno()
     fl = fcntl.fcntl(fd, fcntl.F_GETFL)
-    fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
+    nonblocking = fl | os.O_NONBLOCK
+    blocking = fl
+
     while loopActive:
 
         # Read one of the recipe files
         if recipeFile == "":
-                print "get recipe file name"
-                try:  recipefile = sys.stdin.readline()
-                except: continue
-        else:
+            fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
+            print "Try ../jsonStages/base.golden"
+            recipeFile = raw_input("Enter your filename: ")
+            #recipeFile = sys.stdin.readline().rstrip()
+            print "Reading file:",recipeFile
+        try:
             with open(recipeFile) as data_file:    
                 stages = json.load(data_file)
-            recipeFile = ""
+        except:
+            stages = None
+        recipeFile = ""
 
+        if stages is None:
+            print "Bad recipe file"
+        else:
             equipmentchecker = checker.equipment(controllers, stages)
             if not equipmentchecker.check():
                 logging.error("Error: equipment vs recipe validation failed")
@@ -128,6 +137,7 @@ if __name__ == "__main__":
             print "-------------------Running-------------------------------"
             
         
+            fcntl.fcntl(fd, fcntl.F_SETFL, nonblocking)
             while not brun.stopped() and stages is not None:
                 time.sleep(1)
                 if brun.paused():
@@ -158,10 +168,9 @@ if __name__ == "__main__":
                 
             print "\n-----------------Stopping------------------------------------"
             
-        brun.join()
-        time.sleep(1)
-        print "Recipe: ", recipe
+            brun.join()
 
+        time.sleep(1)
     
     del controllers
     sys.exit(0)
