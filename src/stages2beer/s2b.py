@@ -161,6 +161,16 @@ class s2b(threading.Thread):
         """
         return(self.stages)
 
+    def setStages(self, stages):
+        """
+        Sets the stages
+        Will only be done if in stopped mode.
+        """
+        if self.stopped():
+            self.stages = stages
+        else:
+            print "can not change stages when running"
+
     def getStage(self):
         """
         Returns the current stage

@@ -35,32 +35,6 @@ def end_now(logging):
     logging.info("Shutting down")
     sys.exit(0)
     
-def readRecipeFile(controllers):
-    # Read one of the recipe files
-    fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
-    print "Try ../jsonStages/base.golden"
-    recipeFile = raw_input("Enter your filename: ")
-    #recipeFile = sys.stdin.readline().rstrip()
-    print "Reading file:",recipeFile
-    try:
-        with open(recipeFile) as data_file:    
-            stages = json.load(data_file)
-    except:
-        stages = None
-    recipeFile = ""
-
-    if stages is None:
-        print "Bad recipe file"
-    else:
-        equipmentchecker = checker.equipment(controllers, stages)
-        if not equipmentchecker.check():
-            logging.error("Error: equipment vs recipe validation failed")
-            stages = None
-    
-        if (stages == {}) or (stages is None):
-            stages = None
-    return(stages)
-
 if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
@@ -131,12 +105,12 @@ if __name__ == "__main__":
     blocking = fl
 
     while loopActive:
+
         # Read one of the recipe files
         if recipeFile == "":
             fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
             print "Try ../jsonStages/base.golden"
-            recipeFile = "../jsonStages/base.golden"
-            #recipeFile = raw_input("Enter your filename: ")
+            recipeFile = raw_input("Enter your filename: ")
             #recipeFile = sys.stdin.readline().rstrip()
             print "Reading file:",recipeFile
         try:
@@ -164,13 +138,10 @@ if __name__ == "__main__":
             
         
             fcntl.fcntl(fd, fcntl.F_SETFL, nonblocking)
-            #while not brun.stopped() and stages is not None:
-            while loopActive:
+            while not brun.stopped() and stages is not None:
                 time.sleep(1)
                 if brun.paused():
                     print "pause ",
-                elif brun.stopped():
-                    print "stop  ",
                 else:
                     print "run   ",
                 print brun.getStage(), " ",
@@ -181,16 +152,6 @@ if __name__ == "__main__":
                 try:  input = sys.stdin.readline()
                 except: continue
                 print "INPUT:",input, ":"
-                if input[0] == "f":
-                    if brun.stopped():
-                        fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
-                        stages=readRecipeFile(controllers)
-                        fcntl.fcntl(fd, fcntl.F_SETFL, nonblocking)
-                        print "\n----------------New file ------------------------------------"
-                if input[0] == "r":
-                    brun = stages2beer.s2b(controllers, stages)
-                    brun.start()
-                    print "\n-----------------Call for run ------------------------------------"
                 if input[0] == "s":
                     brun.stop()
                     print "\n-----------------Call for stop ------------------------------------"
@@ -203,10 +164,6 @@ if __name__ == "__main__":
                 if input[0] == "n":
                     brun.skip()
                     print "\n-----------------Call for next ------------------------------------"
-                if input[0] == "h":
-                    brun.stop()
-                    loopActive = False
-                    print "\n-----------------Call for halt ------------------------------------"
                     
                 
             print "\n-----------------Stopping------------------------------------"

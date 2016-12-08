@@ -17,6 +17,8 @@ import time
 import json
 import fcntl
 import os
+import paho.mqtt.client as mqtt
+
 
 
 def usage():
@@ -34,34 +36,8 @@ def end_now(logging):
     logging.info("OK")
     logging.info("Shutting down")
     sys.exit(0)
-    
-def readRecipeFile(controllers):
-    # Read one of the recipe files
-    fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
-    print "Try ../jsonStages/base.golden"
-    recipeFile = raw_input("Enter your filename: ")
-    #recipeFile = sys.stdin.readline().rstrip()
-    print "Reading file:",recipeFile
-    try:
-        with open(recipeFile) as data_file:    
-            stages = json.load(data_file)
-    except:
-        stages = None
-    recipeFile = ""
 
-    if stages is None:
-        print "Bad recipe file"
-    else:
-        equipmentchecker = checker.equipment(controllers, stages)
-        if not equipmentchecker.check():
-            logging.error("Error: equipment vs recipe validation failed")
-            stages = None
-    
-        if (stages == {}) or (stages is None):
-            stages = None
-    return(stages)
-
-if __name__ == "__main__":
+def oldmain():    
 #    simTemp = 70
 #    shutdown = False
 
@@ -131,12 +107,12 @@ if __name__ == "__main__":
     blocking = fl
 
     while loopActive:
+
         # Read one of the recipe files
         if recipeFile == "":
             fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
             print "Try ../jsonStages/base.golden"
-            recipeFile = "../jsonStages/base.golden"
-            #recipeFile = raw_input("Enter your filename: ")
+            recipeFile = raw_input("Enter your filename: ")
             #recipeFile = sys.stdin.readline().rstrip()
             print "Reading file:",recipeFile
         try:
@@ -164,13 +140,10 @@ if __name__ == "__main__":
             
         
             fcntl.fcntl(fd, fcntl.F_SETFL, nonblocking)
-            #while not brun.stopped() and stages is not None:
-            while loopActive:
+            while not brun.stopped() and stages is not None:
                 time.sleep(1)
                 if brun.paused():
                     print "pause ",
-                elif brun.stopped():
-                    print "stop  ",
                 else:
                     print "run   ",
                 print brun.getStage(), " ",
@@ -181,16 +154,6 @@ if __name__ == "__main__":
                 try:  input = sys.stdin.readline()
                 except: continue
                 print "INPUT:",input, ":"
-                if input[0] == "f":
-                    if brun.stopped():
-                        fcntl.fcntl(fd, fcntl.F_SETFL, blocking)
-                        stages=readRecipeFile(controllers)
-                        fcntl.fcntl(fd, fcntl.F_SETFL, nonblocking)
-                        print "\n----------------New file ------------------------------------"
-                if input[0] == "r":
-                    brun = stages2beer.s2b(controllers, stages)
-                    brun.start()
-                    print "\n-----------------Call for run ------------------------------------"
                 if input[0] == "s":
                     brun.stop()
                     print "\n-----------------Call for stop ------------------------------------"
@@ -203,10 +166,6 @@ if __name__ == "__main__":
                 if input[0] == "n":
                     brun.skip()
                     print "\n-----------------Call for next ------------------------------------"
-                if input[0] == "h":
-                    brun.stop()
-                    loopActive = False
-                    print "\n-----------------Call for halt ------------------------------------"
                     
                 
             print "\n-----------------Stopping------------------------------------"
@@ -216,4 +175,75 @@ if __name__ == "__main__":
         time.sleep(1)
     
     del controllers
+    sys.exit(0)
+
+server = "iot.eclipse.org"
+port = 1883
+timeout = 60
+globalmessage = None
+
+class myval():
+    def __init__(self):
+        self.value = None
+    def set(self,value):
+        self.value = value
+    def get(self):
+        return(self.value)
+        
+    
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, rc):
+    print("Connected with result code "+str(rc))
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe("mhtest2")
+
+
+def setMessage(message):
+    print "Setting",message
+    globalmessage=message
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    message = str(msg.payload)
+    sendMessage(client,message)
+    setMessage(message)
+    print "***"+message+"***"
+    print "userdata:",userdata.get()
+    userdata.set(message)
+
+
+
+def sendMessage(mqttc, message):
+    mqttc.publish("mhtest1", message)
+    #mqttc.loop(2) 
+
+if __name__ == "__main__":
+    me = myval()
+    mqttc = mqtt.Client(userdata=me)
+    mqttc.connect("test.mosquitto.org", 1883)
+    sendMessage(mqttc, "Mo message")
+    print "message sent"
+    
+    mqttc.subscribe("mhtest2")
+    #mqttc.on_connect = on_connect
+    mqttc.on_message = on_message
+    mqttc.loop_start()
+    print "Starting loop"
+    run = True
+    while run:
+        time.sleep(1)
+        sys.stdout.write('.')
+        sys.stdout.flush()
+        if me.get() is not None:
+            print "\n",me.get()
+            sendMessage(mqttc,me.get())
+            if me.get() == "stop":
+                run =False
+            me.set(None)
+        
+
+    
+    mqttc.disconnect()
+    mqttc.loop_stop()
     sys.exit(0)
