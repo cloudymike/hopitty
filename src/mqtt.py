@@ -183,13 +183,22 @@ timeout = 60
 globalmessage = None
 
 class myval():
-    def __init__(self):
-        self.value = None
+    def __init__(self,controller, value, client):
+        self.value = value
+        self.controller = controller
+        self.client = client
     def set(self,value):
         self.value = value
+    def send(self):
+        sendMessage(mqttc, self.value)
     def get(self):
         return(self.value)
-        
+    def getcontroller(self):
+        return(self.controller)
+    def stop(self):
+        self.value = 'stop'
+        print "stopping"
+
     
 # The callback for when the client receives a CONNACK response from the server.
 def on_connect(client, userdata, rc):
@@ -199,18 +208,29 @@ def on_connect(client, userdata, rc):
     client.subscribe("mhtest2")
 
 
-def setMessage(message):
-    print "Setting",message
-    globalmessage=message
-
 # The callback for when a PUBLISH message is received from the server.
 def on_message(client, userdata, msg):
     message = str(msg.payload)
-    sendMessage(client,message)
-    setMessage(message)
     print "***"+message+"***"
-    print "userdata:",userdata.get()
-    userdata.set(message)
+    print "userdata record:",userdata
+    
+    # Only start a new record if stopped or never started
+    if userdata.get() == 'stop':
+        if message == "new":
+            print "Creating new instance"
+            ctrl = userdata.getcontroller()
+            newme = myval(ctrl, 'This is a new one', client)
+            client.user_data_set(newme)
+
+    if message == 'noop':
+        print "old userdata.value:",userdata.get(), ' controller:', userdata.getcontroller()
+    elif message == 'stop':  
+        userdata.stop()
+    elif message == 'send':  
+        userdata.send()
+    else:
+        userdata.set(message)
+        print "updated userdata.value:",userdata.get(), ' controller:', userdata.getcontroller()
 
 
 
@@ -219,15 +239,19 @@ def sendMessage(mqttc, message):
     #mqttc.loop(2) 
 
 if __name__ == "__main__":
-    me = myval()
-    mqttc = mqtt.Client(userdata=me)
-    mqttc.connect("test.mosquitto.org", 1883)
+    mqttc = mqtt.Client()
+    m = myval('bob', 'stop',mqttc)
+    mqttc.user_data_set(m)
+    #mqttc = mqtt.Client(userdata=m)
+    #server = "test.mosquitto.org"
+    server = 'iot.eclipse.org'
+    mqttc.connect(server, 1883)
     sendMessage(mqttc, "Mo message")
     print "message sent"
     
     mqttc.subscribe("mhtest2")
-    #mqttc.on_connect = on_connect
     mqttc.on_message = on_message
+ 
     mqttc.loop_start()
     print "Starting loop"
     run = True
@@ -235,15 +259,9 @@ if __name__ == "__main__":
         time.sleep(1)
         sys.stdout.write('.')
         sys.stdout.flush()
-        if me.get() is not None:
-            print "\n",me.get()
-            sendMessage(mqttc,me.get())
-            if me.get() == "stop":
-                run =False
-            me.set(None)
-        
 
-    
     mqttc.disconnect()
     mqttc.loop_stop()
     sys.exit(0)
+
+# TODO How to send a message
