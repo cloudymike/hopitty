@@ -24,7 +24,7 @@ import logging
 empty = 0
 full = 1
 dispenserMax = 4
-boilTempConstant = 179
+boilTempConstant = 200
 coolTempConstant = 72
 pumpAdjust = 1.6
 
