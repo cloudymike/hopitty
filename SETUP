@@ -95,9 +95,10 @@ sudo make install
 popd
 
 pushd /tmp
-wget http://www.phidgets.com/downloads/libraries/PhidgetsPython.zip
-unzip PhidgetsPython.zip
-cd PhidgetsPython/
+wget https://www.phidgets.com/downloads/phidget22/libraries/any/Phidget22Python.zip
+
+unzip Phidget22Python.zip
+cd Phidget22Python/
 sudo python setup.py install
 popd
 
