@@ -73,7 +73,7 @@ sudo apt-get -y install python-usb
 sudo cp udev/99-tempsensor.rules /etc/udev/rules.d/
 
 #sudo easy_install python-x10
-#######################################
+#######################################ignore
 git clone https://github.com/glibersat/python-x10.git
 cd python-x10
 sudo python setup.py install
@@ -84,8 +84,7 @@ rm -rf python-x10
 #######################################
 sudo apt-get install -y libusb-1.0-0-dev
 
-pushd /tmp
-wget http://www.phidgets.com/downloads/libraries/libphidget.tar.gz
+pushd phidget
 tar xvzf libphidget.tar.gz
 #cd libphidget-2.1.8.20120912
 cd libphidget-*
@@ -94,8 +93,7 @@ make
 sudo make install 
 popd
 
-pushd /tmp
-wget http://www.phidgets.com/downloads/libraries/PhidgetsPython.zip
+pushd phidget
 unzip PhidgetsPython.zip
 cd PhidgetsPython/
 sudo python setup.py install
