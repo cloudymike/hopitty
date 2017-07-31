@@ -83,19 +83,17 @@ rm -rf python-x10
 # phidgets
 #######################################
 sudo apt-get install -y libusb-1.0-0-dev
-sudo wget -qO- http://www.phidgets.com/gpgkey/pubring.gpg | sudo apt-key add -
-sudo apt-get update
-sudo apt-get install libphidget22 libphidget22-dev phidget22networkserver libphidget22java phidget22admin
 
-#pushd /tmp
-#wget http://www.phidgets.com/downloads/libraries/libphidget.tar.gz
-#tar xvzf libphidget.tar.gz
-#cd libphidget-2.1.8.20120912
+pushd /tmp
+wget http://www.phidgets.com/downloads/libraries/libphidget.tar.gz
+wget http://www.phidgets.com//downloads/phidget22/libraries/linux/libphidget22/libphidget22-1.0.0.20170727.tar.gz
+tar xvzf libphidget22-1.0.0.20170727.tar.gz
+cd libphidget22-1.0.0.20170727
 #cd libphidget-*
-#./configure 
-#make 
-#sudo make install 
-#popd
+./configure 
+make 
+sudo make install 
+popd
 
 pushd /tmp
 wget https://www.phidgets.com/downloads/phidget22/libraries/any/Phidget22Python.zip
