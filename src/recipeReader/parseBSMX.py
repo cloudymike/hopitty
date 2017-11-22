@@ -40,6 +40,7 @@ class bsmxStages():
                     self.doc = None
                     self.inputTypeDebug = 'NA'
 
+
         if self.valid:
             try:
                 self.name = bsmxReadString(self.doc, "F_R_NAME")

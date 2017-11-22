@@ -163,7 +163,7 @@ def txBSMXtoStages(bsmxObj):
 
     elif equipmentName in validEquipment2:
         mashProfile = bsmxObj.getMashProfile()
-
+        chiller = 'plate'
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
@@ -644,7 +644,7 @@ def HERMSMultiBatchMash(bsmxObj, chiller):
     """
     Multi batch sparging mash with HERMS circulation
     """
-    logging.info("====================MultiBatchMash")
+    logging.info("====================MultiBatchMash HERMS")
     controllers = bsmxObj.getControllers()
     stages = {}
 

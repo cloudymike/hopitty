@@ -1,8 +1,19 @@
 Where to start
 ===============
-This branch to get travis great again
+
+Not failing runthread brun/quickThread
+----------------------------------------
+The file was just missing.
+: Grain 3G, HERMS, 5Gcooler, 5Gpot :Not valid equipment
+11/22/2017 08:04:20 AM Error: bad bsmx recipe
+11/22/2017 08:04:20 AM Running 
+11/22/2017 08:04:20 AM  
+11/22/2017 08:04:20 AM OK
+11/22/2017 08:04:20 AM Shutting down
+mikael@black:~/hopitty/src$ echo $?
 
 Check recipeReader.strikeTemp
+------------------------------
 This function was useful to build on, but I have no clue why it is there. 
 The only place it seems to be used is in src/recipeModel/tests/testMashInT.py
 
