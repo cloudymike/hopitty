@@ -67,6 +67,8 @@ def setupControllers(verbose, simulation, permissive):
     controllers.addController('mashStirrer', appliances.mashStirrer())
     controllers['mashStirrer'].connectSwitch(mashStirSwitch)
     controllers.addController('mashHeater', appliances.mashHeater())
+    # TODO
+    # controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
     print 5
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
