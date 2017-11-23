@@ -66,7 +66,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 165
+      "targetValue": 95
     },
     "wortPump": {
       "active": false,
@@ -96,7 +96,7 @@
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 0.2
+      "targetValue": 0.4
     },
     "dispenser1": {
       "active": false,
@@ -123,8 +123,8 @@
       "targetValue": 0
     },
     "mashHeater": {
-      "active": false,
-      "targetValue": 0
+      "active": true,
+      "targetValue": 92
     },
     "mashStirrer": {
       "active": false,
@@ -140,7 +140,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 165
+      "targetValue": 95
     },
     "wortPump": {
       "active": false,

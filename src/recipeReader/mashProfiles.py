@@ -130,6 +130,7 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 3G, 5Gcooler, 5Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot, platechiller',
                        'Grain 3G, 5Gcooler 5Gpot']
+    validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
 
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
@@ -148,8 +149,25 @@ def txBSMXtoStages(bsmxObj):
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
             stages = MultiBatchMash(bsmxObj, chiller)
+        elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
+                             'Single Infusion, Medium Body, No Mash Out',
+                             'Single Infusion, Full Body, No Mash Out']:
+            stages = MultiBatchMash(bsmxObj, chiller)
         elif mashProfile in ['testonly']:
             stages = onlyTestMash(bsmxObj, chiller)
+        else:
+            print "No valid mash profile found"
+            print "===", mashProfile, "==="
+        if stages is None:
+            print "Mash test failed"
+
+    elif equipmentName in validEquipment2:
+        mashProfile = bsmxObj.getMashProfile()
+        chiller = 'plate'
+        if mashProfile in ['Single Infusion, Light Body, No Mash Out',
+                             'Single Infusion, Medium Body, No Mash Out',
+                             'Single Infusion, Full Body, No Mash Out']:
+            stages = HERMSMultiBatchMash(bsmxObj, chiller)
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
@@ -525,6 +543,155 @@ def MultiBatchMash(bsmxObj, chiller):
     step["waterCirculationPump"] = setDict(1)
     step["mashStirrer"] = setDict(1)
     step["delayTimer"] = setDict(mashTime)
+    stages[mkSname("Mashing", stageCount)] = step
+    stageCount = stageCount + 1
+
+    infuseVolNet = bsmxObj.getVolQt("F_MS_INFUSION")
+
+    totSparge = bsmxObj.getSpargeVolume()
+    spargeSteps = 4
+    volSpargeIn = totSparge / spargeSteps
+    volWortOut = volSpargeIn
+    lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut) - pumpAdjust
+
+    if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
+        logging.info("volWothOut failed")
+        return(None)
+
+    for i in range(spargeSteps):
+
+        sHold = stageCtrl(controllers)
+        sHold["delayTimer"] = setDict(1)
+
+        sOut = stageCtrl(controllers)
+        sOut["wortPump"] = setDict(volWortOut)
+        totVolOut = totVolOut + volWortOut
+        if i < 1:
+            sOut["boiler"] = setDict(0)
+        else:
+            sOut["boiler"] = setDict(1)
+        stages[mkSname("Wort out", stageCount)] = sOut
+        stageCount = stageCount + 1
+
+        # Do not start boiler until after first fill up
+        # In case of pump problems, you may burn the pot
+        sHold["boiler"] = setDict(1)
+        stages[mkSname("Sparge hold", stageCount)] = sHold
+        stageCount = stageCount + 1
+
+        sIn = stageCtrl(controllers)
+        sIn["hotWaterPump"] = setDict(volSpargeIn)
+        totVolIn = totVolIn + volSpargeIn
+        sIn["boiler"] = setDict(1)
+        stages[mkSname("Sparge in", stageCount)] = sIn
+        stageCount = stageCount + 1
+
+    # For final wort out, run multiple steps and rest in between
+    # to allow the wort to seep through the mash, as pumping is too
+    # fast otherwise.
+    finalWortSteps = 2
+    for i in range(finalWortSteps):
+
+        sfwHold = stageCtrl(controllers)
+        sfwHold["delayTimer"] = setDict(1)
+        sfwHold["boiler"] = setDict(1)
+        stages[mkSname("Wort Final hold", stageCount)] = sfwHold
+        stageCount = stageCount + 1
+
+        sfw = stageCtrl(controllers)
+        sfw["wortPump"] = setDict(lastWortOut / finalWortSteps)
+        sfw["boiler"] = setDict(1)
+        totVolOut = totVolOut + lastWortOut / finalWortSteps
+        stages[mkSname("Wort out final", stageCount)] = sfw
+        stageCount = stageCount + 1
+
+    try:
+        stages.update(boiling(bsmxObj, stageCount, boilTempConstant))
+        stageCount = len(stages)
+    except:
+        logging.error("Boiling profile failed")
+        stages = None
+
+    try:
+        if chiller == 'immersion':
+            stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
+        elif chiller == 'plate':
+            stages.update(plateCooling(bsmxObj, stageCount, coolTempConstant))
+        else:
+            logging.error('Unknown cooler type')
+            stages = None
+    except:
+        logging.error("Cooling profile failed")
+        stages = None
+
+    # Check and balances
+    # tunDeadSpace = bsmxReadVolQt(doc, 'F_E_TUN_DEADSPACE')
+
+    if round(totVolIn, 4) != \
+       round(totVolOut + pumpAdjust + bsmxObj.getTunDeadSpace() +
+             bsmxObj.getGrainAbsorption(), 4):
+        logging.error("Error in/out flow not matching")
+        logging.error("In vol: "+str(round(totVolIn, 4)))
+        logging.error("Out Vol: "+str(round(totVolOut, 4)))
+        logging.error("Grain absorb and dead space: " +
+                      str(round(bsmxObj.getTunDeadSpace() +
+                          bsmxObj.getGrainAbsorption(), 4)))
+        stages = None
+
+    return(stages)
+
+def HERMSMultiBatchMash(bsmxObj, chiller):
+    """
+    Multi batch sparging mash with HERMS circulation
+    """
+    logging.info("====================MultiBatchMash HERMS")
+    controllers = bsmxObj.getControllers()
+    stages = {}
+
+    totVolIn = 0
+    totVolOut = 0
+
+    stageCount = 1
+
+    s0 = stageCtrl(controllers)
+    s0["waterCirculationPump"] = setDict(1)
+    s0["delayTimer"] = setDict(3.0)
+    stages["00 Pre-circulate"] = s0
+
+    s1 = stageCtrl(controllers)
+    s1["waterHeater"] = setDict(
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
+    s1["waterCirculationPump"] = setDict(1)
+
+    stages[mkSname("Heating", stageCount)] = s1
+    stageCount = stageCount + 1
+
+    s2 = stageCtrl(controllers)
+    s2["waterHeater"] = setDict(
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
+    s2["delayTimer"] = setDict(0.30)
+    stages[mkSname("Pump rest", stageCount)] = s2
+    stageCount = stageCount + 1
+
+    s3 = stageCtrl(controllers)
+    strikeVolTot = bsmxObj.getStrikeVolume()
+    s3["waterHeater"] = setDict(
+        bsmxObj.getTempF("F_MS_INFUSION_TEMP"))
+    s3["hotWaterPump"] = setDict(strikeVolTot)
+    totVolIn = totVolIn + strikeVolTot
+    stages[mkSname("StrikeWater", stageCount)] = s3
+    stageCount = stageCount + 1
+
+    mashTime = bsmxObj.getTimeMin("F_MS_STEP_TIME")
+
+    step = stageCtrl(controllers)
+    step["waterHeater"] = setDict(
+        bsmxObj.getTempF("F_MH_SPARGE_TEMP"))
+    step["waterCirculationPump"] = setDict(1)
+    step["mashStirrer"] = setDict(1)
+    step["delayTimer"] = setDict(mashTime)
+    step["mashHeater"] = setDict(bsmxObj.getTempF("F_MS_STEP_TEMP"))
+    
     stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
 

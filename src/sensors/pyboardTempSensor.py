@@ -6,10 +6,10 @@ class pyboardTempSensor(sensors.genericSensor):
     def __init__(self):
         self.errorState = False
         self.id = 'pyboardTemp'
-        self.val = 90
+        self.val = 70
         self.devs = None
         self.device = self.connect()
-        self.simulation = (self.device is None)
+        self.simulation = (self.device is None) or not self.device.HWOK()
         self.incVal = 1.3
 
     def connect(self):

@@ -16,24 +16,67 @@ class mashHeater(appliances.genctrl):
     """
     def __init__(self):
         self.errorState = False  # If an error has occurred
-        self.switch = switches.simSwitch()
+        self.switch = None
         self.powerOn = False
         self.active = False
-        self.target = 150
+        self.target = 150.0
         self.unit = 'F'
         self.sensor = sensors.pyboardTempSensor()
-        self.actual = 100
+        self.simulation = not self.HWOK()
+        self.actual = 70.0
+
+
+    def set(self, value):
+        self.target = float(value)
+
+    def simValue(self):
+        """ Create a sensor simulator """
+        if self.active:
+            if self.powerOn:
+                return(self.actual + 1)
+            else:
+                return(self.actual - 1)
+        else:
+            return(self.actual)
 
     def measure(self):
-        self.actual = self.sensor.getValue()
+        if self.simulation:
+             self.actual = self.simValue()
+        else:
+            self.actual = self.sensor.getValue()
         return(self.actual)
 
+    def update(self):
+        if self.measure() < self.target:
+            self.pumpOn()
+        else:
+            self.pumpOff()
+
+    def pumpOn(self):
+        self.powerOn = True
+        if self.switch is not None:
+            self.switch.on()
+
+    def pumpOff(self):
+        self.powerOn = False
+        if self.switch is not None:
+            self.switch.off()
+
+    def stop(self):
+        self.active = False
+        self.pumpOff()
+
     def targetMet(self):
-        """ Function for target met. Sensor only, return true"""
+        """ Function for target met. Return True, as we will not wait for this temp"""
         return(True)
 
     def HWOK(self):
         """
         Return True if all USB connections are OK to the HW devices.
         """
-        return(self.sensor.HWOK())
+        if self.switch is None:
+            return(False)
+        elif self.sensor is None:
+            return(False)
+        else:
+            return(self.sensor.HWOK() and self.switch.HWOK())

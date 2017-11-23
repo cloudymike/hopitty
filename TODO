@@ -1,9 +1,4 @@
 Where to start
 ===============
-This branch to get travis great again
 
-Check recipeReader.strikeTemp
-This function was useful to build on, but I have no clue why it is there. 
-The only place it seems to be used is in src/recipeModel/tests/testMashInT.py
-
-
+See issues on github
