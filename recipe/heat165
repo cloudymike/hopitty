@@ -8,7 +8,7 @@
      "02":{
       "waterHeater":165,
       "waterCirculationPump":1,
-      "delayTimer": 60
+      "delayTimer": 0.2
      }
      
   }

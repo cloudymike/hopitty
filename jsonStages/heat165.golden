@@ -96,7 +96,7 @@
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 60
+      "targetValue": 0.2
     },
     "dispenser1": {
       "active": false,
