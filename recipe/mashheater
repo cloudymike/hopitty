@@ -1,0 +1,17 @@
+{
+"name":"heat_only",
+  "recipe":   {
+    "01":{
+      "waterHeater":95,
+      "waterCirculationPump":1
+    },
+     "02":{
+      "waterHeater":95,
+      "waterCirculationPump":1,
+      "mashHeater": 92,
+      "delayTimer": 0.4
+     }
+     
+  }
+
+}

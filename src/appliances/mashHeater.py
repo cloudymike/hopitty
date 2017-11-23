@@ -22,19 +22,22 @@ class mashHeater(appliances.genctrl):
         self.target = 150.0
         self.unit = 'F'
         self.sensor = sensors.pyboardTempSensor()
-        self.simulation = not self.sensor.HWOK()
-        self.actual = 100.0
-        
+        self.simulation = not self.HWOK()
+        self.actual = 70.0
+
 
     def set(self, value):
         self.target = float(value)
 
     def simValue(self):
         """ Create a sensor simulator """
-        if self.powerOn:
-            return(self.actual + 1)
+        if self.active:
+            if self.powerOn:
+                return(self.actual + 1)
+            else:
+                return(self.actual - 1)
         else:
-            return(self.actual - 1)
+            return(self.actual)
 
     def measure(self):
         if self.simulation:
@@ -60,8 +63,6 @@ class mashHeater(appliances.genctrl):
             self.switch.off()
 
     def stop(self):
-        self.target = 0
-        self.actual = 0
         self.active = False
         self.pumpOff()
 
@@ -75,7 +76,7 @@ class mashHeater(appliances.genctrl):
         """
         if self.switch is None:
             return(False)
-        elif self.simulation:
+        elif self.sensor is None:
             return(False)
         else:
             return(self.sensor.HWOK() and self.switch.HWOK())

@@ -20,6 +20,9 @@ class pyboardread():  # pragma: no cover
 
     def get_name(self):
         return(self.termName)
+    
+    def HWOK(self):
+        return(self.get_dict() is not None)
 
     def get_temperature(self, format='celsius'):
         mydict = self.get_dict()
@@ -63,8 +66,8 @@ class pyboardread():  # pragma: no cover
                                         rtscts=False,
                                         dsrdtr=False)
             except serial.serialutil.SerialException:
-                #print("Unable to open port '%s'\r" % portName)
-                sys.exit(1)
+                # print("Unable to open port '%s'\r" % portName)
+                return(None)
         
         time.sleep(0.3)
         
