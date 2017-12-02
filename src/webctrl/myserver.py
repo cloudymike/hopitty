@@ -13,6 +13,7 @@ import datetime
 import index
 import graphPage
 import ingredients
+import jstest
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -72,6 +73,10 @@ class myserver(ServerAdapter):
     def indexPage():            # noqa
         return (index.index())
 
+    @route('/jstest')
+    def jstest():                # noqa
+        return(jstest.jstest())
+    
     @route('/chart')
     def chart():                # noqa
         fig = plt.figure()
@@ -104,6 +109,10 @@ class myserver(ServerAdapter):
     @route('/static/<filename>')
     def server_static(filename):  # noqa
         return static_file(filename, root='static/')
+
+    @route('/js/<filename>')
+    def js(filename):  # noqa
+        return static_file(filename, root='js/')
 
 ##########################
 # Below this line is also in main program
