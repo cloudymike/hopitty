@@ -13,6 +13,10 @@ def jstest():
 
   <script src="js/alert.js"></script>
 
+  <script>
+  console.log("yup, that worked");
+  </script>
+
 </body>
 
 </html>
