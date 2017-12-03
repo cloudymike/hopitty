@@ -1,6 +1,7 @@
 import json
+import random
 
 def apitest():
-    temp = 86
+    temp = random.randint(66,212)
     tempJson = {"hwt": temp}
     return(tempJson)
