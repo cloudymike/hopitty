@@ -11,11 +11,15 @@ def jstest():
 
 <body>
 
-  <script src="js/alert.js"></script>
+  temp for HWT: <pre> </pre>
+
+  <script src="js/fetch.js"></script>
 
   <script>
   console.log("yup, that worked");
   </script>
+  
+  <p>Did something</p>
 
 </body>
 

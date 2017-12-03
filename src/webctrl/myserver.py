@@ -5,6 +5,8 @@ Start with http://localhost:8080 and try the button links!
 '''
 
 from bottle import Bottle, ServerAdapter, route, run, template, static_file
+from bottle_rest import json_to_params
+
 import matplotlib.pyplot as plt, mpld3
 import matplotlib
 from threading import Thread
@@ -14,6 +16,7 @@ import index
 import graphPage
 import ingredients
 import jstest
+import apitest
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -77,6 +80,10 @@ class myserver(ServerAdapter):
     def jstest():                # noqa
         return(jstest.jstest())
     
+    @route('/apitest')
+    def apitest():                # noqa
+        return(apitest.apitest())
+
     @route('/chart')
     def chart():                # noqa
         fig = plt.figure()
