@@ -11,7 +11,8 @@ def jstest():
 
 <body>
 
-  <p>Temp HWT: <b id="tempHWT">Unknown</b><p>
+  <p>Temp HWT: <b id="hwt">Unknown</b><p>
+  <p>Temp Boiler: <b id="boiler">Unknown</b><p>
 
 
   <script src="js/fetch.js"></script>
