@@ -2,3 +2,19 @@ Where to start
 ===============
 
 See issues on github
+
+
+For javascript example
+-----------------------
+
+
+##### Post for getting one appliance status
+Instead of getting them all just get one at a time. Use different times for different services
+
+##### Initialize and reset with timer time
+For inactive appliances, update slowly and for active frequently
+Check state shift frequently (should be quick check)
+If state shift reinitialize to reset timers
+
+##### Create one graphic, termometer, heat, pump, volume
+
