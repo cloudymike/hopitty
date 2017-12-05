@@ -80,9 +80,9 @@ class myserver(ServerAdapter):
     def jstest():                # noqa
         return(jstest.jstest())
     
-    @route('/apitest')
-    def apitest():                # noqa
-        return(apitest.apitest())
+    @route('/apipath/<appliance>')
+    def apiPathWrap(appliance):                # noqa
+        return(apitest.apipath(appliance))
 
     @route('/chart')
     def chart():                # noqa

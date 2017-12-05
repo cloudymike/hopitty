@@ -4,11 +4,13 @@ var tempDisplay = allDisplays[0]
 var myVar = setInterval(tempHWT, 1000);
 var myVar = setInterval(tempBoiler, 10000);
 
-function tempHWT() {tempAppliance('apitest', 'hwt'); }
-function tempBoiler() {tempAppliance('apitest', 'boiler'); }
+function tempHWT() {pathAppliance('apipath', 'hwt'); }
+function tempBoiler() {pathAppliance('apipath', 'boiler'); }
 
-function tempAppliance(url, key) {
-    fetch(url).then(function(response){
+function pathAppliance(url, key) {
+    fullUrl = url + '/' + key
+    console.log(fullUrl)
+    fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             tempJson = json
             tempVal = tempJson[key]

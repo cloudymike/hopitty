@@ -1,7 +1,8 @@
 import json
 import random
 
-def apitest():
+def apipath(appliance):
+    print('apipath: ' + appliance)
     temp = random.randint(70,170)
-    tempJson = {"hwt": temp, "boiler": temp}
+    tempJson = {appliance: temp}
     return(tempJson)
