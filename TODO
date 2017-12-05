@@ -16,5 +16,4 @@ If state shift reinitialize to reset timers
 
 ##### Create one graphic, termometer, heat, pump, volume
 
-##### Create proper json in stub function
-Update json to reflect what is really in the stub function
+##### Include script from other file?
