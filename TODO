@@ -8,8 +8,6 @@ For javascript example
 -----------------------
 
 
-##### Post for getting one appliance status
-Instead of getting them all just get one at a time. Use different times for different services
 
 ##### Initialize and reset with timer time
 For inactive appliances, update slowly and for active frequently
@@ -18,3 +16,5 @@ If state shift reinitialize to reset timers
 
 ##### Create one graphic, termometer, heat, pump, volume
 
+##### Create proper json in stub function
+Update json to reflect what is really in the stub function

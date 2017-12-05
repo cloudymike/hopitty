@@ -13,7 +13,7 @@ function pathAppliance(url, key) {
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             tempJson = json
-            tempVal = tempJson[key]
+            tempVal = tempJson['actual']
             console.log(tempVal)
             document.getElementById(key).innerHTML = tempVal;
         });
