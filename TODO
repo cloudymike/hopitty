@@ -7,13 +7,10 @@ See issues on github
 For javascript example
 -----------------------
 
-
-
-##### Initialize and reset with timer time
-For inactive appliances, update slowly and for active frequently
-Check state shift frequently (should be quick check)
-If state shift reinitialize to reset timers
-
 ##### Create one graphic, termometer, heat, pump, volume
 
 ##### Include script from other file?
+
+##### Check for stage
+CHeck and desplay stage name
+If stage name is updated, then re-initialize

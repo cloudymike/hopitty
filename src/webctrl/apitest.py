@@ -2,7 +2,6 @@ import json
 import random
 
 def apipath(appliance):
-    print('appliance: ', appliance)
 
     if appliance == 'boiler':
         actual = random.randint(170,212)
@@ -12,6 +11,8 @@ def apipath(appliance):
         actual = random.randint(70,170)
         target = 168
         active = True
+
+    print('appliance: ', appliance, 'value: ', actual)
 
     targetMet = actual >= target
     powerOn = active and (not targetMet)
