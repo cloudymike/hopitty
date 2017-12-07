@@ -8,9 +8,22 @@ For javascript example
 -----------------------
 
 ##### Create one graphic, termometer, heat, pump, volume
+Combine tGauge and vGauge in one page
+Have 3 columns, HWT, MashTun and Boiler.
 
 ##### Include script from other file?
+Right now all the scripts are in one blob, would be nice to do includes
+I guess this is just in the html file.
 
 ##### Check for stage
 CHeck and desplay stage name
 If stage name is updated, then re-initialize
+
+##### Progress bar
+For timer, some graph. Progress bar is probably most suitable.
+https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval_progressbar
+
+##### Add for reals
+Create api for the real server and add a MVP page
+Probably easist to just start with thermometers.
+
