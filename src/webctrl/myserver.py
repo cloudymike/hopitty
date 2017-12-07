@@ -17,6 +17,7 @@ import graphPage
 import ingredients
 import jstest
 import apitest
+import cylinder
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -79,6 +80,10 @@ class myserver(ServerAdapter):
     @route('/jstest')
     def jstest():                # noqa
         return(jstest.jstest())
+    
+    @route('/cylinder')
+    def mycylinder():                # noqa
+        return(cylinder.cylinderAM())
     
     @route('/apipath/<appliance>')
     def apiPathWrap(appliance):                # noqa

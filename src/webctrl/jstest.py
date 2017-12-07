@@ -17,9 +17,8 @@ def jstest():
 <body>
 <div style="width: 100%; display: table;">
     <div style="display: table-row">
-    <div id="chart_hwt" style="width: 120px; height: 120px; display: table-cell;"></div>
-    <div id="chart_boiler" style="width: 120px; height: 120px; display: table-cell;"></div>
-  </div>
+    <div id="chart_hwt" style="width: 250px; height: 250px; display: table-cell;"></div>
+    <div id="chart_boiler" style="width: 250px; height: 250px; display: table-cell;"></div>
 </div>
 
   <!--
