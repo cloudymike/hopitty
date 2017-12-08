@@ -85,6 +85,10 @@ class myserver(ServerAdapter):
     def mycylinder():                # noqa
         return(cylinder.cylinderAM())
     
+    @route('/apipath/currentstage')
+    def apicurrentstage():                # noqa
+        return(apitest.currentStage())
+    
     @route('/apipath/<appliance>')
     def apiPathWrap(appliance):                # noqa
         return(apitest.apipath(appliance))

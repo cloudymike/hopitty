@@ -1,7 +1,12 @@
 
 google.charts.load('current', {'packages':['gauge']});
-google.charts.setOnLoadCallback(drawHwt);
-google.charts.setOnLoadCallback(drawBoiler);
+//google.charts.setOnLoadCallback(drawHwt);
+//google.charts.setOnLoadCallback(drawBoiler);
+
+function drawTemperatures() {
+    drawHwt();
+    drawBoiler();
+}
 
 function drawHwt() {
     var chart = new google.visualization.Gauge(document.getElementById('chart_hwt'));
@@ -28,7 +33,7 @@ function drawChart(chart, appliance) {
     
     //chart.draw(data, options);
     
-    gaugeCallback(appliance, chart, data, options);
+    temperatureGaugeCallback(appliance, chart, data, options);
     var fullUrl = 'apipath' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
@@ -36,27 +41,25 @@ function drawChart(chart, appliance) {
             var isActive = tempJson['active'];
             console.log("Value: " + isActive);
             if (isActive) {
-                setInterval(gaugeCallback, 1000, appliance, chart, data, options);
+                setInterval(temperatureGaugeCallback, 1000, appliance, chart, data, options);
             } else {
-                setInterval(gaugeCallback, 10000, appliance, chart, data, options);
+                setInterval(temperatureGaugeCallback, 10000, appliance, chart, data, options);
             }
         });
     });
-//    setInterval(function() {
-//        gaugeCallback(appliance, chart, data, options);
-//    }, 1300);
 }
 
-function gaugeCallback(appliance, chart, data, options) {
+function temperatureGaugeCallback(appliance, chart, data, options) {
     var fullUrl = 'apipath' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             var tempJson = json;
             var tempVal = tempJson['actual'];
             var tempTarget = tempJson['target'];
+            var active = tempJson['active']
             options['greenFrom'] = tempTarget - 3;
             options['greenTo'] = tempTarget + 3;
-            console.log("Appliance:", appliance, "  Value:" + tempVal, "  Target:", tempTarget);
+            console.log("Appliance:", appliance, "  Value:" + tempVal, "  Target:", tempTarget, "  Active:", active);
             data.setValue(0, 1, tempVal);
             chart.draw(data, options);
         });

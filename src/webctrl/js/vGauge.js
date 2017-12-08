@@ -38,7 +38,7 @@ function drawVolChart(chart, appliance) {
     
     //chart.draw(data, options);
     
-    gaugeCallback(appliance, chart, data, options);
+    volumeGaugeCallback(appliance, chart, data, options);
     var fullUrl = 'apipath' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
@@ -46,9 +46,9 @@ function drawVolChart(chart, appliance) {
             var isActive = tempJson['active'];
             console.log("Value: " + isActive);
             if (isActive) {
-                setInterval(gaugeCallback, 1000, appliance, chart, data, options);
+                setInterval(volumeGaugeCallback, 1000, appliance, chart, data, options);
             } else {
-                setInterval(gaugeCallback, 10000, appliance, chart, data, options);
+                setInterval(volumeGaugeCallback, 10000, appliance, chart, data, options);
             }
         });
     });
@@ -57,7 +57,7 @@ function drawVolChart(chart, appliance) {
 //    }, 1300);
 }
 
-function gaugeCallback(appliance, chart, data, options) {
+function volumeGaugeCallback(appliance, chart, data, options) {
     var fullUrl = 'apipath' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
@@ -84,67 +84,3 @@ function gaugeCallback(appliance, chart, data, options) {
     });
 }
 
-function drawVolume() {
-    var chartData = [ {
-      "category": "Wine left in the barrel",
-      "value1": 30,
-      "value2": 70
-    } ];
-    
-    var options = {
-      "theme": "light",
-      "type": "serial",
-      "depth3D": 100,
-      "angle": 30,
-      "autoMargins": false,
-      "marginBottom": 100,
-      "marginLeft": 30,
-      "marginRight": 10,
-      "dataProvider": chartData,
-      "valueAxes": [ {
-        "stackType": "100%",
-        "gridAlpha": 0
-      } ],
-      "graphs": [ {
-        "type": "column",
-        "topRadius": 1,
-        "columnWidth": 1,
-        "showOnAxis": true,
-        "lineThickness": 2,
-        "lineAlpha": 0.5,
-        "lineColor": "#FFFFFF",
-        "fillColors": "#8d003b",
-        "fillAlphas": 0.8,
-        "valueField": "value1"
-      }, {
-        "type": "column",
-        "topRadius": 1,
-        "columnWidth": 1,
-        "showOnAxis": true,
-        "lineThickness": 2,
-        "lineAlpha": 0.5,
-        "lineColor": "#cdcdcd",
-        "fillColors": "#cdcdcd",
-        "fillAlphas": 0.5,
-        "valueField": "value2"
-      } ],
-    
-      "categoryField": "category",
-      "categoryAxis": {
-        "axisAlpha": 0,
-        "labelOffset": 40,
-        "gridAlpha": 0
-      },
-      "export": {
-        "enabled": true
-      }
-    }
-
-    var chart = AmCharts.makeChart( "chartdiv", options );
-
-}
-
-
-
-
-//drawVolume();
