@@ -8,6 +8,11 @@ def apipath(appliance):
         actual = random.randint(170,212)
         target = 205
         active = (int((time.time() / 10 )% 2) == 0)
+    elif 'Volume' in appliance:
+        actual = random.randint(0,12)
+        target = 8
+        active = (int((time.time() / 10 )% 2) == 0)
+        
     else:
         actual = random.randint(70,170)
         target = 168

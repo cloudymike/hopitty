@@ -4,13 +4,18 @@ google.charts.load('current', {'packages':['gauge']});
 //google.charts.setOnLoadCallback(drawBoiler);
 
 function drawTemperatures() {
-    drawHwt();
+    drawWaterHeater();
+    drawMashHeater()
     drawBoiler();
 }
 
-function drawHwt() {
-    var chart = new google.visualization.Gauge(document.getElementById('chart_hwt'));
-    drawChart(chart, 'hwt');
+function drawWaterHeater() {
+    var chart = new google.visualization.Gauge(document.getElementById('chart_waterHeater'));
+    drawChart(chart, 'waterHeater');
+}
+function drawMashHeater() {
+    var chart = new google.visualization.Gauge(document.getElementById('chart_mashHeater'));
+    drawChart(chart, 'mashHeater');
 }
 function drawBoiler() {
     var chart = new google.visualization.Gauge(document.getElementById('chart_boiler'));
@@ -22,10 +27,10 @@ function drawBoiler() {
 function drawChart(chart, appliance) {
     var data = google.visualization.arrayToDataTable([
       ['Label', 'Value'],
-       [appliance, 68]
+       ['F', 68]
     ]);
     var options = {
-      width: 120, height: 120,
+      width: 250, height: 250,
       greenFrom: 160, greenTo: 170,
       minorTicks: 5, majorTicks: [60,80,100,120,140,160,180,200,220],
       min: 60, max: 220

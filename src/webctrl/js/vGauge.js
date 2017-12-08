@@ -1,17 +1,28 @@
 
 
 google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawVolHwt);
-google.charts.setOnLoadCallback(drawVolBoiler);
+//google.charts.setOnLoadCallback(drawVolHwt);
+//google.charts.setOnLoadCallback(drawVolBoiler);
 
-function drawVolHwt() {
-    var chart = new google.visualization.ColumnChart(document.getElementById('vol_hwt'));
-    drawVolChart(chart, 'hwt');
+function drawVolumes() {
+    drawWaterVolume();
+    drawMashVolume()
+    drawBoilerVolume();
 }
 
-function drawVolBoiler() {
+function drawWaterVolume() {
+    var chart = new google.visualization.ColumnChart(document.getElementById('vol_waterHeater'));
+    drawVolChart(chart, 'waterVolume');
+}
+
+function drawMashVolume() {
+    var chart = new google.visualization.ColumnChart(document.getElementById('vol_mashHeater'));
+    drawVolChart(chart, 'mashVolume');
+}
+
+function drawBoilerVolume() {
     var chart = new google.visualization.ColumnChart(document.getElementById('vol_boiler'));
-    drawVolChart(chart, 'boiler');
+    drawVolChart(chart, 'boilerVolume');
 }
 
 
