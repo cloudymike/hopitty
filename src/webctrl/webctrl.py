@@ -19,6 +19,8 @@ import myserver
 import ctrl
 import graphPage
 import ingredients
+import chart
+import api
 
 import recipeModel
 import os
@@ -50,6 +52,8 @@ class runbrew():
         self.wapp.route('/recipelist', 'POST', self.dorecipeliststatus)
         self.wapp.route('/debugStages', 'GET', self.debugStages)
         self.wapp.route('/readrecipes', 'GET', self.getTestRecipeList)
+        self.wapp.route('/chart', 'GET', self.getChart)
+        self.wapp.route('/apipath/currentstage', 'GET', self.apicurrentstage)
 
         self.wapp.route('/switchlist', 'GET', self.switchliststatusPage)
         self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
@@ -57,6 +61,7 @@ class runbrew():
         self.wapp.route('/temp', 'GET', self.tempPage)
         self.wapp.route('/ingredients', 'GET', self.ingredientsPage)
         self.wapp.route('/static/<filename>', 'GET', self.server_static)
+        self.wapp.route('/js/<filename>', 'GET', self.js)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
         self.dl = ctrl.datalogger(controllers)
@@ -124,6 +129,9 @@ class runbrew():
     def server_static(self,filename):
         return static_file(filename, root='webctrl/static/')
         
+    def js(self, filename):  # noqa
+        return static_file(filename, root='webctrl/js/')
+
     def commandPage(self):
         """
         Page to set the run status, i.e. to start the run
@@ -305,3 +313,10 @@ class runbrew():
     def ingredientsPage(self):
         #myIngredients = self.controllers.getMyLog()
         return(ingredients.ingredients(self.recipeObject))
+
+    def getChart(self):
+        return(chart.chart())
+
+    def apicurrentstage(self):                # noqa
+        return(api.currentStage(self.s2b))
+    

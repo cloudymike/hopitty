@@ -25,8 +25,8 @@ function updateCurrentStage() {
             document.getElementById('currentstage').innerHTML = stage;
             if (checkOldStage(stage)) {
                 document.getElementById('newstage').innerHTML = 'New stage';
-                drawTemperatures()
-                drawVolumes()
+                //drawTemperatures()
+                //drawVolumes()
             } else {
                 document.getElementById('newstage').innerHTML = '...';
             }
