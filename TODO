@@ -23,19 +23,3 @@ Javascript for reals
 Create api for the real server and add a MVP page
 Probably easist to just start with thermometers.
 
-##### Create the python page
-Create a chart.py that load up the java scripts, though all commented out for now
-until we start to add stuff
-
-##### Create API for stage (MVP?)
-This should be straigt forward, just calling:
-    # stage = s2b.getStage()
-Comment out the drawVolChart and drawChart for now from state.jsref
-
-#### Temperature API
-Ensure this is an efficient api as it will be hit frequently
-
-##### Add temperature charts
-Update refresh values in tGauge.js to be apropriate (and a lot slower than current) 10s 100s?
-
-
