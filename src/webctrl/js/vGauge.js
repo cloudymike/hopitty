@@ -50,7 +50,7 @@ function drawVolChart(chart, appliance) {
     //chart.draw(data, options);
     
     volumeGaugeCallback(appliance, chart, data, options);
-    var fullUrl = 'apipath' + '/' + appliance;
+    var fullUrl = 'apipath/appliance' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             var tempJson = json;
@@ -63,13 +63,10 @@ function drawVolChart(chart, appliance) {
             }
         });
     });
-//    setInterval(function() {
-//        gaugeCallback(appliance, chart, data, options);
-//    }, 1300);
 }
 
 function volumeGaugeCallback(appliance, chart, data, options) {
-    var fullUrl = 'apipath' + '/' + appliance;
+    var fullUrl = 'apipath/appliance' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             var tempJson = json;

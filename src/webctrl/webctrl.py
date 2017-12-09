@@ -19,7 +19,7 @@ import myserver
 import ctrl
 import graphPage
 import ingredients
-import chart
+import gauges
 import api
 
 import recipeModel
@@ -52,7 +52,7 @@ class runbrew():
         self.wapp.route('/recipelist', 'POST', self.dorecipeliststatus)
         self.wapp.route('/debugStages', 'GET', self.debugStages)
         self.wapp.route('/readrecipes', 'GET', self.getTestRecipeList)
-        self.wapp.route('/chart', 'GET', self.getChart)
+        self.wapp.route('/gauges', 'GET', self.getGauges)
         self.wapp.route('/apipath/currentstage', 'GET', self.apicurrentstage)
 
         self.wapp.route('/switchlist', 'GET', self.switchliststatusPage)
@@ -60,6 +60,7 @@ class runbrew():
 
         self.wapp.route('/temp', 'GET', self.tempPage)
         self.wapp.route('/ingredients', 'GET', self.ingredientsPage)
+        self.wapp.route('/apipath/appliance/<appliance>', 'GET', self.applianceWrap)
         self.wapp.route('/static/<filename>', 'GET', self.server_static)
         self.wapp.route('/js/<filename>', 'GET', self.js)
 
@@ -125,6 +126,9 @@ class runbrew():
                                    False,
                                    self.runningRecipeName)
         return(rs)
+
+    def applianceWrap(self, appliance):                # noqa
+        return(api.appliance(self.s2b, appliance))
 
     def server_static(self,filename):
         return static_file(filename, root='webctrl/static/')
@@ -314,8 +318,8 @@ class runbrew():
         #myIngredients = self.controllers.getMyLog()
         return(ingredients.ingredients(self.recipeObject))
 
-    def getChart(self):
-        return(chart.chart())
+    def getGauges(self):
+        return(gauges.gauges())
 
     def apicurrentstage(self):                # noqa
         return(api.currentStage(self.s2b))

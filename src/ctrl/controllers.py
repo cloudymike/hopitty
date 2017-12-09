@@ -162,9 +162,24 @@ class controllerList(dict):
             curr['unit'] = c.getUnit()
             curr['powerOn'] = c.getPowerOn()
             curr['targetMet'] = c.targetMet()
-            ctrlStat[key] = curr
         self.HWlock.release()
-        return ctrlStat
+        return curr
+
+    def statusAppliance(self, key):
+        """
+        Save the status of one of the appliances in the controller in a dictionary
+        """
+        self.HWlock.acquire()
+        c = self[key]
+        curr = {}
+        curr['active'] = c.isActive()
+        curr['actual'] = c.get()
+        curr['target'] = c.getTarget()
+        curr['unit'] = c.getUnit()
+        curr['powerOn'] = c.getPowerOn()
+        curr['targetMet'] = c.targetMet()
+        self.HWlock.release()
+        return curr
 
     def logstatus(self):
         """

@@ -2,28 +2,10 @@ import json
 import random
 import time
 
-def apipath(appliance):
 
-    if appliance == 'boiler':
-        actual = random.randint(170,212)
-        target = 205
-        active = (int((time.time() / 10 )% 2) == 0)
-    elif 'Volume' in appliance:
-        actual = random.randint(0,12)
-        target = 8
-        active = (int((time.time() / 10 )% 2) == 0)
-        
-    else:
-        actual = random.randint(70,170)
-        target = 168
-        active = (int((time.time() / 10 )% 2) == 1)
+def appliance(s2b, appliance):
+    return(s2b.getApplianceStatus(appliance))
 
-    print('appliance: ', appliance, 'value: ', actual)
-
-    targetMet = actual >= target
-    powerOn = active and (not targetMet)
-    tempJson = {"actual": actual,"target":target,"unit":"F","active":active,"targetMet":targetMet, "powerOn":powerOn}
-    return(tempJson)
 
 def currentStage(s2b):
     tmpJson = {"stage": s2b.getStage()}

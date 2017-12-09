@@ -16,6 +16,7 @@ import index
 import graphPage
 import ingredients
 import jstest
+import gauges
 import apitest
 import cylinder
 
@@ -77,6 +78,11 @@ class myserver(ServerAdapter):
     def indexPage():            # noqa
         return (index.index())
 
+    @route('/gauges')
+    def gauges():                # noqa
+        return(gauges.gauges())
+        
+    # removeme
     @route('/jstest')
     def jstest():                # noqa
         return(jstest.jstest())
@@ -89,7 +95,7 @@ class myserver(ServerAdapter):
     def apicurrentstage():                # noqa
         return(apitest.currentStage())
     
-    @route('/apipath/<appliance>')
+    @route('/apipath/appliance/<appliance>')
     def apiPathWrap(appliance):                # noqa
         return(apitest.apipath(appliance))
 

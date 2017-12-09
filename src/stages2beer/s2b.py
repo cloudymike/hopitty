@@ -175,6 +175,14 @@ class s2b(threading.Thread):
         statusNow = self.controllers.status()
         return(statusNow)
 
+    def getApplianceStatus(self, appliance):
+        """
+        Returns the status of the controllers
+        This should be checked for thread safeness
+        """
+        statusNow = self.controllers.statusAppliance(appliance)
+        return(statusNow)
+
     def HWOK(self):
         return(self.controllers.HWOK())
 

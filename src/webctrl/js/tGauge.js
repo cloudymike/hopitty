@@ -39,23 +39,23 @@ function drawChart(chart, appliance) {
     //chart.draw(data, options);
     
     temperatureGaugeCallback(appliance, chart, data, options);
-    var fullUrl = 'apipath' + '/' + appliance;
+    var fullUrl = 'apipath/appliance' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             var tempJson = json;
             var isActive = tempJson['active'];
             console.log("Value: " + isActive);
             if (isActive) {
-                setInterval(temperatureGaugeCallback, 1000, appliance, chart, data, options);
-            } else {
                 setInterval(temperatureGaugeCallback, 10000, appliance, chart, data, options);
+            } else {
+                setInterval(temperatureGaugeCallback, 100000, appliance, chart, data, options);
             }
         });
     });
 }
 
 function temperatureGaugeCallback(appliance, chart, data, options) {
-    var fullUrl = 'apipath' + '/' + appliance;
+    var fullUrl = 'apipath/appliance' + '/' + appliance;
     fetch(fullUrl).then(function(response){
         response.json().then(function(json) {
             var tempJson = json;
