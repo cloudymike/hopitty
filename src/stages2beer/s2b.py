@@ -175,6 +175,15 @@ class s2b(threading.Thread):
         statusNow = self.controllers.status()
         return(statusNow)
 
+    def getLightStatus(self):
+        """
+        Returns the status of the controllers
+        Light version, just get values, do not try to measure
+        This should be checked for thread safeness
+        """
+        statusNow = self.controllers.lightStatus()
+        return(statusNow)
+
     def HWOK(self):
         return(self.controllers.HWOK())
 

@@ -15,6 +15,7 @@ class hwt(appliances.genctrl):
         self.unit = 'F'
 #        self.currTemp = 70.0
         self.sensor = sensors.thermometer()
+        self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
         self.stop()
@@ -52,7 +53,8 @@ class hwt(appliances.genctrl):
             return(True)
 
     def get(self):
-        return(self.measure())
+        self.actual = self.measure()
+        return(self.actual)
 
     def getTarget(self):
         return(self.presetTemp)

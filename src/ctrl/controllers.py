@@ -166,6 +166,25 @@ class controllerList(dict):
         self.HWlock.release()
         return ctrlStat
 
+    def lightStatus(self):
+        """
+        Save the status of the controller in a dictionary
+        Lightweight version, do not re-measure
+        """
+        #self.HWlock.acquire()
+        ctrlStat = {}
+        for key, c in self.items():
+            curr = {}
+            curr['active'] = c.isActive()
+            curr['actual'] = c.getActualVar()
+            curr['target'] = c.getTarget()
+            curr['unit'] = c.getUnit()
+            curr['powerOn'] = c.getPowerOn()
+            curr['targetMet'] = False
+            ctrlStat[key] = curr
+        #self.HWlock.release()
+        return ctrlStat
+
     def logstatus(self):
         """
         Add status to mylog dictionary with a timestamp as key
@@ -184,7 +203,7 @@ class controllerList(dict):
         t = datetime.datetime.now().time()
         ctrlStat = str(t)
         for key, c in self.items():
-            ctrlStat = ctrlStat + "," + str(c.get())
+            ctrlStat = ctrlStat + "," + str(c.getActualVar())
         self.HWlock.release()
         return ctrlStat
 

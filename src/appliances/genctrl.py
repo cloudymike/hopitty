@@ -92,6 +92,13 @@ class genctrl():
         self.measure()
         return(self.actual)
 
+    def getActualVar(self):
+        """
+        Get the actual measured value.
+        Just get the value from variable, do not trigger measure
+        """
+        return(self.actual)
+
     def getTarget(self):
         """
         Get the target value.
