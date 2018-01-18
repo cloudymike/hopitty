@@ -81,7 +81,7 @@ class mashHeater(appliances.genctrl):
             print 2
             return(False)
         elif not self.sensor.HWOK():
-            print "|||||||||||||||||||||||mashheater sensor not ok"
+            print "|||||||||||||||||||||||||||mashheater sensor not ok"
             return(False)
         else:
             print "|||||||||||||||||||||||||||masheater OK"
