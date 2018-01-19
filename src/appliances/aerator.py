@@ -23,6 +23,7 @@ class aerator(appliances.genctrl):
         # self.sensor = sensors.temperaeratorSensor()
         # Set a generic sensor, later swap for same sensor as boiler.
         self.sensor = sensors.genericSensor()
+        self.actual = 0  # Actual measured value, ex temp
 
     def connectSwitch(self, switch):
         """

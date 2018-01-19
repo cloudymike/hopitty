@@ -17,6 +17,7 @@ class cooler(appliances.genctrl):
         # self.sensor = sensors.temperCoolerSensor()
         # Set a generic sensor, later swap for same sensor as boiler.
         self.sensor = sensors.genericSensor()
+        self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
         self.powerOn = False
@@ -50,7 +51,8 @@ class cooler(appliances.genctrl):
         return(self.sensor.getValue())
 
     def get(self):
-        return(self.measure())
+        self.actual = self.measure()
+        return(self.actual)
 
     def getTarget(self):
         return(self.target)

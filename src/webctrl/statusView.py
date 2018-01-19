@@ -11,9 +11,8 @@ def yn(status):
 def statusView(s2b, errorState, currentRecipeName):
     common = commonweb.commonweb()
 
-    #status = s2b.getStatus()
     stage = s2b.getStage()
-    ctrlStatus = s2b.getStatus()
+    ctrlStatus = s2b.getLightStatus()
 
     highLightColor = """<tr style="background-color:green;color:white;">"""
     if errorState:
@@ -33,7 +32,6 @@ def statusView(s2b, errorState, currentRecipeName):
         <td><b>Set Value</b></td>
         <td><b>Actual Value</b></td>
         <td><b>Power</b></td>
-        <td><b>Done</b></td>
         </tr>
         """
         for key, c in ctrlStatus.items():
@@ -54,7 +52,6 @@ def statusView(s2b, errorState, currentRecipeName):
                 retstr = retstr + """<td> %.2f %s</td>""" %\
                     (c['actual'], c['unit'])
             retstr = retstr + """<td> %s </td>""" % yn(c['powerOn'])
-            retstr = retstr + """<td>%s</td>""" % yn(c['targetMet'])
             retstr = retstr + "</tr>"
 
         retstr = retstr + "</table>"
