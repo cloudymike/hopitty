@@ -5,7 +5,7 @@ Start with http://localhost:8080 and try the button links!
 '''
 
 from bottle import Bottle, ServerAdapter, route, run, template, static_file
-from bottle_rest import json_to_params
+#from bottle_rest import json_to_params
 
 import matplotlib.pyplot as plt, mpld3
 import matplotlib
