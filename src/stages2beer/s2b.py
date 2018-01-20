@@ -184,6 +184,14 @@ class s2b(threading.Thread):
         return(statusNow)
 
 
+    def getLightApplianceStatus(self, appliance):
+        """
+        Returns the status of the controllers
+        """
+        statusNow = self.controllers.lightStatusAppliance(appliance)
+        return(statusNow)
+
+
     def getLightStatus(self):
         """
         Returns the status of the controllers

@@ -4,7 +4,7 @@ import time
 
 
 def appliance(s2b, appliance):
-    return(s2b.getApplianceStatus(appliance))
+    return(s2b.getLightApplianceStatus(appliance))
 
 
 def currentStage(s2b):

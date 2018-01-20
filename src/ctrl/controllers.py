@@ -181,6 +181,21 @@ class controllerList(dict):
         self.HWlock.release()
         return curr
 
+    def lightStatusAppliance(self, key):
+        """
+        Save the status of one of the appliances in the controller in a dictionary
+        In this case use light version, get value but don't remeasure
+        """
+        c = self[key]
+        curr = {}
+        curr['active'] = c.isActive()
+        curr['actual'] = c.getActualVar()
+        curr['target'] = c.getTarget()
+        curr['unit'] = c.getUnit()
+        curr['powerOn'] = c.getPowerOn()
+        curr['targetMet'] = False
+        return curr
+
     def lightStatus(self):
         """
         Save the status of the controller in a dictionary
