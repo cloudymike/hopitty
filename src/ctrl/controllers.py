@@ -162,8 +162,9 @@ class controllerList(dict):
             curr['unit'] = c.getUnit()
             curr['powerOn'] = c.getPowerOn()
             curr['targetMet'] = c.targetMet()
+            ctrlStat[key] = curr
         self.HWlock.release()
-        return curr
+        return ctrlStat
 
     def statusAppliance(self, key):
         """
@@ -223,6 +224,7 @@ class controllerList(dict):
         self.mylog[t] = self.status()
 
     def getMyLog(self):
+        print self.mylog
         return self.mylog
 
     def csv(self):
