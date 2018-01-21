@@ -46,9 +46,9 @@ function drawChart(chart, appliance) {
             var isActive = tempJson['active'];
             console.log("Value: " + isActive);
             if (isActive) {
-                setInterval(temperatureGaugeCallback, 10000, appliance, chart, data, options);
+                setInterval(temperatureGaugeCallback, 1000, appliance, chart, data, options);
             } else {
-                setInterval(temperatureGaugeCallback, 100000, appliance, chart, data, options);
+                setInterval(temperatureGaugeCallback, 10000, appliance, chart, data, options);
             }
         });
     });
