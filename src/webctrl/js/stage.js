@@ -7,11 +7,13 @@ function initialize() {
 // Should probably be an object to wrap the variable
 var oldStageGlobalVariableWathOut = "This is totally bogus string"
 function checkOldStage(stage){
-    if (stage == oldStageGlobalVariableWathOut) {
-        return(false)
-    } else {
-        oldStageGlobalVariableWathOut = stage;
-        return(true)
+    if (stage){
+        if (stage == oldStageGlobalVariableWathOut) {
+            return(false)
+        } else {
+            oldStageGlobalVariableWathOut = stage;
+            return(true)
+        }
     }
 }
 

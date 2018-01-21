@@ -36,7 +36,7 @@ function drawChart(chart, appliance) {
       min: 60, max: 220
     };
     
-    //chart.draw(data, options);
+    chart.draw(data, options);
     
     temperatureGaugeCallback(appliance, chart, data, options);
     var fullUrl = 'apipath/appliance' + '/' + appliance;
