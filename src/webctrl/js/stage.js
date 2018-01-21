@@ -25,10 +25,10 @@ function updateCurrentStage() {
             var stage = tempJson['stage'];
             console.log("Value: " + stage);
             document.getElementById('currentstage').innerHTML = stage;
+            drawTemperatures()
+            //drawVolumes()
             if (checkOldStage(stage)) {
                 document.getElementById('newstage').innerHTML = 'New stage';
-                drawTemperatures()
-                //drawVolumes()
             } else {
                 document.getElementById('newstage').innerHTML = '...';
             }
