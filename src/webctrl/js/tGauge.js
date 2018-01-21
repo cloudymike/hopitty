@@ -1,6 +1,6 @@
 
 google.charts.load('current', {'packages':['gauge']});
-//google.charts.setOnLoadCallback(drawHwt);
+google.charts.setOnLoadCallback(drawTemperatures);
 //google.charts.setOnLoadCallback(drawBoiler);
 
 function drawTemperatures() {
