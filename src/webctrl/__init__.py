@@ -10,5 +10,5 @@ from gauges import *
 
 # Remove these including the files
 from cylinder import *
-from chart import *
+#from chart import *
 from jstest import *
