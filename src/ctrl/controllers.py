@@ -224,7 +224,6 @@ class controllerList(dict):
         self.mylog[t] = self.status()
 
     def getMyLog(self):
-        print self.mylog
         return self.mylog
 
     def csv(self):
