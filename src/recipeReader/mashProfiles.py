@@ -129,6 +129,7 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 2.5G, 5Gcooler, 4Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot, platechiller',
+                       'Grain 4G, 5Gcooler, BE, platechiller',
                        'Grain 3G, 5Gcooler 5Gpot']
     validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
 
@@ -189,6 +190,10 @@ def checkVolBSMX(bsmxObj):
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
     boilerVolumeMax = 17
+    if bsmxObj.getEquipment() == 'Grain 4G, 5Gcooler, BE, platechiller':
+        boilerVolumeMax = 28
+    
+    
     maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
     # return(True)
