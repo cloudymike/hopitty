@@ -43,7 +43,7 @@ sudo apt-get -y install python-gtk2
 sudo apt-get -y install python-gtk2
 sudo apt-get -y install python-gtk2-dev
 
-#sudo -H pip install PyGTK
+sudo -H pip install PyGTK
 sudo easy_install -U pygtk
 python -c 'import pygtk; print pygtk.__name__'
 if [ "$?" != "0" ]; then exit 1; fi
