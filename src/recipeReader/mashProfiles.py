@@ -130,7 +130,8 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 3G, 5Gcooler, 5Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot, platechiller',
                        'Grain 4G, 5Gcooler, BE, platechiller',
-                       'Grain 3G, 5Gcooler 5Gpot']
+                       'Grain 3G, 5Gcooler 5Gpot',
+                       'Grain 4.5G, 5Gcooler, 8GBE, platechiller']
     validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
 
     if equipmentName in validEquipment1:
@@ -146,10 +147,6 @@ def txBSMXtoStages(bsmxObj):
 
             stages = SingleInfusionBatch(bsmxObj, chiller)
 
-        elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
-                             'Single Infusion, Medium Body, No Mash Out',
-                             'Single Infusion, Full Body, No Mash Out']:
-            stages = MultiBatchMash(bsmxObj, chiller)
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
@@ -571,6 +568,8 @@ def MultiBatchMash(bsmxObj, chiller):
         sOut = stageCtrl(controllers)
         sOut["wortPump"] = setDict(volWortOut)
         totVolOut = totVolOut + volWortOut
+        # Do not start boiler until after first fill up
+        # In case of pump problems, you may burn the pot
         if i < 1:
             sOut["boiler"] = setDict(0)
         else:
@@ -578,8 +577,6 @@ def MultiBatchMash(bsmxObj, chiller):
         stages[mkSname("Wort out", stageCount)] = sOut
         stageCount = stageCount + 1
 
-        # Do not start boiler until after first fill up
-        # In case of pump problems, you may burn the pot
         sHold["boiler"] = setDict(1)
         stages[mkSname("Sparge hold", stageCount)] = sHold
         stageCount = stageCount + 1
