@@ -9,8 +9,14 @@ import sys
 import logging
 
 
-def setupControllers(verbose, simulation, permissive):
+def setupControllers(verbose, simulation, permissive, equipment='Grain 3G, 5Gcooler, 5Gpot, platechiller'):
     controllers = ctrl.controllerList()
+    # The delay time is a special snowflake that stores some extra controller info
+    # Or maybe better, create a new controller that always is ready but has some extra info in it
+    
+    controllers.addController('delayTimer', appliances.hoptimer())
+    #controllers['delayTimer'].connectSwitch(coolerSwitch)
+
     print "Try to find hw switches"
     if not simulation:
         logging.info("Initializing hardware")
@@ -71,7 +77,6 @@ def setupControllers(verbose, simulation, permissive):
     print 5
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
-    controllers.addController('delayTimer', appliances.hoptimer())
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
     controllers.addController('waterCirculationPump',
