@@ -166,6 +166,56 @@ class controllerList(dict):
         self.HWlock.release()
         return ctrlStat
 
+    def statusAppliance(self, key):
+        """
+        Save the status of one of the appliances in the controller in a dictionary
+        """
+        self.HWlock.acquire()
+        c = self[key]
+        curr = {}
+        curr['active'] = c.isActive()
+        curr['actual'] = c.get()
+        curr['target'] = c.getTarget()
+        curr['unit'] = c.getUnit()
+        curr['powerOn'] = c.getPowerOn()
+        curr['targetMet'] = c.targetMet()
+        self.HWlock.release()
+        return curr
+
+    def lightStatusAppliance(self, key):
+        """
+        Save the status of one of the appliances in the controller in a dictionary
+        In this case use light version, get value but don't remeasure
+        """
+        c = self[key]
+        curr = {}
+        curr['active'] = c.isActive()
+        curr['actual'] = c.getActualVar()
+        curr['target'] = c.getTarget()
+        curr['unit'] = c.getUnit()
+        curr['powerOn'] = c.getPowerOn()
+        curr['targetMet'] = False
+        return curr
+
+    def lightStatus(self):
+        """
+        Save the status of the controller in a dictionary
+        Lightweight version, do not re-measure
+        """
+        #self.HWlock.acquire()
+        ctrlStat = {}
+        for key, c in self.items():
+            curr = {}
+            curr['active'] = c.isActive()
+            curr['actual'] = c.getActualVar()
+            curr['target'] = c.getTarget()
+            curr['unit'] = c.getUnit()
+            curr['powerOn'] = c.getPowerOn()
+            curr['targetMet'] = False
+            ctrlStat[key] = curr
+        #self.HWlock.release()
+        return ctrlStat
+
     def logstatus(self):
         """
         Add status to mylog dictionary with a timestamp as key
@@ -184,7 +234,7 @@ class controllerList(dict):
         t = datetime.datetime.now().time()
         ctrlStat = str(t)
         for key, c in self.items():
-            ctrlStat = ctrlStat + "," + str(c.get())
+            ctrlStat = ctrlStat + "," + str(c.getActualVar())
         self.HWlock.release()
         return ctrlStat
 

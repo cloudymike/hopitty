@@ -75,10 +75,17 @@ class mashHeater(appliances.genctrl):
     def HWOK(self):
         """
         Return True if all USB connections are OK to the HW devices.
+        As the appliance has gone into simulation, this has extra print statements
+        Can be removed later
+        Also, do not check for switch as this is checked in other places, for pumps.
         """
-        if self.switch is None:
+        if self.sensor is None:
+            print 2
             return(False)
-        elif self.sensor is None:
+        elif not self.sensor.HWOK():
+            print "|||||||||||||||||||||||||||mashheater sensor not ok"
             return(False)
         else:
-            return(self.sensor.HWOK() and self.switch.HWOK())
+            print "|||||||||||||||||||||||||||masheater OK"
+            return(True)
+

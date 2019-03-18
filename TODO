@@ -2,3 +2,24 @@ Where to start
 ===============
 
 See issues on github
+
+
+For javascript example
+-----------------------
+
+##### Progress bar
+For timer, some graph. Progress bar is probably most suitable.
+https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_win_setinterval_progressbar
+
+##### Orgchart for flow
+Slightly contrived, but intersting to try. parent -> flow -> child
+
+##### Status for Run, stop, paused
+##### Status for error
+
+Javascript for reals
+--------------------
+
+Create api for the real server and add a MVP page
+Probably easist to just start with thermometers.
+

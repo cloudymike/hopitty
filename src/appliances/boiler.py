@@ -21,6 +21,7 @@ class boiler(appliances.genctrl):
         self.target = 200
         self.unit = 'F'
         self.sensor = sensors.temperSensor()
+        self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
         self.powerOn = False
@@ -54,7 +55,8 @@ class boiler(appliances.genctrl):
         return(self.sensor.getValue())
 
     def get(self):
-        return(self.measure())
+        self.actual = self.measure()
+        return(self.actual)
 
     def getTarget(self):
         return(self.target)

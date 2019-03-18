@@ -19,6 +19,8 @@ import myserver
 import ctrl
 import graphPage
 import ingredients
+import gauges
+import api
 
 import recipeModel
 import os
@@ -50,13 +52,17 @@ class runbrew():
         self.wapp.route('/recipelist', 'POST', self.dorecipeliststatus)
         self.wapp.route('/debugStages', 'GET', self.debugStages)
         self.wapp.route('/readrecipes', 'GET', self.getTestRecipeList)
+        self.wapp.route('/gauges', 'GET', self.getGauges)
+        self.wapp.route('/apipath/currentstage', 'GET', self.apicurrentstage)
 
         self.wapp.route('/switchlist', 'GET', self.switchliststatusPage)
         self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
 
         self.wapp.route('/temp', 'GET', self.tempPage)
         self.wapp.route('/ingredients', 'GET', self.ingredientsPage)
+        self.wapp.route('/apipath/appliance/<appliance>', 'GET', self.applianceWrap)
         self.wapp.route('/static/<filename>', 'GET', self.server_static)
+        self.wapp.route('/js/<filename>', 'GET', self.js)
 
         self.s2b = stages2beer.s2b(controllers, self.stages)
         self.dl = ctrl.datalogger(controllers)
@@ -121,9 +127,15 @@ class runbrew():
                                    self.runningRecipeName)
         return(rs)
 
+    def applianceWrap(self, appliance):                # noqa
+        return(api.appliance(self.s2b, appliance))
+
     def server_static(self,filename):
         return static_file(filename, root='webctrl/static/')
         
+    def js(self, filename):  # noqa
+        return static_file(filename, root='webctrl/js/')
+
     def commandPage(self):
         """
         Page to set the run status, i.e. to start the run
@@ -305,3 +317,10 @@ class runbrew():
     def ingredientsPage(self):
         #myIngredients = self.controllers.getMyLog()
         return(ingredients.ingredients(self.recipeObject))
+
+    def getGauges(self):
+        return(gauges.gauges())
+
+    def apicurrentstage(self):                # noqa
+        return(api.currentStage(self.s2b))
+    

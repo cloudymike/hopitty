@@ -5,6 +5,8 @@ Start with http://localhost:8080 and try the button links!
 '''
 
 from bottle import Bottle, ServerAdapter, route, run, template, static_file
+#from bottle_rest import json_to_params
+
 import matplotlib.pyplot as plt, mpld3
 import matplotlib
 from threading import Thread
@@ -13,6 +15,10 @@ import datetime
 import index
 import graphPage
 import ingredients
+import jstest
+import gauges
+import apitest
+import cylinder
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -72,6 +78,27 @@ class myserver(ServerAdapter):
     def indexPage():            # noqa
         return (index.index())
 
+    @route('/gauges')
+    def gauges():                # noqa
+        return(gauges.gauges())
+        
+    # removeme
+    @route('/jstest')
+    def jstest():                # noqa
+        return(jstest.jstest())
+    
+    @route('/cylinder')
+    def mycylinder():                # noqa
+        return(cylinder.cylinderAM())
+    
+    @route('/apipath/currentstage')
+    def apicurrentstage():                # noqa
+        return(apitest.currentStage())
+    
+    @route('/apipath/appliance/<appliance>')
+    def apiPathWrap(appliance):                # noqa
+        return(apitest.apipath(appliance))
+
     @route('/chart')
     def chart():                # noqa
         fig = plt.figure()
@@ -104,6 +131,10 @@ class myserver(ServerAdapter):
     @route('/static/<filename>')
     def server_static(filename):  # noqa
         return static_file(filename, root='static/')
+
+    @route('/js/<filename>')
+    def js(filename):  # noqa
+        return static_file(filename, root='js/')
 
 ##########################
 # Below this line is also in main program
