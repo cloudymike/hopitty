@@ -11,11 +11,13 @@ import logging
 
 def setupControllers(verbose, simulation, permissive, equipment='Grain 3G, 5Gcooler, 5Gpot, platechiller'):
     controllers = ctrl.controllerList()
-    # The delay time is a special snowflake that stores some extra controller info
-    # Or maybe better, create a new controller that always is ready but has some extra info in it
-    
+    # The controllerinfo is a special snowflake that stores some extra global controller info
+    # It does not do anything intelligent itherwise and will always meet target
+    controllers.addController('controllerInfo', appliances.controllerinfo())
+    controllers['controllerInfo'].setEquipmentName(equipment)
+
+    # Timer is always required in all equipment
     controllers.addController('delayTimer', appliances.hoptimer())
-    #controllers['delayTimer'].connectSwitch(coolerSwitch)
 
     print "Try to find hw switches"
     if not simulation:
