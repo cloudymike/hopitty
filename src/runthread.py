@@ -106,6 +106,7 @@ if __name__ == "__main__":
         b = recipeReader.bsmxStages(bsmxFile, controllers)
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
+            sys.exit(1)
         else:
             recipeName = b.getRecipeName()
             stages = b.getStages()
@@ -116,6 +117,7 @@ if __name__ == "__main__":
     equipmentchecker = checker.equipment(controllers, stages)
     if not equipmentchecker.check():
         logging.error("Error: equipment vs recipe validation failed")
+        sys.exit(1)
 
     logging.info("Running " + recipeName)
 
