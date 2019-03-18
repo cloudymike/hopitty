@@ -16,6 +16,41 @@ class controllerList(dict):
 
         if STRESSTEST:
             print "WARNING: Running in stress test mode"
+            
+    def setEquipment(self,equipmentName):
+        """
+        Set the equipement name to allow identify 
+        multiple setups and check reciepes against them
+        """
+        # This needs to be stored somewhere
+        # As this is a list, no space in the object
+        # Could fake it but storing it in the delayTimer as that one is always there.
+        # The setup will need to define these anyhow.
+        # We could even add delay timer at init.
+        pass
+    
+    def getEquipmentName(self):
+        """
+        Get the euquiment type the controller is setup as.
+        Allow to check recipe against the setup
+        """
+        # This needs to be stored somewhere
+        # As this is a list, no space in the object
+        # Could fake it but storing it in the delayTimer as that one is always there.
+        # The setup will need to define these anyhow.
+        return('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    
+    def getEquipmentData(self):
+        """
+        Return the equipement data required to check recipe against
+        """
+        # This needs to be 
+        defaultEquipment = {}
+        defaultEquipment['NAME'] = 'Grain 3G, 5Gcooler, 5Gpot'
+        defaultEquipment['boilerVolumeMax'] = 26  # Max quarts in boiler
+        defaultEquipment['maxTotalInVol'] = 26  # quarts, in hw tun
+        defaultEquipment['maxInfusionVol'] = 18  # quarts, in hw tun above heater
+
 
     def addController(self, name, ctrl):
         #print "Adding ", name
