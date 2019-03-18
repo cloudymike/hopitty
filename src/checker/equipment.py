@@ -41,7 +41,7 @@ maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
 defaultEquipment = {}
 defaultEquipment['NAME'] = 'Grain 3G, 5Gcooler, 5Gpot'
-defaultEquipment['boilerVolumeMax'] = 17  # Max quarts in boiler
+defaultEquipment['boilerVolumeMax'] = 26  # Max quarts in boiler
 defaultEquipment['maxTotalInVol'] = 26  # quarts, in hw tun
 defaultEquipment['maxInfusionVol'] = 18  # quarts, in hw tun above heater
 
