@@ -129,8 +129,10 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 2.5G, 5Gcooler, 4Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot, platechiller',
+                       'Grain 4G, 5Gcooler, BE, platechiller',
                        'Grain 3G, 5Gcooler 5Gpot']
     validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
+    validEquipment3 = ['Grain 4.5G, 5Gcooler, 8GBE, platechiller']
 
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
@@ -145,10 +147,6 @@ def txBSMXtoStages(bsmxObj):
 
             stages = SingleInfusionBatch(bsmxObj, chiller)
 
-        elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
-                             'Single Infusion, Medium Body, No Mash Out',
-                             'Single Infusion, Full Body, No Mash Out']:
-            stages = MultiBatchMash(bsmxObj, chiller)
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
@@ -174,6 +172,20 @@ def txBSMXtoStages(bsmxObj):
         if stages is None:
             print "Mash test failed"
 
+    elif equipmentName in validEquipment3:
+        mashProfile = bsmxObj.getMashProfile()
+        chiller = 'plate'
+
+        if mashProfile in ['Single Infusion, Light Body, No Mash Out',
+                             'Single Infusion, Medium Body, No Mash Out',
+                             'Single Infusion, Full Body, No Mash Out']:
+            stages = MultiBatchMash(bsmxObj, chiller)
+        else:
+            print "No valid mash profile found"
+            print "===", mashProfile, "==="
+        if stages is None:
+            print "Mash test failed"
+
     else:
         print ":", equipmentName, ":Not valid equipment"
 
@@ -188,7 +200,18 @@ def checkVolBSMX(bsmxObj):
     maxInfusionVol = 18  # quarts, before it goes below heater element
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
-    boilerVolumeMax = 17
+    
+    equipmentName = bsmxObj.getEquipment()
+    if '8GBE' in equipmentName:
+        boilerVolumeMax = 26
+    else:
+        boilerVolumeMax = 17
+
+    
+    if bsmxObj.getEquipment() == 'Grain 4G, 5Gcooler, BE, platechiller':
+        boilerVolumeMax = 28
+    
+    
     maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
     # return(True)
@@ -566,6 +589,8 @@ def MultiBatchMash(bsmxObj, chiller):
         sOut = stageCtrl(controllers)
         sOut["wortPump"] = setDict(volWortOut)
         totVolOut = totVolOut + volWortOut
+        # Do not start boiler until after first fill up
+        # In case of pump problems, you may burn the pot
         if i < 1:
             sOut["boiler"] = setDict(0)
         else:
@@ -573,8 +598,6 @@ def MultiBatchMash(bsmxObj, chiller):
         stages[mkSname("Wort out", stageCount)] = sOut
         stageCount = stageCount + 1
 
-        # Do not start boiler until after first fill up
-        # In case of pump problems, you may burn the pot
         sHold["boiler"] = setDict(1)
         stages[mkSname("Sparge hold", stageCount)] = sHold
         stageCount = stageCount + 1

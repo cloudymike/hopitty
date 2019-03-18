@@ -37,6 +37,8 @@ class mashHeater(appliances.genctrl):
             else:
                 return(self.actual - 1)
         else:
+            if self.actual > 60:
+                self.actual = self.actual - 1
             return(self.actual)
 
     def measure(self):
