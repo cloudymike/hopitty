@@ -6,7 +6,7 @@ import sys
 import ctrl
 import recipeModel
 import types
-
+import equipment
 
 def simpleBsmx():
     retval = """
@@ -188,7 +188,11 @@ def testElaborateBSMX():
 
 def testOneFullBSMX():
     rl = getTestRecipeList()
-    controllers = ctrl.setupControllers(False, True, True)
+    
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    controllers = ctrl.setupControllers(False, True, True, myequipment)
     assert len(rl.getNameList()) > 0
     print "Number of recipes:", len(rl.getNameList())
     recipeObj = rl.getRecipe('17 Falconers Flight IPA')

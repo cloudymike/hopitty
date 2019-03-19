@@ -16,6 +16,7 @@ import threading
 import time
 import json
 import equipment
+import os
 
 
 def usage():
@@ -113,7 +114,8 @@ if __name__ == "__main__":
     else:
         simulation = False
 
-    e = equipment.allEquipment('equipment/*.yaml')
+    mypath = os.path.dirname(os.path.realpath(__file__))
+    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
 
     controllers = ctrl.setupControllers(verbose, simulation, permissive, myequipment)
