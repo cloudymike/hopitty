@@ -18,7 +18,7 @@ class controllerinfo(appliances.genctrl):
         self.powerOn = 'False'
         self.sensor = sensors.genericSensor()
         
-        self.equipmentName = ''
+        self.equipment = {}
 
     def measure(self):
         pass
@@ -26,8 +26,8 @@ class controllerinfo(appliances.genctrl):
     def targetMet(self):
         return(True)
     
-    def setEquipmentName(self, equipment):
-        self.equipmentName = equipment
+    def setEquipment(self, equipment):
+        self.equipment = equipment
         
     def getEquipmentName(self):
-        return(self.equipmentName)
+        return(self.equipment['equipmentName'])

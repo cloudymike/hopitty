@@ -15,6 +15,7 @@ import logging
 import threading
 import time
 import json
+import equipment
 
 
 def usage():
@@ -111,7 +112,11 @@ if __name__ == "__main__":
         simulation = (simulation or (not HWcheck))
     else:
         simulation = False
-    controllers = ctrl.setupControllers(verbose, simulation, permissive)
+
+    e = equipment.allEquipment('equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+
+    controllers = ctrl.setupControllers(verbose, simulation, permissive, myequipment)
     if HWcheck:
         if controllers.HWOK():
             logging.info('USB devices connected')
