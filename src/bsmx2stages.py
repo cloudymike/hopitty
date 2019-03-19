@@ -12,6 +12,7 @@ import getopt
 import recipeReader
 import json
 import equipment
+import os
 
 
 def usage():
@@ -49,7 +50,8 @@ def getOptions():
 if __name__ == "__main__":
     options = getOptions()
 
-    e = equipment.allEquipment('equipment/*.yaml')
+    mypath = os.path.dirname(os.path.realpath(__file__))
+    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     
     controllers = ctrl.setupControllers(False, True, True, myequipment)

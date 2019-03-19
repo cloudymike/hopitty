@@ -14,6 +14,8 @@ import time
 import helpers
 import ctrl
 from xvfbwrapper import Xvfb
+import equipment
+import os 
 
 # For normal testing use VIRTUALDISPLAY
 # When false, the firefox browser will pop up and display
@@ -25,8 +27,12 @@ class T2w(unittest.TestCase):
         p = helpers.findPort()
         server = webctrl.myserver.myserver(host="localhost", port=p)
         server.quiet = True
-
-        controllers = ctrl.setupControllers(False, True, True)
+        print(os.path.dirname(os.path.realpath(__file__)))
+        print(os.getcwd())
+        e = equipment.allEquipment('src/equipment/*.yaml')
+        myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    
+        controllers = ctrl.setupControllers(False, True, True, myequipment)
         self.brewme = webctrl.runbrew(
             controllers,
             helpers.getTestRecipeList(),

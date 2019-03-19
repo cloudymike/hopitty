@@ -7,7 +7,7 @@ nosetests -v $1 src/checker
 nosetests -v $1 src/ctrl
 #nosetests -v $1 src/recipeModel
 nosetests -v $1 src/recipeReader
-#nosetests -v $1 src/sensor
+#nosetests -v $1 src/sensors
 nosetests -v $1 src/stages2beer
 nosetests -v $1 src/switches
 nosetests -v $1 src/tests

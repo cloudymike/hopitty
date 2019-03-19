@@ -4,6 +4,7 @@ import inspect
 import xml.dom.minidom
 import sys
 import ctrl
+import equipment
 
 
 def simpleBsmx():
@@ -918,15 +919,21 @@ def test_getVolG():
 
 
 def test_GoodRecipe():
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     bx = recipeReader.bsmxStages(goodRecipe(),
-                                 ctrl.setupControllers(False, True, True))
+                                 ctrl.setupControllers(False, True, True, myequipment))
     assert bx.isValid()
     print myname(), "OK"
 
 
 def test_badTunDeadSpace():
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     bx = recipeReader.bsmxStages(badTunDeadSpaceBsmx(),
-                                 ctrl.setupControllers(False, True, True))
+                                 ctrl.setupControllers(False, True, True, myequipment))
     print bx.getTunDeadSpace()
     print bx.getRecipeName()
     print bx.isValid()
@@ -1078,14 +1085,17 @@ def test_isValid():
     bx = recipeReader.bsmxStages(simpleBsmx(), ctrlBsmxList())
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     assert not bx.isValid()
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     cx = recipeReader.bsmxStages(elaborateBsmx(),
-                                 ctrl.setupControllers(False, True, True))
+                                 ctrl.setupControllers(False, True, True, myequipment))
     assert not cx.isValid()
     cp = os.path.dirname(__file__)
     print cp
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
     print rp
-    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True))
+    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True, myequipment))
     assert dx.isValid()
     print myname(), "OK"
 
