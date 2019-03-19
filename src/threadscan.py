@@ -16,6 +16,7 @@ import recipeReader
 import webctrl
 import recipeModel
 import logging
+import equipment
 
 
 def usage():
@@ -121,7 +122,11 @@ if __name__ == "__main__":
     logging.info('Starting...')
 
     options = getOptions()
-    controllers = ctrl.setupControllers(options['verbose'], False, True)
+    
+    e = equipment.allEquipment('equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    
+    controllers = ctrl.setupControllers(options['verbose'], False, True, myequipment)
     if options['HWcheck']:
         if controllers.HWOK():
             print "HW OK"
