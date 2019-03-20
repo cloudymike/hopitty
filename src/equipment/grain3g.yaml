@@ -1,3 +1,4 @@
-equipmentName: 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
+equipmentName: 'Grain 3G, 5Gcooler, 5Gpot'
 specs:
   boilerVolumeMax: 17
+  

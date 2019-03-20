@@ -1,0 +1,4 @@
+# Generic equipment with no or very high limits
+equipmentName: 'AllNoLimit'
+specs:
+  boilerVolumeMax: 1000
