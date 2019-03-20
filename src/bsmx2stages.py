@@ -13,7 +13,7 @@ import recipeReader
 import json
 import equipment
 import os
-
+import xml.etree.ElementTree
 
 def usage():
     print 'usage:'
@@ -50,11 +50,6 @@ def getOptions():
 if __name__ == "__main__":
     options = getOptions()
 
-    mypath = os.path.dirname(os.path.realpath(__file__))
-    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
-    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
-    
-    controllers = ctrl.setupControllers(False, True, True, myequipment)
     if options['inputfile'] is None:
         inf = sys.stdin
     else:
@@ -74,8 +69,18 @@ if __name__ == "__main__":
         except:
             print "Can not open outputfile", options['outputfile']
             sys.exit(1)
-    bsmxStr = inf.read()
+    bsmxIn = inf.read()
+    bsmxStr = bsmxIn.replace('&', 'AMP')
     inf.close()
+    
+    e = xml.etree.ElementTree.fromstring(bsmxStr)
+    equipmentName = e.find('Data').find('Recipe').find('F_R_EQUIPMENT').find('F_E_NAME').text
+    print('Equipment: {}'.format(equipmentName))
+    mypath = os.path.dirname(os.path.realpath(__file__))
+    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    #equipmentName = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    controllers = ctrl.setupControllers(False, True, True, equipmentName)
+
     bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers)
     stagesStr = bsmxObj.getStages()
     hops = bsmxObj.ingredientsHops()
