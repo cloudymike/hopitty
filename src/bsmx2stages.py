@@ -1,7 +1,7 @@
 #!/usr/bin/python
 """
-Scans the recipe database and creates recipeListClass object
-Also pushes recipe name list to memcache for use by web pages
+Reads a beersmith recipe and creates stages file
+Runs basic checks against controllers
 
 """
 
@@ -14,6 +14,7 @@ import json
 import equipment
 import os
 import xml.etree.ElementTree
+import checker
 
 def usage():
     print 'usage:'
@@ -83,6 +84,12 @@ if __name__ == "__main__":
 
     bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers)
     stagesStr = bsmxObj.getStages()
+
+    equipmentchecker = checker.equipment(controllers, stagesStr)
+    if not equipmentchecker.check():
+        print("Error: equipment vs recipe validation failed")
+        sys.exit(1)
+
     hops = bsmxObj.ingredientsHops()
     json.dump(stagesStr, outf, sort_keys=True,
                            indent=2, separators=(',', ': '))

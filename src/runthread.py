@@ -112,7 +112,7 @@ if __name__ == "__main__":
     else:
         # This may have to change to AllNoLimit
         myEquipment = availableEquipment.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
-    logging.info('Equipment: {}'.format(equipmentName))
+    logging.info('Equipment: {}'.format(myEquipment['equipmentName']))
     
     controllers = ctrl.setupControllers(verbose, simulation, permissive, myEquipment)
     if controllers is None:
