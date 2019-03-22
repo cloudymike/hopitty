@@ -16,7 +16,7 @@ class allEquipment():
 
     def get(self, equipment):
         if self.exist(equipment):
-            return(self.equipmentlist)
+            return(self.equipmentlist[equipment])
         else:
             return(None)
 

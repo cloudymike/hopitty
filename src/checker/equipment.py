@@ -41,7 +41,7 @@ maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
 defaultEquipment = {}
 defaultEquipment['NAME'] = 'Grain 3G, 5Gcooler, 5Gpot'
-defaultEquipment['boilerVolumeMax'] = 26  # Max quarts in boiler
+defaultEquipment['boilerVolumeMax'] = 17  # Max quarts in boiler
 defaultEquipment['maxTotalInVol'] = 26  # quarts, in hw tun
 defaultEquipment['maxInfusionVol'] = 18  # quarts, in hw tun above heater
 
@@ -63,7 +63,16 @@ class equipment(object):
         self.stages = stages
         self.ingredients = ingredients
         self.equipmentdata = equipmentdata.copy()
-
+        
+        # Add info from controller if it is available
+        # Should always be there except for unit tests
+        if controllers is not None and 'controllerInfo' in controllers:
+            ctrlEquip = controllers.getEquipmentSpecs()
+    
+            for eqKey, eqVal in ctrlEquip.items():
+                self.equipmentdata[eqKey] = eqVal
+            
+        
     def updateEquipmentItem(self, equipment, value):
         """
         Update an individual equipments value

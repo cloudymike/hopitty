@@ -29,5 +29,12 @@ class controllerinfo(appliances.genctrl):
     def setEquipment(self, equipment):
         self.equipment = equipment
         
+    def getEquipment(self):
+        return(self.equipment)
+        
     def getEquipmentName(self):
         return(self.equipment['equipmentName'])
+
+    def getEquipmentSpecs(self):
+        return(self.equipment['specs'])
+        
