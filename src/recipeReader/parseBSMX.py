@@ -75,6 +75,9 @@ class bsmxStages():
         specific fields should be used.
         """
         return(self.ctrl)
+    
+    def getCtrlEquipmentName(self):
+        return(self.ctrl.getEquipmentName())
 
     def getStages(self):
         """
