@@ -3,7 +3,7 @@ import glob
 
 class allEquipment():
     
-    def __init__(self, path):
+    def __init__(self, path='src/equipment/*.yaml'):
         files=glob.glob(path)
         self. equipmentlist = {}
         for file in files:
