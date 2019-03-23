@@ -48,7 +48,7 @@ class bsmxStages():
                 self.valid = False
         if self.valid:
             try:
-                self.stages = mashProfiles.txBSMXtoStages(self)
+                self.stages = mashProfiles.txBSMXtoStages(self, )
             except:
                 self.valid = False
         if self.valid:
@@ -74,7 +74,10 @@ class bsmxStages():
         This should be avoided and instead the built in operations to get
         specific fields should be used.
         """
-        return(self.ctrl)
+        return
+    
+    def getCtrlEquipmentName(self):
+        return(self.ctrl.getEquipmentName())
 
     def getStages(self):
         """
