@@ -191,7 +191,7 @@ def testOneFullBSMX():
     
     print(os.getcwd())
     e = equipment.allEquipment('src/equipment/*.yaml')
-    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     controllers = ctrl.setupControllers(False, True, True, myequipment)
     assert len(rl.getNameList()) > 0
     print "Number of recipes:", len(rl.getNameList())

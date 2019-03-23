@@ -126,10 +126,10 @@ def txBSMXtoStages(bsmxObj):
     
     ctrlEquipmentName = bsmxObj.getCtrlEquipmentName()
     equipmentName = bsmxObj.getEquipment()
-    
-#    if equipmentName != ctrlEquipmentName:
-#        logging.error("Equipment does not match, Recipe: {} Controller: {}".format(equipmentName, ctrlEquipmentName))
-#        return(None)
+    logging.info('Controller equipment: {}, Recipe equipment: {}'.format(ctrlEquipmentName, equipmentName))
+    if equipmentName != ctrlEquipmentName:
+        logging.error("Equipment does not match, Recipe: {} Controller: {}".format(equipmentName, ctrlEquipmentName))
+        return(None)
     
     validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
                        'Grain 2.5G, 5Gcooler 4Gpot',

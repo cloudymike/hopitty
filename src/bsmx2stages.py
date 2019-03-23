@@ -84,6 +84,9 @@ if __name__ == "__main__":
 
     bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers)
     stagesStr = bsmxObj.getStages()
+    if stagesStr is None:
+        print('Error: Invalid recipe')
+        sys.exit(1)
 
     equipmentchecker = checker.equipment(controllers, stagesStr)
     if not equipmentchecker.check():
