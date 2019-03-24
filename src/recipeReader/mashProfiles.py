@@ -208,17 +208,9 @@ def checkVolBSMX(bsmxObj):
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
     
-    equipmentName = bsmxObj.getEquipment()
-    if '8GBE' in equipmentName:
-        boilerVolumeMax = 26
-    else:
-        boilerVolumeMax = 17
+    ctrleq = bsmxObj.getCtrlEquipment()
+    boilerVolumeMax = ctrleq['specs']['boilerVolumeMax']
 
-    
-    if bsmxObj.getEquipment() == 'Grain 4G, 5Gcooler, BE, platechiller':
-        boilerVolumeMax = 28
-    
-    
     maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
     # return(True)

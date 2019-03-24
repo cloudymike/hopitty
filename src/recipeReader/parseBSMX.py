@@ -79,6 +79,9 @@ class bsmxStages():
     def getCtrlEquipmentName(self):
         return(self.ctrl.getEquipmentName())
 
+    def getCtrlEquipment(self):
+        return(self.ctrl.getEquipment())
+
     def getStages(self):
         """
         Returns a valid stages dictionary for the recipe
