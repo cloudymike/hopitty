@@ -29,11 +29,12 @@ def usage():
 
 
 def getOptions():
-    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:v', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:s:v', [
         'equipment',
         'file=',
         'help',
         'user=',
+        'setup='
         'verbose',
         ])
     optret = {}
@@ -41,6 +42,7 @@ def getOptions():
     optret['user'] = getpass.getuser()
     optret['bsmxfile'] = None
     optret['HWcheck'] = False
+    optret['setup'] = ''
 
     for opt, arg in options:
         if opt in ('-h', '--help'):
@@ -51,6 +53,8 @@ def getOptions():
             optret['bsmxfile'] = arg
         if opt in ('-u', '--user'):
             optret['user'] = arg
+        if opt in ('-s', '--setup'):
+            optret['setup'] = arg
         elif opt in ('-v', '--verbose'):
             optret['verbose'] = True
     return(optret)
@@ -124,7 +128,10 @@ if __name__ == "__main__":
     options = getOptions()
     
     e = equipment.allEquipment('equipment/*.yaml')
-    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    if options['setup']:
+        myequipment = e.get(options['setup'])
+    else:
+        myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     
     controllers = ctrl.setupControllers(options['verbose'], False, True, myequipment)
     if options['HWcheck']:
