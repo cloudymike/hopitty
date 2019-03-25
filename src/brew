@@ -16,13 +16,23 @@ echo "USAGE: $0"
 
 USR=$USER
 SIMULATE=0
-while getopts ":su:" opt; do
+TYPEOFEQUIPMENT=
+while getopts ":su:t:bh" opt; do
   case $opt in
     s)
       SIMULATE=1
       ;;
     u)
       USR=$OPTARG
+      ;;
+    t)
+      TYPEOFEQUIPMENT=$OPTARG
+      ;;
+    b)
+      TYPEOFEQUIPMENT='Grain 4.5G, 5Gcooler, 8GBE, platechiller'
+      ;;
+    h)
+      TYPEOFEQUIPMENT='Grain 3G, HERMS, 5Gcooler, 5Gpot'
       ;;
     \?)
       usage
