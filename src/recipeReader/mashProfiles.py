@@ -123,7 +123,14 @@ def txBSMXtoStages(bsmxObj):
     Returns None if any error is found and a stages list could not be created
     """
     stages = None
+    
+    ctrlEquipmentName = bsmxObj.getCtrlEquipmentName()
     equipmentName = bsmxObj.getEquipment()
+    logging.info('Controller equipment: {}, Recipe equipment: {}'.format(ctrlEquipmentName, equipmentName))
+    if equipmentName != ctrlEquipmentName:
+        logging.error("Equipment does not match, Recipe: {} Controller: {}".format(equipmentName, ctrlEquipmentName))
+        return(None)
+    
     validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
                        'Grain 2.5G, 5Gcooler 4Gpot',
                        'Grain 2.5G, 5Gcooler, 4Gpot',
@@ -201,17 +208,9 @@ def checkVolBSMX(bsmxObj):
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
     
-    equipmentName = bsmxObj.getEquipment()
-    if '8GBE' in equipmentName:
-        boilerVolumeMax = 26
-    else:
-        boilerVolumeMax = 17
+    ctrleq = bsmxObj.getCtrlEquipment()
+    boilerVolumeMax = ctrleq['specs']['boilerVolumeMax']
 
-    
-    if bsmxObj.getEquipment() == 'Grain 4G, 5Gcooler, BE, platechiller':
-        boilerVolumeMax = 28
-    
-    
     maxTotalWeight = 50 - 5.2 - 1.5 - 1  # 50lb minus mashtun and margin (1lb)
 
     # return(True)

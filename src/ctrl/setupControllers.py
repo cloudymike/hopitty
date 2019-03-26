@@ -7,10 +7,23 @@ import appliances.boiler
 import switches
 import sys
 import logging
+import equipment.allEquipment
 
 
-def setupControllers(verbose, simulation, permissive):
+def setupControllers(verbose, simulation, permissive, equipment):
     controllers = ctrl.controllerList()
+    # The controllerinfo is a special snowflake that stores some extra global controller info
+    # It does not do anything intelligent itherwise and will always meet target
+    controllers.addController('controllerInfo', appliances.controllerinfo())
+    
+    if equipment is None:
+        logging.error('Equipment is None')
+        return(None)
+    controllers['controllerInfo'].setEquipment(equipment)
+
+    # Timer is always required in all equipment
+    controllers.addController('delayTimer', appliances.hoptimer())
+
     print "Try to find hw switches"
     if not simulation:
         logging.info("Initializing hardware")
@@ -71,7 +84,6 @@ def setupControllers(verbose, simulation, permissive):
     print 5
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
-    controllers.addController('delayTimer', appliances.hoptimer())
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
     controllers.addController('waterCirculationPump',
@@ -98,3 +110,4 @@ def setupControllers(verbose, simulation, permissive):
         # print key
     "returning..."
     return(controllers)
+

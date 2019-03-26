@@ -14,6 +14,9 @@ import checker
 import logging
 import threading
 import time
+import equipment
+import os
+import xml.etree.ElementTree
 
 
 def usage():
@@ -85,7 +88,36 @@ if __name__ == "__main__":
         simulation = (simulation or (not HWcheck))
     else:
         simulation = False
-    controllers = ctrl.setupControllers(verbose, simulation, permissive)
+        
+    mypath = os.path.dirname(os.path.realpath(__file__))
+    availableEquipment = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    if bsmxFile != "":
+        try:
+            inf = open(bsmxFile, 'r')
+        except:
+            logging.error('Can not read file: {}'.format(bsmxFile))
+            sys.exit(1)
+        bsmxIn = inf.read()
+        bsmxStr = bsmxIn.replace('&', 'AMP')
+        inf.close()
+        try:
+            e = xml.etree.ElementTree.fromstring(bsmxStr)
+        except:
+            logging.error('Can not parse file: {}'.format(bsmxFile))
+        equipmentName = e.find('Data').find('Recipe').find('F_R_EQUIPMENT').find('F_E_NAME').text
+        myEquipment = availableEquipment.get(equipmentName)
+        if myEquipment is None:
+            logging.error('Selected equipment is not available')
+            sys.exit(1)
+    else:
+        # This may have to change to AllNoLimit
+        myEquipment = availableEquipment.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    logging.info('Equipment: {}'.format(myEquipment['equipmentName']))
+    
+    controllers = ctrl.setupControllers(verbose, simulation, permissive, myEquipment)
+    if controllers is None:
+        logging.error('No controllers')
+        sys.exit(1)
 
     if HWcheck:
         if controllers.HWOK():

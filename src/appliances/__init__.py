@@ -1,4 +1,5 @@
 from genctrl import *
+from controllerinfo import *
 from boiler import *
 from hoptimer import *
 from hotWaterTun import *

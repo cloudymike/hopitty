@@ -4,6 +4,8 @@ import inspect
 import xml.dom.minidom
 import sys
 import ctrl
+import equipment
+import appliances
 
 
 def simpleBsmx():
@@ -801,7 +803,11 @@ Examples: Anchor Steam, Old Peculiar, </F_H_NOTES>
 
 
 def ctrlBsmxList():
-    retlst = ['wortPump', 'boiler']
+    retlst = ctrl.controllerList()
+    retlst.addController('controllerInfo', appliances.controllerinfo())
+    retlst.addController('wortPump', appliances.wortPump())
+    retlst.addController('boiler', appliances.boiler())
+    #retlst = ['wortPump', 'boiler']
     return(retlst)
 
 
@@ -843,7 +849,12 @@ def test_init_bsmxStages_file():
     print cp
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
     print rp
-    bx = recipeReader.bsmxStages(rp, ctrlBsmxList())
+    e = equipment.allEquipment()
+    myequipment = e.get("Grain 2.5G, 5Gcooler, 4Gpot")
+    ctrl = ctrlBsmxList()
+    ctrl['controllerInfo'].setEquipment(myequipment)
+    print ctrl['controllerInfo'].getEquipmentName()
+    bx = recipeReader.bsmxStages(rp, ctrl)
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     doc = bx.getDocTree()
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
@@ -871,7 +882,12 @@ def test_testcold():
     print cp
     rp = cp + "/../../beersmith/testcold.bsmx"
     print rp
-    bx = recipeReader.bsmxStages(rp, ctrlBsmxList())
+    e = equipment.allEquipment()
+    myequipment = e.get("Grain 3G, 5Gcooler, 5Gpot")
+    ctrl = ctrlBsmxList()
+    ctrl['controllerInfo'].setEquipment(myequipment)
+    print ctrl['controllerInfo'].getEquipmentName()
+    bx = recipeReader.bsmxStages(rp, ctrl)
     assert bx.getRecipeName() == "testcold"
     doc = bx.getDocTree()
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
@@ -888,7 +904,12 @@ def test_testbatchsparge():
     print cp
     rp = cp + "/../../beersmith/SilverDollarPorter.bsmx"
     print rp
-    bx = recipeReader.bsmxStages(rp, ctrlBsmxList())
+    e = equipment.allEquipment()
+    myequipment = e.get("Pot and Cooler ( 5 Gal/19 L) - All Grain")
+    ctrl = ctrlBsmxList()
+    ctrl['controllerInfo'].setEquipment(myequipment)
+    print ctrl['controllerInfo'].getEquipmentName()
+    bx = recipeReader.bsmxStages(rp, ctrl)
     print bx.getRecipeName()
     assert bx.getRecipeName() == "Silver Dollar Porter 2.5 gallons"
     doc = bx.getDocTree()
@@ -918,15 +939,21 @@ def test_getVolG():
 
 
 def test_GoodRecipe():
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot')
     bx = recipeReader.bsmxStages(goodRecipe(),
-                                 ctrl.setupControllers(False, True, True))
+                                 ctrl.setupControllers(False, True, True, myequipment))
     assert bx.isValid()
     print myname(), "OK"
 
 
 def test_badTunDeadSpace():
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     bx = recipeReader.bsmxStages(badTunDeadSpaceBsmx(),
-                                 ctrl.setupControllers(False, True, True))
+                                 ctrl.setupControllers(False, True, True, myequipment))
     print bx.getTunDeadSpace()
     print bx.getRecipeName()
     print bx.isValid()
@@ -1078,14 +1105,17 @@ def test_isValid():
     bx = recipeReader.bsmxStages(simpleBsmx(), ctrlBsmxList())
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     assert not bx.isValid()
+    print(os.getcwd())
+    e = equipment.allEquipment('src/equipment/*.yaml')
+    myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     cx = recipeReader.bsmxStages(elaborateBsmx(),
-                                 ctrl.setupControllers(False, True, True))
+                                 ctrl.setupControllers(False, True, True, myequipment))
     assert not cx.isValid()
     cp = os.path.dirname(__file__)
     print cp
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
     print rp
-    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True))
+    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True, myequipment))
     assert dx.isValid()
     print myname(), "OK"
 

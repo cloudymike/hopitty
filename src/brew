@@ -16,13 +16,27 @@ echo "USAGE: $0"
 
 USR=$USER
 SIMULATE=0
-while getopts ":su:" opt; do
+QUICK=0
+TYPEOFEQUIPMENT=
+while getopts ":su:t:bhq" opt; do
   case $opt in
     s)
       SIMULATE=1
       ;;
+    q)
+      QUICK=1
+      ;;
     u)
       USR=$OPTARG
+      ;;
+    t)
+      TYPEOFEQUIPMENT="$OPTARG"
+      ;;
+    b)
+      TYPEOFEQUIPMENT='Grain 4.5G, 5Gcooler, 8GBE, platechiller'
+      ;;
+    h)
+      TYPEOFEQUIPMENT='Grain 3G, HERMS, 5Gcooler, 5Gpot'
       ;;
     \?)
       usage
@@ -35,20 +49,23 @@ DATESTRING=`date +%F-%H-%M`
 LOGFILE="brew-${DATESTRING}.log"
 
 # Start and stop  beersmith to get an updated Cloud.bsmx file
-/usr/bin/beersmith2 &
-sleep 20
-xdotool windowactivate --sync $(xdotool search --name 'BeerSmith 2') key  --clearmodifiers --delay 100 alt+F4
+if [ "$QUICK" == "0" ]
+then
+  /usr/bin/beersmith2 &
+  sleep 10
+  xdotool windowactivate --sync $(xdotool search --name 'BeerSmith 2') key  --clearmodifiers --delay 100 alt+F4
+fi
 
 # Initial cleanup
 sudo pkill -9 -f threadscan.py &> /dev/null
 
 echo "Output log copied to ${LOGFILE}"
 
-if [ "$SIMULATE" == "1" ]; then
-  sudo ./threadscan.py -u mikael 
+if [ "$SIMULATE" == "1" ]
+then
+  sudo ./threadscan.py -u mikael -t "$TYPEOFEQUIPMENT"
 else
-  sudo ./threadscan.py -u mikael -e 
+  sudo ./threadscan.py -u mikael -e -t "$TYPEOFEQUIPMENT"
 fi
 
 #sudo pkill -9 -f threadscan.py &> /dev/null
-

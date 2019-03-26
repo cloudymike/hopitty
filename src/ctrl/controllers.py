@@ -16,6 +16,37 @@ class controllerList(dict):
 
         if STRESSTEST:
             print "WARNING: Running in stress test mode"
+            
+    def setEquipment(self,equipment):
+        """
+        Set the equipement name to allow identify 
+        multiple setups and check reciepes against them
+        """
+        # This needs to be stored somewhere
+        # As this is a list, no space in the object
+        # Could fake it but storing it in the delayTimer as that one is always there.
+        # The setup will need to define these anyhow.
+        # We could even add delay timer at init.
+        pass
+    
+    def getEquipmentName(self):
+        """
+        Get the equiment type the controller is setup as.
+        Allow to check recipe against the setup
+        """
+        return(self['controllerInfo'].getEquipmentName())
+    
+    def getEquipment(self):
+        """
+        Return the equipement data required to check recipe against
+        """
+        return(self['controllerInfo'].getEquipment())
+
+    def getEquipmentSpecs(self):
+        """
+        Return the equipement data required to check recipe against
+        """
+        return(self['controllerInfo'].getEquipmentSpecs())
 
     def addController(self, name, ctrl):
         #print "Adding ", name

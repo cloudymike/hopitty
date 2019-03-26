@@ -16,6 +16,7 @@ import recipeReader
 import webctrl
 import recipeModel
 import logging
+import equipment
 
 
 def usage():
@@ -28,11 +29,12 @@ def usage():
 
 
 def getOptions():
-    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:v', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:t:v', [
         'equipment',
         'file=',
         'help',
         'user=',
+        'type='
         'verbose',
         ])
     optret = {}
@@ -40,6 +42,7 @@ def getOptions():
     optret['user'] = getpass.getuser()
     optret['bsmxfile'] = None
     optret['HWcheck'] = False
+    optret['equipmentType'] = ''
 
     for opt, arg in options:
         if opt in ('-h', '--help'):
@@ -50,6 +53,8 @@ def getOptions():
             optret['bsmxfile'] = arg
         if opt in ('-u', '--user'):
             optret['user'] = arg
+        if opt in ('-t', '--type'):
+            optret['equipmentType'] = arg
         elif opt in ('-v', '--verbose'):
             optret['verbose'] = True
     return(optret)
@@ -121,7 +126,14 @@ if __name__ == "__main__":
     logging.info('Starting...')
 
     options = getOptions()
-    controllers = ctrl.setupControllers(options['verbose'], False, True)
+    
+    e = equipment.allEquipment('equipment/*.yaml')
+    if options['equipmentType']:
+        myequipment = e.get(options['equipmentType'])
+    else:
+        myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+        
+    controllers = ctrl.setupControllers(options['verbose'], False, True, myequipment)
     if options['HWcheck']:
         if controllers.HWOK():
             print "HW OK"
