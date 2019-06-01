@@ -49,6 +49,9 @@ class dispenser(appliances.genctrl):
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../UscCmd/UscCmd'
 
+        if self.usbOK:
+            self.usbOK = self.HWOK()
+
         # If multiple dispensers are added, these values can be set in
         # connectSwitch
         if number % 2 == 1:
@@ -120,9 +123,12 @@ class dispenser(appliances.genctrl):
             #print "Dispenser", self.deviceNumber, "full"
 
     def HWOK(self):
-        if self.usbOK:
-            checkstring = self.exe + ' --list'
-            retval = subprocess.check_output(checkstring, shell=True)
-            return(retval[0] != '0')
-        else:
+        if not os.path.isfile(self.exe):
             return(False)
+
+        if not self.usbOK:
+            return (False)
+
+        checkstring = self.exe + ' --list'
+        retval = subprocess.check_output(checkstring, shell=True)
+        return(retval[0] != '0')
