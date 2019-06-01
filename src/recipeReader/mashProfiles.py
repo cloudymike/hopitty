@@ -926,7 +926,7 @@ def onlyTestMash(bsmxObj, chiller):
     stages[mkSname("Wort out final", stageCount)] = sfw
     stageCount = stageCount + 1
 
-    stages.update(boiling(bsmxObj, stages, stageCount, controllers, 60))
+    stages.update(boiling(bsmxObj, stages, controllers, 60))
 
     try:
         stageCount = len(stages)
