@@ -2,3 +2,6 @@
 equipmentName: 'AllNoLimit'
 specs:
   boilerVolumeMax: 1000
+componentlist:
+  - waterHeater
+  - dispenser
