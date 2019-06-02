@@ -96,10 +96,12 @@ def setupControllers(verbose, simulation, permissive, equipment):
     # controllers.addController('mashCirculationPump', \
     #                          appliances.circulationPump())
     # controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
-    controllers.addController('dispenser1', appliances.dispenser(1))
-    controllers.addController('dispenser2', appliances.dispenser(2))
-    controllers.addController('dispenser3', appliances.dispenser(3))
-    controllers.addController('dispenser4', appliances.dispenser(4))
+
+    if 'dispenser' in equipment['componentlist']:
+        controllers.addController('dispenser1', appliances.dispenser(1))
+        controllers.addController('dispenser2', appliances.dispenser(2))
+        controllers.addController('dispenser3', appliances.dispenser(3))
+        controllers.addController('dispenser4', appliances.dispenser(4))
     
     controllers.addController('envTemp', appliances.envTemp())
 

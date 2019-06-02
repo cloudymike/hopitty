@@ -232,7 +232,7 @@ def checkVolBSMX(bsmxObj):
 
     totInVol = bsmxObj.getStrikeVolume() + bsmxObj.getSpargeVolume()
     if totInVol > maxTotalInVol:
-        print "Error: ", totInVol, "exceeding total in volume"
+        print "Error: ", totInVol, "exceeding max total in volume", maxTotalInVol
         return(False)
 
     outLoss = bsmxObj.getGrainAbsorption() + bsmxObj.getTunDeadSpace() +\
@@ -334,12 +334,68 @@ def plateCooling(bsmxObj, stageCount, coolTemp):
 
     return(stages)
 
-
 # Bring the pot to boil
 # Boil for the suitable time
 # Add hops and other additions with the dispensers
 # at suitable times.
-def boiling(bsmxObj, stageCount, boilTemp):
+def boiling(bsmxObj, stages, controllers, boilTemp):
+    stageCount = len(stages)
+    logging.info("Setting up boiler")
+    try:
+        if 'timeBoiler' in controllers['controllerInfo'].getEquipment()['componentlist']:
+            stages.update(timedBoil(bsmxObj, stageCount))
+        else:
+            stages.update(tempBoil(bsmxObj, stageCount, boilTemp))
+        stageCount = len(stages)
+    except:
+        logging.error("Boiling profile failed")
+        stages = None
+    return (stages)
+
+# Bring the pot to boil
+# Boil for the suitable time
+# Timed only boil, not temp check
+def timedBoil(bsmxObj, stageCount):
+    logging.info("Using timed boil")
+    doc = bsmxObj.getDocTree()
+    controllers = bsmxObj.getControllers()
+    stages = {}
+    stageCount = stageCount + 1
+    logging.info("boiling start")
+    # This step is just bringing up temperature to boil
+    # by checking the temperature
+    # So no delay required
+    step = stageCtrl(controllers)
+    step["delayTimer"] = setDict(15)
+    stages[mkSname("pre-boil", stageCount)] = step
+    stageCount = stageCount + 1
+    logging.info("preboiling done")
+
+    boilTime = bsmxObj.getTimeMin("F_E_BOIL_TIME")
+    step = stageCtrl(controllers)
+    step["delayTimer"] = setDict(boilTime)
+    stages[mkSname("Boil", stageCount)] = step
+    stageCount = stageCount + 1
+    logging.info("Boiling done")
+
+    steepTime = bsmxObj.getSteepTime()
+
+    if (steepTime > 1):
+        logging.info("Steeping for " + str(steepTime) + " minutes")
+        step = stageCtrl(controllers)
+        step["delayTimer"] = setDict(steepTime)
+        stages[mkSname("Steeping", stageCount)] = step
+        stageCount = stageCount + 1
+        logging.info("Steeping done")
+    return(stages)
+
+
+# Bring the pot to boil by checking temp
+# Boil for the suitable time
+# Add hops and other additions with the dispensers
+# at suitable times.
+def tempBoil(bsmxObj, stageCount, boilTemp):
+    logging.info("Using temperature boil")
     doc = bsmxObj.getDocTree()
     controllers = bsmxObj.getControllers()
     stages = {}
@@ -497,19 +553,20 @@ def SingleInfusionBatch(bsmxObj, chiller):
     s10 = stageCtrl(controllers)
     s10["wortPump"] = setDict(bsmxObj.getPreBoilVolume() / 2)
     s10["boiler"] = setDict(1)
-    stages["10 Wort out 2"] = s10
+    stages["9 Wort out 2"] = s10
 
+    stages.update(boiling(bsmxObj, stages, controllers, boilTempConstant))
     try:
-        stages.update(boiling(bsmxObj, 11, boilTempConstant))
         stageCount = len(stages)
         if chiller == 'immersion':
             stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
         elif chiller == 'plate':
             stages.update(plateCooling(bsmxObj, stageCount, coolTempConstant))
         else:
-            logging.info('Unknown cooler type')
+            logging.error('Unknown cooler type')
             stages = None
     except:
+        logging.error("Cooling profile failed")
         stages = None
 
     return(stages)
@@ -627,14 +684,10 @@ def MultiBatchMash(bsmxObj, chiller):
         stages[mkSname("Wort out final", stageCount)] = sfw
         stageCount = stageCount + 1
 
-    try:
-        stages.update(boiling(bsmxObj, stageCount, boilTempConstant))
-        stageCount = len(stages)
-    except:
-        logging.error("Boiling profile failed")
-        stages = None
+    stages.update(boiling(bsmxObj, stages, controllers, boilTempConstant))
 
     try:
+        stageCount = len(stages)
         if chiller == 'immersion':
             stages.update(cooling(bsmxObj, stageCount, coolTempConstant))
         elif chiller == 'plate':
@@ -777,7 +830,7 @@ def HERMSMultiBatchMash(bsmxObj, chiller):
         stageCount = stageCount + 1
 
     try:
-        stages.update(boiling(bsmxObj, stageCount, boilTempConstant))
+        stages.update(boiling(bsmxObj, stages, controllers, boilTempConstant))
         stageCount = len(stages)
     except:
         logging.error("Boiling profile failed")
@@ -871,16 +924,11 @@ def onlyTestMash(bsmxObj, chiller):
     sfw["boiler"] = setDict(1)
     totVolOut = totVolOut + lastWortOut
     stages[mkSname("Wort out final", stageCount)] = sfw
-    stageCount = stageCount + 1
+
+    stages.update(boiling(bsmxObj, stages, controllers, 60))
 
     try:
-        stages.update(boiling(bsmxObj, stageCount, 60))
         stageCount = len(stages)
-    except:
-        logging.error("Boiling profile failed")
-        stages = None
-
-    try:
         if chiller == 'immersion':
             stages.update(cooling(bsmxObj, stageCount, 90))
         elif chiller == 'plate':

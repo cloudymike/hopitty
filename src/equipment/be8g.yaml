@@ -1,3 +1,6 @@
 equipmentName: 'Grain 4.5G, 5Gcooler, 8GBE, platechiller'
 specs:
   boilerVolumeMax: 26
+componentlist:
+  - waterHeater
+  - timeBoiler

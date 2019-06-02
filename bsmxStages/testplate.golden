@@ -389,7 +389,7 @@
       "targetValue": 7.76
     }
   },
-  "07 pre-boil": {
+  "06 pre-boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -467,7 +467,7 @@
       "targetValue": 0
     }
   },
-  "08 de-foam": {
+  "07 de-foam": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -545,7 +545,7 @@
       "targetValue": 0
     }
   },
-  "09 start boil": {
+  "08 start boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -623,7 +623,7 @@
       "targetValue": 0
     }
   },
-  "10 Boil": {
+  "09 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -701,7 +701,7 @@
       "targetValue": 0
     }
   },
-  "11 Boil": {
+  "10 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -779,7 +779,7 @@
       "targetValue": 0
     }
   },
-  "12 Boil": {
+  "11 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -857,7 +857,7 @@
       "targetValue": 0
     }
   },
-  "13 Boil": {
+  "12 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -935,7 +935,7 @@
       "targetValue": 0
     }
   },
-  "14 Boil": {
+  "13 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -1013,7 +1013,7 @@
       "targetValue": 0
     }
   },
-  "15 Cool down": {
+  "14 Cool down": {
     "aerator": {
       "active": false,
       "targetValue": 0
