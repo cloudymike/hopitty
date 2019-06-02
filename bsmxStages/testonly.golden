@@ -389,7 +389,7 @@
       "targetValue": 1.2106666671875
     }
   },
-  "07 pre-boil": {
+  "06 pre-boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -467,7 +467,7 @@
       "targetValue": 0
     }
   },
-  "08 de-foam": {
+  "07 de-foam": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -545,7 +545,7 @@
       "targetValue": 0
     }
   },
-  "09 start boil": {
+  "08 start boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -573,6 +573,84 @@
     "delayTimer": {
       "active": false,
       "targetValue": 0
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  },
+  "09 Boil": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": true,
+      "targetValue": 60
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
+    "controllerInfo": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": true,
+      "targetValue": 0.0
     },
     "dispenser1": {
       "active": false,
@@ -650,84 +728,6 @@
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 0.0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "11 Boil": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": true,
-      "targetValue": 60
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "controllerInfo": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "delayTimer": {
-      "active": true,
       "targetValue": 1.0
     },
     "dispenser1": {
@@ -779,7 +779,7 @@
       "targetValue": 0
     }
   },
-  "12 Boil": {
+  "11 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -857,7 +857,7 @@
       "targetValue": 0
     }
   },
-  "13 Boil": {
+  "12 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -935,7 +935,7 @@
       "targetValue": 0
     }
   },
-  "14 Boil": {
+  "13 Boil": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -1013,7 +1013,7 @@
       "targetValue": 0
     }
   },
-  "15 Cool down": {
+  "14 Cool down": {
     "aerator": {
       "active": false,
       "targetValue": 0

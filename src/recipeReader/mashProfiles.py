@@ -345,7 +345,7 @@ def boiling(bsmxObj, stages, controllers, boilTemp):
         if 'timeBoiler' in controllers['controllerInfo'].getEquipment()['componentlist']:
             stages.update(timedBoil(bsmxObj, stageCount))
         else:
-            stages.update(tempBoil(bsmxObj, stageCount, boilTempConstant))
+            stages.update(tempBoil(bsmxObj, stageCount, boilTemp))
         stageCount = len(stages)
     except:
         logging.error("Boiling profile failed")
@@ -553,7 +553,7 @@ def SingleInfusionBatch(bsmxObj, chiller):
     s10 = stageCtrl(controllers)
     s10["wortPump"] = setDict(bsmxObj.getPreBoilVolume() / 2)
     s10["boiler"] = setDict(1)
-    stages["10 Wort out 2"] = s10
+    stages["9 Wort out 2"] = s10
 
     stages.update(boiling(bsmxObj, stages, controllers, boilTempConstant))
     try:
@@ -924,7 +924,6 @@ def onlyTestMash(bsmxObj, chiller):
     sfw["boiler"] = setDict(1)
     totVolOut = totVolOut + lastWortOut
     stages[mkSname("Wort out final", stageCount)] = sfw
-    stageCount = stageCount + 1
 
     stages.update(boiling(bsmxObj, stages, controllers, 60))
 
