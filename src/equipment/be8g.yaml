@@ -8,7 +8,6 @@ componentlist:
   - cooler
   - plateValve
   - mashStirrer
-  - mashHeater
   - boilerValve
   - hotWaterPump
   - waterCirculationPump

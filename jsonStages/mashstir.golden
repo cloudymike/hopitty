@@ -52,10 +52,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": true,
       "targetValue": 1
@@ -127,10 +123,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -208,10 +200,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": true,
       "targetValue": 1
@@ -283,10 +271,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },

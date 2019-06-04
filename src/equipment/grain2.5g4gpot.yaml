@@ -5,12 +5,11 @@ componentlist:
   - waterHeater
   - dispenser
   - aerator
+  - cooler
+  - plateValve
   - mashStirrer
-  - mashHeater
   - boilerValve
   - hotWaterPump
   - waterCirculationPump
   - wortPump
   - boilerVolume
-
-  

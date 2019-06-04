@@ -52,10 +52,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
