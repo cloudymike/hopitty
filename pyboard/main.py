@@ -1,6 +1,13 @@
 import pyb
 import time
 import json
+from ds18x20 import DS18X20
+
+gnd = pyb.Pin('Y11', pyb.Pin.OUT_PP)
+gnd.low()
+vcc = pyb.Pin('Y9', pyb.Pin.OUT_PP)
+vcc.high()
+d = DS18X20(pyb.Pin('Y10'))
 
 led1 = pyb.LED(1)
 led2 = pyb.LED(2)
@@ -20,7 +27,7 @@ while(1):
         mydict['count'] = i
         mydict['x'] = accel.x()
         mydict['y'] = accel.y()
-
+        mydict['temperature'] = d.read_temp()
         mystr = json.dumps(mydict)
         mp.write(mystr)
         mp.write('\n')
