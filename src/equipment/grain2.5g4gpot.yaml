@@ -4,5 +4,13 @@ specs:
 componentlist:
   - waterHeater
   - dispenser
+  - aerator
+  - mashStirrer
+  - mashHeater
+  - boilerValve
+  - hotWaterPump
+  - waterCirculationPump
+  - wortPump
+  - boilerVolume
 
   
