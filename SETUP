@@ -163,6 +163,7 @@ sudo apt-get -y install libpng-dev
 sudo easy_install -U distribute
 sudo -H pip install matplotlib
 sudo -H pip install mpld3
+sudo -H pip install pyyaml
 
 sudo 'echo "backend : Agg" > /etc/matplotlibrc'
 
