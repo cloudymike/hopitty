@@ -52,10 +52,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -127,10 +123,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -208,10 +200,6 @@
       "active": true,
       "targetValue": 8.01
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -283,10 +271,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -364,10 +348,6 @@
       "active": false,
       "targetValue": 0
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -439,10 +419,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -520,10 +496,6 @@
       "active": true,
       "targetValue": 2.72
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -595,10 +567,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },
@@ -676,10 +644,6 @@
       "active": true,
       "targetValue": 7.76
     },
-    "mashHeater": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -751,10 +715,6 @@
       "targetValue": 0
     },
     "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashHeater": {
       "active": false,
       "targetValue": 0
     },

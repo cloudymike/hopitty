@@ -4,3 +4,12 @@ specs:
 componentlist:
   - waterHeater
   - timeBoiler
+  - aerator
+  - cooler
+  - plateValve
+  - mashStirrer
+  - boilerValve
+  - hotWaterPump
+  - waterCirculationPump
+  - wortPump
+  - boilerVolume

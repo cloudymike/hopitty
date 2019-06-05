@@ -67,7 +67,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
 
     controllers.addController('aerator', appliances.aerator())
     controllers['aerator'].connectSwitch(aeratorSwitch)
-    print 2
+
     controllers.addController('cooler', appliances.cooler())
     controllers['cooler'].connectSwitch(coolerSwitch)
     boilerSensor = controllers['boiler'].getSensor()
@@ -79,9 +79,11 @@ def setupControllers(verbose, simulation, permissive, equipment):
 
     controllers.addController('mashStirrer', appliances.mashStirrer())
     controllers['mashStirrer'].connectSwitch(mashStirSwitch)
-    controllers.addController('mashHeater', appliances.mashHeater())
-    controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
-    print 5
+
+    if 'mashHeater' in equipment['componentlist']:
+        controllers.addController('mashHeater', appliances.mashHeater())
+        controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
+
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
     controllers.addController('hotWaterPump', appliances.hwPump())
@@ -93,9 +95,6 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers['wortPump'].connectSwitch(wortSwitch)
     controllers.addController('boilerVolume', appliances.boilerVolume())
     controllers['boilerVolume'].attachHost(controllers['wortPump'])
-    # controllers.addController('mashCirculationPump', \
-    #                          appliances.circulationPump())
-    # controllers['mashCirculationPump'].connectSwitch(mashCirculationSwitch)
 
     if 'dispenser' in equipment['componentlist']:
         controllers.addController('dispenser1', appliances.dispenser(1))
