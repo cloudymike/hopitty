@@ -21,8 +21,8 @@ class tempSensorDict():
     def getSensor(self, ROM):
         """
         Create a sensor object and add it to the dict
-        Connect the device to the sensor object
-        
+        Connect this object to the sensor object
+        Allows this object to control access to HW
         """
         self.sensorDict[ROM] = pyboardTempSensor(ROM, self.device)
 
@@ -37,7 +37,7 @@ class pyboardTempSensor(sensors.genericSensor):
         self.devs = None
         self.ROM = ROM
         self.device = device
-        self.simulation = (self.device is None) or not self.device.HWOK()
+        self.simulation = (self.device is None)
         self.incVal = 1.3
 
     def getID(self):
@@ -59,11 +59,10 @@ class pyboardTempSensor(sensors.genericSensor):
             return(self.val)
         else:
             try:
-                self.val = self.device.get_temperature(format="fahrenheit")
+                self.val = self.device.get_temperature(format='fahrenheit', ROM=self.ROM)
                 self.clearError()
             except:
                 self.forceError()
-                # self.device = self.connect()
             return(self.val)
 
     def HWOK(self):
