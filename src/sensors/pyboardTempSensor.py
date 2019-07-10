@@ -30,6 +30,7 @@ class tempSensorDict():
 
 
 class pyboardTempSensor(sensors.genericSensor):
+
     def __init__(self, ROM="", device=None):
         self.errorState = False
         self.id = 'temp-' + ROM
@@ -37,6 +38,7 @@ class pyboardTempSensor(sensors.genericSensor):
         self.devs = None
         self.ROM = ROM
         self.device = device
+
         self.simulation = (self.device is None)
         self.incVal = 1.3
 
