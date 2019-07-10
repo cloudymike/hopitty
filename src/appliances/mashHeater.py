@@ -21,9 +21,18 @@ class mashHeater(appliances.genctrl):
         self.active = False
         self.target = 150.0
         self.unit = 'F'
-        self.sensor = sensors.pyboardTempSensor()
-        self.simulation = not self.HWOK()
+        self.sensor = None
+        self.simulation = False
         self.actual = 70.0
+
+    def connectSensor(self, sensor):
+        """
+        If a sensor is required, this will connect it with the devices
+        The switch object needs to have a method measure.
+        """
+        self.sensor = sensor
+        self.simulation = not self.HWOK()
+
 
 
     def set(self, value):
@@ -80,7 +89,6 @@ class mashHeater(appliances.genctrl):
         Also, do not check for switch as this is checked in other places, for pumps.
         """
         if self.sensor is None:
-            print 2
             return(False)
         elif not self.sensor.HWOK():
             return(False)

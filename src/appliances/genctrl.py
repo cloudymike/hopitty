@@ -47,6 +47,13 @@ class genctrl():
         """
         self.switch = switch
 
+    def connectSensor(self, sensor):
+        """
+        If a sensor is required, this will connect it with the devices
+        The switch object needs to have a method measure.
+        """
+        self.sensor = sensor
+
     def measure(self):
         """
         Measure what is controlled. This dummy function is simulating
