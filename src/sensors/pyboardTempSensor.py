@@ -38,7 +38,6 @@ class pyboardTempSensor(sensors.genericSensor):
         self.devs = None
         self.ROM = ROM
         self.device = device
-
         self.simulation = (self.device is None)
         self.incVal = 1.3
 
