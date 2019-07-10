@@ -30,7 +30,7 @@ class tempSensorDict():
 
 
 class pyboardTempSensor(sensors.genericSensor):
-    def __init__(self, ROM, device):
+    def __init__(self, ROM="", device=None):
         self.errorState = False
         self.id = 'temp-' + ROM
         self.val = 70
@@ -63,7 +63,7 @@ class pyboardTempSensor(sensors.genericSensor):
                 self.clearError()
             except:
                 self.forceError()
-                self.device = self.connect()
+                # self.device = self.connect()
             return(self.val)
 
     def HWOK(self):

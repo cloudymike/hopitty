@@ -21,7 +21,7 @@ class mashHeater(appliances.genctrl):
         self.active = False
         self.target = 150.0
         self.unit = 'F'
-        self.sensor = None
+        self.sensor = sensors.genericSensor()
         self.simulation = False
         self.actual = 70.0
 
