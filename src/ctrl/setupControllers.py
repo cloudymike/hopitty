@@ -5,6 +5,7 @@ import ctrl
 import recipeReader
 import appliances.boiler
 import switches
+import sensors
 import sys
 import logging
 import equipment.allEquipment
@@ -39,6 +40,8 @@ def setupControllers(verbose, simulation, permissive, equipment):
     else:
         x10 = switches.simSwitchList()
         usbPumps = switches.simSwitchList()
+
+    tempSensors = sensors.tempSensorDict()
 
     print("Setting up appliances")
 
@@ -83,6 +86,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
     if 'mashHeater' in equipment['componentlist']:
         controllers.addController('mashHeater', appliances.mashHeater())
         controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
+        controllers['mashHeater'].connectSensor(tempSensors.getSensor('28ff425f0216038b'))
 
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)

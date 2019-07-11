@@ -27,7 +27,9 @@ class mySensorLoader:
             #print "Found", aName
             # Check if this is a class
             aClass = getattr(module, aName)
-            if hasattr(aClass, "__init__") and hasattr(aClass, "__module__"):
+            if hasattr(aClass, "__init__") and \
+               hasattr(aClass, "__module__") and \
+               hasattr(aClass, "getID"):
                 self.myClassCollection[aName] = aClass
         #print "================== Classes found =================="
         #for className, aClass in self.myClassCollection.iteritems():

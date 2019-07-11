@@ -6,6 +6,7 @@ import serial
 import logging
 import json
 import pprint
+import argparse
 
 portName = \
     '/dev/serial/by-id/usb-Micro_Python_Pyboard_Virtual_Comm_Port_in_FS_Mode_000000000011-if01'
@@ -24,13 +25,19 @@ class pyboardread():  # pragma: no cover
     def HWOK(self):
         return(self.get_dict() is not None)
 
-    def get_temperature(self, format='celsius'):
+    def get_temperature(self, format='celsius', ROM=None):
         mydict = self.get_dict()
-        try:
-            temp_c = mydict['temperature']
-        except:
-            temp_c = 0
-            
+        if ROM:
+            try:
+                temp_c = mydict['devicelist'][ROM]
+            except:
+                temp_c = 0
+        else:
+            try:
+                temp_c = mydict['temperature']
+            except:
+                temp_c = 0
+
         if format == 'celsius':
             return temp_c
         elif format == 'fahrenheit':
@@ -66,7 +73,7 @@ class pyboardread():  # pragma: no cover
                                         rtscts=False,
                                         dsrdtr=False)
             except serial.serialutil.SerialException:
-                # print("Unable to open port '%s'\r" % portName)
+                print("Unable to open port '%s'\r" % portName)
                 return(None)
         
         time.sleep(0.3)
@@ -102,6 +109,12 @@ class pyboardread():  # pragma: no cover
         return(mydict)
  
 if __name__ == '__main__':  # pragma: no cover
+    parser = argparse.ArgumentParser(description='Process some integers.')
+    parser.add_argument('-r', '--rom', default=None, help='ROM hex code')
+
+    args = parser.parse_args()
+    print args.rom
+
     pbr = pyboardread()
     print json.dumps(pbr.get_dict(), sort_keys=True, indent=4)
-    print "Temperature is ", pbr.get_temperature('fahrenheit')       
+    print "Temperature is ", pbr.get_temperature('fahrenheit', args.rom)
