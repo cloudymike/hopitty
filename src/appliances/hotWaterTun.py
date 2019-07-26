@@ -31,7 +31,11 @@ class hwt(appliances.genctrl):
         self.sensor = sensor
 
     def measure(self):
-        self.sensor.setValue(self.powerOn)
+        if self.powerOn:
+            incval = 5
+        else:
+            incval = -5
+        self.sensor.setIncremental(incval)
         return(self.sensor.getValue())
 
     def status(self):
