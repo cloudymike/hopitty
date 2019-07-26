@@ -54,6 +54,10 @@ class pyboardTempSensor(sensors.genericSensor):
         if self.val < 32:
             self.val = 32
 
+    def setValue(self, powerOn):
+        if self.simulation:
+            self.setSimValue()
+
     def getValue(self):
         if self.simulation:
             self.setSimValue()

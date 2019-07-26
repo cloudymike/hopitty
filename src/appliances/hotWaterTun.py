@@ -14,7 +14,7 @@ class hwt(appliances.genctrl):
         self.presetTemp = 40.0
         self.unit = 'F'
 #        self.currTemp = 70.0
-        self.sensor = sensors.thermometer()
+        self.sensor = sensors.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
@@ -26,6 +26,9 @@ class hwt(appliances.genctrl):
 
     def connectSwitch(self, switch):
         self.hotWaterTun = switch
+
+    def connectSensor(self, sensor):
+        self.sensor = sensor
 
     def measure(self):
         self.sensor.setValue(self.powerOn)
