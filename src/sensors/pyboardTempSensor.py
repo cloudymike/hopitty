@@ -54,7 +54,8 @@ class pyboardTempSensor(sensors.genericSensor):
         if self.val < 32:
             self.val = 32
 
-    def setIncremental(incval):
+    def setIncremental(self, incval):
+        print "setINcremental"
         if self.simulation:
             self.val = self.val + incval
             if self.val > 212:

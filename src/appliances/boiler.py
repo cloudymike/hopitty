@@ -2,7 +2,6 @@
 import appliances.genctrl
 import sensors
 
-
 class boiler(appliances.genctrl):
     """
     Manage the wort boiler
