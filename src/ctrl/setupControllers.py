@@ -67,6 +67,8 @@ def setupControllers(verbose, simulation, permissive, equipment):
 
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
+    boilerSensor = tempSensors.getSensor('28ff922d0116039e')
+    controllers['boiler'].connectSensor(boilerSensor)
     controllers['boiler'].setx(x10)
 
     controllers.addController('aerator', appliances.aerator())
@@ -74,7 +76,6 @@ def setupControllers(verbose, simulation, permissive, equipment):
 
     controllers.addController('cooler', appliances.cooler())
     controllers['cooler'].connectSwitch(coolerSwitch)
-    boilerSensor = controllers['boiler'].getSensor()
     controllers['cooler'].connectSensor(boilerSensor)
 
     # Reuse of same switch for plate cooler as immersion cooler
