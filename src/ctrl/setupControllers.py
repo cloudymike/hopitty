@@ -109,6 +109,8 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers.addController('dispenser4', appliances.dispenser(4))
     
     controllers.addController('envTemp', appliances.envTemp())
+    controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+    #controllers['envTemp'].connectSensor(sensors.envTempSensor())
 
     print("appliance setup done")
     # Testing of sensor object Remove me later
