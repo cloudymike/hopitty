@@ -1,4 +1,4 @@
-./#!/bin/bash
+#!/bin/bash
 
 pushd bsmxStages
 for f in *.tmp; do cp  ${f%.*}.tmp ${f%.*}.golden; done
