@@ -13,12 +13,16 @@ class envTemp(appliances.genctrl):
         self.active = False
         self.target = 72
         self.unit = 'F'
-        self.sensor = sensors.envTempSensor()
+        #self.sensor = sensors.envTempSensor()
+        self.sensor = sensors.genericSensor()
         self.actual = 100
 
     def measure(self):
         self.actual = self.sensor.getValue()
         return(self.actual)
+
+    def connectSensor(self, sensor):
+        self.sensor = sensor
 
     def targetMet(self):
         """ Function for target met. Sensor only, return true"""

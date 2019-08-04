@@ -108,7 +108,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 160.21415615330764
+      "targetValue": 177.51754403716015
     },
     "wortPump": {
       "active": false,
@@ -166,7 +166,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 160.21415615330764
+      "targetValue": 177.51754403716015
     },
     "wortPump": {
       "active": false,
@@ -224,7 +224,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 160.21415615330764
+      "targetValue": 177.51754403716015
     },
     "wortPump": {
       "active": false,
