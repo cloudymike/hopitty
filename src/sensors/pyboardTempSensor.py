@@ -30,6 +30,7 @@ class tempSensorDict():
 
 
 class pyboardTempSensor(sensors.genericSensor):
+
     def __init__(self, ROM="", device=None):
         self.errorState = False
         self.id = 'temp-' + ROM
@@ -52,6 +53,16 @@ class pyboardTempSensor(sensors.genericSensor):
             self.val = 212
         if self.val < 32:
             self.val = 32
+
+    def setIncremental(self, incval):
+        print "setINcremental"
+        if self.simulation:
+            self.val = self.val + incval
+            if self.val > 212:
+                self.val = 212
+            if self.val < 32:
+                self.val = 32
+
 
     def getValue(self):
         if self.simulation:

@@ -2,7 +2,6 @@
 import appliances.genctrl
 import sensors
 
-
 class boiler(appliances.genctrl):
     """
     Manage the wort boiler
@@ -20,7 +19,7 @@ class boiler(appliances.genctrl):
         self.unit = None
         self.target = 200
         self.unit = 'F'
-        self.sensor = sensors.temperSensor()
+        self.sensor = sensors.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
@@ -32,6 +31,9 @@ class boiler(appliances.genctrl):
 
     def connectSwitch(self, switch):
         self.boilerSwitch = switch
+
+    def connectSensor(self, sensor):
+        self.sensor = sensor
 
     def status(self):
         if self.powerOn:
