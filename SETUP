@@ -13,6 +13,8 @@ if [ "$?" != "0" ]; then
   sudo apt-get -y install python-setuptools
   sudo apt-get -y install python-pip
   export PIP=/usr/bin/pip
+else
+  export PIP=pip
 fi
 
 sudo -H $PIP install bottle
