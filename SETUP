@@ -6,16 +6,16 @@ HOMEDIR=`pwd`
 which python
 python --version
 
-pip --version
-
 sudo apt-get update
 
+pip --version
 if [ "$?" != "0" ]; then
   sudo apt-get -y install python-setuptools
   sudo apt-get -y install python-pip
+  export PIP=/usr/bin/pip
 fi
 
-sudo -H pip install bottle
+sudo -H $PIP install bottle
 python -c 'import bottle; print bottle.__version__'
 
 # Overkill to install python module usb
@@ -23,8 +23,8 @@ sudo easy_install pyusb
 python -c 'import usb; print usb.__version__'
 python -c 'import usb.core; print usb.core.__name__'
 
-sudo -H pip install pyserial
-sudo -H pip install py-cpuinfo
+sudo -H $PIP install pyserial
+sudo -H $PIP install py-cpuinfo
 
 sudo apt-get -y install g++ make
 sudo apt-get install -y unzip
@@ -43,7 +43,7 @@ sudo apt-get -y install python-gtk2
 sudo apt-get -y install python-gtk2
 sudo apt-get -y install python-gtk2-dev
 
-sudo -H pip install PyGTK
+sudo -H $PIP install PyGTK
 sudo easy_install -U pygtk
 python -c 'import pygtk; print pygtk.__name__'
 if [ "$?" != "0" ]; then exit 1; fi
@@ -151,20 +151,24 @@ sudo apt-get install -y firefox
 sudo apt-get install -y xvfb
 sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
-#sudo pip install selenium
+#sudo $PIP install selenium
 sudo easy_install selenium
 # sudo easy_install wsgi_liveserver # Kept locally to manage ports
-sudo -H pip install xvfbwrapper
+sudo -H $PIP install xvfbwrapper
 
 # For graphing tool
+sudo apt-get -y install python-matplotlib
 sudo apt-get -y install python-dev
 sudo apt-get -y install freetype*
 sudo apt-get -y install libpng-dev
 sudo easy_install -U distribute
-sudo -H pip install matplotlib
-sudo -H pip install mpld3
+sudo -H $PIP install matplotlib
+sudo -H $PIP install mpld3
 
 sudo 'echo "backend : Agg" > /etc/matplotlibrc'
+
+sudo -H $PIP install pyyaml
+
 
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
