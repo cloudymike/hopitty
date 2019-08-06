@@ -147,7 +147,6 @@ class dymoScaleSensor(sensors.genericSensor):
 
 if __name__ == '__main__':  # pragma: no cover
     d = dymoScaleSensor()
-    t = sensors.temperSensor()
     while (1):
-        print d.getValue(), t.getValue()
+        print d.getValue()
         time.sleep(1)
