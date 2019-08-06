@@ -33,8 +33,10 @@ python -c 'import usb.core; print usb.core.__name__'
 sudo -H $PIP install pyserial
 sudo -H $PIP install py-cpuinfo
 sudo easy_install -U distribute
-
 sudo apt-get -y install python-usb
+
+# Basic build tools
+######################################
 sudo apt-get -y install g++ make
 sudo apt-get -y install unzip
 sudo apt-get -y install xdotool
