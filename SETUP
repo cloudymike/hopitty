@@ -2,6 +2,8 @@
 # Setup file to properly
 # setup an Ubuntu server
 
+printenv
+
 set -x
 #set -e
 
@@ -18,8 +20,9 @@ export PIP=/usr/local/bin/pip
 $PIP --version
 sudo -H $PIP install -r ./requirements.txt
 
+sudo apt-get -y install python-usb
 sudo apt-get -y install g++ make
-sudo apt-get install -y unzip
+sudo apt-get -y install unzip
 sudo apt-get -y install xdotool
 
 # TK for graphics
