@@ -9,7 +9,7 @@ def countFails(scale, count):
     zeros = 0
     exceptions = 0
 
-    drone1 = sensors.thermometer()
+    drone1 = sensors.genericSensor()
     drone2 = sensors.temperSensor()
     switch1 = switches.coolerSwitch()
     switch2 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
