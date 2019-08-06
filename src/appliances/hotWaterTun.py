@@ -6,23 +6,17 @@ import sensors
 class hwt(appliances.genctrl):
     def __init__(self):
         self.errorState = False  # If an error has occured
-        self.x10 = None  # Pointer back to the X10 so it can be reopened
-#        self.hotWaterTun = switch
         self.hotWaterTun = None
         self.powerOn = False
         self.active = False
         self.presetTemp = 40.0
         self.unit = 'F'
-#        self.currTemp = 70.0
         self.sensor = sensors.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
         self.stop()
         #print 'Powering down'
-
-    def setx(self, x10):
-        self.x10 = x10
 
     def connectSwitch(self, switch):
         self.hotWaterTun = switch
@@ -77,10 +71,6 @@ class hwt(appliances.genctrl):
                 self.clearError()
             except:
                 self.forceError()
-                try:
-                    self.x10.open()
-                except:
-                    print 'x10 open failed'
 
         self.powerOn = True
 
@@ -91,10 +81,6 @@ class hwt(appliances.genctrl):
                 self.clearError()
             except:
                 self.forceError()
-                try:
-                    self.x10.open()
-                except:
-                    print 'x10 open failed'
 
         self.powerOn = False
 

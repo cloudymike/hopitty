@@ -12,7 +12,6 @@ class boiler(appliances.genctrl):
     """
     def __init__(self):
         self.errorState = False  # If an error has occured
-        self.x10 = None  # Pointer back to X10 to re-open
         self.boilerSwitch = None
         self.powerOn = False
         self.active = False
@@ -25,9 +24,6 @@ class boiler(appliances.genctrl):
     def __del__(self):
         self.powerOn = False
         #print 'Powering down'
-
-    def setx(self, x10):
-        self.x10 = x10
 
     def connectSwitch(self, switch):
         self.boilerSwitch = switch
@@ -74,10 +70,6 @@ class boiler(appliances.genctrl):
                 self.clearError()
             except:
                 self.forceError()
-                try:
-                    self.x10.open()
-                except:
-                    print 'x10 open failed'
 
         self.powerOn = True
         self.sensor.setIncremental(2)
@@ -89,10 +81,6 @@ class boiler(appliances.genctrl):
                 self.clearError()
             except:
                 self.forceError()
-                try:
-                    self.x10.open()
-                except:
-                    print 'x10 open failed'
 
         self.powerOn = False
 
