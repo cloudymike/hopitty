@@ -33,8 +33,8 @@ sudo -H $PIP install -r ./requirements.txt
 #sudo -H $PIP install --upgrade pyusb
 python -c 'import usb; print usb.__version__'
 python -c 'import usb.core; print usb.core.__name__'
-sudo -H $PIP install pyserial
-sudo -H $PIP install py-cpuinfo
+#sudo -H $PIP install pyserial
+#sudo -H $PIP install py-cpuinfo
 #sudo easy_install -U distribute
 #sudo -H $PIP install --upgrade distribute
 #sudo apt-get -y install python-usb
