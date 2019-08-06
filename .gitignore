@@ -2,6 +2,7 @@
 .settings
 *.tmp
 .idea
+.vagrant
 geckodriver.log
 
 # Python artifacts #
