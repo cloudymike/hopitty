@@ -28,7 +28,6 @@ def setupControllers(verbose, simulation, permissive, equipment):
     print "Try to find hw switches"
     if not simulation:
         logging.info("Initializing hardware")
-        x10 = None
         try:
             usbPumps = switches.pumpUSB()
         except:
@@ -38,7 +37,6 @@ def setupControllers(verbose, simulation, permissive, equipment):
             else:
                 raise Exception("USB pumps not available")
     else:
-        x10 = switches.simSwitchList()
         usbPumps = switches.simSwitchList()
 
     tempSensors = sensors.tempSensorDict()
@@ -63,13 +61,11 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers.addController('waterHeater', appliances.hwt())
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
     controllers['waterHeater'].connectSensor(tempSensors.getSensor('281a7a6d0b000096'))
-    controllers['waterHeater'].setx(x10)
 
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
     boilerSensor = tempSensors.getSensor('28ff922d0116039e')
     controllers['boiler'].connectSensor(boilerSensor)
-    controllers['boiler'].setx(x10)
 
     controllers.addController('aerator', appliances.aerator())
     controllers['aerator'].connectSwitch(aeratorSwitch)
