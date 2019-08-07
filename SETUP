@@ -33,6 +33,8 @@ sudo -H $PIP install -r ./requirements.txt
 sudo apt-get -y install g++ make
 sudo apt-get -y install unzip
 sudo apt-get -y install xdotool
+sudo apt-get -y install build-essential
+sudo apt-get -y install libusb-1.0-0-dev
 
 # TK for graphics
 ######################################
