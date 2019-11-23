@@ -1,0 +1,15 @@
+equipmentName: 'Up Grain 4G, 5Gcooler, 5Gpot, platechiller'
+specs:
+  boilerVolumeMax: 17
+componentlist:
+  - waterHeater
+  - dispenser
+  - aerator
+  - cooler
+  - plateValve
+  - mashStirrer
+  - boilerValve
+  - hotWaterPump
+  - waterCirculationPump
+  - wortPump
+  - boilerVolume

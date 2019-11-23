@@ -137,10 +137,11 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 3G, 5Gcooler, 5Gpot',
                        'Grain 3G, 5Gcooler, 5Gpot, platechiller',
                        'Grain 4G, 5Gcooler, BE, platechiller',
-                       'Grain 3G, 5Gcooler 5Gpot']
+                       'Grain 3G, 5Gcooler 5Gpot', 
+                       'Up Grain 4G, 5Gcooler, 5Gpot, platechiller']
     validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
     validEquipment3 = ['Grain 4.5G, 5Gcooler, 8GBE, platechiller']
-
+    print equipmentName
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
         if equipmentName == 'Grain 3G, 5Gcooler, 5Gpot, platechiller':
