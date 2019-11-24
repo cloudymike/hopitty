@@ -131,6 +131,8 @@ def txBSMXtoStages(bsmxObj):
         logging.error("Equipment does not match, Recipe: {} Controller: {}".format(equipmentName, ctrlEquipmentName))
         return(None)
     
+    equipmentdict=bsmxObj.getCtrlEquipment()
+    
     validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
                        'Grain 2.5G, 5Gcooler 4Gpot',
                        'Grain 2.5G, 5Gcooler, 4Gpot',
@@ -140,13 +142,15 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 3G, 5Gcooler 5Gpot']
     validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
     validEquipment3 = ['Grain 4.5G, 5Gcooler, 8GBE, platechiller']
+    
+    if 'plateValve' in equipmentdict['componentlist'] :
+        chiller = 'plate'
+    else:
+        chiller = 'immersion'
+
 
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
-        if equipmentName == 'Grain 3G, 5Gcooler, 5Gpot, platechiller':
-            chiller = 'plate'
-        else:
-            chiller = 'immersion'
 
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
                            'Single Infusion, Medium Body, Batch Sparge',
@@ -166,9 +170,8 @@ def txBSMXtoStages(bsmxObj):
         if stages is None:
             print "Mash test failed"
 
-    elif equipmentName in validEquipment2:
+    elif 'mashHeater' in equipmentdict['componentlist'] :
         mashProfile = bsmxObj.getMashProfile()
-        chiller = 'plate'
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
@@ -179,9 +182,8 @@ def txBSMXtoStages(bsmxObj):
         if stages is None:
             print "Mash test failed"
 
-    elif equipmentName in validEquipment3:
+    elif equipmentdict['specs']['boilerVolumeMax'] == 26:
         mashProfile = bsmxObj.getMashProfile()
-        chiller = 'plate'
 
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
