@@ -133,17 +133,6 @@ def txBSMXtoStages(bsmxObj):
     
     equipmentdict=bsmxObj.getCtrlEquipment()
     
-    validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
-                       'Grain 2.5G, 5Gcooler 4Gpot',
-                       'Grain 2.5G, 5Gcooler, 4Gpot',
-                       'Grain 3G, 5Gcooler, 5Gpot',
-                       'Grain 3G, 5Gcooler, 5Gpot, platechiller',
-                       'Grain 4G, 5Gcooler, BE, platechiller',
-                       'Grain 3G, 5Gcooler 5Gpot',
-                       'Grain 3G, HERMS, 5Gcooler, 5Gpot']
-    validEquipment2 = []
-    validEquipment3 = ['Grain 4.5G, 5Gcooler, 8GBE, platechiller']
-    
     if 'plateValve' in equipmentdict['componentlist'] :
         chiller = 'plate'
     else:
