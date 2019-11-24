@@ -6,7 +6,6 @@ componentlist:
   - dispenser
   - aerator
   - cooler
-  - plateValve
   - mashStirrer
   - boilerValve
   - hotWaterPump
