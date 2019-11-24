@@ -150,7 +150,7 @@ def txBSMXtoStages(bsmxObj):
         chiller = 'immersion'
 
 
-    if equipmentName in validEquipment1:
+    if equipmentdict['specs']['boilerVolumeMax'] in [14,17] :
         mashProfile = bsmxObj.getMashProfile()
 
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
