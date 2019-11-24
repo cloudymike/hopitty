@@ -131,6 +131,8 @@ def txBSMXtoStages(bsmxObj):
         logging.error("Equipment does not match, Recipe: {} Controller: {}".format(equipmentName, ctrlEquipmentName))
         return(None)
     
+    equipmentdict=bsmxObj.getCtrlEquipment()
+    
     validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
                        'Grain 2.5G, 5Gcooler 4Gpot',
                        'Grain 2.5G, 5Gcooler, 4Gpot',
@@ -143,7 +145,8 @@ def txBSMXtoStages(bsmxObj):
 
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
-        if equipmentName == 'Grain 3G, 5Gcooler, 5Gpot, platechiller':
+        #if equipmentName == 'Grain 3G, 5Gcooler, 5Gpot, platechiller':
+        if 'plateValve' in equipmentdict['componentlist'] :
             chiller = 'plate'
         else:
             chiller = 'immersion'
