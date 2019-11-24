@@ -140,12 +140,9 @@ def txBSMXtoStages(bsmxObj):
                        'Grain 3G, 5Gcooler, 5Gpot, platechiller',
                        'Grain 4G, 5Gcooler, BE, platechiller',
                        'Grain 3G, 5Gcooler 5Gpot']
-    validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
-    validEquipment3 = ['Grain 4.5G, 5Gcooler, 8GBE, platechiller']
 
     if equipmentName in validEquipment1:
         mashProfile = bsmxObj.getMashProfile()
-        #if equipmentName == 'Grain 3G, 5Gcooler, 5Gpot, platechiller':
         if 'plateValve' in equipmentdict['componentlist'] :
             chiller = 'plate'
         else:
@@ -169,7 +166,7 @@ def txBSMXtoStages(bsmxObj):
         if stages is None:
             print "Mash test failed"
 
-    elif equipmentName in validEquipment2:
+    elif 'mashHeater' in equipmentdict['componentlist'] :
         mashProfile = bsmxObj.getMashProfile()
         chiller = 'plate'
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
@@ -182,7 +179,7 @@ def txBSMXtoStages(bsmxObj):
         if stages is None:
             print "Mash test failed"
 
-    elif equipmentName in validEquipment3:
+    elif equipmentdict['specs']['boilerVolumeMax'] == 26:
         mashProfile = bsmxObj.getMashProfile()
         chiller = 'plate'
 
