@@ -256,7 +256,10 @@ class runbrew():
                 preHeat = {"name": "heat_only", "recipe":
                            {
                             "01": {"waterHeater": 170},
-                            "02": {"delayTimer": 9999}
+                            "02": {
+                                "waterHeater": 170,
+                                "delayTimer": 9999
+                            }
                            }
                 }
                 js = recipeReader.jsonStages(preHeat, self.controllers)
