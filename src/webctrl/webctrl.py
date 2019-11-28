@@ -254,7 +254,11 @@ class runbrew():
         if preHeatState == "True":
             if not self.s2b.isAlive():
                 preHeat = {"name": "heat_only", "recipe":
-                           {"01": {"waterHeater": 170}}}
+                           {
+                            "01": {"waterHeater": 170},
+                            "02": {"delayTimer": 9999}
+                           }
+                }
                 js = recipeReader.jsonStages(preHeat, self.controllers)
                 self.s2b = stages2beer.s2b(self.controllers, js.getStages())
                 self.s2b.start()
