@@ -133,49 +133,33 @@ def txBSMXtoStages(bsmxObj):
     
     equipmentdict=bsmxObj.getCtrlEquipment()
     
-    validEquipment1 = ['Pot and Cooler ( 5 Gal/19 L) - All Grain',
-                       'Grain 2.5G, 5Gcooler 4Gpot',
-                       'Grain 2.5G, 5Gcooler, 4Gpot',
-                       'Grain 3G, 5Gcooler, 5Gpot',
-                       'Grain 3G, 5Gcooler, 5Gpot, platechiller',
-                       'Grain 4G, 5Gcooler, BE, platechiller',
-                       'Grain 3G, 5Gcooler 5Gpot']
-    validEquipment2 = ['Grain 3G, HERMS, 5Gcooler, 5Gpot']
-    validEquipment3 = ['Grain 4.5G, 5Gcooler, 8GBE, platechiller']
-    
     if 'plateValve' in equipmentdict['componentlist'] :
         chiller = 'plate'
     else:
         chiller = 'immersion'
 
 
-    if equipmentName in validEquipment1:
+    if equipmentdict['specs']['boilerVolumeMax'] in [14,17] :
         mashProfile = bsmxObj.getMashProfile()
 
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
                            'Single Infusion, Medium Body, Batch Sparge',
                            'Single Infusion, Full Body, Batch Sparge']:
-
-            stages = SingleInfusionBatch(bsmxObj, chiller)
+            if 'mashHeater' in equipmentdict['componentlist'] :
+                print "No valid mash profile found"
+                print "===", mashProfile, "==="
+            else:
+                stages = SingleInfusionBatch(bsmxObj, chiller)
 
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out']:
-            stages = MultiBatchMash(bsmxObj, chiller)
+            if 'mashHeater' in equipmentdict['componentlist'] :
+                stages = HERMSMultiBatchMash(bsmxObj, chiller)
+            else:
+                stages = MultiBatchMash(bsmxObj, chiller)
         elif mashProfile in ['testonly']:
             stages = onlyTestMash(bsmxObj, chiller)
-        else:
-            print "No valid mash profile found"
-            print "===", mashProfile, "==="
-        if stages is None:
-            print "Mash test failed"
-
-    elif 'mashHeater' in equipmentdict['componentlist'] :
-        mashProfile = bsmxObj.getMashProfile()
-        if mashProfile in ['Single Infusion, Light Body, No Mash Out',
-                             'Single Infusion, Medium Body, No Mash Out',
-                             'Single Infusion, Full Body, No Mash Out']:
-            stages = HERMSMultiBatchMash(bsmxObj, chiller)
         else:
             print "No valid mash profile found"
             print "===", mashProfile, "==="
