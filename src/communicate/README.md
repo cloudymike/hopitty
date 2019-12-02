@@ -19,3 +19,40 @@ communication routing
 As a simplest level, a websocket communication will 
 be created. It should allow some basic error handling
 allowing to reconnect as a socket dies.
+
+## Commands
+
+### run
+return OK or ERROR
+Start current loaded recipe
+
+### stop
+return OK or ERROR
+Stop current recipe
+
+### pause
+return OK or ERROR
+Hold current step on the recipe
+
+### skip
+return OK or ERROR
+Skip one step of the recipe
+
+### terminate
+return OK or ERROR
+Terminate program
+
+## load{recipe json}
+return  OK or ERROR
+stop current recipe
+load recipe provided
+
+## state
+return run,pause,stop etc
+
+## status
+return status of all in controllers
+
+
+
+
