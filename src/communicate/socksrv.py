@@ -3,55 +3,62 @@
 import socket
 import time
 
-def readSocket(s, conn, status):
-    data = ""
-    # Assume there is no connecion and check this first.
+class socketcomm():
+    def __init__(self):
+        self.BUFFER_SIZE = 20  # Normally 1024, but we want fast response
+        TCP_IP = '127.0.0.1'
+        TCP_PORT = 10062
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.bind((TCP_IP, TCP_PORT))
+        # Create a few sockets in case they are not quickly released
+        s.listen(10)
+        print 'Starting loop'
+        s.setblocking(False)
+        self.s = s
     
-    try:
-        fn = conn.fileno(), " "
-        connected = True
-    except:
-        try:
-            conn, addr = s.accept()
-            conn.setblocking(False)
-            connected = True
-            print "New File number: ", conn.fileno()
-        except:
-            connected = False 
+    def getsocket(self):
+        return(self.s)
  
-    if connected: 
+    def readSocket(self, conn, status):
+        data = ""
+        # Assume there is no connecion and check this first.
+        
         try:
-            data = conn.recv(BUFFER_SIZE)
-            if data:
-                if 'status' in data:
-                    conn.send(status)  # echo
-                conn.close()
+            fn = conn.fileno(), " "
+            connected = True
         except:
-            pass 
+            try:
+                conn, addr = self.s.accept()
+                conn.setblocking(False)
+                connected = True
+                print "New File number: ", conn.fileno()
+            except:
+                connected = False 
+                
+        
+     
+        if connected: 
+            try:
+                data = conn.recv(self.BUFFER_SIZE)
+                if data:
+                    if 'status' in data:
+                        conn.send(status)  # echo
+                    conn.close()
+            except:
+                pass 
+    
+    
+        return(conn, data)
 
-
-    return(conn, data)
 
 if __name__ == "__main__":
+    
+    sc = socketcomm()
  
-    TCP_IP = '127.0.0.1'
-    TCP_PORT = 10062
-    BUFFER_SIZE = 20  # Normally 1024, but we want fast response
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind((TCP_IP, TCP_PORT))
-    # Create a few sockets in case they are not quickly released
-    s.listen(10)
-    print 'Starting loop'
-    s.setblocking(False)
-    
-    
-    
-    
-    
     conn = None
     while 1:
     
-        conn, data = readSocket(s,conn,'All OK')
+        conn, data = sc.readSocket(conn,'All OK')
         # This would be the program
         print("Doing stuff with {}".format(data))
         time.sleep(1)
