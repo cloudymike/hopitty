@@ -15,23 +15,24 @@ class socketcomm():
         print 'Starting loop'
         s.setblocking(False)
         self.s = s
+        self.conn = None
     
     def getsocket(self):
         return(self.s)
  
-    def readSocket(self, conn, status):
+    def readSocket(self, status):
         data = ""
         # Assume there is no connecion and check this first.
         
         try:
-            fn = conn.fileno(), " "
+            fn = self.conn.fileno(), " "
             connected = True
         except:
             try:
-                conn, addr = self.s.accept()
-                conn.setblocking(False)
+                self.conn, addr = self.s.accept()
+                self.conn.setblocking(False)
                 connected = True
-                print "New File number: ", conn.fileno()
+                print "New File number: ", self.conn.fileno()
             except:
                 connected = False 
                 
@@ -39,26 +40,25 @@ class socketcomm():
      
         if connected: 
             try:
-                data = conn.recv(self.BUFFER_SIZE)
+                data = self.conn.recv(self.BUFFER_SIZE)
                 if data:
                     if 'status' in data:
-                        conn.send(status)  # echo
-                    conn.close()
+                        self.conn.send(status)  # echo
+                    self.conn.close()
             except:
                 pass 
     
     
-        return(conn, data)
+        return(data)
 
 
 if __name__ == "__main__":
     
     sc = socketcomm()
  
-    conn = None
     while 1:
     
-        conn, data = sc.readSocket(conn,'All OK')
+        data = sc.readSocket('All OK')
         # This would be the program
         print("Doing stuff with {}".format(data))
         time.sleep(1)
