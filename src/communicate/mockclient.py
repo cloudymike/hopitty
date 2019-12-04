@@ -4,3 +4,6 @@ import time
 if __name__ == "__main__":
     data = netsock.writeSocket('status')
     print('Received {}'.format(data))
+    time.sleep(1)
+    data = netsock.writeSocket('terminate')
+    print("Program should be stopped")

@@ -10,8 +10,8 @@ TCP_PORT = 10062
 def writeSocket(command):
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((TCP_IP, TCP_PORT))
-    s.sendall(b'status')
-    data = s.recv(1024)
+    s.sendall(command)
+    data = s.recv(20)
     s.close()
     return(repr(data))
 
@@ -25,11 +25,15 @@ class socketcomm():
         # Create a few sockets in case they are not quickly released
         s.listen(10)
         s.setblocking(False)
+        s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s = s
         self.conn = None
     
     def getsocket(self):
         return(self.s)
+
+    def close(self):
+        self.s.close()
  
     def readSocket(self, status):
         data = ""
@@ -54,11 +58,13 @@ class socketcomm():
                 if data:
                     if 'status' in data:
                         self.conn.send(status)  # echo
+                    else:
+                        self.conn.send('ok')
                     self.conn.close()
             except:
                 pass 
     
-    
+        print(data)
         return(data)
 
 
