@@ -19,7 +19,6 @@ class mockctrl():
                 return()
             if 'run' in command:
                 self.increment = 1
-                self.count = self.count + self.increment
                 self.state = 'run'
             if 'stop' in command:
                 self.increment = 0
@@ -27,6 +26,9 @@ class mockctrl():
             if 'pause' in command:
                 self.state = 'pause'
                 self.increment = 0
+
+            self.count = self.count + self.increment
+
             time.sleep(1)
 
 if __name__ == "__main__":

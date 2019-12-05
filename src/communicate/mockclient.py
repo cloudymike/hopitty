@@ -12,6 +12,8 @@ if __name__ == "__main__":
     time.sleep(1)
     data = netsock.writeSocket('pause')
     print('Received {}'.format(data))
+    data = netsock.writeSocket('status')
+    print('Received {}'.format(data))
     time.sleep(1)
     data = netsock.writeSocket('status')
     print('Received {}'.format(data))
