@@ -5,13 +5,15 @@ import time
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 10062
-BUFFER_SIZE = 40
 
 def writeSocket(command):
+    buffersize=1024
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((TCP_IP, TCP_PORT))
     s.sendall(command)
-    data = s.recv(BUFFER_SIZE)
+    data = s.recv(buffersize)
+    if len(data) == buffersize:
+        print("ERROR: buffer overflow")
     s.close()
     return(repr(data))
 
@@ -19,7 +21,7 @@ def writeSocket(command):
 
 class socketcomm():
     def __init__(self):
-        self.BUFFER_SIZE = BUFFER_SIZE  # Normally 1024, but we want fast response
+        self.BUFFER_SIZE = 32  # Normally 1024, but we want fast response
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((TCP_IP, TCP_PORT))
         # Create a few sockets in case they are not quickly released
@@ -35,7 +37,7 @@ class socketcomm():
     def close(self):
         self.s.close()
  
-    def readSocket(self, status):
+    def read(self, status):
         data = ""
         # Assume there is no connecion and check this first.
         
@@ -62,7 +64,8 @@ class socketcomm():
                         self.conn.send('ok')
                     self.conn.close()
             except:
-                pass 
+                pass
+
     
         print(data)
         return(data)
@@ -79,5 +82,5 @@ if __name__ == "__main__":
         print("Doing stuff with {}".format(data))
         time.sleep(1)
     
-    print 'Program ending'
+    print('Program ending')
     

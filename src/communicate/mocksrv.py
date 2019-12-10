@@ -1,6 +1,12 @@
 import netsock
 import time
+from random import choice
+from string import ascii_uppercase
 
+
+def mkdata(length):
+    growbig = 10 * length
+    return(''.join(choice(ascii_uppercase) for i in range(growbig))) 
 
 class mockctrl():
     def __init__(self):
@@ -11,8 +17,9 @@ class mockctrl():
     
     def start(self):
         while 1:
-            status = "state: {}      count: {}".format(self.state, self.count)
-            command = self.sc.readSocket(status)
+            datastring = mkdata(self.count)
+            status = "state: {} count: {} data: {} ".format(self.state, self.count, datastring)
+            command = self.sc.read(status)
             print("Command {}".format(command))
             if 'terminate' in command:
                 self.sc.close()
