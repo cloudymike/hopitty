@@ -1,0 +1,122 @@
+#!/usr/bin/python
+
+# Run simple loop but with communications
+
+
+
+# branch t1
+import sys
+sys.path.append("/home/mikael/workspace/hoppity/src")
+sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
+sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
+
+import getopt
+import ctrl
+import recipeReader
+import stages2beer
+import checker
+import logging
+import threading
+import time
+import json
+import equipment
+import os
+import communicate
+import argparse
+
+
+def run(stages, controllers, comm):
+    """
+    Main run loop. Go through each stage of recipe and
+    for each stage loop until all targets met.
+    no blocking, I.e a separate thread
+    """
+    #self.runOK = self.check()
+    print "run"
+    #if not self.runOK:
+    #    print "check failed"
+    #    return
+    oldtime = 0
+    for r_key, settings in sorted(stages.items()):
+        controllers.stop()
+        controllers.run(settings)
+        while not controllers.done() :
+            controllers.run(settings)
+            nowtime = time.time()
+            deltatime = nowtime - oldtime
+            oldtime = nowtime
+            difftime = 1.0 - deltatime
+            if abs(difftime) > 10:
+                difftime = 0
+            sleeptime = max(1.0 + difftime, 0.0)
+            sleeptime = min(1.0, sleeptime)
+            time.sleep(sleeptime)
+            controllers.logstatus()
+    #self.controllers.stop()
+
+
+if __name__ == "__main__":
+#    simTemp = 70
+#    shutdown = False
+
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=logging.INFO,
+                        stream=sys.stdout)
+    logging.warning('warning test')
+    logging.info('Starting...')
+    
+    parser = argparse.ArgumentParser(description='Run brew equiipment with communication enabled for control.')
+    parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
+    parser.add_argument('-c', '--checkonly', default=False, help='Only check, do not brew')
+    parser.add_argument('-e', '--equipment', default=False, help='Force use of real equipment')
+    parser.add_argument('-f', '--file', default="", type=str, help='Stages file to use, json format, ')
+    parser.add_argument('-q', '--quick', default=False, help='Run quick recipe with no delays, or meeting goals')
+    parser.add_argument('-s', '--simulate', default=False, help='Force simulation')
+    parser.add_argument('-v', '--verbose', default=False, help='Verbose output')
+    parser.add_argument('--version', default=False, help='Print version and exit')
+
+    args = parser.parse_args()
+    permissive = True
+
+    comm = communicate.netsock.socketcomm()
+
+    mypath = os.path.dirname(os.path.realpath(__file__))
+    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    
+    if args.equipment:
+        args.simulate = False
+
+    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment)
+    if args.equipment:
+        if controllers.HWOK():
+            logging.info('USB devices connected')
+        else:
+            logging.info('ERROR: Missing USB devices, exiting')
+            sys.exit(1)
+
+    # Read one of the recipe files
+    if args.file != "":
+        with open(args.file) as data_file:    
+            stages = json.load(data_file)
+    else:
+        stages = {}
+        
+    print stages
+
+    equipmentchecker = checker.equipment(controllers, stages)
+    if not equipmentchecker.check():
+        logging.error("Error: equipment vs recipe validation failed")
+
+    if not args.checkonly:
+        if (stages != {}) and (stages is not None):
+            run(stages, controllers, comm)
+
+
+    logging.info(" ")
+    logging.info("OK")
+    logging.info("Shutting down")
+    del controllers
+
+    sys.exit(0)

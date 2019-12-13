@@ -6,7 +6,7 @@ import time
 TCP_IP = '127.0.0.1'
 TCP_PORT = 10062
 
-def writeSocket(command):
+def write(command):
     buffersize=1024
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((TCP_IP, TCP_PORT))
@@ -77,7 +77,7 @@ if __name__ == "__main__":
  
     while 1:
     
-        data = sc.readSocket('All OK')
+        data = sc.read('All OK')
         # This would be the program
         print("Doing stuff with {}".format(data))
         time.sleep(1)
