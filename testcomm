@@ -1,0 +1,9 @@
+#!/bin/bash 
+
+pushd src/communicate
+for test in test*.sh
+do
+   echo $test
+   ./$test  > /tmp/$test.log
+done
+echo "All communication test OK"

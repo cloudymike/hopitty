@@ -41,6 +41,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Thread BeerSmith Tests Failed !!!!!!!!!!"
     exit 1
 fi
+echo "Testing communication specific code..."
+./testcomm > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Communication specific code failed !!!!!!!!!!"
+    exit 1
+fi
 echo "Testing HW specific software..."
 ./testHWcode > /dev/null
 if [ "$?" != "0" ]; then
