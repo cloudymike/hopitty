@@ -24,35 +24,55 @@ import os
 import communicate
 import argparse
 
-
-def run(stages, controllers, comm):
-    """
-    Main run loop. Go through each stage of recipe and
-    for each stage loop until all targets met.
-    no blocking, I.e a separate thread
-    """
-    #self.runOK = self.check()
-    print "run"
-    #if not self.runOK:
-    #    print "check failed"
-    #    return
-    oldtime = 0
-    for r_key, settings in sorted(stages.items()):
-        controllers.stop()
-        controllers.run(settings)
-        while not controllers.done() :
+class deviceloop():
+        
+    def __init__(self,
+        controllers=None,
+        stages=None
+       ):
+        self.sc = communicate.netsock.socketcomm()
+        self.oldtime = 0
+        self.state='stop'
+        
+    
+    def run(self):
+        """
+        Main run loop. Go through each stage of recipe and
+        for each stage loop until all targets met.
+        no blocking, I.e a separate thread
+        """
+        print("run")
+        for r_key, settings in sorted(stages.items()):
+            controllers.stop()
             controllers.run(settings)
-            nowtime = time.time()
-            deltatime = nowtime - oldtime
-            oldtime = nowtime
-            difftime = 1.0 - deltatime
-            if abs(difftime) > 10:
-                difftime = 0
-            sleeptime = max(1.0 + difftime, 0.0)
-            sleeptime = min(1.0, sleeptime)
-            time.sleep(sleeptime)
-            controllers.logstatus()
-    #self.controllers.stop()
+            self.state='run'
+            while not controllers.done() :
+                controllers.run(settings)
+                nowtime = time.time()
+                deltatime = nowtime - self.oldtime
+                self.oldtime = nowtime
+                difftime = 1.0 - deltatime
+                if abs(difftime) > 10:
+                    difftime = 0
+                sleeptime = max(1.0 + difftime, 0.0)
+                sleeptime = min(1.0, sleeptime)
+                time.sleep(sleeptime)
+                controllers.logstatus()
+                
+                status = "step: {} time: {} data: {} ".format("a", 1, "b")
+                command = self.sc.read(status)
+                print("Command {}".format(command))
+                if 'terminate' in command:
+                    self.sc.close()
+                    return()
+                if 'run' in command:
+                    self.state = 'run'
+                if 'stop' in command:
+                    self.state = 'stop'
+                if 'pause' in command:
+                    self.state = 'pause'
+
+        #self.controllers.stop()
 
 
 if __name__ == "__main__":
@@ -65,7 +85,7 @@ if __name__ == "__main__":
                         stream=sys.stdout)
     logging.warning('warning test')
     logging.info('Starting...')
-    
+
     parser = argparse.ArgumentParser(description='Run brew equiipment with communication enabled for control.')
     parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
     parser.add_argument('-c', '--checkonly', default=False, help='Only check, do not brew')
@@ -78,8 +98,6 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
     permissive = True
-
-    comm = communicate.netsock.socketcomm()
 
     mypath = os.path.dirname(os.path.realpath(__file__))
     e = equipment.allEquipment(mypath + '/equipment/*.yaml')
@@ -103,15 +121,18 @@ if __name__ == "__main__":
     else:
         stages = {}
         
-    print stages
+    print(stages)
 
     equipmentchecker = checker.equipment(controllers, stages)
+    
+    devices = deviceloop(controllers, stages)
+    
     if not equipmentchecker.check():
         logging.error("Error: equipment vs recipe validation failed")
 
     if not args.checkonly:
         if (stages != {}) and (stages is not None):
-            run(stages, controllers, comm)
+            devices.run()
 
 
     logging.info(" ")
