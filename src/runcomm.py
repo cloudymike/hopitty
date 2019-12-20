@@ -46,7 +46,7 @@ class deviceloop():
             controllers.stop()
             controllers.run(settings)
             self.state='run'
-            while not controllers.done() :
+            while not controllers.done() or self.state == 'pause' :
                 controllers.run(settings)
                 nowtime = time.time()
                 deltatime = nowtime - self.oldtime
@@ -63,6 +63,7 @@ class deviceloop():
                 command = self.sc.read(status)
                 print("Command {}".format(command))
                 if 'terminate' in command:
+                    self.state = 'terminate'
                     self.sc.close()
                     return()
                 if 'run' in command:
@@ -88,13 +89,13 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Run brew equiipment with communication enabled for control.')
     parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
-    parser.add_argument('-c', '--checkonly', default=False, help='Only check, do not brew')
-    parser.add_argument('-e', '--equipment', default=False, help='Force use of real equipment')
+    parser.add_argument('-c', '--checkonly', action='store_true', help='Only check, do not brew')
+    parser.add_argument('-e', '--equipment', action='store_true', help='Force use of real equipment')
     parser.add_argument('-f', '--file', default="", type=str, help='Stages file to use, json format, ')
-    parser.add_argument('-q', '--quick', default=False, help='Run quick recipe with no delays, or meeting goals')
-    parser.add_argument('-s', '--simulate', default=False, help='Force simulation')
-    parser.add_argument('-v', '--verbose', default=False, help='Verbose output')
-    parser.add_argument('--version', default=False, help='Print version and exit')
+    parser.add_argument('-q', '--quick', action='store_true', help='Run quick recipe with no delays, or meeting goals')
+    parser.add_argument('-s', '--simulate', action='store_true', help='Force simulation')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    parser.add_argument('--version', action='store_true', help='Print version and exit')
 
     args = parser.parse_args()
     permissive = True
