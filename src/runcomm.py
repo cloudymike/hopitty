@@ -58,8 +58,14 @@ class deviceloop():
                 sleeptime = min(1.0, sleeptime)
                 time.sleep(sleeptime)
                 controllers.logstatus()
+                lightstatus = controllers.lightStatus()
+                fullstatus = {}
+                fullstatus['stage'] = str(r_key)
+                fullstatus['state'] = str(self.state)
+                fullstatus['status'] = lightstatus
+                status = json.dumps(fullstatus)
+                print(status)
                 
-                status = "step: {} time: {} data: {} ".format("a", 1, "b")
                 command = self.sc.read(status)
                 print("Command {}".format(command))
                 if 'terminate' in command:
@@ -72,6 +78,11 @@ class deviceloop():
                     self.state = 'stop'
                 if 'pause' in command:
                     self.state = 'pause'
+                if 'skip' in command:
+                    # Skip out of while loop to step one step ahead, and start or keep running
+                    self.state = 'run'
+                    break
+
 
         #self.controllers.stop()
 
