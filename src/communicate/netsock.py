@@ -70,17 +70,21 @@ class socketcomm():
         return(data)
         
     def get_command(self, status):
+        cmd = ''
+        data = ''
         command = self.read(status)
         if 'terminate' in command:
-            return('terminate')
+            cmd='terminate'
         if 'run' in command:
-            return('run')
+            cmd='run'
         if 'stop' in command:
-            return('stop')
+           cmd='stop'
         if 'pause' in command:
-            return('pause')
+           cmd='pause'
         if '{' in command:
-            return(command)
+            cmd='loading'
+            data = command
+        return(cmd, data)
 
         
 
