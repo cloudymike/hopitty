@@ -30,6 +30,8 @@ class socketcomm():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s = s
         self.conn = None
+        
+        self.status = ''
     
     def getsocket(self):
         return(self.s)
@@ -68,11 +70,14 @@ class socketcomm():
 
         
         return(data)
+    
+    def set_status(self, status):
+        self.status = status
         
-    def get_command(self, status):
+    def get_command(self):
         cmd = ''
         data = ''
-        command = self.read(status)
+        command = self.read(self.status)
         if 'terminate' in command:
             cmd='terminate'
         if 'run' in command:

@@ -31,23 +31,24 @@ class mockctrl():
                 cycles = int(stage['cycles'])
                 while self.count < cycles:
                     status = "state: {}, stage: {} count: {} data: {} ".format(self.state, stage_name, self.count, mkdata(3))
-                    command, data = self.sc.get_command(status)
+                    self.sc.set_status(status)
+                    command, data = self.sc.get_command()
                     print("Command {}".format(command))
-                    if 'terminate' in command:
+                    if command == 'terminate':
                         self.sc.close()
                         return()
-                    if 'run' in command:
+                    if command == 'run':
                         self.increment = 1
                         self.state = 'run'
-                    if 'stop' in command:
+                    if command == 'stop':
                         self.increment = 0
                         self.state = 'stop'
                         self.stages = self.hold_forever
                         break
-                    if 'pause' in command:
+                    if command == 'pause':
                         self.state = 'pause'
                         self.increment = 0
-                    if 'loading' in command:
+                    if command == 'loading':
                         status_string = str(data).replace("'","")
                         self.stages = json.loads(status_string)
                         self.increment = 0
