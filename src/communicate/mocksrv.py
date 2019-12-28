@@ -33,7 +33,6 @@ class mockctrl():
                     status = "state: {}, stage: {} count: {} data: {} ".format(self.state, stage_name, self.count, mkdata(3))
                     self.sc.set_status(status)
                     command, data = self.sc.get_command()
-                    print("Command {}".format(command))
                     if command == 'terminate':
                         self.sc.close()
                         return()

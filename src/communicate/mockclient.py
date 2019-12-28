@@ -4,9 +4,9 @@ import json
 
 stages={}
 stages['s1'] = {}
-stages['s1']['cycles'] = 2
+stages['s1']['cycles'] = 3
 stages['s2'] = {}
-stages['s2']['cycles'] = 3
+stages['s2']['cycles'] = 4
 
 
 
@@ -50,7 +50,7 @@ if __name__ == "__main__":
     print('Received {}'.format(data))
     assert 's2' in data
 
-    time.sleep(3)
+    time.sleep(4)
     data = netsock.write('status')
     print('Received {}'.format(data))
     assert 'holdforever' in data
