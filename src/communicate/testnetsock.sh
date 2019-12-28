@@ -1,6 +1,6 @@
 #!/bin/bash
 
-timeout 20 python ./mocksrv.py &
+timeout 60 python ./mocksrv.py &
 sleep 1
 python ./mockclient.py
 

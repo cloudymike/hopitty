@@ -21,7 +21,7 @@ def write(command):
 
 class socketcomm():
     def __init__(self):
-        self.BUFFER_SIZE = 32  # Normally 1024, but we want fast response
+        self.BUFFER_SIZE = 32*1024  # Normally 1024, but we want fast response
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((TCP_IP, TCP_PORT))
         # Create a few sockets in case they are not quickly released
@@ -66,9 +66,23 @@ class socketcomm():
             except:
                 pass
 
-    
-        print(data)
+        
         return(data)
+        
+    def get_command(self, status):
+        command = self.read(status)
+        if 'terminate' in command:
+            return('terminate')
+        if 'run' in command:
+            return('run')
+        if 'stop' in command:
+            return('stop')
+        if 'pause' in command:
+            return('pause')
+        if '{' in command:
+            return(command)
+
+        
 
 
 if __name__ == "__main__":
