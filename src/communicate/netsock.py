@@ -6,8 +6,8 @@ import time
 TCP_IP = '127.0.0.1'
 TCP_PORT = 10062
 
-def writeSocket(command):
-    buffersize=1024
+def write(command):
+    buffersize=4096
     s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     s.connect((TCP_IP, TCP_PORT))
     s.sendall(command)
@@ -21,7 +21,7 @@ def writeSocket(command):
 
 class socketcomm():
     def __init__(self):
-        self.BUFFER_SIZE = 32  # Normally 1024, but we want fast response
+        self.BUFFER_SIZE = 32*1024  # Normally 1024, but we want fast response
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.bind((TCP_IP, TCP_PORT))
         # Create a few sockets in case they are not quickly released
@@ -30,6 +30,8 @@ class socketcomm():
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.s = s
         self.conn = None
+        
+        self.status = ''
     
     def getsocket(self):
         return(self.s)
@@ -66,9 +68,30 @@ class socketcomm():
             except:
                 pass
 
-    
-        print(data)
+        
         return(data)
+    
+    def set_status(self, status):
+        self.status = status
+        
+    def get_command(self):
+        cmd = ''
+        data = ''
+        command = self.read(self.status)
+        if 'terminate' in command:
+            cmd='terminate'
+        if 'run' in command:
+            cmd='run'
+        if 'stop' in command:
+           cmd='stop'
+        if 'pause' in command:
+           cmd='pause'
+        if '{' in command:
+            cmd='loading'
+            data = command
+        return(cmd, data)
+
+        
 
 
 if __name__ == "__main__":
@@ -77,7 +100,7 @@ if __name__ == "__main__":
  
     while 1:
     
-        data = sc.readSocket('All OK')
+        data = sc.read('All OK')
         # This would be the program
         print("Doing stuff with {}".format(data))
         time.sleep(1)
