@@ -3,6 +3,7 @@ from flask import Flask, render_template, flash, redirect, url_for
 from forms import CmdForm, LoadForm
 import sys
 import json
+import time
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -16,8 +17,18 @@ def index():
 @app.route('/cmd', methods=['GET', 'POST'])
 def cmd():
 
-    form = CmdForm()
-    
+    try:
+        current_status = netsock.write('status')
+        status_string = str(current_status).replace("'","")
+        statusdict = json.loads(status_string)
+        current_state = statusdict['state']
+    except:
+        print('Can not communicate with controller')
+        current_status = 'Controller failing'
+        current_state = "stop"
+        
+    form = CmdForm(command=current_state)
+
     if form.validate_on_submit():
         print('Got command {}'.format(form.command.data))
         if form.command.data in ['terminate','pause','run', 'stop', 'skip']:
@@ -25,9 +36,9 @@ def cmd():
                 data = netsock.write(form.command.data)
             except:
                 print('Can not communicate with controller')
-        print('back to index, just kiddin')
-        return redirect(url_for('index'))
+        #return redirect(url_for('index'))
     print('rerendering')
+    #time.sleep(4)
     return render_template('cmd.html', title='Command', form=form)
 
 @app.route('/status')    

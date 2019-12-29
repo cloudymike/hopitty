@@ -18,7 +18,7 @@ class mockctrl():
         
         self.hold_forever = {}
         self.hold_forever['holdforever'] = {}
-        self.hold_forever['holdforever']['cycles'] = 5000
+        self.hold_forever['holdforever']['cycles'] = 500000
         self.stages = self.hold_forever
 
     
@@ -30,7 +30,21 @@ class mockctrl():
                 self.count = 0
                 cycles = int(stage['cycles'])
                 while self.count < cycles:
-                    status = "state: {}, stage: {} count: {} data: {} ".format(self.state, stage_name, self.count, mkdata(3))
+                    statusdict = {}
+                    statusdict['state'] = self.state
+                    statusdict['stage'] = stage_name
+                    
+                    cyclestatus = {}
+                    cyclestatus['actual'] = self.count
+                    cyclestatus['target'] = cycles
+                    cyclestatus['targetMet'] = self.count >= cycles
+                    cyclestatus['powerOn'] = self.increment > 0
+                    cyclestatus['unit'] = 'U'
+                    ctrlstatus = {}
+                    ctrlstatus['cycles'] = cyclestatus
+                    statusdict['status'] = ctrlstatus
+
+                    status = json.dumps(statusdict)
                     print(status)
                     self.sc.set_status(status)
                     command, data = self.sc.get_command()
