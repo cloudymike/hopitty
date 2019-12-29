@@ -39,7 +39,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
     else:
         usbPumps = switches.simSwitchList()
 
-    tempSensors = sensors.tempSensorDict(simulation)
+    tempSensors = sensors.tempSensorDict()
 
     print("Setting up appliances")
 

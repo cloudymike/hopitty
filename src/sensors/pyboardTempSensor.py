@@ -6,8 +6,7 @@ class tempSensorDict():
     """
     Create ONE object that talks to USB to minimize chatter.
     """
-    def __init__(self, simulate=False):
-        self.simulate = simulate
+    def __init__(self):
         self.device = self.connect()
         self.sensorDict = {}
 
@@ -25,21 +24,21 @@ class tempSensorDict():
         Connect this object to the sensor object
         Allows this object to control access to HW
         """
-        self.sensorDict[ROM] = pyboardTempSensor(ROM, self.device, self.simulate)
+        self.sensorDict[ROM] = pyboardTempSensor(ROM, self.device)
 
         return(self.sensorDict[ROM])
 
 
 class pyboardTempSensor(sensors.genericSensor):
 
-    def __init__(self, ROM="", device=None, simulate=False):
+    def __init__(self, ROM="", device=None):
         self.errorState = False
         self.id = 'temp-' + ROM
         self.val = 70
         self.devs = None
         self.ROM = ROM
         self.device = device
-        self.simulation = (self.device is None) or simulate
+        self.simulation = (self.device is None)
         self.incVal = 1.3
 
     def getID(self):
@@ -56,6 +55,7 @@ class pyboardTempSensor(sensors.genericSensor):
             self.val = 32
 
     def setIncremental(self, incval):
+        print "setINcremental"
         if self.simulation:
             self.val = self.val + incval
             if self.val > 212:

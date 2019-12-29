@@ -112,7 +112,7 @@ class controllerList(dict):
         self.HWlock.release()
         return(usbOK)
 
-    def check(self, settings={}):
+    def check(self, settings):
         """
         Check all controllers
         Take a measure, check settings and update controllers
