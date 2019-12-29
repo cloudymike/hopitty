@@ -31,6 +31,7 @@ class mockctrl():
                 cycles = int(stage['cycles'])
                 while self.count < cycles:
                     status = "state: {}, stage: {} count: {} data: {} ".format(self.state, stage_name, self.count, mkdata(3))
+                    print(status)
                     self.sc.set_status(status)
                     command, data = self.sc.get_command()
                     if command == 'terminate':
@@ -49,7 +50,9 @@ class mockctrl():
                         self.increment = 0
                     if command == 'loading':
                         status_string = str(data).replace("'","")
+                        print(status_string)
                         self.stages = json.loads(status_string)
+                        
                         self.increment = 0
                         self.state = 'stop'
                         break
