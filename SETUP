@@ -152,6 +152,8 @@ sudo apt-get -y install libpng-dev
 
 sudo 'echo "backend : Agg" > /etc/matplotlibrc'
 
+sudo apt-get -y install mosquitto
+
 # Finally run all tests to see that install is OK
 # This should be the end of the install file
 ######################################
