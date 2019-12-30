@@ -3,6 +3,7 @@ import time
 from random import choice
 from string import ascii_uppercase
 import json
+import argparse
 
 
 def mkdata(length):
@@ -10,11 +11,11 @@ def mkdata(length):
     return(''.join(choice(ascii_uppercase) for i in range(growbig))) 
 
 class mockctrl():
-    def __init__(self):
+    def __init__(self, comm2use):
         self.count = 0
         self.state = 'stop'
         self.increment = 0
-        self.sc = netsock.socketcomm()
+        self.sc = comm2use
         
         self.hold_forever = {}
         self.hold_forever['holdforever'] = {}
@@ -87,6 +88,16 @@ class mockctrl():
 
 if __name__ == "__main__":
     
-    mc = mockctrl()
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-n", "--netsock", action='store_true', help='Use netsock communication')
+    group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
+    args = parser.parse_args()
+    
+    if args.netsock:
+        comm2use = netsock.socketcomm()
+    mc = mockctrl(comm2use)
+
+    
     mc.start()
     print('Program ending')

@@ -6,17 +6,21 @@ import time
 TCP_IP = '127.0.0.1'
 TCP_PORT = 10062
 
-def write(command):
-    buffersize=4096
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.connect((TCP_IP, TCP_PORT))
-    s.sendall(command)
-    data = s.recv(buffersize)
-    if len(data) == buffersize:
-        print("ERROR: buffer overflow")
-    s.close()
-    return(repr(data))
+class socketclient():
+    
+    def __init__(self):
+        self.buffersize = 4096
 
+    def write(self, command):
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect((TCP_IP, TCP_PORT))
+        s.sendall(command)
+        data = s.recv(self.buffersize)
+        if len(data) == self.buffersize:
+            print("ERROR: buffer overflow")
+        s.close()
+        return(repr(data))
+    
 
 
 class socketcomm():
