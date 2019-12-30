@@ -1,0 +1,13 @@
+#!/bin/bash 
+FAIL=0
+pushd src/communicate
+for test in test*.sh
+do
+   echo $test
+   ./$test  > /tmp/$test.log
+  if [ "$?" != "0" ]; then
+    cat /tmp/$test.log
+    FAIL=1
+  fi
+done
+exit $FAIL
