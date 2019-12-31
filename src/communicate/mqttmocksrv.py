@@ -5,36 +5,33 @@ from string import ascii_uppercase
 import json
 import argparse
 import paho.mqtt.client as mqtt
-
+import sys
 
 def mkdata(length):
     growbig = 10 * length
     return(''.join(choice(ascii_uppercase) for i in range(growbig))) 
 
 class mockctrl():
-    def __init__(self, comm2use=None):
+    def __init__(self):
         self.count = 0
         self.state = 'stop'
         self.increment = 0
-        self.sc = comm2use
-        self.using_mqtt = comm2use is None
 
         self.hold_forever = {}
         self.hold_forever['holdforever'] = {}
         self.hold_forever['holdforever']['cycles'] = 500000
         self.stages = self.hold_forever
         
-        if self.using_mqtt:
-            # TODO parameterize the topic and host
-            # TODO Break this out and pass do_command as a parameter.
-            self.maintopic = 'topic'
-            self.client = mqtt.Client("hwctrl")
-            self.client.connect("localhost",1883,60)
-        
-            self.client.on_connect = self.on_connect
-            self.client.on_message = self.on_message
-        
-            self.client.loop_start()
+        # TODO parameterize the topic and host
+        # TODO Break this out and pass do_command as a parameter.
+        self.maintopic = 'topic'
+        self.client = mqtt.Client("hwctrl")
+        self.client.connect("localhost",1883,60)
+    
+        self.client.on_connect = self.on_connect
+        self.client.on_message = self.on_message
+    
+        self.client.loop_start()
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
@@ -43,7 +40,8 @@ class mockctrl():
     def on_message(self, client, userdata, msg):
         self.do_command( msg.payload.decode())
         
-        
+    def stop(self):
+        self.client.loop_stop()
  
     def do_command(self, command):
         '''
@@ -102,14 +100,7 @@ class mockctrl():
                     print(status)
                     self.set_status(status)
                     
-                    if not self.using_mqtt:
-                        command, data = self.sc.get_command()
-                        if command == 'loading':
-                            self.do_command(data)
-                        else:
-                            self.do_command(command)
-                    
-                    
+
                     # If state is terminate, return and finish the program
                     # Do any cleanup required
                     if self.state == 'terminate':
@@ -142,13 +133,11 @@ if __name__ == "__main__":
     args = parser.parse_args()
     
     if args.netsock:
-        comm2use = netsock.socketcomm()
-    
+        print("Not usable for netsock")
+        sys.exit(1)
+
     mc = mockctrl()
     mc.start()
     
-    #if args.mqtt:
-    #    self.client.loop_stop()
-
-    
+    mc.stop()
     print('Program ending')
