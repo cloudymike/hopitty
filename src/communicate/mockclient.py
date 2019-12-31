@@ -6,7 +6,7 @@ import argparse
 
 stages={}
 stages['s1'] = {}
-stages['s1']['cycles'] = 3
+stages['s1']['cycles'] = 4
 stages['s2'] = {}
 stages['s2']['cycles'] = 4
 
@@ -32,12 +32,14 @@ if __name__ == "__main__":
     data = client.read_status()
     print('Received {}'.format(data))
     assert 'stop' in data
+
     data = client.write_command('run')
     print('Received {}'.format(data))
     time.sleep(3)
     data = client.read_status()
     print('Received {}'.format(data))
     assert 'run' in data
+    
     time.sleep(3)
     data = client.write_command('pause')
     print('Received {}'.format(data))
@@ -45,6 +47,7 @@ if __name__ == "__main__":
     data = client.read_status()
     print('Received {}'.format(data))
     assert 'pause' in data
+    
     time.sleep(3)
     data = client.read_status()
     print('Received {}'.format(data))
