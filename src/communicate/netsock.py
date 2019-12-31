@@ -21,6 +21,8 @@ class socketclient():
         s.close()
         return(repr(data))
     
+    def write_command(self, command):
+        self.write(command)
 
 
 class socketcomm():

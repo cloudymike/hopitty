@@ -24,49 +24,49 @@ if __name__ == "__main__":
         client = netsock.socketclient()
     
     
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 'stop' in data
-    data = client.write('run')
+    data = client.write_command('run')
     print('Received {}'.format(data))
     time.sleep(3)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 'run' in data
     time.sleep(1)
-    data = client.write('pause')
+    data = client.write_command('pause')
     print('Received {}'.format(data))
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 'pause' in data
     time.sleep(1)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
-    data = client.write('run')
+    data = client.write_command('run')
     print('Received {}'.format(data))
     time.sleep(3)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 'run' in data
-    data = client.write(json.dumps(stages))
+    data = client.write_command(json.dumps(stages))
     time.sleep(1)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 'stop' in data
-    data = client.write('run')
+    data = client.write_command('run')
     time.sleep(1)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 's1' in data
     time.sleep(3)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 's2' in data
 
     time.sleep(4)
-    data = client.write('status')
+    data = client.write_command('status')
     print('Received {}'.format(data))
     assert 'holdforever' in data
 
-    data = client.write('terminate')
+    data = client.write_command('terminate')
     print("Program should be terminated")
