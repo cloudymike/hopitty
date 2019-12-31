@@ -7,7 +7,6 @@
 # required are working.
 
 #Check that the C-code executables are compiled
-if [ ! -x ./mytemp/mytemp ]; then echo "mytemp missing"; exit 1; fi
 if [ ! -x ./boilerValve/boilerValve ]; then echo "boilerValve missing"; exit 1; fi
 if [ ! -x ./coolerUSB/coolerUSB ]; then echo "coolerUSB missing"; exit 1; fi
 if [ ! -x ./mashStirUSB/mashStirUSB ]; then echo "mashStirUSB missing"; exit 1; fi
@@ -21,10 +20,6 @@ fi
 
 UscCmd/UscCmd --list
 if [ "$?" != "0" ]; then echo "Error: UscCmd not working"; exit 1; fi
-
-mytemp/mytemp
-if [ "$?" != "0" ]; then echo "Error: GoIO not working"; exit 1; fi
-
 
 
 echo "All hardware specific code is working"
