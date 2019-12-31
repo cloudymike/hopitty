@@ -45,7 +45,7 @@ def cmd():
 @app.route('/status')    
 def status():
     try:
-        current_status = comm_client.write('status')
+        current_status = comm_client.read_status()
     except:
         print('Can not communicate with controller')
         current_status = 'Controller failing'

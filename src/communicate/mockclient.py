@@ -1,4 +1,5 @@
 import netsock
+import mqttsock
 import time
 import json
 import argparse
@@ -22,51 +23,58 @@ if __name__ == "__main__":
     
     if args.netsock:
         client = netsock.socketclient()
+    if args.mqtt:
+        client = mqttsock.socketclient()
+        # Wait for a message to appear
+        time.sleep(2)
     
     
-    data = client.write_command('status')
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 'stop' in data
     data = client.write_command('run')
     print('Received {}'.format(data))
     time.sleep(3)
-    data = client.write_command('status')
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 'run' in data
-    time.sleep(1)
+    time.sleep(3)
     data = client.write_command('pause')
     print('Received {}'.format(data))
-    data = client.write_command('status')
+    time.sleep(3)
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 'pause' in data
-    time.sleep(1)
-    data = client.write_command('status')
+    time.sleep(3)
+    data = client.read_status()
     print('Received {}'.format(data))
     data = client.write_command('run')
     print('Received {}'.format(data))
     time.sleep(3)
-    data = client.write_command('status')
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 'run' in data
     data = client.write_command(json.dumps(stages))
-    time.sleep(1)
-    data = client.write_command('status')
+    time.sleep(3)
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 'stop' in data
     data = client.write_command('run')
-    time.sleep(1)
-    data = client.write_command('status')
+    time.sleep(3)
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 's1' in data
     time.sleep(3)
-    data = client.write_command('status')
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 's2' in data
 
     time.sleep(4)
-    data = client.write_command('status')
+    data = client.read_status()
     print('Received {}'.format(data))
     assert 'holdforever' in data
 
     data = client.write_command('terminate')
+    
+    client.stop()
     print("Program should be terminated")

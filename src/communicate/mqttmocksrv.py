@@ -4,6 +4,7 @@ from random import choice
 from string import ascii_uppercase
 import json
 import argparse
+import paho.mqtt.client as mqtt
 
 
 def mkdata(length):
@@ -11,16 +12,38 @@ def mkdata(length):
     return(''.join(choice(ascii_uppercase) for i in range(growbig))) 
 
 class mockctrl():
-    def __init__(self, comm2use):
+    def __init__(self, comm2use=None):
         self.count = 0
         self.state = 'stop'
         self.increment = 0
         self.sc = comm2use
+        self.command = ""
         
         self.hold_forever = {}
         self.hold_forever['holdforever'] = {}
         self.hold_forever['holdforever']['cycles'] = 500000
         self.stages = self.hold_forever
+        
+        self.maintopic = 'topic'
+        self.client = mqtt.Client("hwctrl")
+        self.client.connect("localhost",1883,60)
+
+        self.client.on_connect = self.on_connect
+        self.client.on_message = self.on_message
+
+        self.client.loop_start()
+
+    def on_connect(self, client, userdata, flags, rc):
+        print("Connected with result code "+str(rc))
+        client.subscribe("topic/test")
+
+    def on_message(self, client, userdata, msg):
+        self.command = msg.payload.decode()
+
+    def set_status(self, message):
+        topic = self.maintopic+"/status"
+        self.client.publish(topic, message)
+        return()
 
     
     def start(self):
@@ -47,24 +70,30 @@ class mockctrl():
 
                     status = json.dumps(statusdict)
                     print(status)
-                    if args.netsock:
-                        self.sc.set_status(status)
-                        command, data = self.sc.get_command()
-                    if command == 'terminate':
-                        self.sc.close()
+                    
+                    self.set_status(status)
+                    #command, data = self.sc.get_command()
+                    if self.command == 'terminate':
+                        self.command = ""
+                        self.client.loop_stop()
                         return()
-                    if command == 'run':
+                    if self.command == 'run':
+                        self.command = ""
                         self.increment = 1
                         self.state = 'run'
-                    if command == 'stop':
+                    if self.command == 'stop':
+                        self.command = ""
                         self.increment = 0
                         self.state = 'stop'
                         self.stages = self.hold_forever
                         break
-                    if command == 'pause':
+                    if self.command == 'pause':
+                        self.command = ""
                         self.state = 'pause'
                         self.increment = 0
-                    if command == 'loading':
+                    if len(self.command) > 0 and self.command[0] == '{':
+                        data = self.command
+                        self.command = ""
                         status_string = str(data).replace("'","")
                         print(status_string)
                         self.stages = json.loads(status_string)
@@ -97,9 +126,7 @@ if __name__ == "__main__":
     
     if args.netsock:
         comm2use = netsock.socketcomm()
-    if args.mqtt:
-        pass
-    mc = mockctrl(comm2use)
+    mc = mockctrl()
 
     
     mc.start()

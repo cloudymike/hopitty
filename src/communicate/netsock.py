@@ -22,7 +22,15 @@ class socketclient():
         return(repr(data))
     
     def write_command(self, command):
-        self.write(command)
+        data = self.write(command)
+        return('ok')
+        
+    def read_status(self):
+        data = self.write('status')
+        return(data)
+
+    def stop(self):
+      pass
 
 
 class socketcomm():
