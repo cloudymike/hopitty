@@ -17,28 +17,59 @@ class mockctrl():
         self.state = 'stop'
         self.increment = 0
         self.sc = comm2use
-        self.command = ""
-        
+        self.using_mqtt = comm2use is None
+
         self.hold_forever = {}
         self.hold_forever['holdforever'] = {}
         self.hold_forever['holdforever']['cycles'] = 500000
         self.stages = self.hold_forever
         
-        self.maintopic = 'topic'
-        self.client = mqtt.Client("hwctrl")
-        self.client.connect("localhost",1883,60)
-
-        self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
-
-        self.client.loop_start()
+        if self.using_mqtt:
+            # TODO parameterize the topic and host
+            # TODO Break this out and pass do_command as a parameter.
+            self.maintopic = 'topic'
+            self.client = mqtt.Client("hwctrl")
+            self.client.connect("localhost",1883,60)
+        
+            self.client.on_connect = self.on_connect
+            self.client.on_message = self.on_message
+        
+            self.client.loop_start()
 
     def on_connect(self, client, userdata, flags, rc):
         print("Connected with result code "+str(rc))
         client.subscribe("topic/test")
 
     def on_message(self, client, userdata, msg):
-        self.command = msg.payload.decode()
+        self.do_command( msg.payload.decode())
+        
+        
+ 
+    def do_command(self, command):
+        '''
+        This is the command handler, that acts on any message coming in
+        '''
+        if command == 'run':
+            self.increment = 1
+            self.state = 'run'
+        if command == 'pause':
+            self.state = 'pause'
+            self.increment = 0
+        if command == 'terminate':
+            self.state = 'terminate'
+        if command == 'skip':
+            self.state = 'skip'
+        if command == 'stop':
+            self.increment = 0
+            self.state = 'stop'
+            self.stages = self.hold_forever
+        if len(command) > 0 and command[0] == '{':
+            data = command
+            status_string = str(data).replace("'","")
+            print(status_string)
+            self.stages = json.loads(status_string)
+            self.increment = 0
+            self.state = 'stop'
 
     def set_status(self, message):
         topic = self.maintopic+"/status"
@@ -67,46 +98,32 @@ class mockctrl():
                     ctrlstatus = {}
                     ctrlstatus['cycles'] = cyclestatus
                     statusdict['status'] = ctrlstatus
-
                     status = json.dumps(statusdict)
                     print(status)
-                    
                     self.set_status(status)
-                    #command, data = self.sc.get_command()
-                    if self.command == 'terminate':
-                        self.command = ""
-                        self.client.loop_stop()
+                    
+                    if not self.using_mqtt:
+                        command, data = self.sc.get_command()
+                        if command == 'loading':
+                            self.do_command(data)
+                        else:
+                            self.do_command(command)
+                    
+                    
+                    # If state is terminate, return and finish the program
+                    # Do any cleanup required
+                    if self.state == 'terminate':
                         return()
-                    if self.command == 'run':
-                        self.command = ""
-                        self.increment = 1
-                        self.state = 'run'
-                    if self.command == 'stop':
-                        self.command = ""
-                        self.increment = 0
-                        self.state = 'stop'
-                        self.stages = self.hold_forever
-                        break
-                    if self.command == 'pause':
-                        self.command = ""
-                        self.state = 'pause'
-                        self.increment = 0
-                    if len(self.command) > 0 and self.command[0] == '{':
-                        data = self.command
-                        self.command = ""
-                        status_string = str(data).replace("'","")
-                        print(status_string)
-                        self.stages = json.loads(status_string)
                         
-                        self.increment = 0
-                        self.state = 'stop'
-                        break
-        
-                    # This would be the actual activity
-                    if self.state != 'stop':
-                        self.count = self.count + self.increment
-        
+                    # Artificial slowdown, what hw can handle
                     time.sleep(1)
+
+                    if self.state in ['stop','skip']:
+                        break
+                    
+                    # This would be the actual activity
+                    self.count = self.count + self.increment
+        
                     
                 if self.state in ['stop']:
                     break
@@ -126,8 +143,12 @@ if __name__ == "__main__":
     
     if args.netsock:
         comm2use = netsock.socketcomm()
+    
     mc = mockctrl()
+    mc.start()
+    
+    #if args.mqtt:
+    #    self.client.loop_stop()
 
     
-    mc.start()
     print('Program ending')
