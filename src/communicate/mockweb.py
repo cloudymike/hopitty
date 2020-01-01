@@ -1,4 +1,5 @@
 import netsock
+import mqttsock
 from flask import Flask, render_template, flash, redirect, url_for
 from forms import CmdForm, LoadForm
 import sys
@@ -19,7 +20,7 @@ def index():
 def cmd():
 
     try:
-        current_status = comm_client.write('status')
+        current_status = comm_client.read_status()
         status_string = str(current_status).replace("'","")
         statusdict = json.loads(status_string)
         current_state = statusdict['state']
@@ -34,7 +35,7 @@ def cmd():
         print('Got command {}'.format(form.command.data))
         if form.command.data in ['terminate','pause','run', 'stop', 'skip']:
             try:
-                data = comm_client.write(form.command.data)
+                data = comm_client.write_command(form.command.data)
             except:
                 print('Can not communicate with controller')
         #return redirect(url_for('index'))
@@ -86,5 +87,10 @@ if __name__ == "__main__":
     
     if args.netsock:
         comm_client = netsock.socketclient()
+    if args.mqtt:
+        comm_client = mqttsock.socketclient()
+        # Wait for a message to appear
+        time.sleep(2)
+
 
     app.run(host='0.0.0.0', port=8080)
