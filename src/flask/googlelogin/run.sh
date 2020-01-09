@@ -1,7 +1,7 @@
 #export FN_AUTH_REDIRECT_URI=http://localhost:8080/google/auth
 #export FN_BASE_URI=http://localhost:8080
-export FN_AUTH_REDIRECT_URI=https://1702d0b1a62a4979a30d1462439e8b06.vfs.cloud9.us-east-1.amazonaws.com/google/auth
-export FN_BASE_URI=https://1702d0b1a62a4979a30d1462439e8b06.vfs.cloud9.us-east-1.amazonaws.com
+export FN_AUTH_REDIRECT_URI=https://${C9_PID}.vfs.cloud9.us-east-1.amazonaws.com/google/auth
+export FN_BASE_URI=https://${C9_PID}.vfs.cloud9.us-east-1.amazonaws.com
 
 
 #export FN_CLIENT_ID=
