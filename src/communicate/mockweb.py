@@ -1,9 +1,11 @@
 import netsock
+import mqttsock
 from flask import Flask, render_template, flash, redirect, url_for
 from forms import CmdForm, LoadForm
 import sys
 import json
 import time
+import argparse
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -18,7 +20,7 @@ def index():
 def cmd():
 
     try:
-        current_status = netsock.write('status')
+        current_status = comm_client.read_status()
         status_string = str(current_status).replace("'","")
         statusdict = json.loads(status_string)
         current_state = statusdict['state']
@@ -33,7 +35,7 @@ def cmd():
         print('Got command {}'.format(form.command.data))
         if form.command.data in ['terminate','pause','run', 'stop', 'skip']:
             try:
-                data = netsock.write(form.command.data)
+                data = comm_client.write_command(form.command.data)
             except:
                 print('Can not communicate with controller')
         #return redirect(url_for('index'))
@@ -44,7 +46,7 @@ def cmd():
 @app.route('/status')    
 def status():
     try:
-        current_status = netsock.write('status')
+        current_status = comm_client.read_status()
     except:
         print('Can not communicate with controller')
         current_status = 'Controller failing'
@@ -58,7 +60,7 @@ def load():
     
     if form.validate_on_submit():
         try:
-            data = netsock.write(form.load.data)
+            data = comm_client.write(form.load.data)
         except:
             print('Can not communicate with controller')
         print("Stages: {}".format(form.load.data))
@@ -77,4 +79,18 @@ def load():
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("-n", "--netsock", action='store_true', help='Use netsock communication')
+    group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
+    args = parser.parse_args()
+    
+    if args.netsock:
+        comm_client = netsock.socketclient()
+    if args.mqtt:
+        comm_client = mqttsock.socketclient()
+        # Wait for a message to appear
+        time.sleep(2)
+
+
     app.run(host='0.0.0.0', port=8080)
