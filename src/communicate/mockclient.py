@@ -19,12 +19,17 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-n", "--netsock", action='store_true', help='Use netsock communication')
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
+    group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
     args = parser.parse_args()
     
     if args.netsock:
         client = netsock.socketclient()
     if args.mqtt:
-        client = mqttsock.socketclient()
+        client = mqttsock.socketclient(connection='localhost')
+        # Wait for a message to appear
+        time.sleep(2)
+    if args.aws:
+        client = mqttsock.socketclient(connection='aws')
         # Wait for a message to appear
         time.sleep(2)
     
