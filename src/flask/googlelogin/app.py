@@ -19,7 +19,13 @@ app.register_blueprint(google_auth.app)
 def index():
     if google_auth.is_logged_in():
         user_info = google_auth.get_user_info()
-        return '<div>You are currently logged in as ' + user_info['given_name'] + '<div><pre>' + json.dumps(user_info, indent=4) + "</pre>"
+        return '<div>You are currently logged in as ' + user_info['given_name'] + '<div><pre>' + json.dumps(user_info, indent=4) + "</pre>" +'<a href="google/logout">Log Out</a>'
 
-    return 'You are not currently logged in.'
-
+    return '''<html>
+            <header><title>This is title</title></header>
+            <body>
+            <b>You are not currently logged in.</b>
+            <a href="google/login">Login</a>
+            </body>
+            </html>
+            '''

@@ -1,3 +1,4 @@
+
 import functools
 import os
 
@@ -20,10 +21,12 @@ CLIENT_SECRET = os.environ.get("FN_CLIENT_SECRET", None)
 AUTH_TOKEN_KEY = 'auth_token'
 AUTH_STATE_KEY = 'auth_state'
 
+DEVELOPER_MODE = CLIENT_SECRET is None
+
 app = flask.Blueprint('google_auth', __name__)
 
 def is_logged_in():
-    return True if AUTH_TOKEN_KEY in flask.session else False
+    return True if AUTH_TOKEN_KEY in flask.session or DEVELOPER_MODE else False
 
 def build_credentials():
     if not is_logged_in():
@@ -39,6 +42,10 @@ def build_credentials():
                 token_uri=ACCESS_TOKEN_URI)
 
 def get_user_info():
+    if DEVELOPER_MODE:
+        user={}
+        user['given_name']="MrNobody"
+        return(user)
     credentials = build_credentials()
 
     oauth2_client = googleapiclient.discovery.build(
@@ -106,4 +113,3 @@ def logout():
     flask.session.pop(AUTH_STATE_KEY, None)
 
     return flask.redirect(BASE_URI, code=302)
-
