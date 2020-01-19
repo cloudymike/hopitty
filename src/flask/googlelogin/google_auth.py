@@ -68,16 +68,19 @@ def no_cache(view):
 @app.route('/google/login')
 @no_cache
 def login():
-    session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
-                            scope=AUTHORIZATION_SCOPE,
-                            redirect_uri=AUTH_REDIRECT_URI)
-  
-    uri, state = session.authorization_url(AUTHORIZATION_URL)
+    if not DEVELOPER_MODE:
+        session = OAuth2Session(CLIENT_ID, CLIENT_SECRET,
+                                scope=AUTHORIZATION_SCOPE,
+                                redirect_uri=AUTH_REDIRECT_URI)
 
-    flask.session[AUTH_STATE_KEY] = state
-    flask.session.permanent = True
+        uri, state = session.authorization_url(AUTHORIZATION_URL)
 
-    return flask.redirect(uri, code=302)
+        flask.session[AUTH_STATE_KEY] = state
+        flask.session.permanent = True
+
+        return flask.redirect(uri, code=302)
+    else:
+        return flask.redirect('/')
 
 @app.route('/google/auth')
 @no_cache
