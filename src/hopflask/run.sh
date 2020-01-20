@@ -7,7 +7,7 @@ export FN_BASE_URI=http://localhost:8080
 #export FN_CLIENT_ID=
 #export FN_CLIENT_SECRET=
 
-export FLASK_APP=app.py
+export FLASK_APP=hopflask.py
 export FLASK_DEBUG=1
 export FN_FLASK_SECRET_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 

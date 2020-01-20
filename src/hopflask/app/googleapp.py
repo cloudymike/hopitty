@@ -15,7 +15,7 @@ app.secret_key = os.environ.get("FN_FLASK_SECRET_KEY", None)
 
 app.register_blueprint(google_auth.app)
 
-@app.route('/')
+@app.route('/whoami')
 def index():
     if google_auth.is_logged_in():
         user_info = google_auth.get_user_info()
