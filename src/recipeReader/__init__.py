@@ -1,3 +1,3 @@
-from readRecipe import *
-from parseBSMX import *
-from mashProfiles import *
+from recipeReader.readRecipe import *
+from recipeReader.parseBSMX import *
+from recipeReader.mashProfiles import *

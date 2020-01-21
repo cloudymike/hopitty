@@ -1,1 +1,1 @@
-from recipeList import *
+from recipeModel.recipeList import *

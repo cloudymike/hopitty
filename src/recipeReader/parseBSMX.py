@@ -338,7 +338,7 @@ class bsmxStages():
                 hlist.append([dispenser, name, weight])
             if use == '1':
                 logging.info("Dryhop " + name + " " + str(dry) + " days")
-        print hlist
+        print(hlist)
         return(hlist)
 
     def getSteep(self):
@@ -361,10 +361,10 @@ class bsmxStages():
 
     def prettyPrintStages(self):
         for stage, step in sorted(self.stages.items()):
-            print stage
+            print(stage)
             for ctrl, val in step.items():
                 if val['active']:
-                    print "    ", ctrl, ":", val['targetValue']
+                    print("    ", ctrl, ":", val['targetValue'])
 
 ##############################################################################
 # Temperature adjustment methods
@@ -387,7 +387,7 @@ class bsmxStages():
             temp = self.ctrl['envTemp'].get()
         except:
             temp = 72
-            print "=================Environment temp not found=========================="
+            print("=================Environment temp not found==========================")
         return(temp)
         
     def compareStrikeTemp(self):
@@ -398,8 +398,8 @@ class bsmxStages():
         beersmithTstrike = float(self.getFieldStr("F_MS_INFUSION_TEMP"))
         bsmxGrainTemp = float(self.getFieldStr("F_MH_GRAIN_TEMP"))
         calcTstrike = self.calcStrikeTemp(bsmxGrainTemp)
-        print "==================================>beersmith strike T ", beersmithTstrike
-        print "==================================>calculated strike T ", calcTstrike
+        print("==================================>beersmith strike T ", beersmithTstrike)
+        print("==================================>calculated strike T ", calcTstrike)
 
     def calcStrikeTemp(self, testTemp=None):
         """

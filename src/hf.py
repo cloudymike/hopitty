@@ -1,13 +1,13 @@
-import netsock
-import mqttsock
+import hopfront
+from hopfront import mqttsock
 from flask import Flask, render_template, flash, redirect, url_for
-from forms import CmdForm, LoadForm
+from hopfront import CmdForm, LoadForm
 import sys
 import json
 import time
 import argparse
 
-import google_auth
+from hopfront import google_auth
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'

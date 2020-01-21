@@ -53,14 +53,14 @@ class RecipeList():
         self.session = Session()
         self.fixednamelist = []
 
-        print "=== RecipeList init DONE==="
+        print("=== RecipeList init DONE===")
 
     def readBMXdoc(self, doc):
         cloudRecipes = doc.getElementsByTagName("Cloud")
         for recipe in cloudRecipes:
             name = recipeReader.bsmxReadString(recipe, "F_R_NAME")
-            print "....reading ", name
-            print recipe
+            print("....reading {}".format(name))
+            print(recipe)
             xmlstring = recipe.toxml()
             if self.session.query(Recipe).filter_by(name=name).first() is None:
                 equipment = recipeReader.bsmxReadString(recipe, "F_E_NAME")
@@ -69,16 +69,16 @@ class RecipeList():
                            bsmx=xmlstring)
                 self.session.add(r)
                 self.session.commit()
-        print "==== Recipelist read ===="
+        print("==== Recipelist read ====")
         self.printNameList()
         self.fixednamelist = self.getNameList()
-        print "========================="
+        print("=========================")
 
     def printNameList(self):
         """ Writes a list of all the recipe names"""
 
         for instance in self.session.query(Recipe).order_by(Recipe.name):
-            print instance.name
+            print(instance.name)
 
     def getlist(self):
         return(self.getNameList())
