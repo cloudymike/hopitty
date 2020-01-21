@@ -8,10 +8,47 @@ import time
 import argparse
 
 import google_auth
+import route
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
 app.register_blueprint(google_auth.app)
+app.register_blueprint(route.app)
+
+#import recipeModel
+def readRecipeFile(recipefile=None, user='mikael'):
+    rl = recipeModel.RecipeList()
+
+    # Try to find a recipe file
+    if recipefile is not None:
+        bsmxfile = recipefile
+    elif user is not None:
+        bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
+    else:
+        print("ERROR: No data for BSMX file")
+        bsmxfile = None
+
+    print(bsmxfile)
+
+    if path.isfile(bsmxfile) and access(bsmxfile, R_OK):
+        print("BSMX File", bsmxfile, "exists and is readable")
+    else:
+        print("ERROR: BSMX file", bsmxfile,\
+              "is missing or is not readable")
+        bsmxfile = None
+
+    rl.readBeerSmith(bsmxfile)
+
+    print("================ Recipe List ===============")
+    rl.printNameList()
+    print("============================================")
+    return(rl)
+
+
+
+
+
 
 @app.route('/')
 @app.route('/index')
@@ -52,16 +89,16 @@ def cmd():
     #time.sleep(4)
     return render_template('cmd.html', title='Command', form=form)
 
-@app.route('/status')    
-def status():
+@app.route('/list')
+def list():
     if not google_auth.is_logged_in():
         return (redirect('/'))
     try:
-        current_status = comm_client.read_status()
+        recipelist = readRecipeFile()
     except:
-        print('Can not communicate with controller')
-        current_status = 'Controller failing'
-    return render_template('status.html', title='Status', current_status = current_status)
+        print('Can not find recipes')
+        current_status = 'No recipes'
+    return render_template('status.html', title='Recipes', current_status = recipelist)
 
 
 @app.route('/load', methods=['GET', 'POST'])
@@ -92,6 +129,7 @@ def load():
 
 
 if __name__ == "__main__":
+    global comm_client
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-n", "--netsock", action='store_true', help='Use netsock communication')
