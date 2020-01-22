@@ -13,7 +13,7 @@ def checkHardware(controllers):
     if controllers['hotWaterPump'].getPowerOn() and \
             controllers['wortPump'].getPowerOn():
         hardwareOK = False
-        print "HotWater pump and wort pump on at same time"
+        print("HotWater pump and wort pump on at same time")
 
 # 130916 removed mashCirculationPump
 #    if controllers['mashCirculationPump'].getPowerOn() and \
@@ -24,17 +24,17 @@ def checkHardware(controllers):
     if controllers['hotWaterPump'].getPowerOn() and \
             controllers['waterCirculationPump'].getPowerOn():
         hardwareOK = False
-        print "HotWater pump and Hot Water circulation pump on at same time"
+        print("HotWater pump and Hot Water circulation pump on at same time")
 
     return(hardwareOK)
 
 
 def checkRecipe(mycontrollers, recipe, verbose):
     if checkRecipeVsController(mycontrollers, recipe, verbose):
-        print "Recipe OK"
+        print("Recipe OK")
         if checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):
             return(True)
-    print "checkRecipe failed"
+    print("checkRecipe failed")
     return(False)
 
 
@@ -46,7 +46,7 @@ def checkRecipeVsController(mycontrollers, recipe, verbose):
     if recipe is not None:
         for r_key, settings in sorted(recipe.items()):
             if verbose:
-                print r_key
+                print(r_key)
             if not mycontrollers.check(settings):
                 return(False)
         return(True)
@@ -67,6 +67,6 @@ def checkBoilerAndWaterHeater(mycontrollers, recipe, verbose):
         except:
             boiler = False
         if waterHeater and boiler:
-            print "Error: water Heater and boiler on in stage", r_key
+            print("Error: water Heater and boiler on in stage", r_key)
             return(False)
     return(True)

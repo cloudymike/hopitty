@@ -1,6 +1,6 @@
 import xml.dom.minidom
 import ctrl
-import mashProfiles
+from recipeReader import mashProfiles
 import logging
 import sys
 
