@@ -13,4 +13,10 @@ SQLAlchemy>=1.0.11
 xvfbwrapper>=0.2.9
 flask>=1.1.1
 flask_wtf>=0.14.2
-paho-mqtt>=1.5.0
+paho-mqtt>=1.5.0authlib==0.11
+flask==1.0.2
+google-api-python-client
+google-auth
+paho-mqtt
+flask-wtf
+sqlalchemy
