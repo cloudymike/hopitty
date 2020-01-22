@@ -91,5 +91,5 @@ if __name__ == '__main__':  # pragma: no cover
     else:
         print("Simulation used")
     for x in range(0, 30):
-        print t.getValue()
+        print(t.getValue())
         time.sleep(1)

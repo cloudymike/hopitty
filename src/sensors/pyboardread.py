@@ -115,5 +115,5 @@ if __name__ == '__main__':  # pragma: no cover
     print(args.rom)
 
     pbr = pyboardread()
-    print json.dumps(pbr.get_dict(), sort_keys=True, indent=4)
-    print "Temperature is ", pbr.get_temperature('fahrenheit', args.rom)
+    print(json.dumps(pbr.get_dict(), sort_keys=True, indent=4))
+    print("Temperature is ", pbr.get_temperature('fahrenheit', args.rom))
