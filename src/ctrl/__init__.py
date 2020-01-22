@@ -1,4 +1,4 @@
-from controllers import *
+from ctrl.controllers import *
 from ctrl.setupControllers import *
-from checkers import *
-from datalog import *
+from ctrl.checkers import *
+from ctrl.datalog import *

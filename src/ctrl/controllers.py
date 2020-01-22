@@ -15,7 +15,7 @@ class controllerList(dict):
         self.mylog = {}
 
         if STRESSTEST:
-            print "WARNING: Running in stress test mode"
+            print("WARNING: Running in stress test mode")
             
     def setEquipment(self,equipment):
         """
@@ -102,13 +102,13 @@ class controllerList(dict):
             if not c.HWOK():
                 usbOK = False
         if not usbOK:
-            print "--------- Hardware status ---------"
+            print("--------- Hardware status ---------")
             for key, c in self.items():
                 if c.HWOK():
-                    print "    OK:  ", key
+                    print("    OK:  ", key)
                 else:
-                    print "    Fail:", key
-            print "-----------------------------------"
+                    print("    Fail:", key)
+            print("-----------------------------------")
         self.HWlock.release()
         return(usbOK)
 

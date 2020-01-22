@@ -46,11 +46,11 @@ class envTempSensor(sensors.genericSensor):
             mV = bitval / 1023 * 5000
             C = (mV - 500) / 10
             F = int(C * 1.8 + 32)
-#            print \
+#            print(\
 #            "Raw:", rawval, \
 #            "mV:{0:.0f}".format(mV), \
 #            "C:{0:.2f}".format(C), \
-#            "F:", F
+#            "F:", F)
         except:
             logging.error("Error converting MashTemp value")
             F = self.val
@@ -87,9 +87,9 @@ class envTempSensor(sensors.genericSensor):
 if __name__ == '__main__':  # pragma: no cover
     t = envTempSensor()
     if t.HWOK():
-        print "HW used"
+        print("HW used")
     else:
-        print "Simulation used"
+        print("Simulation used")
     for x in range(0, 30):
         print t.getValue()
         time.sleep(1)

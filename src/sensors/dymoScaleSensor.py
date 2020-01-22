@@ -43,17 +43,7 @@ class dymoScaleSensor(sensors.genericSensor):
                     # This have been seen failing.
                     # If so, enter simulation mode.
                     self.simulation = False
-    #            print "device found: " + devmanufacturer + " " + devname
-    #
-    #            interface = 0
-    #            if self.dev.is_kernel_driver_active(interface) is True:
-    #                print "but we need to detach kernel driver"
-    #                self.dev.detach_kernel_driver(interface)
-    #
-    #                # use the first/default configuration
-    #                self.dev.set_configuration()
-    #                print "claiming device"
-    #                usb.util.claim_interface(self.dev, interface)
+
 
     def getID(self):
         return(self.id)
@@ -78,7 +68,7 @@ class dymoScaleSensor(sensors.genericSensor):
                     usb.util.release_interface(dev, interface)
                     usb.util.claim_interface(dev, interface)
                 except:
-                    print "ERROR: Can not claim scale interface"
+                    print("ERROR: Can not claim scale interface")
 
         else:
             dev.set_configuration()
@@ -148,5 +138,5 @@ class dymoScaleSensor(sensors.genericSensor):
 if __name__ == '__main__':  # pragma: no cover
     d = dymoScaleSensor()
     while (1):
-        print d.getValue()
+        print(d.getValue())
         time.sleep(1)
