@@ -48,6 +48,6 @@ class myQuickLoader:
         This will list all instanticated classes in the myInstances dictionary
         and try one call to them, just for test
         """
-        print "============= Listing instantiated classes ============="
+        print("============= Listing instantiated classes =============")
         for className, anInstance in self.myInstances.iteritems():
-            print 'Instance of Class', className, 'has', anInstance.get()
+            print('Instance of Class', className, 'has', anInstance.get())

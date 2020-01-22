@@ -1,1 +1,1 @@
-from allEquipment import *
+from equipment.allEquipment import *

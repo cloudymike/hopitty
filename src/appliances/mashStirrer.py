@@ -71,7 +71,6 @@ class mashStirrer(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        #print 'Powering down'
 
     def status(self):
         if self.on:
@@ -83,6 +82,6 @@ class mashStirrer(appliances.genctrl):
 if __name__ == '__main__':  # pragma: no cover
     testmashStirrer = mashStirrer()
     testmashStirrer.on()
-    print testmashStirrer.get()
+    print(testmashStirrer.get())
     testmashStirrer.off()
-    print testmashStirrer.get()
+    print(testmashStirrer.get())

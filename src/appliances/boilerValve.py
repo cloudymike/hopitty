@@ -71,7 +71,6 @@ class boilerValve(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        #print 'Powering down'
 
     def status(self):
         if self.on:
@@ -83,6 +82,6 @@ class boilerValve(appliances.genctrl):
 if __name__ == '__main__':  # pragma: no cover
     testboilerValve = boilerValve()
     testboilerValve.on()
-    print testboilerValve.get()
+    print(testboilerValve.get())
     testboilerValve.off()
-    print testboilerValve.get()
+    print(testboilerValve.get())
