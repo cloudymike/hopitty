@@ -51,7 +51,7 @@ def test_m2Read():
     assert oneAction['targetValue'] == 1.0
     assert js.isValid()
 
-    print "ok"
+    print("ok")
 
 
 def test_m2ReadCtrlDict():
@@ -67,7 +67,7 @@ def test_m2ReadCtrlDict():
     assert oneAction['targetValue'] == 1.0
     assert js.isValid()
 
-    print "ok"
+    print("ok")
 
 
 def test_badRecipeRead():
@@ -83,17 +83,17 @@ def test_badRecipeRead():
     assert oneAction['targetValue'] == 1.0
     assert not js.isValid()
 
-    print "ok"
+    print("ok")
 
 
 def test_wortpumptest():
     cp = os.path.dirname(__file__)
-    print cp
+    print(cp)
     rp = cp + "/../../recipe/wort_pump_test"
-    print rp
+    print(rp)
     js = jsonStages(rp, ctrlDummyList())
-    print js.getRecipeName()
-    print js.getStages()
+    print(js.getRecipeName())
+    print(js.getStages())
     assert js.getRecipeName() == "wort_pump_test"
     stages = js.getStages()
     assert stages["01"] is not None
@@ -103,7 +103,7 @@ def test_wortpumptest():
     assert oneAction is not None
     assert oneAction['active']
     assert js.isValid()
-    print "ok"
+    print("ok")
 
 
 if __name__ == "__main__":
