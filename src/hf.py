@@ -9,6 +9,7 @@ import time
 import argparse
 
 from hopfront import google_auth
+from hopfront import route
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -50,15 +51,6 @@ def readRecipeFile(recipefile=None, user='mikael'):
 
 
 
-@app.route('/')
-@app.route('/index')
-def index():
-    if google_auth.is_logged_in():
-        user_info = google_auth.get_user_info()
-    else:
-        user_info = None
-
-    return render_template('index.html', title='Home', user=user_info)
 
 @app.route('/cmd', methods=['GET', 'POST'])
 def cmd():

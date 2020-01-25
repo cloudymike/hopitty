@@ -15,33 +15,8 @@ app.register_blueprint(google_auth.app)
 
 comm_client = None
 
-import recipeModel
 def readRecipeFile(recipefile=None, user='mikael'):
-    rl = recipeModel.RecipeList()
-
-    # Try to find a recipe file
-    if recipefile is not None:
-        bsmxfile = recipefile
-    elif user is not None:
-        bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
-    else:
-        print("ERROR: No data for BSMX file")
-        bsmxfile = None
-
-    print(bsmxfile)
-
-    if path.isfile(bsmxfile) and access(bsmxfile, R_OK):
-        print("BSMX File", bsmxfile, "exists and is readable")
-    else:
-        print("ERROR: BSMX file", bsmxfile,\
-              "is missing or is not readable")
-        bsmxfile = None
-
-    rl.readBeerSmith(bsmxfile)
-
-    print("================ Recipe List ===============")
-    rl.printNameList()
-    print("============================================")
+    rl = ['porter', 'kolsch', 'ipa']
     return(rl)
 
 
