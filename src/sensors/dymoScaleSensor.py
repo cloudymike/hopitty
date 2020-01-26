@@ -4,8 +4,6 @@ import sensors
 import time
 import usb.core
 import usb.util
-import pygtk
-pygtk.require('2.0')
 import subprocess
 
 # DYMO 100lb scale

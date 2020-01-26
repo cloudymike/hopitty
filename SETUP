@@ -38,9 +38,9 @@ sudo apt-get -y install libusb-1.0-0-dev
 
 # TK for graphics
 ######################################
-sudo apt-get -y install python-tk
-sudo apt-get -y install python-gtk2
-sudo apt-get -y install python-gtk2-dev
+#sudo apt-get -y install python-tk
+#sudo apt-get -y install python-gtk2
+#sudo apt-get -y install python-gtk2-dev
 
 # Documentation generation
 ######################################
@@ -140,7 +140,7 @@ python -c 'import usb.core; print usb.core.__name__'
 if [ "$?" != "0" ]; then exit 1; fi
 python -c 'import sphinx; print sphinx.__version__'
 if [ "$?" != "0" ]; then exit 1; fi
-python -c 'import pygtk; print pygtk.__name__'
-if [ "$?" != "0" ]; then exit 1; fi
+#python -c 'import pygtk; print pygtk.__name__'
+#if [ "$?" != "0" ]; then exit 1; fi
 
 
