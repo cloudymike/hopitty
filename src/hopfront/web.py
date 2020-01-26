@@ -25,6 +25,8 @@ def index():
 
 @app.route('/cmd', methods=['GET', 'POST'])
 def cmd():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
 
     try:
         current_status = comm_client.read_status()
@@ -35,7 +37,7 @@ def cmd():
         print('Can not communicate with controller')
         current_status = 'Controller failing'
         current_state = "stop"
-        
+
     form = CmdForm(command=current_state)
 
     if form.validate_on_submit():
@@ -52,16 +54,20 @@ def cmd():
 
 @app.route('/status')    
 def status():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
     try:
         current_status = comm_client.read_status()
     except:
         print('Can not communicate with controller')
         current_status = 'Controller failing'
-    return render_template('status.html', title='Status', current_status = current_status) 
+    return render_template('status.html', title='Status', current_status = current_status)
 
 
 @app.route('/load', methods=['GET', 'POST'])
 def load():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
 
     form = LoadForm()
     
