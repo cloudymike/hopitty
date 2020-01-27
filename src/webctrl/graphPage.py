@@ -1,14 +1,15 @@
 __author__ = 'mikael'
-import matplotlib
-matplotlib.use('Agg')
+#import matplotlib
+#matplotlib.use('Agg')
 
 
-import matplotlib.pyplot as plt, mpld3
+#import matplotlib.pyplot as plt, mpld3
 import commonweb
 import sys
 
 
 def graphPage(mylog, label1, label2, label3, label4):
+    return("Not working")
     fig = plt.figure()
 
     ax = fig.add_subplot(111)

@@ -7,8 +7,8 @@ Start with http://localhost:8080 and try the button links!
 from bottle import Bottle, ServerAdapter, route, run, template, static_file
 #from bottle_rest import json_to_params
 
-import matplotlib.pyplot as plt, mpld3
-import matplotlib
+#import matplotlib.pyplot as plt, mpld3
+#import matplotlib
 from threading import Thread
 import time
 import datetime
@@ -101,23 +101,24 @@ class myserver(ServerAdapter):
 
     @route('/chart')
     def chart():                # noqa
-        fig = plt.figure()
-        ax = fig.add_subplot(111)
-        bx = fig.add_subplot(111)
-
-        dx = []
-        for t in tx:
-            tt = time.strptime(t, "%H:%M:%S.%f")
-            dt = datetime.datetime(*tt[:6])
-            dx.append(dt)
-
-        print len(dx), dx
-        print len(ty), ty
-        print len(tz), tz
-        dates = matplotlib.dates.date2num(dx)
-        ax.plot_date(dates, ty, 'r-')
-        bx.plot_date(dates, tz, 'b-')
-        return mpld3.fig_to_html(fig)
+        return("No such thing")
+#        fig = plt.figure()
+#        ax = fig.add_subplot(111)
+#        bx = fig.add_subplot(111)
+#
+#        dx = []
+#        for t in tx:
+#            tt = time.strptime(t, "%H:%M:%S.%f")
+#            dt = datetime.datetime(*tt[:6])
+#            dx.append(dt)
+#
+#        print len(dx), dx
+#        print len(ty), ty
+#        print len(tz), tz
+#        dates = matplotlib.dates.date2num(dx)
+#        ax.plot_date(dates, ty, 'r-')
+#        bx.plot_date(dates, tz, 'b-')
+#        return mpld3.fig_to_html(fig)
 
     @route('/temp')
     def stat():                 # noqa
