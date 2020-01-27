@@ -77,9 +77,9 @@ class bsmxStages():
     
     def getCtrlEquipmentName(self):
         retval =self.ctrl.getEquipmentName()
-        print("Equipment is set to {}".format(self.equipment))
+        #print("Equipment is set to {}".format(self.equipment))
         newretval = self.equipment['equipmentName']
-        print("Old: {} New: {}".format(retval, newretval))
+        #print("Old: {} New: {}".format(retval, newretval))
         return(newretval)
 
     def getCtrlEquipment(self):
