@@ -109,6 +109,12 @@ def ctrlBsmxList():
     return(retlst)
 
 
+def equipmentBsmxList():
+    eq={}
+    eq['equipmentName']='dummy'
+    return(eq)
+
+
 def txDocFromString(bsmxStr):
     """
     Creates doc from an xml string
@@ -159,13 +165,14 @@ def getTestRecipeList():
 def testSimpleBSMX():
     rl = getSimpleBSMX()
     controllers = ctrlBsmxList()
+    equipment = equipmentBsmxList()
     assert len(rl.getNameList()) > 0
     print "Number of recipes:", len(rl.getNameList())
     for name in rl.getNameList():
         print "...", name
         recipeObjBsmx = rl.getRecipe(name)
         recipeBSMX = recipeObjBsmx.getBSMXdoc()
-        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, equipment)
         print recipeObjParsed.getEquipment()
         print recipeObjParsed.getStages()
 
@@ -176,14 +183,17 @@ def testOneFullBSMX():
     rl = getTestRecipeList()
     print(os.getcwd())
     e = equipment.allEquipment('src/equipment/*.yaml')
+    print("===================================Find me============================================================")
     myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
+    print("My equipment in test is set to {}".format(myequipment))
     controllers = ctrl.setupControllers(False, True, True, myequipment)
+    print("My equipment in controllers is set to {}".format(controllers.getEquipment()))
     assert len(rl.getNameList()) > 0
     print "Number of recipes:", len(rl.getNameList())
     recipeObj = rl.getRecipe('17 Falconers Flight IPA')
     recipeBSMX = recipeObj.getBSMXstring()
-    print recipeBSMX
-    recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+    #print recipeBSMX
+    recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, controllers.getEquipment())
     print recipeObjParsed.getEquipment()
     s = recipeObjParsed.getStages()
     assert(s != {})

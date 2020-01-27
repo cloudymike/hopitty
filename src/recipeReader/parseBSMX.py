@@ -16,6 +16,7 @@ class bsmxStages():
         self.ctrl = controllers
         self.name = ""
         self.inputTypeDebug = 'NA'
+        self.equipment = equipment
 
         self.valid = True
 
@@ -76,6 +77,7 @@ class bsmxStages():
     
     def getCtrlEquipmentName(self):
         retval =self.ctrl.getEquipmentName()
+        print("Equipment is set to {}".format(self.equipment))
         newretval = self.equipment['equipmentName']
         print("Old: {} New: {}".format(retval, newretval))
         return(retval)

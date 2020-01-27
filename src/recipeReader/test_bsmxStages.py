@@ -854,7 +854,7 @@ def test_init_bsmxStages_file():
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
     print ctrl['controllerInfo'].getEquipmentName()
-    bx = recipeReader.bsmxStages(rp, ctrl)
+    bx = recipeReader.bsmxStages(rp, ctrl, myequipment)
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     doc = bx.getDocTree()
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
@@ -887,7 +887,7 @@ def test_testcold():
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
     print ctrl['controllerInfo'].getEquipmentName()
-    bx = recipeReader.bsmxStages(rp, ctrl)
+    bx = recipeReader.bsmxStages(rp, ctrl, myequipment)
     assert bx.getRecipeName() == "testcold"
     doc = bx.getDocTree()
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
@@ -909,7 +909,7 @@ def test_testbatchsparge():
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
     print ctrl['controllerInfo'].getEquipmentName()
-    bx = recipeReader.bsmxStages(rp, ctrl)
+    bx = recipeReader.bsmxStages(rp, ctrl, myequipment)
     print bx.getRecipeName()
     assert bx.getRecipeName() == "Silver Dollar Porter 2.5 gallons"
     doc = bx.getDocTree()
@@ -943,7 +943,7 @@ def test_GoodRecipe():
     e = equipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot')
     bx = recipeReader.bsmxStages(goodRecipe(),
-                                 ctrl.setupControllers(False, True, True, myequipment))
+                                 ctrl.setupControllers(False, True, True, myequipment), myequipment)
     assert bx.isValid()
     print myname(), "OK"
 
@@ -1109,13 +1109,13 @@ def test_isValid():
     e = equipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     cx = recipeReader.bsmxStages(elaborateBsmx(),
-                                 ctrl.setupControllers(False, True, True, myequipment))
+                                 ctrl.setupControllers(False, True, True, myequipment), myequipment)
     assert not cx.isValid()
     cp = os.path.dirname(__file__)
     print cp
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
     print rp
-    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True, myequipment))
+    dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True, myequipment), myequipment)
     assert dx.isValid()
     print myname(), "OK"
 

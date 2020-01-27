@@ -198,7 +198,7 @@ def testOneFullBSMX():
     recipeObj = rl.getRecipe('17 Falconers Flight IPA')
     recipeBSMX = recipeObj.getBSMXstring()
     print recipeBSMX
-    recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+    recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, myequipment)
     print recipeObjParsed.getEquipment()
     s = recipeObjParsed.getStages()
     assert(s != {})
