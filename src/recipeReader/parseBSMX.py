@@ -75,7 +75,10 @@ class bsmxStages():
         return(self.ctrl)
     
     def getCtrlEquipmentName(self):
-        return(self.equipment['equipmentName'])
+        retval =self.ctrl.getEquipmentName()
+        newretval = self.equipment['equipmentName']
+        print("Old: {} New: {}".format(retval, newretval))
+        return(retval)
 
     def getCtrlEquipment(self):
         return(self.ctrl.getEquipment())
