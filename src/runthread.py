@@ -135,7 +135,7 @@ if __name__ == "__main__":
             recipeName = j.getRecipeName()
             stages = j.getStages()
     elif bsmxFile != "":
-        b = recipeReader.bsmxStages(bsmxFile, controllers)
+        b = recipeReader.bsmxStages(bsmxFile, controllers, controllers.getEquipment())
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
             sys.exit(1)

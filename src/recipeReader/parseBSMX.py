@@ -1,8 +1,6 @@
 import xml.dom.minidom
-import ctrl
 import mashProfiles
 import logging
-import sys
 
 
 class bsmxStages():
@@ -13,7 +11,7 @@ class bsmxStages():
     controllers, then the validRecipe will be false and any return of
     a stages list will be an empty list.
     """
-    def __init__(self, bsmx, controllers):
+    def __init__(self, bsmx, controllers, equipment=None):
         self.stages = {}
         self.ctrl = controllers
         self.name = ""
@@ -77,7 +75,7 @@ class bsmxStages():
         return(self.ctrl)
     
     def getCtrlEquipmentName(self):
-        return(self.ctrl.getEquipmentName())
+        return(self.equipment['equipmentName'])
 
     def getCtrlEquipment(self):
         return(self.ctrl.getEquipment())
