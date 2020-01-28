@@ -58,54 +58,77 @@ def setupControllers(verbose, simulation, permissive, equipment):
     wortSwitch = usbPumps.getSwitch(2)
     mashCirculationSwitch = usbPumps.getSwitch(3)
     print 1
-    controllers.addController('waterHeater', appliances.hwt())
-    controllers['waterHeater'].connectSwitch(hwTunSwitch)
-    controllers['waterHeater'].connectSensor(tempSensors.getSensor('281a7a6d0b000096'))
 
-    controllers.addController('boiler', appliances.boiler())
-    controllers['boiler'].connectSwitch(boilerSwitch)
-    boilerSensor = tempSensors.getSensor('28ff922d0116039e')
-    controllers['boiler'].connectSensor(boilerSensor)
+    if 'waterHeater' in equipment['componentlist']:
+        controllers.addController('waterHeater', appliances.hwt())
+        controllers['waterHeater'].connectSwitch(hwTunSwitch)
+        controllers['waterHeater'].connectSensor(tempSensors.getSensor('281a7a6d0b000096'))
 
-    controllers.addController('aerator', appliances.aerator())
-    controllers['aerator'].connectSwitch(aeratorSwitch)
+    if 'boiler' in equipment['componentlist']:
+        controllers.addController('boiler', appliances.boiler())
+        controllers['boiler'].connectSwitch(boilerSwitch)
+        boilerSensor = tempSensors.getSensor('28ff922d0116039e')
+        controllers['boiler'].connectSensor(boilerSensor)
 
-    controllers.addController('cooler', appliances.cooler())
-    controllers['cooler'].connectSwitch(coolerSwitch)
-    controllers['cooler'].connectSensor(boilerSensor)
+    if 'aerator' in equipment['componentlist']:
+        controllers.addController('aerator', appliances.aerator())
+        controllers['aerator'].connectSwitch(aeratorSwitch)
+
+    if 'cooler' in equipment['componentlist']:
+        controllers.addController('cooler', appliances.cooler())
+        controllers['cooler'].connectSwitch(coolerSwitch)
+        controllers['cooler'].connectSensor(boilerSensor)
 
     # Reuse of same switch for plate cooler as immersion cooler
-    controllers.addController('plateValve', appliances.plateValve())
-    controllers['plateValve'].connectSwitch(coolerSwitch)
+    if 'plateValve' in equipment['componentlist']:
+        controllers.addController('plateValve', appliances.plateValve())
+        controllers['plateValve'].connectSwitch(coolerSwitch)
 
-    controllers.addController('mashStirrer', appliances.mashStirrer())
-    controllers['mashStirrer'].connectSwitch(mashStirSwitch)
+    if 'mashStirrer' in equipment['componentlist']:
+        controllers.addController('mashStirrer', appliances.mashStirrer())
+        controllers['mashStirrer'].connectSwitch(mashStirSwitch)
 
     if 'mashHeater' in equipment['componentlist']:
         controllers.addController('mashHeater', appliances.mashHeater())
         controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
         controllers['mashHeater'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
 
-    controllers.addController('boilerValve', appliances.boilerValve())
-    controllers['boilerValve'].connectSwitch(boilerValveSwitch)
-    controllers.addController('hotWaterPump', appliances.hwPump())
-    controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
-    controllers.addController('waterCirculationPump',
-                              appliances.circulationPump())
-    controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
-    controllers.addController('wortPump', appliances.wortPump())
-    controllers['wortPump'].connectSwitch(wortSwitch)
-    controllers.addController('boilerVolume', appliances.boilerVolume())
-    controllers['boilerVolume'].attachHost(controllers['wortPump'])
+    if 'boilerValve' in equipment['componentlist']:
+        controllers.addController('boilerValve', appliances.boilerValve())
+        controllers['boilerValve'].connectSwitch(boilerValveSwitch)
 
-    if 'dispenser' in equipment['componentlist']:
+
+    if 'hotWaterPump' in equipment['componentlist']:
+        controllers.addController('hotWaterPump', appliances.hwPump())
+        controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
+
+
+    if 'waterCirculationPump' in equipment['componentlist']:
+        controllers.addController('waterCirculationPump',
+                              appliances.circulationPump())
+        controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
+
+
+    if 'wortPump' in equipment['componentlist']:
+        controllers.addController('wortPump', appliances.wortPump())
+        controllers['wortPump'].connectSwitch(wortSwitch)
+
+    if 'boilerVolume' in equipment['componentlist']:
+        controllers.addController('boilerVolume', appliances.boilerVolume())
+        controllers['boilerVolume'].attachHost(controllers['wortPump'])
+
+    if 'dispenser1' in equipment['componentlist']:
         controllers.addController('dispenser1', appliances.dispenser(1))
+    if 'dispenser2' in equipment['componentlist']:
         controllers.addController('dispenser2', appliances.dispenser(2))
+    if 'dispenser3' in equipment['componentlist']:
         controllers.addController('dispenser3', appliances.dispenser(3))
+    if 'dispenser4' in equipment['componentlist']:
         controllers.addController('dispenser4', appliances.dispenser(4))
     
-    controllers.addController('envTemp', appliances.envTemp())
-    controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+    if 'envTemp' in equipment['componentlist']:
+        controllers.addController('envTemp', appliances.envTemp())
+        controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
     #controllers['envTemp'].connectSensor(sensors.envTempSensor())
 
     print("appliance setup done")

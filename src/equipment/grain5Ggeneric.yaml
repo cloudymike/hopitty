@@ -2,8 +2,12 @@ equipmentName: 'Pot and Cooler ( 5 Gal/19 L) - All Grain'
 specs:
   boilerVolumeMax: 17
 componentlist:
+  - controllerInfo
   - waterHeater
-  - dispenser
+  - dispenser1
+  - dispenser2
+  - dispenser3
+  - dispenser4
   - aerator
   - cooler
   - mashStirrer
@@ -12,4 +16,8 @@ componentlist:
   - waterCirculationPump
   - wortPump
   - boilerVolume
+  - boiler
+  - controllerInfo
+  - delayTimer
+  - envTemp
 

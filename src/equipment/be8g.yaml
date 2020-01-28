@@ -13,3 +13,7 @@ componentlist:
   - waterCirculationPump
   - wortPump
   - boilerVolume
+  - boiler
+  - controllerInfo
+  - delayTimer
+  - envTemp

@@ -1,6 +1,7 @@
 import xml.dom.minidom
 import mashProfiles
 import logging
+import sys
 
 
 class bsmxStages():
@@ -76,14 +77,11 @@ class bsmxStages():
         return(self.ctrl)
     
     def getCtrlEquipmentName(self):
-        retval =self.ctrl.getEquipmentName()
-        #print("Equipment is set to {}".format(self.equipment))
         newretval = self.equipment['equipmentName']
-        #print("Old: {} New: {}".format(retval, newretval))
         return(newretval)
 
     def getCtrlEquipment(self):
-        return(self.ctrl.getEquipment())
+        return(self.equipment)
 
     def getStages(self):
         """
@@ -102,16 +100,21 @@ class bsmxStages():
         Simple validation that all appliances in recipe stages
         are also present in the controller.
         """
-        if self.ctrl is None:
-            return(self.stages is None)
+        if self.equipment is None:
+            return(self.equipment is None)
         if self.stages is None:
             return(False)
         retval = True
 
         for s_key, stage in self.stages.items():
             for c_key, ctrlType in stage.items():
-                if not c_key in self.ctrl:
+                #print(c_key)
+                #if not c_key in self.ctrl:
+                if not c_key in self.equipment['componentlist'] :
+                    print("Missing key: {}".format(c_key))
                     retval = False
+                    sys.exit(1)
+        print("Validate recipe done")
         return(retval)
 
     def readRecipe(self, data, controllerList):
