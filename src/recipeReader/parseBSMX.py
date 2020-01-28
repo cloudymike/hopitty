@@ -108,8 +108,6 @@ class bsmxStages():
 
         for s_key, stage in self.stages.items():
             for c_key, ctrlType in stage.items():
-                #print(c_key)
-                #if not c_key in self.ctrl:
                 if not c_key in self.equipment['componentlist'] :
                     print("Missing key: {}".format(c_key))
                     retval = False
@@ -117,14 +115,8 @@ class bsmxStages():
         print("Validate recipe done")
         return(retval)
 
-    def readRecipe(self, data, controllerList):
-        pass
-
-    def mkControllerList(self, controllers):
-        ctrlLst = []
-        for c_key, c in controllers.items():
-            ctrlLst.append(c_key)
-        return(ctrlLst)
+#    def readRecipe(self, data, controllerList):
+#        pass
 
     def docFromString(self, bsmxStr):
         """
