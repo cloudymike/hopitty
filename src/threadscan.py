@@ -99,7 +99,7 @@ def updateRecipes(rl, bsmxfile):
     for recipeName in iterlist:
         recipeObjBsmx = rl.getRecipe(recipeName)
         recipeBSMX = recipeObjBsmx.getBSMXstring()
-        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, controllers.getEquipment())
         if not recipeObjParsed.isValid():
             deleteList.append(recipeName)
             logging.info("**********Fail on parseBSMX:" + recipeName)
