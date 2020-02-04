@@ -12,12 +12,13 @@ class bsmxStages():
     controllers, then the validRecipe will be false and any return of
     a stages list will be an empty list.
     """
-    def __init__(self, bsmx, controllers, equipment=None):
+    def __init__(self, bsmx, controllers, equipment=None, envTemp=72):
         self.stages = {}
         self.ctrl = controllers
         self.name = ""
         self.inputTypeDebug = 'NA'
         self.equipment = equipment
+        self.envTemp = envTemp
 
         self.valid = True
 

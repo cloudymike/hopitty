@@ -96,10 +96,16 @@ def updateRecipes(rl, bsmxfile):
     rl.readBeerSmith(bsmxfile)
     iterlist = rl.getlist()
     deleteList = []
+
+    try:
+        envTemp = controllers['envTemp'].get()
+    except:
+        envTemp = 72
+
     for recipeName in iterlist:
         recipeObjBsmx = rl.getRecipe(recipeName)
         recipeBSMX = recipeObjBsmx.getBSMXstring()
-        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, controllers.getEquipment())
+        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, controllers.getEquipment(), envTemp)
         if not recipeObjParsed.isValid():
             deleteList.append(recipeName)
             logging.info("**********Fail on parseBSMX:" + recipeName)
@@ -140,6 +146,7 @@ if __name__ == "__main__":
         else:
             print "ERROR: HW not OK, exiting"
             sys.exit(1)
+
 
     recipelist = readRecipeFile(controllers,
                                 options['bsmxfile'],

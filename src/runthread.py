@@ -126,6 +126,11 @@ if __name__ == "__main__":
             logging.info('ERROR: Missing USB devices, exiting')
             sys.exit(1)
 
+    try:
+        envTemp = controllers['envTemp'].get()
+    except:
+        envTemp = 72
+
     # Read one of the recipe files
     if recipeFile != "":
         j = recipeReader.jsonStages(recipeFile, controllers)
@@ -135,7 +140,7 @@ if __name__ == "__main__":
             recipeName = j.getRecipeName()
             stages = j.getStages()
     elif bsmxFile != "":
-        b = recipeReader.bsmxStages(bsmxFile, controllers, controllers.getEquipment())
+        b = recipeReader.bsmxStages(bsmxFile, controllers, controllers.getEquipment(), envTemp)
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
             sys.exit(1)

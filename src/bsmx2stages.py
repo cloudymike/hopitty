@@ -82,7 +82,12 @@ if __name__ == "__main__":
     myEquipment = availableEquipment.get(equipmentName)
     controllers = ctrl.setupControllers(False, True, True, myEquipment)
 
-    bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers, myEquipment)
+    try:
+        envTemp = controllers['envTemp'].get()
+    except:
+        envTemp = 72
+
+    bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers, myEquipment, envTemp)
     stagesStr = bsmxObj.getStages()
     if stagesStr is None:
         print('Error: Invalid recipe')
