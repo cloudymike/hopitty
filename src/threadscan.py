@@ -29,13 +29,14 @@ def usage():
 
 
 def getOptions():
-    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:t:v', [
+    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:t:vd', [
         'equipment',
         'file=',
         'help',
         'user=',
         'type='
         'verbose',
+        'download'
         ])
     optret = {}
     optret['verbose'] = False
@@ -55,12 +56,14 @@ def getOptions():
             optret['user'] = arg
         if opt in ('-t', '--type'):
             optret['equipmentType'] = arg
+        if opt in ('-d', '--download'):
+            optret['download'] = True
         elif opt in ('-v', '--verbose'):
             optret['verbose'] = True
     return(optret)
 
 
-def readRecipeFile(ctrl, recipefile=None, user=None):
+def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
     rl = recipeModel.RecipeList()
 
     # Try to find a recipe file
@@ -77,23 +80,28 @@ def readRecipeFile(ctrl, recipefile=None, user=None):
     if path.isfile(bsmxfile) and access(bsmxfile, R_OK):
         print "BSMX File", bsmxfile, "exists and is readable"
     else:
-        print "ERROR: BSMX file", bsmxfile,\
-              "is missing or is not readable"
+        if not download:
+            print "ERROR: BSMX file", bsmxfile,\
+                  "is missing or is not readable"
         bsmxfile = None
 
-    rlUpdate = updateRecipes(rl, bsmxfile)
+    rlUpdate = updateRecipes(rl, bsmxfile, download)
     print "================ Recipe List ==============="
     rlUpdate.printNameList()
     print "============================================"
     return(rlUpdate)
 
 
-def updateRecipes(rl, bsmxfile):
+def updateRecipes(rl, bsmxfile, download):
     """
     Update Recipe list by removing all recipes that does not work.
     This is checked by doing a check against recipe and equipment
     """
-    rl.readBeerSmith(bsmxfile)
+    if download:
+        rl.downloadBeerSmith()
+    else:
+        rl.readBeerSmith(bsmxfile)
+
     iterlist = rl.getlist()
     deleteList = []
     for recipeName in iterlist:
@@ -143,7 +151,8 @@ if __name__ == "__main__":
 
     recipelist = readRecipeFile(controllers,
                                 options['bsmxfile'],
-                                options['user'])
+                                options['user'],
+                                options['download'])
     if recipelist is None:
         print "Error: No recipes"
         sys.exit(1)
