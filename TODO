@@ -2,8 +2,19 @@ Where to start
 ===============
 
 See issues on github
+### Pythonize
+Pythonize polulu, see See this page:
+https://github.com/frc4564/maestro
 
-Flag for simulation and progress through appliance switch and sensor
+Fix or remove matplotlib. Maybe use pandas/plotly express web server from brewlog
+
+### Python 3
+
+
+### Decouple controlller entanglement, use data files (deal with controllerinfo)
+
+
+###Flag for simulation and progress through appliance switch and sensor
 
 
 For javascript example

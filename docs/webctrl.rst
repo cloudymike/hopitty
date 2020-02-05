@@ -4,10 +4,42 @@ webctrl package
 Submodules
 ----------
 
+webctrl.api module
+------------------
+
+.. automodule:: webctrl.api
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+webctrl.apitest module
+----------------------
+
+.. automodule:: webctrl.apitest
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 webctrl.commonweb module
 ------------------------
 
 .. automodule:: webctrl.commonweb
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+webctrl.cylinder module
+-----------------------
+
+.. automodule:: webctrl.cylinder
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+webctrl.gauges module
+---------------------
+
+.. automodule:: webctrl.gauges
     :members:
     :undoc-members:
     :show-inheritance:
@@ -32,6 +64,14 @@ webctrl.ingredients module
 --------------------------
 
 .. automodule:: webctrl.ingredients
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+webctrl.jstest module
+---------------------
+
+.. automodule:: webctrl.jstest
     :members:
     :undoc-members:
     :show-inheritance:
