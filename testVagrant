@@ -1,0 +1,13 @@
+#!/bin/bash
+
+
+vagrant up
+RESULT=$?
+vagrant destroy -f
+if [ "$RESULT" == "0" ]
+then
+  echo "SUCCESS"
+else
+  echo "FAIL"
+fi
+exit $RESULT

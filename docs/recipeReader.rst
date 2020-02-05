@@ -28,16 +28,16 @@ recipeReader.readRecipe module
     :undoc-members:
     :show-inheritance:
 
-recipeReader.test_bsmxStages module
------------------------------------
+recipeReader.test\_bsmxStages module
+------------------------------------
 
 .. automodule:: recipeReader.test_bsmxStages
     :members:
     :undoc-members:
     :show-inheritance:
 
-recipeReader.test_jsonStages module
------------------------------------
+recipeReader.test\_jsonStages module
+------------------------------------
 
 .. automodule:: recipeReader.test_jsonStages
     :members:
