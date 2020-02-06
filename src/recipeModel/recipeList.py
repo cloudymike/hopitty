@@ -60,8 +60,8 @@ class RecipeList():
         cloudRecipes = doc.getElementsByTagName("Cloud")
         for recipe in cloudRecipes:
             name = recipeReader.bsmxReadString(recipe, "F_R_NAME")
-            print "....reading ", name
-            print recipe
+            print("....reading {}".format(name))
+            #print recipe
             xmlstring = recipe.toxml()
             if self.session.query(Recipe).filter_by(name=name).first() is None:
                 equipment = recipeReader.bsmxReadString(recipe, "F_E_NAME")

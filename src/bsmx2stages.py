@@ -8,7 +8,7 @@ Runs basic checks against controllers
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
 import ctrl
-import getopt
+import argparse
 import recipeReader
 import json
 import equipment
@@ -16,59 +16,31 @@ import os
 import xml.etree.ElementTree
 import checker
 
-def usage():
-    print 'usage:'
-    print "-h: help"
-    print "-i <filepath>: Input beersmith file"
-    print "-o <filepath>: output stages file"
-    print "-v: verbose"
-    sys.exit(0)
-
-
-def getOptions():
-    options, remainder = getopt.getopt(sys.argv[1:], 'i:ho:v', [
-        'input=',
-        'help',
-        'output=',
-        'verbose',
-        ])
-    optret = {}
-    optret['verbose'] = False
-    optret['inputfile'] = None
-    optret['outputfile'] = None
-
-    for opt, arg in options:
-        if opt in ('-h', '--help'):
-            usage()
-        if opt in ('-i', '--inputfile'):
-            optret['inputfile'] = arg
-        if opt in ('-o', '--outputfile'):
-            optret['outputfile'] = arg
-        elif opt in ('-v', '--verbose'):
-            optret['verbose'] = True
-    return(optret)
-
 if __name__ == "__main__":
-    options = getOptions()
+    parser = argparse.ArgumentParser(description='Load files to S3')
+    parser.add_argument('-i', '--inputfile', default=None, help='Input beersmith file')
+    parser.add_argument('-o', '--outputfile', default=None, help='Output stages file')
+    args = parser.parse_args()
 
-    if options['inputfile'] is None:
+
+    if args.inputfile is None:
         inf = sys.stdin
     else:
         #testing
-        print "==================================>", options['inputfile']
+        print("==================================> {}".format(args.inputfile))
         
         try:
-            inf = open(options['inputfile'], 'r')
+            inf = open(args.inputfile, 'r')
         except:
-            print "Can not open inputfile"
+            print("Can not open inputfile")
             sys.exit(1)
-    if options['outputfile'] is None:
+    if args.outputfile is None:
         outf = sys.stdout
     else:
         try:
-            outf = open(options['outputfile'], 'w')
+            outf = open(args.outputfile, 'w')
         except:
-            print "Can not open outputfile", options['outputfile']
+            print("Can not open outputfile {}".format(args.outputfile))
             sys.exit(1)
     bsmxIn = inf.read()
     bsmxStr = bsmxIn.replace('&', 'AMP')

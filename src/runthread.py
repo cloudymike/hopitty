@@ -6,7 +6,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src")
 sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
-import getopt
+import argparse
 import ctrl
 import recipeReader
 import stages2beer
@@ -19,21 +19,10 @@ import os
 import xml.etree.ElementTree
 
 
-def usage():
-    print 'usage:'
-    print "-h: help"
-    print "-b file: read beersmith file"
-    print "-c: checkonly"
-    print "-f file: read JSON file"
-    print "-q: quick check"
-    print "-e: Equipment check"
-    print "-v: verbose"
-    sys.exit
-
-
 if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
+    permissive = True
 
     logging.basicConfig(format='%(asctime)s %(message)s',
                         datefmt='%m/%d/%Y %I:%M:%S %p',
@@ -42,60 +31,33 @@ if __name__ == "__main__":
     logging.warning('warning test')
     logging.info('Starting...')
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'b:cef:hqpuv', [
-        'bsmx=',
-        'checkonly',
-        'equipment',
-        'file=',
-        'help',
-        'printRecipe',
-        'quick',
-        'verbose',
-        'version=',
-        ])
-    verbose = False
-    simulation = False
-    permissive = True
-    quick = False
-    checkonly = False
-    printRecipe = False
-    HWcheck = False
-    recipeFile = ""
-    bsmxFile = ""
-    for opt, arg in options:
-        if opt in ('-h', '--help'):
-            usage()
-        if opt in ('-f', '--file'):
-            recipeFile = arg
-        if opt in ('-b', '--bsmx'):
-            bsmxFile = arg
-        elif opt in ('-q', '--quick'):
-            quick = True
-        elif opt in ('-c', '--checkonly'):
-            checkonly = True
-        elif opt in ('-p', '--printRecipe'):
-            printRecipe = True
-        elif opt in ('-e', '--equipment'):
-            HWcheck = True
-        elif opt in ('-v', '--verbose'):
-            verbose = True
-        elif opt == '--version':
-            version = arg
+    parser = argparse.ArgumentParser(description='Run a json or bsmx file')
+    filegroup = parser.add_mutually_exclusive_group(required=True)
+    filegroup.add_argument('-f', '--file', default="", help='Input JSON file')
+    filegroup.add_argument('-b', '--bsmx', default="", help='Input BeerSmith file')
+    parser.add_argument('-q', '--quick', action='store_true', help='Quick check')
+    parser.add_argument('-c', '--checkonly', action='store_true', help='Check only')
+    #parser.add_argument('-p', '--printRecipe', action='store_true', help='Print recipe')
+    parser.add_argument('-e', '--equipment', action='store_true', help='Equipment check')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+
+    args = parser.parse_args()
+
 
     stages = {}
     recipeName = ""
-    if HWcheck:
-        simulation = (simulation or (not HWcheck))
+    if args.equipment:
+        simulation = (simulation or (not args.equipment))
     else:
         simulation = False
         
     mypath = os.path.dirname(os.path.realpath(__file__))
     availableEquipment = equipment.allEquipment(mypath + '/equipment/*.yaml')
-    if bsmxFile != "":
+    if args.bsmx != "":
         try:
-            inf = open(bsmxFile, 'r')
+            inf = open(args.bsmx, 'r')
         except:
-            logging.error('Can not read file: {}'.format(bsmxFile))
+            logging.error('Can not read file: {}'.format(args.bsmx))
             sys.exit(1)
         bsmxIn = inf.read()
         bsmxStr = bsmxIn.replace('&', 'AMP')
@@ -103,7 +65,7 @@ if __name__ == "__main__":
         try:
             e = xml.etree.ElementTree.fromstring(bsmxStr)
         except:
-            logging.error('Can not parse file: {}'.format(bsmxFile))
+            logging.error('Can not parse file: {}'.format(args.bsmx))
         equipmentName = e.find('Data').find('Recipe').find('F_R_EQUIPMENT').find('F_E_NAME').text
         myEquipment = availableEquipment.get(equipmentName)
         if myEquipment is None:
@@ -114,12 +76,12 @@ if __name__ == "__main__":
         myEquipment = availableEquipment.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     logging.info('Equipment: {}'.format(myEquipment['equipmentName']))
     
-    controllers = ctrl.setupControllers(verbose, simulation, permissive, myEquipment)
+    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myEquipment)
     if controllers is None:
         logging.error('No controllers')
         sys.exit(1)
 
-    if HWcheck:
+    if args.equipment:
         if controllers.HWOK():
             logging.info('USB devices connected')
         else:
@@ -127,15 +89,15 @@ if __name__ == "__main__":
             sys.exit(1)
 
     # Read one of the recipe files
-    if recipeFile != "":
-        j = recipeReader.jsonStages(recipeFile, controllers)
+    if args.file != "":
+        j = recipeReader.jsonStages(args.file, controllers)
         if not j.isValid():
             logging.error("Error: bad json recipe")
         else:
             recipeName = j.getRecipeName()
             stages = j.getStages()
-    elif bsmxFile != "":
-        b = recipeReader.bsmxStages(bsmxFile, controllers)
+    elif args.bsmx != "":
+        b = recipeReader.bsmxStages(args.bsmx, controllers)
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
             sys.exit(1)
@@ -157,13 +119,13 @@ if __name__ == "__main__":
         brun = stages2beer.s2b(controllers, stages)
         dl = ctrl.datalogger(controllers)
 
-        if checkonly:
+        if args.checkonly:
             if brun.check():
                 logging.info("Check OK")
             else:
                 logging.info("ERROR: Check failed")
                 sys.exit(1)
-        elif quick:
+        elif args.quick:
             if brun.quickRun():
                 logging.info("Quick run OK")
             else:
