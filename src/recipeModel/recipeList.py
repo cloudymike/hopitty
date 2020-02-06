@@ -13,6 +13,7 @@ from sqlalchemy.orm import scoped_session
 
 import recipeReader
 import xml.dom.minidom
+import requests
 
 Base = declarative_base()
 engine = create_engine('sqlite:///:memory:', echo=False)
@@ -123,4 +124,12 @@ class RecipeList():
 
     def readBeerSmith(self, fileName):
         doc = self.readBeerSmithFile(fileName)
+        self.readBMXdoc(doc)
+
+
+    def downloadBeerSmith(self):
+        i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
+        bsmxRawData = i.content
+        bsmxCleanData = bsmxRawData.replace('&', 'AMP')
+        doc = xml.dom.minidom.parseString(bsmxCleanData)
         self.readBMXdoc(doc)

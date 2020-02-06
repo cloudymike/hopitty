@@ -49,12 +49,12 @@ DATESTRING=`date +%F-%H-%M`
 LOGFILE="brew-${DATESTRING}.log"
 
 # Start and stop  beersmith to get an updated Cloud.bsmx file
-if [ "$QUICK" == "0" ]
-then
-  /usr/bin/beersmith2 &
-  sleep 10
-  xdotool windowactivate --sync $(xdotool search --name 'BeerSmith 2') key  --clearmodifiers --delay 100 alt+F4
-fi
+#if [ "$QUICK" == "0" ]
+#then
+#  /usr/bin/beersmith2 &
+#  sleep 10
+#  xdotool windowactivate --sync $(xdotool search --name 'BeerSmith 2') key  --clearmodifiers --delay 100 alt+F4
+#fi
 
 # Initial cleanup
 sudo pkill -9 -f threadscan.py &> /dev/null
@@ -63,9 +63,9 @@ echo "Output log copied to ${LOGFILE}"
 
 if [ "$SIMULATE" == "1" ]
 then
-  sudo ./threadscan.py -u mikael -t "$TYPEOFEQUIPMENT"
+  sudo ./threadscan.py -d -t "$TYPEOFEQUIPMENT"
 else
-  sudo ./threadscan.py -u mikael -e -t "$TYPEOFEQUIPMENT"
+  sudo ./threadscan.py -d -e -t "$TYPEOFEQUIPMENT"
 fi
 
 #sudo pkill -9 -f threadscan.py &> /dev/null
