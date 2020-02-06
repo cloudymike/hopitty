@@ -2,6 +2,10 @@ Where to start
 ===============
 
 See issues on github
+
+### runraw and runcomm
+Make sure they run properly and add tests.
+
 ### Pythonize
 Pythonize polulu, see See this page:
 https://github.com/frc4564/maestro
