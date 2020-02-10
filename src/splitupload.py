@@ -72,9 +72,18 @@ if __name__ == "__main__":
     for recipeName in iterlist:
         print("Uploading {}".format(recipeName))
         content = rl.getRecipe(recipeName)
-        recipeEquipment[content.name] = content.equipment
         index = index + '<p>{}</p>\n'.format(recipeName)
-        s3_client.put_object(Body=content.bsmx, Bucket='beersmithrecipes', Key='{}.bsmx'.format(recipeName))
+        urlified = str(recipeName)
+        urlified = urlified.replace(' ','_')
+        print urlified
+
+        s3_client.put_object(Body=content.bsmx, Bucket='beersmithrecipes', Key='{}.bsmx'.format(urlified))
+
+        recipeEquipment[content.name] = {}
+        recipeEquipment[content.name]['equipment'] = content.equipment
+        recipeEquipment[content.name]['urlified'] = urlified
+
+
 
     print("Upload recipe name to equipment json")
     index = index + '</body></html>\n'
