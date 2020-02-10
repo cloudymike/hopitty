@@ -9,7 +9,7 @@ import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
 import getpass
 import ctrl
-import getopt
+import argparse
 from os import path, access, R_OK  # W_OK for write permission.
 import checker
 import recipeReader
@@ -17,50 +17,6 @@ import webctrl
 import recipeModel
 import logging
 import equipment
-
-
-def usage():
-    print 'usage:'
-    print "-h: help"
-    print "-f <filepath>: File for beermith file"
-    print "-u <user>: User for beermith files"
-    print "-v: verbose"
-    sys.exit(0)
-
-
-def getOptions():
-    options, remainder = getopt.getopt(sys.argv[1:], 'ef:hu:t:vd', [
-        'equipment',
-        'file=',
-        'help',
-        'user=',
-        'type='
-        'verbose',
-        'download'
-        ])
-    optret = {}
-    optret['verbose'] = False
-    optret['user'] = getpass.getuser()
-    optret['bsmxfile'] = None
-    optret['HWcheck'] = False
-    optret['equipmentType'] = ''
-
-    for opt, arg in options:
-        if opt in ('-h', '--help'):
-            usage()
-        if opt in ('-e', '--equipment'):
-            optret['HWcheck'] = True
-        if opt in ('-f', '--file'):
-            optret['bsmxfile'] = arg
-        if opt in ('-u', '--user'):
-            optret['user'] = arg
-        if opt in ('-t', '--type'):
-            optret['equipmentType'] = arg
-        if opt in ('-d', '--download'):
-            optret['download'] = True
-        elif opt in ('-v', '--verbose'):
-            optret['verbose'] = True
-    return(optret)
 
 
 def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
@@ -77,7 +33,7 @@ def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
 
     print bsmxfile
 
-    if path.isfile(bsmxfile) and access(bsmxfile, R_OK):
+    if bsmxfile is not None and path.isfile(bsmxfile) and access(bsmxfile, R_OK):
         print "BSMX File", bsmxfile, "exists and is readable"
     else:
         if not download:
@@ -119,8 +75,6 @@ def updateRecipes(rl, bsmxfile, download):
     for deleteName in deleteList:
         logging.info("deleting" + deleteName)
         rl.deleteRecipe(deleteName)
-
-    #rl.nameListToMemcache()
     return(rl)
 
 
@@ -133,16 +87,25 @@ if __name__ == "__main__":
     logging.warning('warning test')
     logging.info('Starting...')
 
-    options = getOptions()
+    parser = argparse.ArgumentParser(description='Run a json or bsmx file')
+    filegroup = parser.add_mutually_exclusive_group(required=True)
+    filegroup.add_argument('-f', '--file', default=None, help='Input BSMX file')
+    filegroup.add_argument('-u', '--user', default=None, help='User for home dir to check')
+    filegroup.add_argument('-d', '--download', action='store_true', help='Download BSMX file')
+    parser.add_argument('-t', '--equipmentType', default='', help='Type of equipment to use')
+    parser.add_argument('-e', '--equipment', action='store_true', help='Equipment check')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+
+    args = parser.parse_args()
     
     e = equipment.allEquipment('equipment/*.yaml')
-    if options['equipmentType']:
-        myequipment = e.get(options['equipmentType'])
+    if args.equipmentType:
+        myequipment = e.get(args.equipmentType)
     else:
         myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
         
-    controllers = ctrl.setupControllers(options['verbose'], False, True, myequipment)
-    if options['HWcheck']:
+    controllers = ctrl.setupControllers(args.verbose, False, True, myequipment)
+    if args.equipment:
         if controllers.HWOK():
             print "HW OK"
         else:
@@ -150,9 +113,9 @@ if __name__ == "__main__":
             sys.exit(1)
 
     recipelist = readRecipeFile(controllers,
-                                options['bsmxfile'],
-                                options['user'],
-                                options['download'])
+                                args.file,
+                                args.user,
+                                args.download)
     if recipelist is None:
         print "Error: No recipes"
         sys.exit(1)

@@ -6,7 +6,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src")
 sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
-import getopt
+import argparse
 import ctrl
 import recipeReader
 import stages2beer
@@ -19,15 +19,6 @@ import equipment
 import os
 
 
-def usage():
-    print 'usage:'
-    print "-h: help"
-    print "-c: checkonly"
-    print "-f file: read JSON file"
-    print "-q: quick check"
-    print "-e: Equipment check"
-    print "-v: verbose"
-    sys.exit
 
 def run(stages, controllers):
     """
@@ -70,47 +61,22 @@ if __name__ == "__main__":
     logging.warning('warning test')
     logging.info('Starting...')
 
-    options, remainder = getopt.getopt(sys.argv[1:], 'cef:hqpuv', [
-        'checkonly',
-        'equipment',
-        'file=',
-        'help',
-        'printRecipe',
-        'quick',
-        'verbose',
-        'version=',
-        ])
-    verbose = False
-    simulation = False
-    permissive = True
-    quick = False
-    checkonly = False
-    printRecipe = False
-    HWcheck = False
-    recipeFile = ""
-    bsmxFile = ""
-    for opt, arg in options:
-        if opt in ('-h', '--help'):
-            usage()
-        if opt in ('-f', '--file'):
-            recipeFile = arg
-        elif opt in ('-q', '--quick'):
-            quick = True
-        elif opt in ('-c', '--checkonly'):
-            checkonly = True
-        elif opt in ('-p', '--printRecipe'):
-            printRecipe = True
-        elif opt in ('-e', '--equipment'):
-            HWcheck = True
-        elif opt in ('-v', '--verbose'):
-            verbose = True
-        elif opt == '--version':
-            version = arg
 
-    # If hardware requirement is set, 
+
+    permissive = True
+
+    parser = argparse.ArgumentParser(description='Run raw json file')
+    parser.add_argument('-f', '--file', default="", help='Input JSON file')
+    parser.add_argument('-c', '--checkonly', action='store_true', help='Check only')
+    parser.add_argument('-e', '--equipment', action='store_true', help='Equipment check')
+    parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+
+    args = parser.parse_args()
+
+    # If hardware requirement is set,
     # check that hardware is connected
-    if HWcheck:
-        simulation = (simulation or (not HWcheck))
+    if args.equipment:
+        simulation = (simulation or (not args.equipment))
     else:
         simulation = False
 
@@ -118,8 +84,8 @@ if __name__ == "__main__":
     e = equipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
 
-    controllers = ctrl.setupControllers(verbose, simulation, permissive, myequipment)
-    if HWcheck:
+    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myequipment)
+    if args.equipment:
         if controllers.HWOK():
             logging.info('USB devices connected')
         else:
@@ -127,8 +93,8 @@ if __name__ == "__main__":
             sys.exit(1)
 
     # Read one of the recipe files
-    if recipeFile != "":
-        with open(recipeFile) as data_file:    
+    if args.file != "":
+        with open(args.file) as data_file:
             stages = json.load(data_file)
     else:
         stages = {}
@@ -137,7 +103,7 @@ if __name__ == "__main__":
     if not equipmentchecker.check():
         logging.error("Error: equipment vs recipe validation failed")
 
-    if not checkonly:
+    if not args.checkonly:
         if (stages != {}) and (stages is not None):
             run(stages, controllers)
 
