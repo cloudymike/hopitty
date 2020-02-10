@@ -17,6 +17,8 @@ import time
 import equipment
 import os
 import xml.etree.ElementTree
+import requests
+import xmltodict
 
 
 if __name__ == "__main__":
@@ -65,24 +67,8 @@ if __name__ == "__main__":
             sys.exit(1)
         bsmxIn = inf.read()
         inf.close()
-
-    if args.download != "":
-        try:
-            urlified = str(args.download)
-            urlified.encode('utf-8')
-            urlified = urlified.replace(' ','%20')
-            print(urlified)
-            print(urlified[4])
-            downloadurl = 'http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/{}.bsmx'.format(urlified)
-            print(downloadurl)
-            i = requests.get(downloadurl)
-            bsmxIn = i.content
-        except:
-            logging.error('Can not download: {}'.format(args.download))
-            sys.exit(1)
-
-    if bsmxIn is not None:
         bsmxStr = bsmxIn.replace('&', 'AMP')
+        print(bsmxStr)
         try:
             e = xml.etree.ElementTree.fromstring(bsmxStr)
         except:
@@ -92,9 +78,34 @@ if __name__ == "__main__":
         if myEquipment is None:
             logging.error('Selected equipment is not available')
             sys.exit(1)
-    else:
+
+    if args.download != "":
+        try:
+            urlified = str(args.download)
+            urlified.encode('utf-8')
+            urlified = urlified.replace(' ','_')
+            print(urlified)
+            print(urlified[4])
+            downloadurl = 'http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/{}.bsmx'.format(urlified)
+            print(downloadurl)
+            i = requests.get(downloadurl)
+            bsmxIn = str(i.content)
+        except:
+            logging.error('Can not download: {}'.format(args.download))
+            sys.exit(1)
+        bsmxIn = bsmxIn.encode('utf-8')
+        bsmxStr = bsmxIn.replace('&', 'AMP')
+        xmldict = xmltodict.parse(bsmxStr)
+        equipmentName = xmldict['Cloud']['F_R_EQUIP_NAME']
+        myEquipment = availableEquipment.get(equipmentName)
+        if myEquipment is None:
+            logging.error('Selected equipment is not available')
+            sys.exit(1)
+
+    if bsmxIn is None:
         # This may have to change to AllNoLimit
         myEquipment = availableEquipment.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+
     logging.info('Equipment: {}'.format(myEquipment['equipmentName']))
     
     controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myEquipment)
@@ -117,8 +128,16 @@ if __name__ == "__main__":
         else:
             recipeName = j.getRecipeName()
             stages = j.getStages()
-    elif args.bsmx != "":
+    elif args.bsmx != "" :
         b = recipeReader.bsmxStages(args.bsmx, controllers)
+        if not b.isValid():
+            logging.error("Error: bad bsmx recipe")
+            sys.exit(1)
+        else:
+            recipeName = b.getRecipeName()
+            stages = b.getStages()
+    elif args.download != "":
+        b = recipeReader.bsmxStages(bsmxStr, controllers)
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
             sys.exit(1)
