@@ -35,6 +35,8 @@ if __name__ == "__main__":
     filegroup = parser.add_mutually_exclusive_group(required=True)
     filegroup.add_argument('-f', '--file', default="", help='Input JSON file')
     filegroup.add_argument('-b', '--bsmx', default="", help='Input BeerSmith file')
+    filegroup.add_argument('-d', '--download', default="", help='BeerSmith file to download')
+
     parser.add_argument('-q', '--quick', action='store_true', help='Quick check')
     parser.add_argument('-c', '--checkonly', action='store_true', help='Check only')
     #parser.add_argument('-p', '--printRecipe', action='store_true', help='Print recipe')
@@ -53,6 +55,8 @@ if __name__ == "__main__":
         
     mypath = os.path.dirname(os.path.realpath(__file__))
     availableEquipment = equipment.allEquipment(mypath + '/equipment/*.yaml')
+
+    bsmxIn = None
     if args.bsmx != "":
         try:
             inf = open(args.bsmx, 'r')
@@ -60,8 +64,25 @@ if __name__ == "__main__":
             logging.error('Can not read file: {}'.format(args.bsmx))
             sys.exit(1)
         bsmxIn = inf.read()
-        bsmxStr = bsmxIn.replace('&', 'AMP')
         inf.close()
+
+    if args.download != "":
+        try:
+            urlified = str(args.download)
+            urlified.encode('utf-8')
+            urlified = urlified.replace(' ','%20')
+            print(urlified)
+            print(urlified[4])
+            downloadurl = 'http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/{}.bsmx'.format(urlified)
+            print(downloadurl)
+            i = requests.get(downloadurl)
+            bsmxIn = i.content
+        except:
+            logging.error('Can not download: {}'.format(args.download))
+            sys.exit(1)
+
+    if bsmxIn is not None:
+        bsmxStr = bsmxIn.replace('&', 'AMP')
         try:
             e = xml.etree.ElementTree.fromstring(bsmxStr)
         except:
