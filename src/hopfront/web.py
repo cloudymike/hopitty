@@ -6,6 +6,8 @@ import sys
 import json
 import time
 import argparse
+import xmltodict
+import requests
 
 import google_auth
 
@@ -63,6 +65,34 @@ def status():
         current_status = 'Controller failing'
     return render_template('status.html', title='Status', current_status = current_status)
 
+def downloadBeerSmith():
+    i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
+    bsmxRawData = i.content.decode("utf-8")
+    bsmxCleanData = bsmxRawData.replace('&', 'AMP')
+    xmldict = xmltodict.parse(bsmxCleanData)
+    return(xmldict)
+
+
+@app.route('/list')
+def list():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+    try:
+        xmldict = downloadBeerSmith()
+    except:
+        print('Can not communicate with beersmith storage')
+        return render_template('list.html', title='Recipe List', recipelist=[])
+
+    recipes = xmldict['Cloud']['Data']['Cloud']
+    recipelist = []
+    for recipe in recipes:
+        oneEntry = {}
+        oneEntry['name'] = recipe['F_R_NAME']
+        oneEntry['equipment'] = recipe['F_R_EQUIP_NAME']
+        recipelist.append(oneEntry)
+
+    return render_template('list.html', title='Recipe List', recipelist = recipelist)
+
 
 @app.route('/load', methods=['GET', 'POST'])
 def load():
@@ -88,7 +118,6 @@ def load():
     stages_string = json.dumps(stages_example)
 
     return render_template('load.html', title='Load', form=form, stages_example=stages_string)
-
 
 
 if __name__ == "__main__":
