@@ -1,15 +1,14 @@
 
 import requests
-import xml.dom.minidom
 import xmltodict
 import json
 
 
 def downloadBeerSmith():
     i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
-    bsmxRawData = i.content
+    bsmxRawData = i.content.decode("utf-8")
+
     bsmxCleanData = bsmxRawData.replace('&', 'AMP')
-    #doc = xml.dom.minidom.parseString(bsmxCleanData)
     xmldict = xmltodict.parse(bsmxCleanData)
     return(xmldict)
 

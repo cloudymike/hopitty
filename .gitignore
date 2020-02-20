@@ -8,6 +8,7 @@ geckodriver.log
 # Python artifacts #
 ###################
 *.pyc
+venv
 
 # editor backup files
 ###################
@@ -68,4 +69,6 @@ docs/hoplog.rst
 docs/unerror.rst
 docs/bottleweb.rst
 docs/runbottle.rst
+
+
 
