@@ -9,6 +9,7 @@ from dispenser import *
 from cooler import *
 from mashStirrer import *
 from mashHeater import *
+from mashTemp import *
 from boilerValve import *
 from plateValve import *
 from aerator import *

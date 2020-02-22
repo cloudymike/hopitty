@@ -7,6 +7,7 @@ componentlist:
   - aerator
   - cooler
   - plateValve
+  - mashTemp
   - mashStirrer
   - boilerValve
   - hotWaterPump
