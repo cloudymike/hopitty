@@ -9,6 +9,8 @@ aws_iot_endpoint = "a2d09uxsvr5exq-ats.iot.us-east-1.amazonaws.com" # <random>.i
 url = "https://{}".format(aws_iot_endpoint)
 
 HOMEDIR=os.getenv("HOME")
+if HOMEDIR is None:
+    HOMEDIR = '/'
 ca = HOMEDIR+"/secrets/certs/awsroot.crt" 
 cert = HOMEDIR+"/secrets/certs/e27d28a42b-certificate.pem.crt"
 private = HOMEDIR+"/secrets/keys/e27d28a42b-private.pem.key"
