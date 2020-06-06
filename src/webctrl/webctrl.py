@@ -320,10 +320,10 @@ class runbrew():
     def tempPage(self):
         mylog = self.controllers.getMyLog()
         if 'mashTemp' in self.controllers:
-            return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashTemp', 'envTemp'))
+            return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashTemp', 'envTemp', self.runningRecipeName))
         if 'mashHeater' in self.controllers:
-            return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashHeater', 'envTemp'))
-        return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'envTemp', 'envTemp'))
+            return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashHeater', 'envTemp', self.runningRecipeName))
+        return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'envTemp', 'envTemp', self.runningRecipeName))
 
 
     def ingredientsPage(self):

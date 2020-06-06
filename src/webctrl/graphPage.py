@@ -8,11 +8,11 @@ import commonweb
 import sys
 
 
-def graphPage(mylog, label1, label2, label3, label4):
+def graphPage(mylog, label1, label2, label3, label4, currentRecipeName):
     fig = plt.figure()
 
     ax = fig.add_subplot(111)
-    ax.set_title('Temperature')
+    ax.set_title('Temperature\n'+ currentRecipeName)
 
     ax.set_xlabel('time')
     ax.set_ylabel('temperature')
