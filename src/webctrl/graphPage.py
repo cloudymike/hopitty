@@ -12,7 +12,7 @@ def graphPage(mylog, label1, label2, label3, label4, currentRecipeName):
     fig = plt.figure()
 
     ax = fig.add_subplot(111)
-    ax.set_title('Temperature\n'+ currentRecipeName)
+    ax.set_title(currentRecipeName)
 
     ax.set_xlabel('time')
     ax.set_ylabel('temperature')
@@ -47,5 +47,6 @@ def graphPage(mylog, label1, label2, label3, label4, currentRecipeName):
 
     graphpg = graphpg + common.footer()
     graphpg = graphpg + "</body>"
+    graphpg = common.header("Temperature", True) + graphpg
 
     return(graphpg)
