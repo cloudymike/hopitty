@@ -19,7 +19,11 @@ class boiler(appliances.genctrl):
         self.target = 200
         self.unit = 'F'
         self.sensor = sensors.genericSensor()
+        self.sensor.setIncremental(10)
+        self.sensor.setLimits(32,212)
+        self.sensor.setID('generic')
         self.actual = 0  # Actual measured value, ex temp
+        
 
     def __del__(self):
         self.powerOn = False
@@ -50,7 +54,12 @@ class boiler(appliances.genctrl):
             return(self.get() >= self.target)
 
     def measure(self):
-        return(self.sensor.getValue())
+        if self.sensor.getID() == 'generic':
+            if self.powerOn:
+                self.actual = self.sensor.getValue()
+        else:
+            self.actual = self.sensor.getValue()
+        return(self.actual)
 
     def get(self):
         self.actual = self.measure()

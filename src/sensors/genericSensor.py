@@ -2,6 +2,8 @@ class genericSensor():
     def __init__(self):
         self.id = 'nobody'
         self.errorState = False
+        self.low = 0
+        self.high = 999
         self.val = 100
         self.incVal = 0
 
@@ -16,6 +18,10 @@ class genericSensor():
         Return the current sensor value
         """
         self.val = self.val + self.incVal
+        if self.val < self.low:
+            self.val = self.low
+        if self.val > self.high:
+            self.val = self.high
         return(self.val)
 
     def setIncremental(self, incVal):
@@ -23,6 +29,13 @@ class genericSensor():
         Set the incremental, for simulation
         """
         self.incVal = incVal
+
+    def setLimits(self, low=0,high=999):
+        """
+        Set min and max limits
+        """
+        self.low = low
+        self.high = high
 
     def hasError(self):
         """

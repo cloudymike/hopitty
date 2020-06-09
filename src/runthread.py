@@ -43,6 +43,7 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--checkonly', action='store_true', help='Check only')
     #parser.add_argument('-p', '--printRecipe', action='store_true', help='Print recipe')
     parser.add_argument('-e', '--equipment', action='store_true', help='Equipment check')
+    parser.add_argument('-s', '--simulation', action='store_true', help='Run in simulation mode')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
 
     args = parser.parse_args()
@@ -50,10 +51,12 @@ if __name__ == "__main__":
 
     stages = {}
     recipeName = ""
-    if args.equipment:
-        simulation = (simulation or (not args.equipment))
-    else:
-        simulation = False
+
+    if args.simulation and args.equipment:
+        logging.error("Can not run in simulation mode with equipment")
+        sys.exit(1)
+    if args.simulation:
+        logging.info("Running in simulation mode")
         
     mypath = os.path.dirname(os.path.realpath(__file__))
     availableEquipment = equipment.allEquipment(mypath + '/equipment/*.yaml')
@@ -108,7 +111,7 @@ if __name__ == "__main__":
 
     logging.info('Equipment: {}'.format(myEquipment['equipmentName']))
     
-    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myEquipment)
+    controllers = ctrl.setupControllers(args.verbose, args.simulation, permissive, myEquipment)
     if controllers is None:
         logging.error('No controllers')
         sys.exit(1)

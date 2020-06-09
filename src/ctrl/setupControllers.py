@@ -65,7 +65,8 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers.addController('boiler', appliances.boiler())
     controllers['boiler'].connectSwitch(boilerSwitch)
     boilerSensor = tempSensors.getSensor('28ff922d0116039e')
-    controllers['boiler'].connectSensor(boilerSensor)
+    if not simulation:
+        controllers['boiler'].connectSensor(boilerSensor)
 
     controllers.addController('aerator', appliances.aerator())
     controllers['aerator'].connectSwitch(aeratorSwitch)
