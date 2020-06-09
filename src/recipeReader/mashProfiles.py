@@ -466,6 +466,13 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     steepTime = bsmxObj.getSteepTime()
 
     if (steepTime > 1):
+        steepTemp = 190
+        logging.info("Waiting for steeping temp " + str(steepTemp) + "F")
+        step = stageCtrl(controllers)
+        step["cooler"] = setDict(steepTemp)
+        stages[mkSname("Cool4Steeping", stageCount)] = step
+        stageCount = stageCount + 1
+
         logging.info("Steeping for " + str(steepTime) + " minutes")
         step = stageCtrl(controllers)
         step["delayTimer"] = setDict(steepTime)
