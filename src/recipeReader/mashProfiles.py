@@ -423,21 +423,23 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
         bt2 = boilTime
         dispenser = 0
         for dispenseTime in dispenseTimeList:
-            bt1 = bt2 - dispenseTime
-            bt2 = dispenseTime
-            step = stageCtrl(controllers)
-            step["delayTimer"] = setDict(bt1)
-            step["boiler"] = setDict(boilTemp)
+            # If dispenseTime is less than 0 it is for steeping
+            if dispenseTime >= 0:
+                bt1 = bt2 - dispenseTime
+                bt2 = dispenseTime
+                step = stageCtrl(controllers)
+                step["delayTimer"] = setDict(bt1)
+                step["boiler"] = setDict(boilTemp)
 
-            if dispenser > 0:
-                dispenserDevice = "dispenser%d" % (dispenser)
-                step[dispenserDevice] = setDict(empty)
-                logging.info("================ " +
-                             str(bt1) + " " +
-                             dispenserDevice)
+                if dispenser > 0:
+                    dispenserDevice = "dispenser%d" % (dispenser)
+                    step[dispenserDevice] = setDict(empty)
+                    logging.info("================ " +
+                                 str(bt1) + " " +
+                                 dispenserDevice)
 
-            stages[mkSname("Boil", stageCount)] = step
-            stageCount = stageCount + 1
+                stages[mkSname("Boil", stageCount)] = step
+                stageCount = stageCount + 1
             dispenser = dispenser + 1
 
         dispenserDevice = "dispenser%d" % (dispenser)
@@ -466,8 +468,19 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     steepTime = bsmxObj.getSteepTime()
 
     if (steepTime > 1):
+
+        steepTemp = 190
+        logging.info("Waiting for steeping temp " + str(steepTemp) + "F")
+        step = stageCtrl(controllers)
+        step["cooler"] = setDict(steepTemp)
+        stages[mkSname("Cool4Steeping", stageCount)] = step
+        stageCount = stageCount + 1
+
         logging.info("Steeping for " + str(steepTime) + " minutes")
         step = stageCtrl(controllers)
+
+        dispenserDevice = "dispenser%d" % (dispenser)
+        step[dispenserDevice] = setDict(empty)
         step["delayTimer"] = setDict(steepTime)
         stages[mkSname("Steeping", stageCount)] = step
         stageCount = stageCount + 1
