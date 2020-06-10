@@ -48,6 +48,11 @@ class cooler(appliances.genctrl):
             return(self.get() <= self.target)
 
     def measure(self):
+        if self.powerOn:
+            incval = -10
+        else:
+            incval = -1
+        self.sensor.setIncremental(incval)
         return(self.sensor.getValue())
 
     def get(self):
