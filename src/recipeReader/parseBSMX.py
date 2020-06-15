@@ -275,7 +275,7 @@ class bsmxStages():
                 logging.info("Boil " + name + " " + str(boil) + " minutes")
                 hlist.append(float(boil))
             if use == '1':
-                logging.info("Dryhop " + name + " " + str(dry) + " days")
+                logging.debug("Dryhop " + name + " " + str(dry) + " days")
         return(hlist)
 
     def ingredientsMisc(self):
@@ -340,7 +340,7 @@ class bsmxStages():
                 hlist.append([dispenser, name, weight])
                 logging.info("Steep dispenser:{} name:{} weight:{}, time:{}".format(dispenser,name,weight,boil))
             if use == '1':
-                logging.info("Dryhop " + name + " " + str(dry) + " days")
+                logging.debug("Dryhop " + name + " " + str(dry) + " days")
         print hlist
         return(hlist)
 
