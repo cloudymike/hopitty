@@ -29,7 +29,7 @@ for stage, appliances in data.items():
     break
 
 clust_data = []
-for stage, appliances in data.items():
+for stage, appliances in sorted(data.items()):
     row = []
     row.append(stage)
     for appliance, action in appliances.items() :
