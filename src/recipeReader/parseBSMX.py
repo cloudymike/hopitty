@@ -207,7 +207,8 @@ class bsmxStages():
         steepTimes = self.getSteep()
         if steepTimes:
             logging.info("Steeping required")
-            addTimes.append(0)
+            # Set time to -1 to not include in boil time
+            addTimes.append(-1)
         dedupedAddTimes = list(set(addTimes))
         dedupedAddTimes.sort(reverse=True)
 
