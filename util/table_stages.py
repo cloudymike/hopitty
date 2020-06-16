@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import json
+import argparse
 
 def rowprint(row):
     width=6
@@ -10,7 +11,14 @@ def rowprint(row):
     s=s+'|'
     print(s)
 
-with open('../jsonStages/boiler.golden') as json_file:
+
+parser = argparse.ArgumentParser(description='Read a stages file and create a table')
+parser.add_argument('-f', '--file', required=True, help='Input JSON file')
+args = parser.parse_args()
+
+
+
+with open(args.file) as json_file:
     data = json.load(json_file)
 
 
