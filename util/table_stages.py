@@ -12,10 +12,19 @@ def rowprint(row):
     s=s+'|'
     print(s)
 
+def tablePrint(collabel,rowlabel,clust_data):
+    collabel = ['stage'] + collabel
+    rowprint(collabel)
+    i = 0
+    for row in clust_data:
+        row = [rowlabel[i]] + row
+        i = i + 1
+        rowprint(row)
 
 
 parser = argparse.ArgumentParser(description='Read a stages file and create a table')
 parser.add_argument('-f', '--file', required=True, help='Input JSON file')
+parser.add_argument('-t', '--terminal', action='store_true', help='Output to termnial')
 args = parser.parse_args()
 
 
@@ -45,20 +54,16 @@ for stage, appliances in sorted(data.items()):
             row.append(' ')
     clust_data.append(row)
 
-
+if args.terminal:
+    tablePrint(collabel,rowlabel,clust_data)
+else:
 # Try to display if fail just raw print it
-try:
-    plt.axis('tight')
-    plt.axis('off')
-    the_table = plt.table(cellText=clust_data,colLabels=collabel,rowLabels=rowlabel,loc='center')
-    plt.show()
-except:
-    rowprint(collabel)
-    i = 0
-    for row in clust_data:
-        row = [rowlabel[i]] + row
-        i = i + 1
-        rowprint(row)
-
+    try:
+        plt.axis('tight')
+        plt.axis('off')
+        the_table = plt.table(cellText=clust_data,colLabels=collabel,rowLabels=rowlabel,loc='center')
+        plt.show()
+    except:
+        tablePrint(collabel,rowlabel,clust_data)
 
 
