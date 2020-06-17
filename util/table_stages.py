@@ -11,9 +11,14 @@ def rowprint(row):
     s=s+'|'
     print(s)
 
+def terminalOut(collabel, clust_data):
+    rowprint(collabel)
+    for row in clust_data:
+        rowprint(row)
 
 parser = argparse.ArgumentParser(description='Read a stages file and create a table')
 parser.add_argument('-f', '--file', required=True, help='Input JSON file')
+parser.add_argument('-t', '--terminal', action='store_true', help='Input JSON file')
 args = parser.parse_args()
 
 
@@ -39,16 +44,19 @@ for stage, appliances in sorted(data.items()):
             row.append(' ')
     clust_data.append(row)
 
-# Try to display if fail just raw print it
-try:
-    plt.axis('tight')
-    plt.axis('off')
-    the_table = plt.table(cellText=clust_data,colLabels=collabel,loc='center')
-    plt.show()
-except:
-    rowprint(collabel)
-    for row in clust_data:
-        rowprint(row)
+if args.terminal:
+    terminalOut(collabel, clust_data)
+else:
+    # Try to display if fail just raw print it
+    try:
+        plt.axis('tight')
+        plt.axis('off')
+        the_table = plt.table(cellText=clust_data,colLabels=collabel,loc='center')
+        the_table.auto_set_font_size(False)
+        the_table.set_fontsize(10)
+        plt.show()
+    except:
+        terminalOut(collabel, clust_data)
 
 
 
