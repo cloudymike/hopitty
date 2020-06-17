@@ -2261,85 +2261,7 @@
       "targetValue": 0
     }
   },
-  "30 Cool4Steeping": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "controllerInfo": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": true,
-      "targetValue": 190
-    },
-    "delayTimer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "31 Steeping": {
+  "30 Steeping": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -2417,7 +2339,7 @@
       "targetValue": 0
     }
   },
-  "32 cool": {
+  "31 cool": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -2495,7 +2417,7 @@
       "targetValue": 0
     }
   },
-  "33 re-charge": {
+  "32 re-charge": {
     "aerator": {
       "active": false,
       "targetValue": 0
@@ -2573,7 +2495,7 @@
       "targetValue": 0
     }
   },
-  "34 Empty out": {
+  "33 Empty out": {
     "aerator": {
       "active": true,
       "targetValue": 1
@@ -2651,7 +2573,7 @@
       "targetValue": 0
     }
   },
-  "35 Done": {
+  "34 Done": {
     "aerator": {
       "active": false,
       "targetValue": 0
