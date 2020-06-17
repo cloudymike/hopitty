@@ -468,7 +468,6 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     steepTime = bsmxObj.getSteepTime()
 
     if (steepTime > 1):
-
         steepTemp = 190
         logging.info("Waiting for steeping temp " + str(steepTemp) + "F")
         step = stageCtrl(controllers)
@@ -552,7 +551,7 @@ def SingleInfusionBatch(bsmxObj, chiller):
     s10 = stageCtrl(controllers)
     s10["wortPump"] = setDict(bsmxObj.getPreBoilVolume() / 2)
     s10["boiler"] = setDict(1)
-    stages["9 Wort out 2"] = s10
+    stages["09 Wort out 2"] = s10
 
     stages.update(boiling(bsmxObj, stages, controllers, boilTempConstant))
     try:
