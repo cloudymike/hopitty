@@ -3,6 +3,12 @@ Where to start
 
 See issues on github
 
+### Steep
+Use temperature
+Save minutes negative rather than -1
+Allow multiple steeps
+
+
 ### runraw and runcomm
 Make sure they run properly and add tests.
 
