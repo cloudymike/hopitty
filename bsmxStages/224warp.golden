@@ -1901,7 +1901,7 @@
       "targetValue": 60.0
     },
     "dispenser1": {
-      "active": true,
+      "active": false,
       "targetValue": 0
     },
     "dispenser2": {

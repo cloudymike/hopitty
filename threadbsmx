@@ -7,7 +7,7 @@
 pushd beersmith
 for recipe in *; do
   echo ".......................$recipe"
-  python ../src/runthread.py -q -b $recipe
+  python ../src/runthread.py -q -b $recipe &> /dev/null
   if [ "$?" != "0" ] ; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1

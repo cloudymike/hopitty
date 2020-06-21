@@ -411,17 +411,16 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
 
     boilTime = bsmxObj.getTimeMin("F_E_BOIL_TIME")
     dispenseTimeList = bsmxObj.getDispense()
-
     if len(dispenseTimeList) > 0:
         for dispenseTime in dispenseTimeList:
             if dispenseTime > boilTime:
-                # print "ERROR: bad dispense time"
+                logging.error("bad dispense time")
                 return(None)
 
-    if len(dispenseTimeList) > 0:
+    dispenser = 0
+    if len(dispenseTimeList) > 0 and dispenseTimeList[0] >= 0:
 
         bt2 = boilTime
-        dispenser = 0
         for dispenseTime in dispenseTimeList:
             # If dispenseTime is less than 0 it is for steeping
             if dispenseTime >= 0:
@@ -469,15 +468,17 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
 
     if (steepTime > 1):
         steepTemp = 190
-        logging.info("Waiting for steeping temp " + str(steepTemp) + "F")
+        logging.debug("Waiting for steeping temp " + str(steepTemp) + "F")
         step = stageCtrl(controllers)
         step["cooler"] = setDict(steepTemp)
         stages[mkSname("Cool4Steeping", stageCount)] = step
         stageCount = stageCount + 1
 
-        logging.info("Steeping for " + str(steepTime) + " minutes")
+        logging.debug("Steeping for " + str(steepTime) + " minutes")
         step = stageCtrl(controllers)
 
+        dispenser = dispenser + 1
+        logging.debug("Steeping using dispenser {} ".format(dispenser))
         dispenserDevice = "dispenser%d" % (dispenser)
         step[dispenserDevice] = setDict(empty)
         step["delayTimer"] = setDict(steepTime)

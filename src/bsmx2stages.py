@@ -15,8 +15,16 @@ import equipment
 import os
 import xml.etree.ElementTree
 import checker
+import logging
 
 if __name__ == "__main__":
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=logging.WARNING,
+                        stream=sys.stdout)
+    logging.warning('warning test')
+    logging.info('Starting...')
+
     parser = argparse.ArgumentParser(description='Load files to S3')
     parser.add_argument('-i', '--inputfile', default=None, help='Input beersmith file')
     parser.add_argument('-o', '--outputfile', default=None, help='Output stages file')
