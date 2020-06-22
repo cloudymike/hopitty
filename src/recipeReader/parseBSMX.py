@@ -204,15 +204,18 @@ class bsmxStages():
 
     def getDispense(self):
         addTimes = self.getHops() + self.getMisc()
+
+        # Handle just one steep time for now
         steepTimes = self.getSteep()
         if steepTimes:
-            logging.info("Steeping required")
-            # Set time to -1 to not include in boil time
-            addTimes.append(-1)
+            logging.debug("Steeping required at time {}".format(steepTimes[0]))
+            # Set time to negative to not include in boil time
+            addTimes.append(-1 * steepTimes[0])
+
         dedupedAddTimes = list(set(addTimes))
         dedupedAddTimes.sort(reverse=True)
 
-        logging.info(str(dedupedAddTimes))
+        logging.debug("Dispenser times: {}".format(str(dedupedAddTimes)))
         return(dedupedAddTimes)
 
     def getDispenserAtTime(self, t):
@@ -233,7 +236,7 @@ class bsmxStages():
         stime = 0
         for s in slist:
             stime = max(stime, s)
-        logging.info("Steep time is:" + str(stime))
+        logging.debug("Steep time is:" + str(stime))
         return stime
 
     def getMisc(self):
@@ -252,10 +255,10 @@ class bsmxStages():
             if unit == '1':
                 tu = 'days'
             if use == '0':
-                logging.info("Boil " + name + " " + str(t) + " " + tu)
+                logging.debug("Boil " + name + " " + str(t) + " " + tu)
                 mlist.append(float(t))
             else:
-                logging.info("Other " + name + " " + str(t) + " " + tu)
+                logging.debug("Other " + name + " " + str(t) + " " + tu)
         return(mlist)
 
     def getHops(self):
@@ -272,7 +275,7 @@ class bsmxStages():
                 "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
             use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
             if use == '0':
-                logging.info("Boil " + name + " " + str(boil) + " minutes")
+                logging.debug("Boil " + name + " " + str(boil) + " minutes")
                 hlist.append(float(boil))
             if use == '1':
                 logging.debug("Dryhop " + name + " " + str(dry) + " days")
@@ -294,7 +297,7 @@ class bsmxStages():
             if unit == '1':
                 tu = 'days'
             if use == '0':
-                logging.info("Boil " + name + " " + str(t) + " " + tu)
+                logging.debug("Boil " + name + " " + str(t) + " " + tu)
                 dispenser = self.getDispenserAtTime(float(t))
                 try:
                     weight =  m.getElementsByTagName(
@@ -303,7 +306,8 @@ class bsmxStages():
                     weight = 0
                 mlist.append([dispenser, name, weight])
             else:
-                logging.info("Other " + name + " " + str(t) + " " + tu)
+                logging.debug("Other " + name + " " + str(t) + " " + tu)
+        logging.debug("Misc dispenser list: {}".format(mlist))
         return(mlist)
 
     def ingredientsHops(self):
@@ -320,7 +324,7 @@ class bsmxStages():
                 "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
             use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
             if use == '0':
-                logging.info("Boil " + name + " " + str(boil) + " minutes")
+                logging.debug("Boil " + name + " " + str(boil) + " minutes")
                 dispenser = self.getDispenserAtTime(float(boil))
                 weight =  hop.getElementsByTagName(
                 "F_H_AMOUNT")[0].firstChild.nodeValue
@@ -330,18 +334,18 @@ class bsmxStages():
                 "F_H_AMOUNT")[0].firstChild.nodeValue
                 hlist.append(['FWH', name, weight])
             if use == '4':
-                boil = hop.getElementsByTagName(
+                steep = hop.getElementsByTagName(
                     "F_H_BOIL_TIME")[0].firstChild.nodeValue
-                logging.info("Boil " + name + " " + str(boil) + " minutes")
+                logging.debug("Steep " + name + " " + str(steep) + " minutes")
                 #dispenser = self.getDispenserAtTime(float(boil))
-                dispenser = self.getDispenserAtTime(-1)
+                dispenser = self.getDispenserAtTime(-1 * float(steep))
                 weight =  hop.getElementsByTagName(
                 "F_H_AMOUNT")[0].firstChild.nodeValue
                 hlist.append([dispenser, name, weight])
-                logging.info("Steep dispenser:{} name:{} weight:{}, time:{}".format(dispenser,name,weight,boil))
+                logging.debug("Steep dispenser:{} name:{} weight:{}, time:{}".format(dispenser,name,weight,boil))
             if use == '1':
                 logging.debug("Dryhop " + name + " " + str(dry) + " days")
-        print hlist
+        logging.debug("Hop dispenser list: {}".format(hlist))
         return(hlist)
 
     def getSteep(self):
@@ -358,7 +362,7 @@ class bsmxStages():
                 "F_H_DRY_HOP_TIME")[0].firstChild.nodeValue
             use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
             if use == '4':
-                logging.info("Steep " + name + " " + str(boil) + " minutes")
+                logging.debug("Steep " + name + " " + str(boil) + " minutes")
                 slist.append(float(boil))
         return(slist)
 
@@ -390,7 +394,7 @@ class bsmxStages():
             temp = self.ctrl['envTemp'].get()
         except:
             temp = 72
-            print "=================Environment temp not found=========================="
+            logging.info("Environment temp not found")
         return(temp)
         
     def compareStrikeTemp(self):
@@ -401,8 +405,8 @@ class bsmxStages():
         beersmithTstrike = float(self.getFieldStr("F_MS_INFUSION_TEMP"))
         bsmxGrainTemp = float(self.getFieldStr("F_MH_GRAIN_TEMP"))
         calcTstrike = self.calcStrikeTemp(bsmxGrainTemp)
-        print "==================================>beersmith strike T ", beersmithTstrike
-        print "==================================>calculated strike T ", calcTstrike
+        logging.debug("beersmith strike T: {}".format(beersmithTstrike))
+        logging.debug("calculated strike T: {}".format(calcTstrike))
 
     def calcStrikeTemp(self, testTemp=None):
         """

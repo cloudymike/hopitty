@@ -18,18 +18,23 @@ import checker
 import logging
 
 if __name__ == "__main__":
-    logging.basicConfig(format='%(asctime)s %(message)s',
-                        datefmt='%m/%d/%Y %I:%M:%S %p',
-                        level=logging.WARNING,
-                        stream=sys.stdout)
-    logging.warning('warning test')
-    logging.info('Starting...')
 
     parser = argparse.ArgumentParser(description='Load files to S3')
     parser.add_argument('-i', '--inputfile', default=None, help='Input beersmith file')
     parser.add_argument('-o', '--outputfile', default=None, help='Output stages file')
+    parser.add_argument('-d', '--debug', action='store_true', help='Set log level to debug')
     args = parser.parse_args()
 
+    if args.debug:
+        loglevel = logging.DEBUG
+    else:
+        loglevel = logging.INFO
+
+
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=loglevel,
+                        stream=sys.stdout)
 
     if args.inputfile is None:
         inf = sys.stdin
@@ -73,7 +78,10 @@ if __name__ == "__main__":
         print("Error: equipment vs recipe validation failed")
         sys.exit(1)
 
-    hops = bsmxObj.ingredientsHops()
+    # Debug print the dispensers
+    #hops = bsmxObj.ingredientsHops()
+    #misc = bsmxObj.ingredientsMisc()
+
     json.dump(stagesStr, outf, sort_keys=True,
                            indent=2, separators=(',', ': '))
     outf.close()
