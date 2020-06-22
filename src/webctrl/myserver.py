@@ -7,8 +7,10 @@ Start with http://localhost:8080 and try the button links!
 from bottle import Bottle, ServerAdapter, route, run, template, static_file
 #from bottle_rest import json_to_params
 
-import matplotlib.pyplot as plt, mpld3
 import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt, mpld3
+
 from threading import Thread
 import time
 import datetime
@@ -19,6 +21,7 @@ import jstest
 import gauges
 import apitest
 import cylinder
+import volumeGraph
 
 # The following lines create a dummy temperature graph for testing
 tx = ['11:11:18.719770', '11:11:26.344335', '11:11:38.140248',
@@ -28,6 +31,7 @@ ty = [90, 120, 130, 145, 150, 157, 157, 158]
 tz = [90, 100, 120, 140, 160, 180, 200, 212]
 tm = [150, 149, 148, 149, 150, 151, 150, 150]
 te = [72, 73, 72, 71, 70, 71, 72, 72]
+vb = [0.0, 0.5, 1.1, 2.0, 4.5, 6.2, 7.2, 9.3]
 
 class dummyRecipe():
     def ingredientsHops(self):
@@ -44,7 +48,8 @@ def mktj():
         boila = {'actual': tz[i]}
         masha = {'actual': tm[i]}
         enva = {'actual': te[i]}
-        status = {'hwt': hwa, 'boiler': boila, 'mash': masha, "env": enva}
+        boilv = {'actual': vb[i]}
+        status = {'hwt': hwa, 'boiler': boila, 'mash': masha, "env": enva,"boilerVolume":boilv}
         tt = time.strptime(tx[i], "%H:%M:%S.%f")
         dt = datetime.datetime(*tt[:6])
 
@@ -121,7 +126,11 @@ class myserver(ServerAdapter):
 
     @route('/temp')
     def stat():                 # noqa
-        return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash", "env"))
+        return (graphPage.graphPage(mktj(), "hwt", "boiler", "mash", "env", "bogusrecipe"))
+
+    @route('/volume')
+    def stat():                 # noqa
+        return (volumeGraph.volumeGraph(mktj(), "boilerVolume", "bogusrecipe"))
 
     @route('/ingredients')
     def stat():                 # noqa
