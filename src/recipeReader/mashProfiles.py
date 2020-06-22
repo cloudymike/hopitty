@@ -433,16 +433,14 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
                 if dispenser > 0:
                     dispenserDevice = "dispenser%d" % (dispenser)
                     step[dispenserDevice] = setDict(empty)
-                    logging.info("================ " +
-                                 str(bt1) + " " +
-                                 dispenserDevice)
+                    logging.debug("Dispensing {} at {} minutes".format(dispenserDevice,str(bt1)))
 
                 stages[mkSname("Boil", stageCount)] = step
                 stageCount = stageCount + 1
-            dispenser = dispenser + 1
+                dispenser = dispenser + 1
 
         dispenserDevice = "dispenser%d" % (dispenser)
-        logging.info("================ " + str(bt2) + " " + dispenserDevice)
+        logging.debug("Dispensing {} at {} minutes".format(dispenserDevice, str(bt2)))
 
         step = stageCtrl(controllers)
         step["delayTimer"] = setDict(bt2)
@@ -478,7 +476,7 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
         step = stageCtrl(controllers)
 
         dispenser = dispenser + 1
-        logging.debug("Steeping using dispenser {} ".format(dispenser))
+        logging.debug("Steeping using dispenser {} for {} minutes".format(dispenser,steepTime))
         dispenserDevice = "dispenser%d" % (dispenser)
         step[dispenserDevice] = setDict(empty)
         step["delayTimer"] = setDict(steepTime)

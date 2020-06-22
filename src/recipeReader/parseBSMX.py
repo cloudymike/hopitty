@@ -204,15 +204,18 @@ class bsmxStages():
 
     def getDispense(self):
         addTimes = self.getHops() + self.getMisc()
+
+        # Handle just one steep time for now
         steepTimes = self.getSteep()
         if steepTimes:
-            logging.info("Steeping required")
-            # Set time to -1 to not include in boil time
-            addTimes.append(-1)
+            logging.info("Steeping required at time {}".format(steepTimes[0]))
+            # Set time to negative to not include in boil time
+            addTimes.append(-1 * steepTimes[0])
+
         dedupedAddTimes = list(set(addTimes))
         dedupedAddTimes.sort(reverse=True)
 
-        logging.info(str(dedupedAddTimes))
+        logging.debug("Dispenser times: {}".format(str(dedupedAddTimes)))
         return(dedupedAddTimes)
 
     def getDispenserAtTime(self, t):
@@ -304,6 +307,7 @@ class bsmxStages():
                 mlist.append([dispenser, name, weight])
             else:
                 logging.info("Other " + name + " " + str(t) + " " + tu)
+        logging.debug("Misc dispenser list: {}".format(mlist))
         return(mlist)
 
     def ingredientsHops(self):
@@ -330,18 +334,18 @@ class bsmxStages():
                 "F_H_AMOUNT")[0].firstChild.nodeValue
                 hlist.append(['FWH', name, weight])
             if use == '4':
-                boil = hop.getElementsByTagName(
+                steep = hop.getElementsByTagName(
                     "F_H_BOIL_TIME")[0].firstChild.nodeValue
-                logging.info("Boil " + name + " " + str(boil) + " minutes")
+                logging.info("Steep " + name + " " + str(steep) + " minutes")
                 #dispenser = self.getDispenserAtTime(float(boil))
-                dispenser = self.getDispenserAtTime(-1)
+                dispenser = self.getDispenserAtTime(-1 * float(steep))
                 weight =  hop.getElementsByTagName(
                 "F_H_AMOUNT")[0].firstChild.nodeValue
                 hlist.append([dispenser, name, weight])
                 logging.info("Steep dispenser:{} name:{} weight:{}, time:{}".format(dispenser,name,weight,boil))
             if use == '1':
                 logging.debug("Dryhop " + name + " " + str(dry) + " days")
-        print hlist
+        logging.debug("Hop dispenser list: {}".format(hlist))
         return(hlist)
 
     def getSteep(self):
