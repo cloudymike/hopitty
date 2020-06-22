@@ -148,7 +148,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 173.13322
+      "targetValue": 172.40607387702678
     },
     "wortPump": {
       "active": false,
@@ -226,7 +226,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 173.13322
+      "targetValue": 172.0773514973473
     },
     "wortPump": {
       "active": false,
@@ -284,7 +284,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 9.8125
+      "targetValue": 5.825
     },
     "mashStirrer": {
       "active": false,
@@ -304,7 +304,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 173.13322
+      "targetValue": 171.7486291176678
     },
     "wortPump": {
       "active": false,
@@ -464,7 +464,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     }
   },
   "06 Sparge hold": {
@@ -596,7 +596,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     },
     "mashStirrer": {
       "active": false,
@@ -698,7 +698,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     }
   },
   "09 Sparge hold": {
@@ -830,7 +830,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     },
     "mashStirrer": {
       "active": false,
@@ -932,7 +932,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     }
   },
   "12 Sparge hold": {
@@ -1064,7 +1064,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     },
     "mashStirrer": {
       "active": false,
@@ -1166,7 +1166,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     }
   },
   "15 Sparge hold": {
@@ -1298,7 +1298,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 2.143381024096385
+      "targetValue": 3.021335341105045
     },
     "mashStirrer": {
       "active": false,
@@ -1478,7 +1478,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.15323795180723
+      "targetValue": 0.9281626506024094
     }
   },
   "19 Wort Final hold": {
@@ -1634,7 +1634,7 @@
     },
     "wortPump": {
       "active": true,
-      "targetValue": 2.15323795180723
+      "targetValue": 0.9281626506024094
     }
   },
   "22 pre-boil": {
@@ -2288,7 +2288,7 @@
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 42.0
+      "targetValue": 16.0
     },
     "dispenser1": {
       "active": false,
@@ -2339,163 +2339,7 @@
       "targetValue": 0
     }
   },
-  "31 cool": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "controllerInfo": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": true,
-      "targetValue": 72
-    },
-    "delayTimer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "32 re-charge": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "controllerInfo": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "delayTimer": {
-      "active": true,
-      "targetValue": 1
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "33 Empty out": {
+  "31 Empty out": {
     "aerator": {
       "active": true,
       "targetValue": 1
@@ -2522,7 +2366,7 @@
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 15
+      "targetValue": 7
     },
     "dispenser1": {
       "active": false,
@@ -2557,8 +2401,8 @@
       "targetValue": 0
     },
     "plateValve": {
-      "active": false,
-      "targetValue": 0
+      "active": true,
+      "targetValue": 1
     },
     "waterCirculationPump": {
       "active": false,
@@ -2573,7 +2417,7 @@
       "targetValue": 0
     }
   },
-  "34 Done": {
+  "32 Done": {
     "aerator": {
       "active": false,
       "targetValue": 0

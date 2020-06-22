@@ -69,7 +69,7 @@ def stageCtrl(controllers):
             s['active'] = False
             settings[c_key] = s
     else:
-        logging.info("What the heck is controllers?")
+        logging.error("What the heck is controllers?")
 
     return(settings)
 
@@ -326,7 +326,7 @@ def plateCooling(bsmxObj, stageCount, coolTemp):
 # at suitable times.
 def boiling(bsmxObj, stages, controllers, boilTemp):
     stageCount = len(stages)
-    logging.info("Setting up boiler")
+    logging.debug("Setting up boiler")
     try:
         if 'timeBoiler' in controllers['controllerInfo'].getEquipment()['componentlist']:
             stages.update(timedBoil(bsmxObj, stageCount))
@@ -342,12 +342,12 @@ def boiling(bsmxObj, stages, controllers, boilTemp):
 # Boil for the suitable time
 # Timed only boil, not temp check
 def timedBoil(bsmxObj, stageCount):
-    logging.info("Using timed boil")
+    logging.debug("Using timed boil")
     doc = bsmxObj.getDocTree()
     controllers = bsmxObj.getControllers()
     stages = {}
     stageCount = stageCount + 1
-    logging.info("boiling start")
+    logging.debug("boiling start")
     # This step is just bringing up temperature to boil
     # by checking the temperature
     # So no delay required
@@ -355,24 +355,24 @@ def timedBoil(bsmxObj, stageCount):
     step["delayTimer"] = setDict(15)
     stages[mkSname("pre-boil", stageCount)] = step
     stageCount = stageCount + 1
-    logging.info("preboiling done")
+    logging.debug("preboiling done")
 
     boilTime = bsmxObj.getTimeMin("F_E_BOIL_TIME")
     step = stageCtrl(controllers)
     step["delayTimer"] = setDict(boilTime)
     stages[mkSname("Boil", stageCount)] = step
     stageCount = stageCount + 1
-    logging.info("Boiling done")
+    logging.debug("Boiling done")
 
     steepTime = bsmxObj.getSteepTime()
 
     if (steepTime > 1):
-        logging.info("Steeping for " + str(steepTime) + " minutes")
+        logging.debug("Steeping for " + str(steepTime) + " minutes")
         step = stageCtrl(controllers)
         step["delayTimer"] = setDict(steepTime)
         stages[mkSname("Steeping", stageCount)] = step
         stageCount = stageCount + 1
-        logging.info("Steeping done")
+        logging.debug("Steeping done")
     return(stages)
 
 
@@ -381,12 +381,12 @@ def timedBoil(bsmxObj, stageCount):
 # Add hops and other additions with the dispensers
 # at suitable times.
 def tempBoil(bsmxObj, stageCount, boilTemp):
-    logging.info("Using temperature boil")
+    logging.debug("Using temperature boil")
     doc = bsmxObj.getDocTree()
     controllers = bsmxObj.getControllers()
     stages = {}
     stageCount = stageCount + 1
-    logging.info("boiling start")
+    logging.debug("boiling start")
     # This step is just bringing up temperature to preboil
     # by checking the temperature
     # So no delay required
@@ -395,7 +395,7 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     stages[mkSname("pre-boil", stageCount)] = step
     stageCount = stageCount + 1
 
-    logging.info("preboiling done")
+    logging.debug("preboiling done")
     # hold a  few min just below boil to let foam settle
     # Turn off boiler to let things settle
     step = stageCtrl(controllers)
@@ -483,7 +483,7 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
         stages[mkSname("Steeping", stageCount)] = step
         stageCount = stageCount + 1
 
-    logging.info("Boiling done")
+    logging.debug("Boiling done")
     return(stages)
 
 
@@ -631,7 +631,7 @@ def MultiBatchMash(bsmxObj, chiller):
     lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut) - pumpAdjust
 
     if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
-        logging.info("volWothOut failed")
+        logging.error("volWothOut failed")
         return(None)
 
     for i in range(spargeSteps):
@@ -776,7 +776,7 @@ def HERMSMultiBatchMash(bsmxObj, chiller):
     lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut) - pumpAdjust
 
     if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
-        logging.info("volWothOut failed")
+        logging.error("volWothOut failed")
         return(None)
 
     for i in range(spargeSteps):
