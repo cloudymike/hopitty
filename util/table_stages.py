@@ -49,10 +49,11 @@ for stage, appliances in sorted(data.items()):
     rowlabel.append(stage)
     for i in range(0,noOfCol):
         if appliances[collabel[i]]['active']:
-            row.append(action['targetValue'])
+            row.append(appliances[collabel[i]]['targetValue'])
         else:
             row.append(' ')
     clust_data.append(row)
+
 
 if args.terminal:
     tablePrint(collabel,rowlabel,clust_data)
