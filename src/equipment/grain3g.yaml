@@ -13,4 +13,5 @@ componentlist:
   - waterCirculationPump
   - wortPump
   - boilerVolume
+  - hwtVolume
 

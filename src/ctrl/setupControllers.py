@@ -95,6 +95,9 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
+    controllers.addController('hwtVolume', appliances.hwtVolume())
+    controllers['hwtVolume'].attachHost(controllers['hotWaterPump'])
+
     controllers.addController('waterCirculationPump',
                               appliances.circulationPump())
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
