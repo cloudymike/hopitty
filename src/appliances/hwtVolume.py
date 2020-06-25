@@ -47,6 +47,7 @@ class hwtVolume(appliances.genctrl):
     
     def setMaxVol(self,vol):
         self.maxVolume = vol
+        self.acc = vol
 
     def empty(self):
         pass
