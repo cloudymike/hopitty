@@ -1,6 +1,7 @@
 import pyboardread
 import sensors
 import time
+import sys
 
 class tempSensorDict():
     """
@@ -15,8 +16,10 @@ class tempSensorDict():
             self.device = pyboardread.pyboardread()
         except:
             return None
-
-        return (self.device)
+        if self.device.HWOK():
+            return (self.device)
+        else:
+            return None
 
     def getSensor(self, ROM):
         """
@@ -55,7 +58,6 @@ class pyboardTempSensor(sensors.genericSensor):
             self.val = 32
 
     def setIncremental(self, incval):
-        print "setINcremental"
         if self.simulation:
             self.val = self.val + incval
             if self.val > 212:

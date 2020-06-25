@@ -4,40 +4,40 @@ recipeReader package
 Submodules
 ----------
 
-recipeReader.mashProfiles module
---------------------------------
+recipeReader\.mashProfiles module
+---------------------------------
 
 .. automodule:: recipeReader.mashProfiles
     :members:
     :undoc-members:
     :show-inheritance:
 
-recipeReader.parseBSMX module
------------------------------
+recipeReader\.parseBSMX module
+------------------------------
 
 .. automodule:: recipeReader.parseBSMX
     :members:
     :undoc-members:
     :show-inheritance:
 
-recipeReader.readRecipe module
-------------------------------
+recipeReader\.readRecipe module
+-------------------------------
 
 .. automodule:: recipeReader.readRecipe
     :members:
     :undoc-members:
     :show-inheritance:
 
-recipeReader.test\_bsmxStages module
-------------------------------------
+recipeReader\.test\_bsmxStages module
+-------------------------------------
 
 .. automodule:: recipeReader.test_bsmxStages
     :members:
     :undoc-members:
     :show-inheritance:
 
-recipeReader.test\_jsonStages module
-------------------------------------
+recipeReader\.test\_jsonStages module
+-------------------------------------
 
 .. automodule:: recipeReader.test_jsonStages
     :members:

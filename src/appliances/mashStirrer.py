@@ -18,7 +18,7 @@ class mashStirrer(appliances.genctrl):
         self.powerOn = False
         self.active = False
         self.target = 80
-        self.unit = 'F'
+        self.unit = 'U'
         # self.sensor = sensors.tempermashStirrerSensor()
         # Set a generic sensor, later swap for same sensor as boiler.
         self.sensor = sensors.genericSensor()

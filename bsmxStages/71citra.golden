@@ -56,6 +56,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -130,6 +134,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -140,7 +148,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 177.60930573117943
+      "targetValue": 167.57787715156428
     },
     "wortPump": {
       "active": false,
@@ -204,6 +212,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -214,7 +226,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 177.60930573117943
+      "targetValue": 167.24604872526663
     },
     "wortPump": {
       "active": false,
@@ -278,6 +290,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -288,7 +304,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 177.60930573117943
+      "targetValue": 166.91422029896893
     },
     "wortPump": {
       "active": false,
@@ -351,6 +367,10 @@
     "mashStirrer": {
       "active": true,
       "targetValue": 1
+    },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
     },
     "plateValve": {
       "active": false,
@@ -423,6 +443,10 @@
       "targetValue": 0.3116867469879523
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -500,6 +524,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -574,6 +602,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -589,6 +621,84 @@
     "wortPump": {
       "active": false,
       "targetValue": 0
+    }
+  },
+  "09 Wort out 2": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": true,
+      "targetValue": 1
+    },
+    "boilerValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
+    "controllerInfo": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser1": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser2": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser3": {
+      "active": false,
+      "targetValue": 0
+    },
+    "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": true,
+      "targetValue": 7.24
     }
   },
   "10 pre-boil": {
@@ -645,6 +755,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -722,6 +836,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -793,6 +911,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -870,6 +992,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -941,6 +1067,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1018,6 +1148,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -1089,6 +1223,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1166,6 +1304,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -1237,6 +1379,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1314,6 +1460,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -1385,6 +1535,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1462,6 +1616,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -1536,77 +1694,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterCirculationPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "waterHeater": {
-      "active": false,
-      "targetValue": 0
-    },
-    "wortPump": {
-      "active": false,
-      "targetValue": 0
-    }
-  },
-  "9 Wort out 2": {
-    "aerator": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boiler": {
-      "active": true,
-      "targetValue": 1
-    },
-    "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
-    "controllerInfo": {
-      "active": false,
-      "targetValue": 0
-    },
-    "cooler": {
-      "active": false,
-      "targetValue": 0
-    },
-    "delayTimer": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser1": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser2": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser3": {
-      "active": false,
-      "targetValue": 0
-    },
-    "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "hotWaterPump": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashStirrer": {
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1623,8 +1711,8 @@
       "targetValue": 0
     },
     "wortPump": {
-      "active": true,
-      "targetValue": 7.24
+      "active": false,
+      "targetValue": 0
     }
   }
 }

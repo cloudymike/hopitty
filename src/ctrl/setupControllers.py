@@ -85,6 +85,10 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers.addController('mashHeater', appliances.mashHeater())
         controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
         controllers['mashHeater'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+    elif 'mashTemp' in equipment['componentlist']:
+        controllers.addController('mashTemp', appliances.mashHeater())
+        controllers['mashTemp'].connectSwitch(mashCirculationSwitch)
+        controllers['mashTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
 
     controllers.addController('boilerValve', appliances.boilerValve())
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)

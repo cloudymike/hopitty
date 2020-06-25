@@ -18,6 +18,7 @@ import switchliststatus
 import myserver
 import ctrl
 import graphPage
+import volumeGraph
 import ingredients
 import gauges
 import api
@@ -59,6 +60,7 @@ class runbrew():
         self.wapp.route('/switchlist', 'POST', self.doswitchliststatus)
 
         self.wapp.route('/temp', 'GET', self.tempPage)
+        self.wapp.route('/volume', 'GET', self.volumePage)
         self.wapp.route('/ingredients', 'GET', self.ingredientsPage)
         self.wapp.route('/apipath/appliance/<appliance>', 'GET', self.applianceWrap)
         self.wapp.route('/static/<filename>', 'GET', self.server_static)
@@ -319,7 +321,17 @@ class runbrew():
 
     def tempPage(self):
         mylog = self.controllers.getMyLog()
-        return(graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashHeater', 'envTemp'))
+        if 'mashTemp' in self.controllers:
+            return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashTemp', 'envTemp', self.runningRecipeName))
+        if 'mashHeater' in self.controllers:
+            return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'mashHeater', 'envTemp', self.runningRecipeName))
+        return (graphPage.graphPage(mylog, 'waterHeater', 'boiler', 'envTemp', 'envTemp', self.runningRecipeName))
+
+
+    def volumePage(self):
+        mylog = self.controllers.getMyLog()
+        return (volumeGraph.volumeGraph(mylog, 'boilerVolume', self.runningRecipeName))
+
 
     def ingredientsPage(self):
         #myIngredients = self.controllers.getMyLog()

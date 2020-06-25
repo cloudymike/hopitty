@@ -56,6 +56,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -127,6 +131,10 @@
       "targetValue": 8
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -204,6 +212,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -275,6 +287,10 @@
       "targetValue": 4
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -352,6 +368,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -426,6 +446,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -497,6 +521,10 @@
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashTemp": {
       "active": false,
       "targetValue": 0
     },
