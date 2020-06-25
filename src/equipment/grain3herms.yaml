@@ -1,6 +1,7 @@
 equipmentName: 'Grain 3G, HERMS, 5Gcooler, 5Gpot'
 specs:
   boilerVolumeMax: 17
+  hwtVolumeMax: 32
 componentlist:
   - waterHeater
   - dispenser
@@ -14,4 +15,5 @@ componentlist:
   - waterCirculationPump
   - wortPump
   - boilerVolume
+  - hwtVolume
 

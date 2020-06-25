@@ -1,6 +1,7 @@
 equipmentName: 'Grain 2.5G, 5Gcooler, 4Gpot'
 specs:
   boilerVolumeMax: 14
+  hwtVolumeMax: 32
 componentlist:
   - waterHeater
   - dispenser
@@ -13,3 +14,4 @@ componentlist:
   - waterCirculationPump
   - wortPump
   - boilerVolume
+  - hwtVolume

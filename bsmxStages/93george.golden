@@ -52,6 +52,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -127,6 +131,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -208,6 +216,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -286,6 +298,10 @@
       "active": true,
       "targetValue": 8.278571203124999
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -361,6 +377,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -442,6 +462,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -517,6 +541,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -598,6 +626,10 @@
       "active": true,
       "targetValue": 2.8890146645801953
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -673,6 +705,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -754,6 +790,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -832,6 +872,10 @@
       "active": true,
       "targetValue": 2.8890146645801953
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -907,6 +951,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -988,6 +1036,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1066,6 +1118,10 @@
       "active": true,
       "targetValue": 2.8890146645801953
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1141,6 +1197,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1222,6 +1282,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1300,6 +1364,10 @@
       "active": true,
       "targetValue": 2.8890146645801953
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1375,6 +1443,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1456,6 +1528,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1531,6 +1607,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1612,6 +1692,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1687,6 +1771,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1768,6 +1856,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1843,6 +1935,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1924,6 +2020,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1999,6 +2099,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2080,6 +2184,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2155,6 +2263,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2236,6 +2348,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2311,6 +2427,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2392,6 +2512,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2467,6 +2591,10 @@
       "targetValue": 0
     },
     "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
       "active": false,
       "targetValue": 0
     },

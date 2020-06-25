@@ -108,6 +108,14 @@ webctrl\.switchliststatus module
     :undoc-members:
     :show-inheritance:
 
+webctrl\.volumeGraph module
+---------------------------
+
+.. automodule:: webctrl.volumeGraph
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 webctrl\.webctrl module
 -----------------------
 

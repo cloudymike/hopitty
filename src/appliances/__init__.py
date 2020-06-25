@@ -14,4 +14,5 @@ from boilerValve import *
 from plateValve import *
 from aerator import *
 from boilerVolume import *
+from hwtVolume import *
 from envTemp import *
