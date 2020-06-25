@@ -71,7 +71,8 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers['aerator'].connectSwitch(aeratorSwitch)
 
     controllers.addController('cooler', appliances.cooler())
-    controllers['cooler'].connectSwitch(coolerSwitch)
+    # Do not use coolerswitch anymore, that one is now on plate chiller
+    #controllers['cooler'].connectSwitch(coolerSwitch)
     controllers['cooler'].connectSensor(boilerSensor)
 
     # Reuse of same switch for plate cooler as immersion cooler
