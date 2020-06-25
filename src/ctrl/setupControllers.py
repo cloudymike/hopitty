@@ -45,19 +45,15 @@ def setupControllers(verbose, simulation, permissive, equipment):
 
     hwTunSwitch = switches.powerSwitch(1)
     boilerSwitch = switches.powerSwitch(2)
-    print 0
     aeratorSwitch = switches.air8800Switch()
-    print 0.2
     coolerSwitch = switches.coolerSwitch()
     mashStirSwitch = switches.mashStirSwitch()
     #mashStirSwitch = switches.mashStir8800Switch()
-    print 0.5
     boilerValveSwitch = switches.boilerValveSwitch()
     hotWaterPumpSwitch = usbPumps.getSwitch(1)
     hwCirculationSwitch = usbPumps.getSwitch(0)
     wortSwitch = usbPumps.getSwitch(2)
     mashCirculationSwitch = usbPumps.getSwitch(3)
-    print 1
     controllers.addController('waterHeater', appliances.hwt())
     controllers['waterHeater'].connectSwitch(hwTunSwitch)
     controllers['waterHeater'].connectSensor(tempSensors.getSensor('281a7a6d0b000096'))
@@ -97,6 +93,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
     controllers.addController('hwtVolume', appliances.hwtVolume())
     controllers['hwtVolume'].attachHost(controllers['hotWaterPump'])
+    controllers['hwtVolume'].setMaxVol(equipment['specs']['hwtVolumeMax'])
 
     controllers.addController('waterCirculationPump',
                               appliances.circulationPump())

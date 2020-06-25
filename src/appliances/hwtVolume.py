@@ -36,6 +36,7 @@ class hwtVolume(appliances.genctrl):
         self.host = None
         self.acc = 0
         self.current = 0
+        self.maxVolume = 32
 
 
     def __del__(self):
@@ -43,6 +44,9 @@ class hwtVolume(appliances.genctrl):
 
     def attachHost(self, host):
         self.host = host
+    
+    def setMaxVol(self,vol):
+        self.maxVolume = vol
 
     def empty(self):
         pass
