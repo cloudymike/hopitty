@@ -97,6 +97,9 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers['hwtVolume'].attachHost(controllers['hotWaterPump'])
         controllers['hwtVolume'].setMaxVol(equipment['specs']['hwtVolumeMax'])
 
+    if 'mashVolume' in equipment['componentlist']:
+        controllers.addController('mashVolume', appliances.mashVolume())
+
     controllers.addController('waterCirculationPump',
                               appliances.circulationPump())
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)

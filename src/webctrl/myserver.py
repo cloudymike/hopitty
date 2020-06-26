@@ -33,6 +33,7 @@ tm = [150, 149, 148, 149, 150, 151, 150, 150]
 te = [72, 73, 72, 71, 70, 71, 72, 72]
 vb = [0.0, 0.5, 1.1, 2.0, 4.5, 6.2, 7.2, 9.3]
 vh = [30,30,29,28,27,26,25,25]
+vm = [0,3,9,8,7,6,5,5]
 
 class dummyRecipe():
     def ingredientsHops(self):
@@ -51,7 +52,8 @@ def mktj():
         enva = {'actual': te[i]}
         boilv = {'actual': vb[i]}
         hwtv = {'actual': vh[i]}
-        status = {'hwt': hwa, 'boiler': boila, 'mash': masha, "env": enva,"boilerVolume":boilv,"hwtVolume":hwtv}
+        mashv = {'actual': vm[i]}
+        status = {'hwt': hwa, 'boiler': boila, 'mash': masha, "env": enva,"boilerVolume":boilv,"hwtVolume":hwtv,"mashVolume":mashv}
         tt = time.strptime(tx[i], "%H:%M:%S.%f")
         dt = datetime.datetime(*tt[:6])
 
@@ -132,7 +134,7 @@ class myserver(ServerAdapter):
 
     @route('/volume')
     def stat():                 # noqa
-        return (volumeGraph.volumeGraph(mktj(), "boilerVolume", "hwtVolume","bogusrecipe"))
+        return (volumeGraph.volumeGraph(mktj(), "boilerVolume", "hwtVolume", "mashVolume", "bogusrecipe"))
 
     @route('/ingredients')
     def stat():                 # noqa
