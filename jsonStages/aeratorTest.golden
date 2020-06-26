@@ -64,6 +64,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -143,6 +147,10 @@
       "targetValue": 0
     },
     "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -228,6 +236,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -310,6 +322,10 @@
       "active": false,
       "targetValue": 0
     },
+    "mashVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "plateValve": {
       "active": false,
       "targetValue": 0
@@ -389,6 +405,10 @@
       "targetValue": 0
     },
     "mashTemp": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
