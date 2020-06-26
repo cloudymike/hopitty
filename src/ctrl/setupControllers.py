@@ -91,17 +91,21 @@ def setupControllers(verbose, simulation, permissive, equipment):
     controllers['boilerValve'].connectSwitch(boilerValveSwitch)
     controllers.addController('hotWaterPump', appliances.hwPump())
     controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
-    controllers.addController('hwtVolume', appliances.hwtVolume())
-    controllers['hwtVolume'].attachHost(controllers['hotWaterPump'])
-    controllers['hwtVolume'].setMaxVol(equipment['specs']['hwtVolumeMax'])
+
+    if 'hwtVolume' in equipment['componentlist']:
+        controllers.addController('hwtVolume', appliances.hwtVolume())
+        controllers['hwtVolume'].attachHost(controllers['hotWaterPump'])
+        controllers['hwtVolume'].setMaxVol(equipment['specs']['hwtVolumeMax'])
 
     controllers.addController('waterCirculationPump',
                               appliances.circulationPump())
     controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
     controllers.addController('wortPump', appliances.wortPump())
     controllers['wortPump'].connectSwitch(wortSwitch)
-    controllers.addController('boilerVolume', appliances.boilerVolume())
-    controllers['boilerVolume'].attachHost(controllers['wortPump'])
+
+    if 'hwtVolume' in equipment['componentlist']:
+        controllers.addController('boilerVolume', appliances.boilerVolume())
+        controllers['boilerVolume'].attachHost(controllers['wortPump'])
 
     if 'dispenser' in equipment['componentlist']:
         controllers.addController('dispenser1', appliances.dispenser(1))
