@@ -103,8 +103,8 @@ def strikeTemp(bsmxObj, envT):
 
     # Use this for validation and testing
     beersmithTstrike = bsmxObj.getTempF("F_MS_INFUSION_TEMP")
-    print "beersmith strike T ", beersmithTstrike
-    print "calculated strike T ", Tstrike
+    logging.debug("beersmith strike T {}".format(beersmithTstrike))
+    logging.debug("calculated strike T {}".format(Tstrike))
 
     return(Tstrike)
 
@@ -146,8 +146,8 @@ def txBSMXtoStages(bsmxObj):
                            'Single Infusion, Medium Body, Batch Sparge',
                            'Single Infusion, Full Body, Batch Sparge']:
             if 'mashHeater' in equipmentdict['componentlist'] :
-                print "No valid mash profile found"
-                print "===", mashProfile, "==="
+                logging.debug("No valid mash profile found")
+                logging.debug("=== {} ===".format(mashProfile))
             else:
                 stages = SingleInfusionBatch(bsmxObj, chiller)
 
@@ -161,10 +161,10 @@ def txBSMXtoStages(bsmxObj):
         elif mashProfile in ['testonly']:
             stages = onlyTestMash(bsmxObj, chiller)
         else:
-            print "No valid mash profile found"
-            print "===", mashProfile, "==="
+            logging.debug("No valid mash profile found")
+            logging.debug("=== {} ===".format(mashProfile))
         if stages is None:
-            print "Mash test failed"
+            logging.debug("Mash test failed")
 
     elif equipmentdict['specs']['boilerVolumeMax'] == 26:
         mashProfile = bsmxObj.getMashProfile()
@@ -174,13 +174,13 @@ def txBSMXtoStages(bsmxObj):
                              'Single Infusion, Full Body, No Mash Out']:
             stages = MultiBatchMash(bsmxObj, chiller)
         else:
-            print "No valid mash profile found"
-            print "===", mashProfile, "==="
+            logging.debug("No valid mash profile found")
+            logging.debug("=== {} ===".format(mashProfile))
         if stages is None:
-            print "Mash test failed"
+            logging.debug("Mash test failed")
 
     else:
-        print ":", equipmentName, ":Not valid equipment"
+        logging.debug(": {} :Not valid equipment".format(equipmentName))
 
     if not checkVolBSMX(bsmxObj):
         return(None)
@@ -202,23 +202,21 @@ def checkVolBSMX(bsmxObj):
     # return(True)
     # Check tunDead Space
     if bsmxObj.getTunDeadSpace() < tunDeadSpaceMin:
-        print "Error: Tun dead space:", bsmxObj.getTunDeadSpace(),\
-            "requires:", tunDeadSpaceMin, "qt"
+        logging.error("Tun dead space: {}, require {} qt".format(bsmxObj.getTunDeadSpace(),tunDeadSpaceMin))
         return(False)
 
     # Check boiler volume
     if bsmxObj.getPreBoilVolume() > boilerVolumeMax:
-        print "Error: ", bsmxObj.getPreBoilVolume(), "exceeding boiler volume"
+        logging.error("{} exceeding boiler volume".format(bsmxObj.getPreBoilVolume())) 
         return(False)
 
     if bsmxObj.getStrikeVolume() > maxInfusionVol:
-        print("Error: ", bsmxObj.getStrikeVolume(),
-              "exceeding infusions volume")
+        logging.error("{} exceeding infusions volume".format(bsmxObj.getStrikeVolume()))
         return(False)
 
     totInVol = bsmxObj.getStrikeVolume() + bsmxObj.getSpargeVolume()
     if totInVol > maxTotalInVol:
-        print "Error: ", totInVol, "exceeding max total in volume", maxTotalInVol
+        logging.error("{} exceeding max total in volume {}".format(totInVol, maxTotalInVol))
         return(False)
 
     outLoss = bsmxObj.getGrainAbsorption() + bsmxObj.getTunDeadSpace() +\
@@ -228,17 +226,17 @@ def checkVolBSMX(bsmxObj):
     outV = round(outLoss, 4)
 
     if inV != outV:
-        print "Deadspace", bsmxObj.getTunDeadSpace()
-        print "Error: In and outvolume mismatch"
-        print "In volume ", totInVol, "qt"
-        print "Out Volume", outLoss, "qt"
+        logging.error("Deadspace {}".format(bsmxObj.getTunDeadSpace()))
+        logging.error("Error: In and outvolume mismatch")
+        logging.error("In volume {} qt".format(totInVol))
+        logging.error("Out Volume {} qt".format(outLoss))
         return(False)
 
     grainWeight = bsmxObj.getWeightLb("F_MS_GRAIN_WEIGHT")
     fluidWeight = bsmxObj.getStrikeVolume() * 2.08
     totWeight = grainWeight + fluidWeight
     if totWeight > maxTotalWeight:
-        print "Total weight ", totWeight, "exceeding max", maxTotalWeight
+        logging.error("Total weight {} exceeding max {}".format(totWeight, maxTotalWeight))
         return(False)
     return(True)
 
