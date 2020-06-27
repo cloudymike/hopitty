@@ -15,4 +15,5 @@ componentlist:
   - wortPump
   - boilerVolume
   - hwtVolume
+  - mashVolume
 
