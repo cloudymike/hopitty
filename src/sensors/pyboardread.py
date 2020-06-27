@@ -73,7 +73,7 @@ class pyboardread():  # pragma: no cover
                                         rtscts=False,
                                         dsrdtr=False)
             except serial.serialutil.SerialException:
-                print("Unable to open port '%s'\r" % portName)
+                logging.debug("Unable to open port '%s'\r" % portName)
                 return(None)
         
         time.sleep(0.3)
@@ -91,7 +91,7 @@ class pyboardread():  # pragma: no cover
                 r = serPort.read(8)
                 response = response + r
         except:
-            print "Failed to read"
+            logging.error("Failed to read")
         serPort.close()
          
         mydict = None
@@ -113,8 +113,8 @@ if __name__ == '__main__':  # pragma: no cover
     parser.add_argument('-r', '--rom', default=None, help='ROM hex code')
 
     args = parser.parse_args()
-    print args.rom
+    logging.info(args.rom)
 
     pbr = pyboardread()
-    print json.dumps(pbr.get_dict(), sort_keys=True, indent=4)
-    print "Temperature is ", pbr.get_temperature('fahrenheit', args.rom)
+    logging.info(json.dumps(pbr.get_dict(), sort_keys=True, indent=4))
+    logging.info("Temperature is {}".format(pbr.get_temperature('fahrenheit', args.rom)))

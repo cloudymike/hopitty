@@ -17,6 +17,7 @@ from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs
 from Phidgets.Events.Events import ErrorEventArgs, InputChangeEventArgs
 from Phidgets.Events.Events import OutputChangeEventArgs, SensorChangeEventArgs
 from Phidgets.Devices.InterfaceKit import InterfaceKit
+import logging
 
 
 class onePump():
