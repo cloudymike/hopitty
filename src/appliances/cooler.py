@@ -1,7 +1,6 @@
 # import subprocess
 import appliances.genctrl
 import sensors
-import switches
 
 
 class cooler(appliances.genctrl):
@@ -10,7 +9,7 @@ class cooler(appliances.genctrl):
     """
     def __init__(self):
         self.errorState = False  # If an error has occured
-        self.coolerSwitch = switches.simSwitch()
+        self.coolerSwitch = None
         self.powerOn = False
         self.active = False
         self.target = 80
