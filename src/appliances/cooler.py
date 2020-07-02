@@ -78,10 +78,6 @@ class cooler(appliances.genctrl):
         self.powerOn = False
 
     def HWOK(self):
-        if self.coolerSwitch is None:
-            return(False)
-        if not self.coolerSwitch.HWOK():
-            return(False)
         return(self.sensor.HWOK())
 
 if __name__ == '__main__':  # pragma: no cover
