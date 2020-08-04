@@ -22,6 +22,7 @@ def statusView(s2b, errorState, currentRecipeName):
 
     retstr = retstr + """<h2>Recipe: %s</h2>""" % currentRecipeName
     retstr = retstr + """<h3>Stage: %s</h3>""" % stage
+    retstr = retstr + """<p>Cycle time: %f</p>""" % s2b.cycletime()
 
     if s2b.isAlive():
         retstr = retstr + """\
