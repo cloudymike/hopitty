@@ -17,3 +17,4 @@ componentlist:
   - hwtVolume
   - mashVolume
   - boiler
+  - envTemp
