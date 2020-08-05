@@ -41,6 +41,10 @@ handler = logging.StreamHandler(sys.stdout)
 log_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(log_format)
 logger.addHandler(handler)
+logging.basicConfig(format='%(asctime)s %(message)s',
+        datefmt='%m/%d/%Y %I:%M:%S %p',
+        level=logging.INFO,
+        stream=sys.stdout)
 
 
 def ssl_alpn():
@@ -58,7 +62,7 @@ def ssl_alpn():
         raise e
 
 
-class mockctrl():
+class mqttctrl():
     def __init__(self,
         args,
         controllers=None,
@@ -68,8 +72,9 @@ class mockctrl():
         self.count = 0
         self.state = 'stop'
         self.increment = 0
+        self.controllers = controllers
 
-        self.hold_forever = controllers.stage_template('holdforever')
+        self.hold_forever = self.controllers.stage_template('holdforever')
         self.hold_forever['holdforever']['delayTimer']['active'] = True
         self.hold_forever['holdforever']['delayTimer']['targetValue'] = 600
 
@@ -99,7 +104,7 @@ class mockctrl():
         self.client.loop_start()
 
     def on_connect(self, client, userdata, flags, rc):
-        logging.info("Connected with result code "+str(rc))
+        logger.info("Connected with result code "+str(rc))
         client.subscribe("topic/test")
 
     def on_message(self, client, userdata, msg):
@@ -146,14 +151,14 @@ class mockctrl():
         for each stage loop until all targets met.
         no blocking, I.e a separate thread
         """
-        logging.info("New run of new recipe")
+        logger.info("New run of new recipe")
         for r_key, settings in sorted(self.stages.items()):
-            logging.info("New stage: {}".format(r_key))
-            controllers.stop()
-            controllers.run(settings)
+            logger.info("New stage: {}".format(r_key))
+            self.controllers.stop()
+            self.controllers.run(settings)
             self.state='run'
-            while not controllers.done() or self.state == 'pause' :
-                controllers.run(settings)
+            while not self.controllers.done() or self.state == 'pause' :
+                self.controllers.run(settings)
                 nowtime = time.time()
                 deltatime = nowtime - self.oldtime
                 self.oldtime = nowtime
@@ -163,8 +168,8 @@ class mockctrl():
                 sleeptime = max(1.0 + difftime, 0.0)
                 sleeptime = min(1.0, sleeptime)
                 time.sleep(sleeptime)
-                controllers.logstatus()
-                lightstatus = controllers.lightStatus()
+                self.controllers.logstatus()
+                lightstatus = self.controllers.lightStatus()
                 fullstatus = {}
                 fullstatus['stage'] = str(r_key)
                 fullstatus['state'] = str(self.state)
@@ -184,7 +189,7 @@ class mockctrl():
 
     def start(self):
         while 1:
-            logging.info('New set of stages')
+            logger.info('New set of stages')
             self.run()
 
             # If state is terminate, return and finish the program
@@ -198,23 +203,37 @@ class mockctrl():
                 self.state = 'stop'
                 self.stages = self.hold_forever
 
+    def quickRun(self):
+        """
+        Runs through the recipe without any delay to just check it is OK
+        This is different from check recipe in that it will also run
+        each controller, thus test hardware if connected and not
+        permissive
+        """
+        self.controllers.stop()
+        for r_key, settings in sorted(self.stages.items()):
+            logger.info("New stage: {}".format(r_key))
+            try:
+                self.controllers.run(settings)
+                self.controllers.stopCurrent(settings)
+            except:
+                return(False)
+        return(True)
+
 
 if __name__ == "__main__":
 #    simTemp = 70
 #    shutdown = False
 
-    logging.basicConfig(format='%(asctime)s %(message)s',
-                        datefmt='%m/%d/%Y %I:%M:%S %p',
-                        level=logging.INFO,
-                        stream=sys.stdout)
-    logging.warning('warning test')
-    logging.info('Starting...')
+
+    logger.info('Starting...')
 
     parser = argparse.ArgumentParser(description='Run brew equiipment with communication enabled for control.')
-    parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
     parser.add_argument('-c', '--checkonly', action='store_true', help='Only check, do not brew')
     parser.add_argument('-e', '--equipment', action='store_true', help='Force use of real equipment')
-    parser.add_argument('-f', '--file', default="", type=str, help='Stages file to use, json format, ')
+    parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
+    parser.add_argument('-f', '--file', default=None, type=str, help='Recipe file to use, json format, ')
+    parser.add_argument('-r', '--raw', default=None, type=str, help='Stages file to use, json format, ')
     parser.add_argument('-q', '--quick', action='store_true', help='Run quick recipe with no delays, or meeting goals')
     parser.add_argument('-s', '--simulate', action='store_true', help='Force simulation')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
@@ -245,54 +264,59 @@ if __name__ == "__main__":
     controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment)
     if args.equipment:
         if controllers.HWOK():
-            logging.info('USB devices connected')
+            logger.info('USB devices connected')
         else:
-            logging.info('ERROR: Missing USB devices, exiting')
+            logger.info('ERROR: Missing USB devices, exiting')
             sys.exit(1)
 
     # Read one of the recipe files
-    if args.file != "":
+    if args.file:
         j = recipeReader.jsonStages(args.file, controllers)
         if not j.isValid():
-            logging.error("Error: bad json recipe")
-        else:
-            recipeName = j.getRecipeName()
-            stages = j.getStages()
-    elif args.bsmx != "" :
-        b = recipeReader.bsmxStages(args.bsmx, controllers)
-        if not b.isValid():
-            logging.error("Error: bad bsmx recipe")
+            logger.error("Error: bad json recipe")
             sys.exit(1)
         else:
-            recipeName = b.getRecipeName()
+            stages = j.getStages()
+    elif args.bsmx:
+        b = recipeReader.bsmxStages(args.bsmx, controllers)
+        if not b.isValid():
+            logger.error("Error: bad Beersmith recipe")
+            sys.exit(1)
+        else:
             stages = b.getStages()
+    elif args.raw:
+        with open(args.raw) as data_file:
+            stages = json.load(data_file)
     else:
         stages = {}
-
-    #print(stages)
 
     equipmentchecker = checker.equipment(controllers, stages)
 
 
 
     if not equipmentchecker.check():
-        logging.error("Error: equipment vs recipe validation failed")
+        logger.error("Error: equipment vs recipe validation failed")
 
     #devices = deviceloop(controllers, stages)
-    mc = mockctrl(args, controllers, stages)
+    mc = mqttctrl(args, controllers, stages)
 
     if not args.checkonly:
         if (stages != {}) and (stages is not None):
-            logging.info("Starting single run-through")
-            mc.run()
+            logger.info("Starting single run-through")
+            if args.quick:
+                if not mc.quickRun():
+                    logger.error("Quickrun failed")
+                    sys.exit(1)
+            else:
+                mc.run()
         else:
-            logging.info("Starting run loop")
+            logger.info("Starting run loop")
             mc.start()
 
 
-    logging.info(" ")
-    logging.info("OK")
-    logging.info("Shutting down")
+    logger.info(" ")
+    logger.info("OK")
+    logger.info("Shutting down")
     mc.stop()
     del controllers
 
