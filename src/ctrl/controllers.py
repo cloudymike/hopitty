@@ -16,10 +16,10 @@ class controllerList(dict):
 
         if STRESSTEST:
             print "WARNING: Running in stress test mode"
-            
+
     def setEquipment(self,equipment):
         """
-        Set the equipement name to allow identify 
+        Set the equipement name to allow identify
         multiple setups and check reciepes against them
         """
         # This needs to be stored somewhere
@@ -28,14 +28,14 @@ class controllerList(dict):
         # The setup will need to define these anyhow.
         # We could even add delay timer at init.
         pass
-    
+
     def getEquipmentName(self):
         """
         Get the equiment type the controller is setup as.
         Allow to check recipe against the setup
         """
         return(self['controllerInfo'].getEquipmentName())
-    
+
     def getEquipment(self):
         """
         Return the equipement data required to check recipe against
@@ -196,6 +196,20 @@ class controllerList(dict):
             ctrlStat[key] = curr
         self.HWlock.release()
         return ctrlStat
+
+    def stage_template(self, stagename):
+        """
+        Return a stage template for current controller
+        """
+        stage={}
+        ctrlStat = {}
+        for key, c in self.items():
+            curr = {}
+            curr['active'] = False
+            curr['targetValue'] = 0
+            ctrlStat[key] = curr
+        stage[stagename] = ctrlStat
+        return stage
 
     def statusAppliance(self, key):
         """
