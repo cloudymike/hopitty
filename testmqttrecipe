@@ -4,15 +4,13 @@
 # Runs the controller in quick mode
 # Fails on first failing recipe
 
-echo "Requires mosquitto running locally"
 
 pushd recipe
 for recipe in *; do
   echo ".......................$recipe"
-  python ../src/runmqtt.py -m -q -f $recipe
+  python ../src/runmqtt.py -n -q -f $recipe
   if [ "$?" != "0" ] ; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
-    echo "Is mosquitto running locally ?"
     exit 1
   fi
 done

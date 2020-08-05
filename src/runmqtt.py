@@ -96,12 +96,13 @@ class mqttctrl():
         if args.mqtt:
             self.client.connect("localhost",1883,60)
 
-        logger.info("connect success")
-
-        self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
-
-        self.client.loop_start()
+        # For testing purposes, remove all communication
+        # Allows test to run without broker.
+        if not args.noqueue:
+            self.client.on_connect = self.on_connect
+            self.client.on_message = self.on_message
+            self.client.loop_start()
+            logger.info("connect success")
 
     def on_connect(self, client, userdata, flags, rc):
         logger.info("Connected with result code "+str(rc))
@@ -239,16 +240,16 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
     parser.add_argument('--version', action='store_true', help='Print version and exit')
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-n", "--netsock", action='store_true', help='Use netsock communication')
+    group.add_argument("-n", "--noqueue", action='store_true', help='Do not use communication')
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
 
     args = parser.parse_args()
     permissive = True
 
-    if args.netsock:
-        logger.error("Netsock not currently supported")
-        sys.exit(1)
+    #if args.netsock:
+    #    logger.error("Netsock not currently supported")
+    #    sys.exit(1)
 
     if args.aws:
         logger.error("AWS mqtt not currently supported")
