@@ -54,7 +54,7 @@ def ssl_alpn():
 
         return  ssl_context
     except Exception as e:
-        print("exception ssl_alpn()")
+        logger.error("exception ssl_alpn()")
         raise e
 
 
@@ -72,7 +72,6 @@ class mockctrl():
         self.hold_forever = controllers.stage_template('holdforever')
         self.hold_forever['holdforever']['delayTimer']['active'] = True
         self.hold_forever['holdforever']['delayTimer']['targetValue'] = 600
-        print self.hold_forever
 
         if stages:
             self.stages = stages
@@ -100,7 +99,7 @@ class mockctrl():
         self.client.loop_start()
 
     def on_connect(self, client, userdata, flags, rc):
-        print("Connected with result code "+str(rc))
+        logging.info("Connected with result code "+str(rc))
         client.subscribe("topic/test")
 
     def on_message(self, client, userdata, msg):
@@ -131,7 +130,7 @@ class mockctrl():
         if len(command) > 0 and command[0] == '{':
             data = command
             status_string = str(data).replace("'","")
-            print(status_string)
+            logger.debug(status_string)
             self.stages = json.loads(status_string)
             self.increment = 0
             self.state = 'stop'
@@ -147,9 +146,9 @@ class mockctrl():
         for each stage loop until all targets met.
         no blocking, I.e a separate thread
         """
-        print("run")
+        logging.info("New run of new recipe")
         for r_key, settings in sorted(self.stages.items()):
-            print("New stage: {}".format(r_key))
+            logging.info("New stage: {}".format(r_key))
             controllers.stop()
             controllers.run(settings)
             self.state='run'
@@ -171,8 +170,7 @@ class mockctrl():
                 fullstatus['state'] = str(self.state)
                 fullstatus['status'] = lightstatus
                 status = json.dumps(fullstatus)
-                print(status)
-                print(status)
+                #print(status)
                 self.set_status(status)
 
 
@@ -186,7 +184,7 @@ class mockctrl():
 
     def start(self):
         while 1:
-            print('New set of stages')
+            logging.info('New set of stages')
             self.run()
 
             # If state is terminate, return and finish the program
@@ -230,11 +228,11 @@ if __name__ == "__main__":
     permissive = True
 
     if args.netsock:
-        print("Netsock not currently supported")
+        logger.error("Netsock not currently supported")
         sys.exit(1)
 
     if args.aws:
-        print("AWS mqtt not currently supported")
+        logger.error("AWS mqtt not currently supported")
         sys.exit(1)
 
     mypath = os.path.dirname(os.path.realpath(__file__))
@@ -254,8 +252,20 @@ if __name__ == "__main__":
 
     # Read one of the recipe files
     if args.file != "":
-        with open(args.file) as data_file:
-            stages = json.load(data_file)
+        j = recipeReader.jsonStages(args.file, controllers)
+        if not j.isValid():
+            logging.error("Error: bad json recipe")
+        else:
+            recipeName = j.getRecipeName()
+            stages = j.getStages()
+    elif args.bsmx != "" :
+        b = recipeReader.bsmxStages(args.bsmx, controllers)
+        if not b.isValid():
+            logging.error("Error: bad bsmx recipe")
+            sys.exit(1)
+        else:
+            recipeName = b.getRecipeName()
+            stages = b.getStages()
     else:
         stages = {}
 
@@ -273,7 +283,8 @@ if __name__ == "__main__":
 
     if not args.checkonly:
         if (stages != {}) and (stages is not None):
-            logging.info("Starting one run through")
+            logging.info("Starting single run-through")
+            mc.run()
         else:
             logging.info("Starting run loop")
             mc.start()
