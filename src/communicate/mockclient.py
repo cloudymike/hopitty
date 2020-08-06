@@ -38,6 +38,12 @@ if __name__ == "__main__":
     print('Received {}'.format(data))
     assert 'stop' in data
 
+    data = client.write_command(json.dumps(stages))
+    time.sleep(3)
+    data = client.read_status()
+    print('Received {}'.format(data))
+    assert 'stop' in data
+
     data = client.write_command('run')
     print('Received {}'.format(data))
     time.sleep(3)

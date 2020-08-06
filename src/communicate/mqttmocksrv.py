@@ -108,7 +108,6 @@ class mockctrl():
         if command == 'stop':
             self.increment = 0
             self.state = 'stop'
-            self.stages = self.hold_forever
 
         if len(command) > 0 and command[0] == '{':
             data = command
@@ -118,11 +117,11 @@ class mockctrl():
             self.increment = 0
             self.state = 'stop'
 
+
     def set_status(self, message):
         topic = self.maintopic+"/status"
         self.client.publish(topic, message)
         return()
-
 
     def start(self):
         while 1:
