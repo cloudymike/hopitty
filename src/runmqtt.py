@@ -156,6 +156,7 @@ class mqttctrl():
         for r_key, settings in sorted(self.stages.items()):
             logger.info("New stage: {}".format(r_key))
             self.controllers.stop()
+            print(settings)
             self.controllers.run(settings)
             self.state='run'
             while not self.controllers.done() or self.state == 'pause' :
