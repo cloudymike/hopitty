@@ -166,9 +166,10 @@ class mqttctrl():
             #self.state='run'
             while not self.controllers.done():
                 if self.state == 'pause':
-                    #self.controllers.pause(settings)
+                    self.controllers.pause(settings)
                     print('Pausing...')
-                self.controllers.run(settings)
+                else:
+                    self.controllers.run(settings)
                 nowtime = time.time()
                 deltatime = nowtime - self.oldtime
                 self.oldtime = nowtime
@@ -208,6 +209,7 @@ class mqttctrl():
             print("Start loop. State: {}".format(self.state))
 
             self.set_status(status)
+            self.controllers.stop()
             time.sleep(1)
 
             if self.state in ['run']:

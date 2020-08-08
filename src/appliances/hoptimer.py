@@ -10,6 +10,7 @@ class hoptimer(appliances.genctrl):
         Switch is not used, just to be consistent with other modules
         """
         self.errorState = False  # If an error has occured
+        self.pauseflag = False
         self.actual = 0.0
         self.target = 0.0
         self.active = False
@@ -24,8 +25,12 @@ class hoptimer(appliances.genctrl):
         if deltamin < 0:
             deltamin = deltamin + 1.0
         self.absminutes = currmin
-        if self.target > 0:
-            self.actual = self.actual + deltamin
+        if self.target > 0 :
+            if self.pauseflag:
+                self.actual = self.actual
+                print('measure: {}'.format(self.actual))
+            else:
+                self.actual = self.actual + deltamin
 
     def stop(self):
         """
@@ -38,12 +43,18 @@ class hoptimer(appliances.genctrl):
         self.actual = 0
         self.active = False
         self.powerOn = 'False'
+        self.absminutes = time.localtime(time.time()).tm_sec / 60.0
+        self.pauseflag = False
 
-        def pause(self):
-            """
-            Pause any action, to allow a temporary pause in the brew process.
-            This should be a no-action stage. Pumps should be stopped.
-            heaters should keep it'd temperature. etc. It is not the same
-            as stop.
-            """
-            pass
+    def pause(self):
+        """
+        Pause any action, to allow a temporary pause in the brew process.
+        This should be a no-action stage. Pumps should be stopped.
+        heaters should keep it'd temperature. etc. It is not the same
+        as stop.
+        """
+        self.pauseflag = True
+
+    def start(self):
+        self.active = True
+        self.pauseflag = False

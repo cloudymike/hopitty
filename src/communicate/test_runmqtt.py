@@ -26,7 +26,7 @@ def assertState(data, state):
         print('Expected: {}  Actual: {}'.format(state,actualState))
         sys.exit(1)
     else:
-        print('State Assert OK')
+        print('State Assert {} OK'.format(state))
 
 def assertStage(data, stage):
     statusdict = json.loads(data)
@@ -36,7 +36,7 @@ def assertStage(data, stage):
             print('Expected: {}  Actual: {}'.format(stage,actualStage))
             sys.exit(1)
         else:
-            print('Stage Assert OK')
+            print('Stage Assert {} OK'.format(stage))
 
 def testTitle(name):
     print('================================={}'.format(name))
@@ -48,9 +48,10 @@ def waitfor_state(client, state, timeout):
         statusdict = json.loads(data)
         actualState = statusdict['state']
         if actualState == state:
+            print('State {} read'.format(state))
             return()
 
-    print('Timeout in waiting for state {}'.format(state))
+    print('Timeout in waiting for state {}. Actual state: {}'.format(state, actualState))
     sys.exit(1)
 
 
@@ -96,8 +97,7 @@ if __name__ == "__main__":
     time.sleep(1)
     assertState(client.read_status(), 'run')
     assertStage(client.read_status(), 's1')
-    time.sleep(30)
-    assertState(client.read_status(), 'stop')
+    waitfor_state(client, 'stop', 60)
 
     testTitle('Start run and manually stop.')
     assert client.write_command(stagesString) == 'ok'
@@ -108,8 +108,7 @@ if __name__ == "__main__":
     assertState(client.read_status(), 'run')
     assertStage(client.read_status(), 's1')
     assert client.write_command('stop') == 'ok'
-    time.sleep(1)
-    assertState(client.read_status(), 'stop')
+    waitfor_state(client, 'stop', 6)
 
 
     testTitle('Start run and skip. Make sure stage does change and state is run again')
@@ -125,8 +124,7 @@ if __name__ == "__main__":
     waitfor_state(client, 'run', 10)
     assertStage(client.read_status(), 's2')
     assert client.write_command('stop') == 'ok'
-    time.sleep(2)
-    assertState(client.read_status(), 'stop')
+    waitfor_state(client, 'stop', 6)
 
     testTitle('Start run and pause. Make sure stage does not change')
     assert client.write_command(stagesString) == 'ok'
@@ -137,21 +135,20 @@ if __name__ == "__main__":
     assertState(client.read_status(), 'run')
     assertStage(client.read_status(), 's1')
     data = client.write_command('pause')
-    time.sleep(1)
+    waitfor_state(client, 'pause', 6)
+    time.sleep(5)
     assertState(client.read_status(), 'pause')
-    time.sleep(14)
-    assertState(client.read_status(), 'pause')
-    #assertStage(client.read_status(), 's1')
-    assert client.write_command('run') == 'ok'
-    time.sleep(8)
-    assertState(client.read_status(), 'run')
-    assert client.write_command('stop') == 'ok'
     time.sleep(2)
-    assertState(client.read_status(), 'stop')
+    assert client.write_command('run') == 'ok'
+    time.sleep(2)
+    assert client.write_command('run') == 'ok'
+    waitfor_state(client, 'run', 10)
+    assert client.write_command('stop') == 'ok'
+    waitfor_state(client, 'stop', 6)
 
 
     testTitle('Terminate server and client')
-    data = client.write_command('terminate')
+    assert client.write_command('terminate') == 'ok'
     client.stop()
     print("Program should be terminated")
     sys.exit(0)
