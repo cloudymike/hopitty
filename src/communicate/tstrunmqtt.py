@@ -83,6 +83,26 @@ if __name__ == "__main__":
     stateFromStatus(data)
     assertState(data, 'stop')
 
+    testTitle('Start run and pause. Make sure stage does not change')
+    assert client.write_command(stagesString) == 'ok'
+    assert client.write_command('run') == 'ok'
+    time.sleep(1)
+    stateFromStatus(client.read_status())
+    time.sleep(1)
+    assertState(client.read_status(), 'run')
+    assertStage(client.read_status(), 's1')
+    data = client.write_command('pause')
+    waitfor_state(client, 'pause', 6)
+    time.sleep(5)
+    assertState(client.read_status(), 'pause')
+    time.sleep(2)
+    assert client.write_command('run') == 'ok'
+    time.sleep(2)
+    assert client.write_command('run') == 'ok'
+    waitfor_state(client, 'run', 10)
+    assert client.write_command('stop') == 'ok'
+    waitfor_state(client, 'stop', 6)
+
     testTitle('Load stages, see that it does not start')
     assert client.write_command(stagesString) == 'ok'
     time.sleep(3)
@@ -110,7 +130,6 @@ if __name__ == "__main__":
     assert client.write_command('stop') == 'ok'
     waitfor_state(client, 'stop', 6)
 
-
     testTitle('Start run and skip. Make sure stage does change and state is run again')
     assert client.write_command(stagesString) == 'ok'
     assert client.write_command('run') == 'ok'
@@ -125,27 +144,6 @@ if __name__ == "__main__":
     assertStage(client.read_status(), 's2')
     assert client.write_command('stop') == 'ok'
     waitfor_state(client, 'stop', 6)
-
-    testTitle('Start run and pause. Make sure stage does not change')
-    assert client.write_command(stagesString) == 'ok'
-    assert client.write_command('run') == 'ok'
-    time.sleep(1)
-    stateFromStatus(client.read_status())
-    time.sleep(1)
-    assertState(client.read_status(), 'run')
-    assertStage(client.read_status(), 's1')
-    data = client.write_command('pause')
-    waitfor_state(client, 'pause', 6)
-    time.sleep(5)
-    assertState(client.read_status(), 'pause')
-    time.sleep(2)
-    assert client.write_command('run') == 'ok'
-    time.sleep(2)
-    assert client.write_command('run') == 'ok'
-    waitfor_state(client, 'run', 10)
-    assert client.write_command('stop') == 'ok'
-    waitfor_state(client, 'stop', 6)
-
 
     testTitle('Terminate server and client')
     assert client.write_command('terminate') == 'ok'

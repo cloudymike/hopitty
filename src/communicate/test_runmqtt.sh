@@ -1,6 +1,6 @@
 #!/bin/bash
 pushd ..
-timeout 60 ./runmqtt.py -m &
+timeout 300 ./runmqtt.py -m &
 popd
 sleep 9
 python ./tstrunmqtt.py -m
