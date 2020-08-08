@@ -4,8 +4,8 @@ stages2beer package
 Submodules
 ----------
 
-stages2beer\.s2b module
------------------------
+stages2beer.s2b module
+----------------------
 
 .. automodule:: stages2beer.s2b
     :members:
