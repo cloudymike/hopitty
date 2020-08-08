@@ -3,7 +3,7 @@ pushd ..
 timeout 60 ./runmqtt.py -m &
 popd
 sleep 9
-python ./test_runmqtt.py -m
+python ./tstrunmqtt.py -m
 sleep 1
 kill -9 %1
 kill -9 $(pgrep runmqtt)
