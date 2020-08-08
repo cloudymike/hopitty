@@ -36,7 +36,7 @@ Hold current step on the recipe
 
 ### skip
 return OK or ERROR
-Skip one step of the recipe
+Skip one step of the recipe and return to run state
 
 ### terminate
 return OK or ERROR

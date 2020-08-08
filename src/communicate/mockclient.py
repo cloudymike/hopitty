@@ -72,19 +72,34 @@ if __name__ == "__main__":
     assert 'stop' in data
 
     data = client.write_command('run')
-    time.sleep(3)
+    time.sleep(2)
     data = client.read_status()
     print('Received {}'.format(data))
     assert 's1' in data
+    data = client.write_command('pause')
+    print('Received {}'.format(data))
     time.sleep(3)
+    data = client.read_status()
+    print('Received {}'.format(data))
+    assert 'pause' in data
+    assert 's1' in data
+
+    data = client.write_command('skip')
+    time.sleep(1)
     data = client.read_status()
     print('Received {}'.format(data))
     assert 's2' in data
 
-    time.sleep(4)
+    time.sleep(2)
     data = client.read_status()
     print('Received {}'.format(data))
-    assert 'stop' in data
+    time.sleep(2)
+    data = client.read_status()
+    print('Received {}'.format(data))
+    time.sleep(2)
+    data = client.read_status()
+    print('Received {}'.format(data))
+    #assert 'stop' in data
 
     data = client.write_command('terminate')
 

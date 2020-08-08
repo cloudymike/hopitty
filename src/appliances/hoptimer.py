@@ -26,3 +26,24 @@ class hoptimer(appliances.genctrl):
         self.absminutes = currmin
         if self.target > 0:
             self.actual = self.actual + deltamin
+
+    def stop(self):
+        """
+        Stops the controller. Reset all count values, as timers.
+        De-activate the controller
+        Should shut down all power as well
+        to ensure that all is safe after stop
+        """
+        self.target = 0
+        self.actual = 0
+        self.active = False
+        self.powerOn = 'False'
+
+        def pause(self):
+            """
+            Pause any action, to allow a temporary pause in the brew process.
+            This should be a no-action stage. Pumps should be stopped.
+            heaters should keep it'd temperature. etc. It is not the same
+            as stop.
+            """
+            pass

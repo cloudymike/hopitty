@@ -36,7 +36,7 @@ cert = HOMEDIR+"/secrets/certs/e27d28a42b-certificate.pem.crt"
 private = HOMEDIR+"/secrets/keys/e27d28a42b-private.pem.key"
 
 logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+logger.setLevel(logging.INFO)
 handler = logging.StreamHandler(sys.stdout)
 log_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(log_format)
@@ -71,7 +71,7 @@ class mqttctrl():
         self.oldtime = 0
         self.count = 0
         self.state = 'stop'
-        self.increment = 0
+        self.increment = 1
         self.controllers = controllers
 
         self.hold_forever = self.controllers.stage_template('holdforever')
@@ -104,6 +104,13 @@ class mqttctrl():
             self.client.loop_start()
             logger.info("connect success")
 
+        # Create an initial status. No stages, just state is stop
+        init_status={}
+        init_status['state'] = self.state
+        status = json.dumps(init_status)
+        #print(status)
+        self.set_status(status)
+
     def on_connect(self, client, userdata, flags, rc):
         logger.info("Connected with result code "+str(rc))
         client.subscribe("topic/test")
@@ -118,20 +125,18 @@ class mqttctrl():
         '''
         This is the command handler, that acts on any message coming in
         '''
+        logger.info('Recieved command {}'.format(command))
         if command == 'run':
             self.increment = 1
             self.state = 'run'
         if command == 'pause':
             self.state = 'pause'
-            self.increment = 0
         if command == 'terminate':
             self.state = 'terminate'
         if command == 'skip':
             self.state = 'skip'
         if command == 'stop':
-            self.increment = 0
             self.state = 'stop'
-            self.stages = self.hold_forever
 
         if len(command) > 0 and command[0] == '{':
             data = command
@@ -156,10 +161,13 @@ class mqttctrl():
         for r_key, settings in sorted(self.stages.items()):
             logger.info("New stage: {}".format(r_key))
             self.controllers.stop()
-            print(settings)
+            #print(settings)
             self.controllers.run(settings)
-            self.state='run'
-            while not self.controllers.done() or self.state == 'pause' :
+            #self.state='run'
+            while not self.controllers.done():
+                if self.state == 'pause':
+                    #self.controllers.pause(settings)
+                    print('Pausing...')
                 self.controllers.run(settings)
                 nowtime = time.time()
                 deltatime = nowtime - self.oldtime
@@ -172,27 +180,39 @@ class mqttctrl():
                 time.sleep(sleeptime)
                 self.controllers.logstatus()
                 lightstatus = self.controllers.lightStatus()
+                delayTimer = lightstatus['delayTimer']['actual']
                 fullstatus = {}
                 fullstatus['stage'] = str(r_key)
                 fullstatus['state'] = str(self.state)
                 fullstatus['status'] = lightstatus
                 status = json.dumps(fullstatus)
-                #print(status)
+                print("{} {} {}".format(self.state, r_key, delayTimer))
                 self.set_status(status)
 
 
                 # If state is terminate, return and finish the program
                 # If state is stop, return and let start loop reload
-                if self.state in ['terminate','stop']:
+                if self.state in ['terminate', 'stop']:
+                    self.controllers.stop()
                     return()
                 if self.state in ['skip']:
+                    self.state = 'run'
                     break
-
 
     def start(self):
         while 1:
-            logger.info('New set of stages')
-            self.run()
+
+            mystatus={}
+            mystatus['state'] = self.state
+            status = json.dumps(mystatus)
+            print("Start loop. State: {}".format(self.state))
+
+            self.set_status(status)
+            time.sleep(1)
+
+            if self.state in ['run']:
+                logger.info('New set of stages')
+                self.run()
 
             # If state is terminate, return and finish the program
             # Do any cleanup required
@@ -203,7 +223,6 @@ class mqttctrl():
             # Eitherway set to stop and add forever loop
             if self.state != 'stop':
                 self.state = 'stop'
-                self.stages = self.hold_forever
 
     def quickRun(self):
         """

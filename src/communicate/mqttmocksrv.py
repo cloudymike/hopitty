@@ -51,7 +51,7 @@ class mockctrl():
     def __init__(self, args):
         self.count = 0
         self.state = 'stop'
-        self.increment = 0
+        self.increment = 1
 
         # TODO parameterize the topic and host
         # TODO Break this out and pass do_command as a parameter.
@@ -96,17 +96,14 @@ class mockctrl():
         This is the command handler, that acts on any message coming in
         '''
         if command == 'run':
-            self.increment = 1
             self.state = 'run'
         if command == 'pause':
             self.state = 'pause'
-            self.increment = 0
         if command == 'terminate':
             self.state = 'terminate'
         if command == 'skip':
             self.state = 'skip'
         if command == 'stop':
-            self.increment = 0
             self.state = 'stop'
 
         if len(command) > 0 and command[0] == '{':
@@ -114,7 +111,6 @@ class mockctrl():
             status_string = str(data).replace("'","")
             print(status_string)
             self.stages = json.loads(status_string)
-            self.increment = 0
             self.state = 'stop'
 
 
@@ -123,58 +119,58 @@ class mockctrl():
         self.client.publish(topic, message)
         return()
 
+    def run(self):
+        for stage_name, stage in sorted(self.stages.items()):
+            print("New stage: {}".format(stage_name))
+            self.count = 0
+            cycles = int(stage['cycles'])
+            while self.count < cycles:
+                statusdict = {}
+                statusdict['state'] = self.state
+                statusdict['stage'] = stage_name
+
+                cyclestatus = {}
+                cyclestatus['actual'] = self.count
+                cyclestatus['target'] = cycles
+                cyclestatus['targetMet'] = self.count >= cycles
+                cyclestatus['powerOn'] = self.count < cycles
+                cyclestatus['unit'] = 'U'
+                ctrlstatus = {}
+                ctrlstatus['cycles'] = cyclestatus
+                statusdict['status'] = ctrlstatus
+                status = json.dumps(statusdict)
+                print(status)
+                self.set_status(status)
+
+                # This would be the actual activity
+                time.sleep(1)
+                if self.state != 'pause':
+                    self.count = self.count + self.increment
+
+                # Skip a step and return to run
+                if self.state in ['skip']:
+                    self.state = 'run'
+                    break
+
+                if self.state in ['stop', 'terminate']:
+                    print('Stop, shutdown stages run')
+                    return()
+
+
+
     def start(self):
         while 1:
 
             mystatus={}
             mystatus['state'] = self.state
             status = json.dumps(mystatus)
-            print(status)
+            #print(status)
             self.set_status(status)
             time.sleep(1)
 
             if self.state in ['run']:
                 print('New set of stages')
-                for stage_name, stage in sorted(self.stages.items()):
-                    print("New stage: {}".format(stage_name))
-                    self.count = 0
-                    cycles = int(stage['cycles'])
-                    while self.count < cycles:
-                        statusdict = {}
-                        statusdict['state'] = self.state
-                        statusdict['stage'] = stage_name
-
-                        cyclestatus = {}
-                        cyclestatus['actual'] = self.count
-                        cyclestatus['target'] = cycles
-                        cyclestatus['targetMet'] = self.count >= cycles
-                        cyclestatus['powerOn'] = self.increment > 0
-                        cyclestatus['unit'] = 'U'
-                        ctrlstatus = {}
-                        ctrlstatus['cycles'] = cyclestatus
-                        statusdict['status'] = ctrlstatus
-                        status = json.dumps(statusdict)
-                        print(status)
-                        self.set_status(status)
-
-
-                        # If state is terminate, return and finish the program
-                        # Do any cleanup required
-                        if self.state == 'terminate':
-                            return()
-
-                        # Artificial slowdown, what hw can handle
-                        time.sleep(1)
-
-                        if self.state in ['stop','skip']:
-                            break
-
-                        # This would be the actual activity
-                        self.count = self.count + self.increment
-
-
-                    if self.state in ['stop']:
-                        break
+                self.run()
 
             if self.state == 'terminate':
                 return()
