@@ -100,17 +100,26 @@ if __name__ == "__main__":
     if args.equipmentType:
         myequipment = e.get(args.equipmentType)
     else:
-        myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+        myequipment = e.get('Grain 3G, HERMS, 5Gcooler, 5Gpot')
 
     recipebyequipment = {}
     listOfEquipment = e.getAll()
-    for name, equipment in listOfEquipment.items():
-        controllers = ctrl.setupControllers(args.verbose, False, True, myequipment)
+    for equipmentaName, equipment in listOfEquipment.items():
+        controllers = ctrl.setupControllers(args.verbose, False, True, equipment)
         recipelist = readRecipeFile(controllers,
                                 args.file,
                                 args.user,
                                 args.download)
-        recipebyequipment[name] = recipelist
-        print('Equipment:{} Recipes:{}'.format(name, recipelist))
+        recipebyequipment[equipmentaName] = recipelist
+        iterlist = recipelist.getlist()
+        for recipeName in iterlist:
+            print(recipeName)
+            recipeObjBsmx = recipelist.getRecipe(recipeName)
+            recipeBSMX = recipeObjBsmx.getBSMXstring()
+            recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+            recipeStages = recipeObjParsed.getStages()
+            print(recipeStages)
+
+    #print('Equipment:{} Recipes:{}'.format(name, recipelist))
 
     print 'Done!'
