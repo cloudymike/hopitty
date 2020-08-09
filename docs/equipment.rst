@@ -4,16 +4,16 @@ equipment package
 Submodules
 ----------
 
-equipment\.allEquipment module
-------------------------------
+equipment.allEquipment module
+-----------------------------
 
 .. automodule:: equipment.allEquipment
     :members:
     :undoc-members:
     :show-inheritance:
 
-equipment\.reader module
-------------------------
+equipment.reader module
+-----------------------
 
 .. automodule:: equipment.reader
     :members:
