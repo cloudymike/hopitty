@@ -4,7 +4,6 @@ from flask import Flask
 from flask import jsonify
 import xmltodict
 import requests
-import recipereader
 
 
 app = Flask(__name__)
