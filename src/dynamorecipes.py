@@ -17,6 +17,7 @@ import webctrl
 import recipeModel
 import logging
 import equipment
+import json
 
 
 def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
@@ -102,24 +103,30 @@ if __name__ == "__main__":
     else:
         myequipment = e.get('Grain 3G, HERMS, 5Gcooler, 5Gpot')
 
-    recipebyequipment = {}
+    recipebyequipmentlist = []
     listOfEquipment = e.getAll()
-    for equipmentaName, equipment in listOfEquipment.items():
+    for equipmentName, equipment in listOfEquipment.items():
+        print('Equipment: {}'.format(equipmentName))
         controllers = ctrl.setupControllers(args.verbose, False, True, equipment)
         recipelist = readRecipeFile(controllers,
                                 args.file,
                                 args.user,
                                 args.download)
-        recipebyequipment[equipmentaName] = recipelist
         iterlist = recipelist.getlist()
         for recipeName in iterlist:
-            print(recipeName)
+            print('    Recipe: {}'.format(recipeName))
             recipeObjBsmx = recipelist.getRecipe(recipeName)
             recipeBSMX = recipeObjBsmx.getBSMXstring()
             recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
             recipeStages = recipeObjParsed.getStages()
-            print(recipeStages)
+            #print(recipeStages)
+            recipe4list = {}
+            recipe4list['equipment_name'] = equipmentName
+            recipe4list['recipe_name'] = recipeName
+            recipe4list['stages'] = recipeStages
+            recipebyequipment.append(recipe4list)
 
-    #print('Equipment:{} Recipes:{}'.format(name, recipelist))
-
+    print(recipebyequipment)
+    with open('data.txt', 'w') as outfile:
+        json.dump(recipebyequipment, outfile)
     print 'Done!'
