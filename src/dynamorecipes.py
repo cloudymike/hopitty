@@ -89,11 +89,11 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Run a json or bsmx file')
     filegroup = parser.add_mutually_exclusive_group(required=True)
-    filegroup.add_argument('-f', '--file', default=None, help='Input BSMX file')
     filegroup.add_argument('-u', '--user', default=None, help='User for home dir to check')
     filegroup.add_argument('-d', '--download', action='store_true', help='Download BSMX file')
     parser.add_argument('-t', '--equipmentType', default='', help='Type of equipment to use')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    parser.add_argument('-f', '--file', default='out.json', help='Output json file')
 
     args = parser.parse_args()
 
@@ -103,13 +103,13 @@ if __name__ == "__main__":
     else:
         myequipment = e.get('Grain 3G, HERMS, 5Gcooler, 5Gpot')
 
-    recipebyequipmentlist = []
+    recipeByEquipmentList = []
     listOfEquipment = e.getAll()
     for equipmentName, equipment in listOfEquipment.items():
         print('Equipment: {}'.format(equipmentName))
         controllers = ctrl.setupControllers(args.verbose, False, True, equipment)
         recipelist = readRecipeFile(controllers,
-                                args.file,
+                                None,
                                 args.user,
                                 args.download)
         iterlist = recipelist.getlist()
@@ -124,9 +124,9 @@ if __name__ == "__main__":
             recipe4list['equipment_name'] = equipmentName
             recipe4list['recipe_name'] = recipeName
             recipe4list['stages'] = recipeStages
-            recipebyequipment.append(recipe4list)
+            recipeByEquipmentList.append(recipe4list)
 
-    print(recipebyequipment)
-    with open('data.txt', 'w') as outfile:
-        json.dump(recipebyequipment, outfile)
+    print('Writing output to {}'.format(args.file))
+    with open(args.file, 'w') as outfile:
+        json.dump(recipeByEquipmentList, outfile)
     print 'Done!'
