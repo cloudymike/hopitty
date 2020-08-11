@@ -12,10 +12,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -52,19 +48,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": true,
       "targetValue": 1
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -98,10 +86,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -138,19 +122,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -184,10 +160,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -224,19 +196,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": true,
       "targetValue": 1
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -270,10 +234,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -310,19 +270,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
