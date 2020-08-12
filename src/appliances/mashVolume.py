@@ -147,10 +147,8 @@ class mashVolume():
             if c1.sensor.getID() == "mashScale":
                 foundSensor = True
                 self.sensor = c1.sensor
-                # print "Found mashScale sensor on", key
         if not foundSensor:
             self.sensor = sensors.dymoScaleSensor()
-            # print "Created mashScale sensor"
 
     def pause(self):
         """

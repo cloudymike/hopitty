@@ -12,7 +12,7 @@ import appliances
 
 
 def printMyname():
-    print "....................", inspect.stack()[1][3]
+    print("....................", inspect.stack()[1][3])
 
 
 def simpleCtrl():
@@ -246,4 +246,4 @@ if __name__ == "__main__":
     test_checkHotwaterVolume()
     test_checkHotwaterHeaterVolume()
 
-    print "=====SUCCESS!====="
+    print("=====SUCCESS!=====")

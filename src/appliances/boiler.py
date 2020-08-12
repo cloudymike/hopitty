@@ -23,7 +23,6 @@ class boiler(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        #print 'Powering down'
 
     def connectSwitch(self, switch):
         self.boilerSwitch = switch
@@ -96,6 +95,6 @@ if __name__ == '__main__':  # pragma: no cover
     testBoiler = boiler()
     testBoiler.on()
     while not testBoiler.targetMet():
-        print testBoiler.get()
+        print(testBoiler.get())
     for x in range(0, 15):
-        print testBoiler.get()
+        print(testBoiler.get())
