@@ -25,7 +25,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
     # Timer is always required in all equipment
     controllers.addController('delayTimer', appliances.hoptimer())
 
-    print "Try to find hw switches"
+    print("Try to find hw switches")
     if not simulation:
         logging.info("Initializing hardware")
         try:
@@ -140,7 +140,6 @@ def setupControllers(verbose, simulation, permissive, equipment):
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
-        # print key
     "returning..."
     return(controllers)
 
