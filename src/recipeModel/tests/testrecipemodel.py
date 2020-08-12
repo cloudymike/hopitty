@@ -58,10 +58,10 @@ def getTestRecipeList():
     #cp = os.getcwd()
     cp = os.path.dirname(__file__)
     filename = cp + '/../../tests/Cloud.bsmx'
-    print filename
+    print(filename)
     try:
         rl.readBeerSmith(filename)
-        print "Right first time"
+        print("Right first time")
     except:
         try:
             rl.readBeerSmith('../tests/Cloud.bsmx')
@@ -72,8 +72,8 @@ def getTestRecipeList():
                 try:
                     rl.readBeerSmith('src/tests/Cloud.bsmx')
                 except:
-                    print "Could not find test file"
-                    print os.getcwd()
+                    print("Could not find test file")
+                    print(os.getcwd())
     return(rl)
 
 
@@ -85,11 +85,11 @@ def testMini():
 
     rl = getSimpleBSMX()
     assert len(rl.getNameList()) > 0
-    print "Number of recipes:", len(rl.getNameList())
+    print("Number of recipes:", len(rl.getNameList()))
     for name in rl.getNameList():
         assert len(name) > 0
         assert isinstance(name, types.StringTypes)
-        print name
+        print(name)
         recipe = rl.getRecipeByName(name)
         assert name == recipe.getName()
 
@@ -98,7 +98,7 @@ def testMini():
         assert len(recipe.getEquipment()) > 0
 
     #rl.printNameList()
-    print "testReading passed"
+    print("testReading passed")
 
 
 def testReading():
@@ -108,7 +108,7 @@ def testReading():
     """
     rl = getTestRecipeList()
     assert len(rl.getNameList()) > 0
-    print "Number of recipes:", len(rl.getNameList())
+    print("Number of recipes:", len(rl.getNameList()))
     for name in rl.getNameList():
         assert len(name) > 0
         assert isinstance(name, types.StringTypes)
@@ -120,7 +120,7 @@ def testReading():
         assert len(recipe.getEquipment()) > 0
 
     #rl.printNameList()
-    print "testReading passed"
+    print("testReading passed")
 
 
 def testDelete():
@@ -135,7 +135,7 @@ def testDelete():
     after = len(rl.getNameList())
     assert after == before - 1
     #rl.printNameList()
-    print "testDelete passed"
+    print("testDelete passed")
 
 
 def testBSMX():
@@ -144,14 +144,14 @@ def testBSMX():
     """
     rl = getTestRecipeList()
     assert len(rl.getNameList()) > 0
-    print "Number of recipes:", len(rl.getNameList())
+    print("Number of recipes:", len(rl.getNameList()))
     for name in rl.getNameList():
         recipe = rl.getRecipeByName(name)
         recipeBSMX = recipe.getBSMXdoc()
         assert recipeBSMX is not None
 
     #rl.printNameList()
-    print "testBSMX passed"
+    print("testBSMX passed")
 
 
 if __name__ == "__main__":
