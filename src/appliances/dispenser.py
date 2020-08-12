@@ -112,7 +112,6 @@ class dispenser(appliances.genctrl):
                 except:
                     pass
             self.actual = empty
-            #print "Dispenser", self.deviceNumber, "empty"
         else:
             if self.usbOK:
                 try:
@@ -120,7 +119,6 @@ class dispenser(appliances.genctrl):
                 except:
                     pass
             self.actual = full
-            #print "Dispenser", self.deviceNumber, "full"
 
     def HWOK(self):
         if not os.path.isfile(self.exe):

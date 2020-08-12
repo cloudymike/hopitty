@@ -72,7 +72,6 @@ class aerator(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        #print 'Powering down'
 
     def status(self):
         if self.on:
@@ -84,6 +83,6 @@ class aerator(appliances.genctrl):
 if __name__ == '__main__':  # pragma: no cover
     testaerator = aerator()
     testaerator.on()
-    print testaerator.get()
+    print(testaerator.get())
     testaerator.off()
-    print testaerator.get()
+    print(testaerator.get())

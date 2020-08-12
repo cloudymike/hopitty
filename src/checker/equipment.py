@@ -87,22 +87,22 @@ class equipment(object):
 
     def check(self):
         if not self.__checkRecipeVsController():
-            print "Check Fail: RecipeVsController"
+            print("Check Fail: RecipeVsController")
             return(False)
         if not self.__checkBoilVolume():
-            print "Check Fail: BoilVolume"
+            print("Check Fail: BoilVolume")
             return(False)
         if not self.__checkHotwaterVolume():
-            print "Check Fail: HotwaterVolume"
+            print("Check Fail: HotwaterVolume")
             return(False)
         if not self.__checkHotwaterHeaterVolume():
-            print "Check Fail: Hotwater above Heater Volume"
+            print("Check Fail: Hotwater above Heater Volume")
             return(False)
         if not self.__checkBoilerAndWaterHeater():
-            print "Check Fail: water Heater and boiler on in same stage"
+            print("Check Fail: water Heater and boiler on in same stage")
             return(False)
         if not self.__checkPumpsNoOverlap():
-            print "Check Fail: pumps overlapping"
+            print("Check Fail: pumps overlapping")
             return(False)
         return(True)
 
@@ -135,7 +135,7 @@ class equipment(object):
                     if e_key == 'hotWaterPump':
                         totHWVol = totHWVol + float(e_val['targetValue'])
         if totHWVol > self.equipmentdata['maxTotalInVol']:
-            print "Hot water volume:", totHWVol
+            print("Hot water volume:", totHWVol)
             return(False)
         else:
             return(True)
@@ -153,7 +153,7 @@ class equipment(object):
                         totHWVol = totHWVol + float(e_val['targetValue'])
                     if (e_key == 'waterHeater') and (e_val['active']):
                         if (totHWVol > self.equipmentdata['maxInfusionVol']):
-                            print "Hot water above heater volume:", totHWVol
+                            print("Hot water above heater volume:", totHWVol)
                             return(False)
         return(True)
 
