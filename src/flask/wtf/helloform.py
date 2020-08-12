@@ -15,9 +15,9 @@ def success():
 @app.route('/submit', methods=('GET', 'POST'))
 def submit():
     form = MyForm()
-    print form.name.data
+    print(form.name.data)
     if form.validate_on_submit():
-        print form.name.data
+        print(form.name.data)
         return redirect('/success')
     print('Going nowhere')
     return render_template('submit.html', form=form)
