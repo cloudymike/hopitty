@@ -12,10 +12,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -52,19 +48,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -95,10 +83,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -138,19 +122,11 @@
       "active": true,
       "targetValue": 0.2
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -181,10 +157,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -224,19 +196,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": true,
       "targetValue": 1
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -267,10 +231,6 @@
       "targetValue": 1
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -310,19 +270,11 @@
       "active": true,
       "targetValue": 16.717934596385543
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -356,10 +308,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -396,19 +344,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -442,10 +382,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -482,19 +418,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -525,10 +453,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -568,19 +492,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -611,10 +527,6 @@
       "targetValue": 60
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -654,19 +566,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -697,10 +601,6 @@
       "targetValue": 60
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -740,19 +640,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -783,10 +675,6 @@
       "targetValue": 60
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -826,19 +714,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -869,10 +749,6 @@
       "targetValue": 60
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -912,19 +788,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -955,10 +823,6 @@
       "targetValue": 60
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -998,19 +862,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1041,10 +897,6 @@
       "targetValue": 60
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1084,19 +936,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1127,10 +971,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1170,19 +1010,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1215,10 +1047,6 @@
     "boilerValve": {
       "active": true,
       "targetValue": 1
-    },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
     },
     "controllerInfo": {
       "active": false,
@@ -1256,19 +1084,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1299,10 +1119,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1342,19 +1158,11 @@
       "active": false,
       "targetValue": 0
     },
-    "hwtVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
     },
     "mashTemp": {
-      "active": false,
-      "targetValue": 0
-    },
-    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
