@@ -103,7 +103,6 @@ class boilerVolume(appliances.genctrl):
         As a side effect runs the measure command
         """
         self.measure()
-        #print "=================================================", self.actual
         return(self.actual)
 
     def getTarget(self):

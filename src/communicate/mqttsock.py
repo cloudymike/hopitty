@@ -9,7 +9,7 @@ aws_iot_endpoint = "a2d09uxsvr5exq-ats.iot.us-east-1.amazonaws.com" # <random>.i
 url = "https://{}".format(aws_iot_endpoint)
 
 HOMEDIR=os.getenv("HOME")
-ca = HOMEDIR+"/secrets/certs/awsroot.crt" 
+ca = HOMEDIR+"/secrets/certs/awsroot.crt"
 cert = HOMEDIR+"/secrets/certs/e27d28a42b-certificate.pem.crt"
 private = HOMEDIR+"/secrets/keys/e27d28a42b-private.pem.key"
 
@@ -30,7 +30,7 @@ def ssl_alpn():
 
 
 class socketclient():
-    
+
     def __init__(self, host="localhost", maintopic="topic", connection=None):
         self.client = mqtt.Client()
         if connection == 'localhost':
@@ -43,12 +43,13 @@ class socketclient():
         self.maintopic = maintopic
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
+        self.client.on_log = self.on_log
         self.status = ""
 
         self.client.loop_start()
-        
+
     def on_connect(self, client, userdata, flags, rc):
-        print("Connected with result code "+str(rc))
+        print("Client connected with result code "+str(rc))
         client.subscribe(self.maintopic+"/status")
 
     def on_message(self, client, userdata, msg):
@@ -56,12 +57,15 @@ class socketclient():
 
     def write_command(self, command, subtopic='test'):
         topic = self.maintopic+"/"+subtopic
-        self.client.publish(topic, command)
+        self.client.publish(topic, command, qos=2 )
         return('ok')
-        
+
     def read_status(self):
         return(self.status)
-    
+
 
     def stop(self):
       self.client.loop_stop()
+
+    def on_log(client, userdata, level, buf):
+        print("log: ",buf)

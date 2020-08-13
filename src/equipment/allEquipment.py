@@ -28,9 +28,9 @@ if __name__ == '__main__':  # pragma: no cover
     e = allEquipment('./*.yaml')
     #e = allEquipment('grain3g.yaml')
      
-    print e.getAll()
+    print(e.getAll())
     
-    print e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    print(e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller'))
     
     if not e.exist('Grain 2.5G, 5Gcooler 4Gpot'):
-        print "No such equipment"
+        print("No such equipment")
