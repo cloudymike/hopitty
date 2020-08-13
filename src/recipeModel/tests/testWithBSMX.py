@@ -137,10 +137,10 @@ def getTestRecipeList():
     #cp = os.getcwd()
     cp = os.path.dirname(__file__)
     filename = cp + '/../../tests/Cloud.bsmx'
-    print filename
+    print(filename)
     try:
         rl.readBeerSmith(filename)
-        print "Right first time"
+        print("Right first time")
     except:
         try:
             rl.readBeerSmith('../tests/Cloud.bsmx')
@@ -151,7 +151,7 @@ def getTestRecipeList():
                 try:
                     rl.readBeerSmith('src/tests/Cloud.bsmx')
                 except:
-                    print "Could not find test file"
+                    print("Could not find test file")
                     print os.getcwd()
     return(rl)
 
@@ -160,16 +160,16 @@ def testSimpleBSMX():
     rl = getSimpleBSMX()
     controllers = ctrlBsmxList()
     assert len(rl.getNameList()) > 0
-    print "Number of recipes:", len(rl.getNameList())
+    print("Number of recipes:", len(rl.getNameList()))
     for name in rl.getNameList():
-        print "...", name
+        print("...", name)
         recipeObjBsmx = rl.getRecipe(name)
         recipeBSMX = recipeObjBsmx.getBSMXdoc()
         recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
-        print recipeObjParsed.getEquipment()
-        print recipeObjParsed.getStages()
+        print(recipeObjParsed.getEquipment())
+        print(recipeObjParsed.getStages())
 
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def testOneFullBSMX():
@@ -179,12 +179,12 @@ def testOneFullBSMX():
     myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     controllers = ctrl.setupControllers(False, True, True, myequipment)
     assert len(rl.getNameList()) > 0
-    print "Number of recipes:", len(rl.getNameList())
+    print("Number of recipes:", len(rl.getNameList()))
     recipeObj = rl.getRecipe('17 Falconers Flight IPA')
     recipeBSMX = recipeObj.getBSMXstring()
-    print recipeBSMX
+    print(recipeBSMX)
     recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
-    print recipeObjParsed.getEquipment()
+    print(recipeObjParsed.getEquipment())
     s = recipeObjParsed.getStages()
     assert(s != {})
     assert len(s) > 0
@@ -196,4 +196,4 @@ def testOneFullBSMX():
 if __name__ == "__main__":
     testSimpleBSMX()
     testOneFullBSMX()
-    print "=====SUCCESS====="
+    print("=====SUCCESS=====")
