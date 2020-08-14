@@ -131,6 +131,11 @@ cd $HOMEDIR
 # Check all python versions installed
 $PIP freeze
 
+# python3
+pip3 install boto3
+
+
+
 # Check some specific troublesome packages
 python -c 'import bottle; print bottle.__version__'
 if [ "$?" != "0" ]; then exit 1; fi
