@@ -7,7 +7,8 @@ import sys
 
 # Stages json to use
 stagesString='{"s1":{"aerator":{"active":false,"targetValue":0},"boiler":{"active":false,"targetValue":0},"boilerValve":{"active":false,"targetValue":0},"boilerVolume":{"active":false,"targetValue":0},"controllerInfo":{"active":false,"targetValue":0},"cooler":{"active":false,"targetValue":0},"delayTimer":{"active":true,"targetValue":0.4},"dispenser1":{"active":false,"targetValue":0},"dispenser2":{"active":false,"targetValue":0},"dispenser3":{"active":false,"targetValue":0},"dispenser4":{"active":false,"targetValue":0},"envTemp":{"active":false,"targetValue":0},"hotWaterPump":{"active":false,"targetValue":0},"hwtVolume":{"active":false,"targetValue":0},"mashStirrer":{"active":false,"targetValue":0},"mashTemp":{"active":false,"targetValue":0},"mashVolume":{"active":false,"targetValue":0},"plateValve":{"active":false,"targetValue":0},"waterCirculationPump":{"active":true,"targetValue":1},"waterHeater":{"active":false,"targetValue":95},"wortPump":{"active":false,"targetValue":0}},"s2":{"aerator":{"active":false,"targetValue":0},"boiler":{"active":false,"targetValue":0},"boilerValve":{"active":false,"targetValue":0},"boilerVolume":{"active":false,"targetValue":0},"controllerInfo":{"active":false,"targetValue":0},"cooler":{"active":false,"targetValue":0},"delayTimer":{"active":true,"targetValue":0.1},"dispenser1":{"active":false,"targetValue":0},"dispenser2":{"active":false,"targetValue":0},"dispenser3":{"active":false,"targetValue":0},"dispenser4":{"active":false,"targetValue":0},"envTemp":{"active":false,"targetValue":0},"hotWaterPump":{"active":false,"targetValue":0},"hwtVolume":{"active":false,"targetValue":0},"mashHeater":{"active":false,"targetValue":92},"mashStirrer":{"active":false,"targetValue":0},"mashTemp":{"active":false,"targetValue":0},"mashVolume":{"active":false,"targetValue":0},"plateValve":{"active":false,"targetValue":0},"waterCirculationPump":{"active":true,"targetValue":1},"waterHeater":{"active":false,"targetValue":95},"wortPump":{"active":false,"targetValue":0}}}'
-recipeString = '{"recipename":"smalltestrecipe", ' + stagesString +'}'
+recipename = "small test recipe"
+recipeString = '{"recipename":"' + recipename + '", "stages": ' + stagesString +'}'
 
 def stateFromStatus(status):
     statusdict = json.loads(status)
@@ -20,6 +21,17 @@ def stateFromStatus(status):
         stage = 'none'
     print('State:{} Stage:{} Time:{}'.format(state,stage,time))
 
+def equipmentFromStatus(status):
+    statusdict = json.loads(status)
+    if 'equipmentname' in statusdict:
+        equipmentname = statusdict['equipmentname']
+    else:
+        equipmentname = ''
+    print('equipment name: {} '.format(equipmentname))
+    if not equipmentname:
+        print('ERROR Empty equipment name')
+        sys.exit(1)
+
 def assertState(data, state):
     statusdict = json.loads(data)
     actualState = statusdict['state']
@@ -28,6 +40,19 @@ def assertState(data, state):
         sys.exit(1)
     else:
         print('State Assert {} OK'.format(state))
+
+def assertRecipename(data):
+    statusdict = json.loads(data)
+    if 'recipename' in statusdict:
+        actualRecipename = statusdict['recipename']
+        if recipename != actualRecipename:
+            print('Expected: {}  Actual: {}'.format(recipename,actualRecipename))
+            sys.exit(1)
+        else:
+            print('Recipe Assert {} OK'.format(recipename))
+    else:
+        print('No recipe loaded')
+        sys.exit(1)
 
 def assertStage(data, stage):
     statusdict = json.loads(data)
@@ -82,16 +107,21 @@ if __name__ == "__main__":
     testTitle('Test initial state, it should be stop')
     data = client.read_status()
     stateFromStatus(data)
+    equipmentFromStatus(data)
     assertState(data, 'stop')
 
     testTitle('Start run and pause. Make sure stage does not change')
     assert client.write_command(recipeString) == 'ok'
     assert client.write_command('run') == 'ok'
     time.sleep(1)
-    stateFromStatus(client.read_status())
-    time.sleep(1)
+    data = client.read_status()
+    stateFromStatus(data)
+    equipmentFromStatus(data)
+    time.sleep(2)
     assertState(client.read_status(), 'run')
     assertStage(client.read_status(), 's1')
+    assertRecipename(client.read_status())
+
     data = client.write_command('pause')
     waitfor_state(client, 'pause', 6)
     time.sleep(5)

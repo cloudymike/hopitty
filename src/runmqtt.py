@@ -73,6 +73,7 @@ class mqttctrl():
         self.state = 'stop'
         self.increment = 1
         self.controllers = controllers
+        self.equipmentname = str(self.controllers.getEquipmentName())
 
         self.hold_forever = self.controllers.stage_template('holdforever')
         self.hold_forever['holdforever']['delayTimer']['active'] = True
@@ -189,6 +190,8 @@ class mqttctrl():
                 fullstatus = {}
                 fullstatus['stage'] = str(r_key)
                 fullstatus['state'] = str(self.state)
+                fullstatus['recipename'] = str(self.recipename)
+                fullstatus['equipmentname'] = self.equipmentname
                 fullstatus['status'] = lightstatus
                 status = json.dumps(fullstatus)
                 print("{} {} {}".format(self.state, r_key, delayTimer))
@@ -209,6 +212,7 @@ class mqttctrl():
 
             mystatus={}
             mystatus['state'] = self.state
+            mystatus['equipmentname'] = self.equipmentname
             status = json.dumps(mystatus)
             print("Start loop. State: {}".format(self.state))
 
