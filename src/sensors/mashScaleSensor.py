@@ -18,12 +18,11 @@ class mashScaleSensor(sensors.genericSensor):
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exedir = scriptdir + '/../../DigiWeight/usbscale'
         try:
-            # print 'Fake scale check'
             self.scaleStr = subprocess.check_output(self.exedir)
         except:
             self.simulation = True
             self.val = 0
-            print "**********Scale not found, simulating HW"
+            print("**********Scale not found, simulating HW")
 
     def getID(self):
         return(self.id)
@@ -52,19 +51,19 @@ class mashScaleSensor(sensors.genericSensor):
             try:
                 localstr = subprocess.check_output(execstring, shell=True)
                 if float(localstr) > 65534:
-                    print "Error, hold everything"
+                    print("Error, hold everything")
                     self.forceError()
                 if int(localstr) > 8200:
-                    print "Error hold everything"
+                    print("Error hold everything")
                     self.forceError()
 
                 if int(localstr) == 0:
-                    print "Warning: Scale value 0 return previous value"
+                    print("Warning: Scale value 0 return previous value")
                     self.warningCount = self.warningCount + 1
                 else:
                     self.scaleStr = localstr
             except:
-                print "Warning: Scale read error"
+                print("Warning: Scale read error")
                 self.warningCount = self.warningCount + 1
             qt = float(self.scaleStr) / 320
             return(qt)
