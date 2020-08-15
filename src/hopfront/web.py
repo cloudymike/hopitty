@@ -8,8 +8,25 @@ import time
 import argparse
 import xmltodict
 import requests
+import boto3
+from botocore.exceptions import ClientError
+from boto3.dynamodb.conditions import Key
+
 
 import google_auth
+
+#==== Exportables
+def query_recipes(equipment_name='Grain 3G, HERMS, 5Gcooler, 5Gpot', dynamodb=None):
+    if not dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+
+    table = dynamodb.Table('recipe4equipment')
+    response = table.query(
+        KeyConditionExpression=Key('equipment_name').eq(equipment_name)
+    )
+    return response['Items']
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -75,6 +92,23 @@ def downloadBeerSmith():
 
 @app.route('/list')
 def list():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+    recipelist = query_recipes()
+    recipeNameList = []
+    recipeNameStr = ''
+    for recipe in recipelist:
+        recipeName = recipe['recipe_name']
+        recipeNameList.append(recipeName)
+        print(recipeName)
+        recipeNameStr = recipeNameStr + '<p>' +recipeName + '</P>\n'
+    
+    
+    return(recipeNameStr)
+
+
+@app.route('/listold')
+def listold():
     if not google_auth.is_logged_in():
         return (redirect('/'))
     try:
