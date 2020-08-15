@@ -1,30 +1,19 @@
 import netsock
 import mqttsock
 from flask import Flask, render_template, flash, redirect, url_for
-from forms import CmdForm, LoadForm
+from forms import CmdForm, LoadForm, RecipeForm
 import sys
 import json
 import time
 import argparse
 import xmltodict
 import requests
-import boto3
-from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key
 
 
 import google_auth
 
-#==== Exportables
-def query_recipes(equipment_name='Grain 3G, HERMS, 5Gcooler, 5Gpot', dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-    table = dynamodb.Table('recipe4equipment')
-    response = table.query(
-        KeyConditionExpression=Key('equipment_name').eq(equipment_name)
-    )
-    return response['Items']
+RECIPE_CHOICES=[('porter','porter'),('saison','saison'),('IPA','IPA'),('NEIPA','NEIPA'),('wit','wit')]
 
 
 
@@ -90,21 +79,28 @@ def downloadBeerSmith():
     return(xmldict)
 
 
-@app.route('/list')
+@app.route('/list', methods=['GET', 'POST'])
 def list():
     if not google_auth.is_logged_in():
         return (redirect('/'))
-    recipelist = query_recipes()
-    recipeNameList = []
-    recipeNameStr = ''
-    for recipe in recipelist:
-        recipeName = recipe['recipe_name']
-        recipeNameList.append(recipeName)
-        print(recipeName)
-        recipeNameStr = recipeNameStr + '<p>' +recipeName + '</P>\n'
+ 
+    current_recipe = 'porter'
     
-    
-    return(recipeNameStr)
+
+    form = RecipeForm(recipe=current_recipe)
+
+    if form.validate_on_submit():
+        print('Got Recipe {}'.format(form.recipe.data))
+        try:
+            print('Load recipe here')
+            #data = comm_client.write_command(form.command.data)
+        except:
+            print('Can not communicate with controller')
+        #return redirect(url_for('index'))
+    print('rerendering')
+    #time.sleep(4)
+    return render_template('recipe.html', title='Recipe', form=form)
+   
 
 
 @app.route('/listold')
