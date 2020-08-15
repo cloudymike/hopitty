@@ -87,9 +87,9 @@ class envTempSensor(sensors.genericSensor):
 if __name__ == '__main__':  # pragma: no cover
     t = envTempSensor()
     if t.HWOK():
-        print "HW used"
+        print("HW used")
     else:
-        print "Simulation used"
+        print("Simulation used")
     for x in range(0, 30):
-        print t.getValue()
+        print(t.getValue())
         time.sleep(1)
