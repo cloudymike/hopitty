@@ -33,3 +33,5 @@ python3 putOneRecipe.py
 
 
 kill -9 %1
+
+./clean.sh
