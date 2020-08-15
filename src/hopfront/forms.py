@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, RadioField,SelectField
 from wtforms.validators import DataRequired
 import boto3
 from botocore.exceptions import ClientError
@@ -30,7 +30,6 @@ def recipe_choices():
         recipeTuple = (recipeName,recipeName)
         recipeNameList.append(recipeTuple)
         print(recipeName)
-    #return([('porter','porter'),('saison','saison'),('IPA','IPA'),('NEIPA','NEIPA'),('wit','wit')])
     return(recipeNameList)
 
 
