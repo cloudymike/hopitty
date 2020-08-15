@@ -82,6 +82,8 @@ class mqttctrl():
             self.stages = stages
         else:
             self.stages = self.hold_forever
+        self.recipe = {}
+        self.recipename = ''
 
         # TODO parameterize the topic and host
         # TODO Break this out and pass do_command as a parameter.
@@ -142,7 +144,9 @@ class mqttctrl():
             data = command
             status_string = str(data).replace("'","")
             logger.debug(status_string)
-            self.stages = json.loads(status_string)
+            self.recipe = json.loads(status_string)
+            self.stages = self.recipe['stages']
+            self.recipename = self.recipe['recipename']
             self.increment = 0
             self.state = 'stop'
 

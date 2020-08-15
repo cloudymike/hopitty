@@ -7,6 +7,7 @@ import sys
 
 # Stages json to use
 stagesString='{"s1":{"aerator":{"active":false,"targetValue":0},"boiler":{"active":false,"targetValue":0},"boilerValve":{"active":false,"targetValue":0},"boilerVolume":{"active":false,"targetValue":0},"controllerInfo":{"active":false,"targetValue":0},"cooler":{"active":false,"targetValue":0},"delayTimer":{"active":true,"targetValue":0.4},"dispenser1":{"active":false,"targetValue":0},"dispenser2":{"active":false,"targetValue":0},"dispenser3":{"active":false,"targetValue":0},"dispenser4":{"active":false,"targetValue":0},"envTemp":{"active":false,"targetValue":0},"hotWaterPump":{"active":false,"targetValue":0},"hwtVolume":{"active":false,"targetValue":0},"mashStirrer":{"active":false,"targetValue":0},"mashTemp":{"active":false,"targetValue":0},"mashVolume":{"active":false,"targetValue":0},"plateValve":{"active":false,"targetValue":0},"waterCirculationPump":{"active":true,"targetValue":1},"waterHeater":{"active":false,"targetValue":95},"wortPump":{"active":false,"targetValue":0}},"s2":{"aerator":{"active":false,"targetValue":0},"boiler":{"active":false,"targetValue":0},"boilerValve":{"active":false,"targetValue":0},"boilerVolume":{"active":false,"targetValue":0},"controllerInfo":{"active":false,"targetValue":0},"cooler":{"active":false,"targetValue":0},"delayTimer":{"active":true,"targetValue":0.1},"dispenser1":{"active":false,"targetValue":0},"dispenser2":{"active":false,"targetValue":0},"dispenser3":{"active":false,"targetValue":0},"dispenser4":{"active":false,"targetValue":0},"envTemp":{"active":false,"targetValue":0},"hotWaterPump":{"active":false,"targetValue":0},"hwtVolume":{"active":false,"targetValue":0},"mashHeater":{"active":false,"targetValue":92},"mashStirrer":{"active":false,"targetValue":0},"mashTemp":{"active":false,"targetValue":0},"mashVolume":{"active":false,"targetValue":0},"plateValve":{"active":false,"targetValue":0},"waterCirculationPump":{"active":true,"targetValue":1},"waterHeater":{"active":false,"targetValue":95},"wortPump":{"active":false,"targetValue":0}}}'
+recipeString = '{"recipename":"smalltestrecipe", ' + stagesString +'}'
 
 def stateFromStatus(status):
     statusdict = json.loads(status)
@@ -84,7 +85,7 @@ if __name__ == "__main__":
     assertState(data, 'stop')
 
     testTitle('Start run and pause. Make sure stage does not change')
-    assert client.write_command(stagesString) == 'ok'
+    assert client.write_command(recipeString) == 'ok'
     assert client.write_command('run') == 'ok'
     time.sleep(1)
     stateFromStatus(client.read_status())
@@ -104,13 +105,13 @@ if __name__ == "__main__":
     waitfor_state(client, 'stop', 6)
 
     testTitle('Load stages, see that it does not start')
-    assert client.write_command(stagesString) == 'ok'
+    assert client.write_command(recipeString) == 'ok'
     time.sleep(3)
     stateFromStatus(client.read_status())
     assertState(client.read_status(), 'stop')
 
     testTitle('Start run and see it progresses and stops by itself. It will take time')
-    assert client.write_command(stagesString) == 'ok'
+    assert client.write_command(recipeString) == 'ok'
     assert client.write_command('run') == 'ok'
     time.sleep(1)
     stateFromStatus(client.read_status())
@@ -120,7 +121,7 @@ if __name__ == "__main__":
     waitfor_state(client, 'stop', 60)
 
     testTitle('Start run and manually stop.')
-    assert client.write_command(stagesString) == 'ok'
+    assert client.write_command(recipeString) == 'ok'
     assert client.write_command('run') == 'ok'
     time.sleep(1)
     stateFromStatus(client.read_status())
@@ -131,7 +132,7 @@ if __name__ == "__main__":
     waitfor_state(client, 'stop', 6)
 
     testTitle('Start run and skip. Make sure stage does change and state is run again')
-    assert client.write_command(stagesString) == 'ok'
+    assert client.write_command(recipeString) == 'ok'
     assert client.write_command('run') == 'ok'
     time.sleep(1)
     stateFromStatus(client.read_status())
