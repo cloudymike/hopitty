@@ -54,9 +54,9 @@ class s2b(threading.Thread):
         no blocking, I.e a separate thread
         """
         self.runOK = self.check()
-        print "run"
+        print("run")
         if not self.runOK:
-            print "check failed"
+            print("check failed")
             return
 
         for r_key, settings in sorted(self.stages.items()):
@@ -83,10 +83,6 @@ class s2b(threading.Thread):
                         difftime = 0
                     sleeptime = max(1.0 + difftime, 0.0)
                     sleeptime = min(1.0, sleeptime)
-                    #print "Now:",nowtime, \
-                    #      " Delta:", self.deltatime, \
-                    #      " Difftime:", difftime, \
-                    #      " Sleep time", sleeptime
                     time.sleep(sleeptime)
                 self.controllers.logstatus()
         #self.controllers.stop()
@@ -102,12 +98,12 @@ class s2b(threading.Thread):
         Simple check to validate that the recipe uses controllers
         in the controller list.
         """
-        print "Stages", self.stages
+        print("Stages", self.stages)
         if self.stages == {}:
-            print "empty stages"
+            print("empty stages")
             return(False)
         if self.controllers is None:
-            print "no controllers"
+            print("no controllers")
             return(False)
         if self.stages is not None:
             for r_key, settings in sorted(self.stages.items()):
