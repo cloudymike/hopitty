@@ -1,13 +1,9 @@
-import netsock
-import mqttsock
-import brewque
 from flask import Flask, render_template, flash, redirect, url_for
 from forms import CmdForm, LoadForm
 import sys
 import json
 import time
 import argparse
-import xmltodict
 import requests
 import boto3
 from botocore.exceptions import ClientError
@@ -15,6 +11,7 @@ from boto3.dynamodb.conditions import Key
 
 
 import google_auth
+import brewque
 
 #==== Exportables
 def query_recipes(equipment_name='Grain 3G, HERMS, 5Gcooler, 5Gpot', dynamodb=None):
@@ -47,24 +44,14 @@ def index():
 def cmd():
     if not google_auth.is_logged_in():
         return (redirect('/'))
-
-    try:
-        current_status = comm_client.read_status()
-        status_string = str(current_status).replace("'","")
-        statusdict = json.loads(status_string)
-        current_state = statusdict['state']
-    except:
-        print('Can not communicate with controller')
-        current_status = 'Controller failing'
     current_state = bq.get_state()
-
     form = CmdForm(command=current_state)
 
     if form.validate_on_submit():
         print('Got command {}'.format(form.command.data))
         if form.command.data in ['terminate','pause','run', 'stop', 'skip']:
             try:
-                data = comm_client.write_command(form.command.data)
+                data = bq.put_command(form.command.data)
             except:
                 print('Can not communicate with controller')
         #return redirect(url_for('index'))
@@ -76,19 +63,8 @@ def cmd():
 def status():
     if not google_auth.is_logged_in():
         return (redirect('/'))
-    try:
-        current_status = comm_client.read_status()
-    except:
-        print('Can not communicate with controller')
-        current_status = 'Controller failing'
+    current_status = bq.get_status()
     return render_template('status.html', title='Status', current_status = current_status)
-
-def downloadBeerSmith():
-    i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
-    bsmxRawData = i.content.decode("utf-8")
-    bsmxCleanData = bsmxRawData.replace('&', 'AMP')
-    xmldict = xmltodict.parse(bsmxCleanData)
-    return(xmldict)
 
 
 @app.route('/list')
@@ -103,56 +79,7 @@ def list():
         recipeNameList.append(recipeName)
         print(recipeName)
         recipeNameStr = recipeNameStr + '<p>' +recipeName + '</P>\n'
-    
-    
     return(recipeNameStr)
-
-
-@app.route('/listold')
-def listold():
-    if not google_auth.is_logged_in():
-        return (redirect('/'))
-    try:
-        xmldict = downloadBeerSmith()
-    except:
-        print('Can not communicate with beersmith storage')
-        return render_template('list.html', title='Recipe List', recipelist=[])
-
-    recipes = xmldict['Cloud']['Data']['Cloud']
-    recipelist = []
-    for recipe in recipes:
-        oneEntry = {}
-        oneEntry['name'] = recipe['F_R_NAME']
-        oneEntry['equipment'] = recipe['F_R_EQUIP_NAME']
-        recipelist.append(oneEntry)
-
-    return render_template('list.html', title='Recipe List', recipelist = recipelist)
-
-
-@app.route('/load', methods=['GET', 'POST'])
-def load():
-    if not google_auth.is_logged_in():
-        return (redirect('/'))
-
-    form = LoadForm()
-    
-    if form.validate_on_submit():
-        try:
-            data = comm_client.write(form.load.data)
-        except:
-            print('Can not communicate with controller')
-        print("Stages: {}".format(form.load.data))
-        print('back to index, just kiddin')
-        return redirect(url_for('index'))
-        
-    stages_example={}
-    stages_example['s1'] = {}
-    stages_example['s1']['cycles'] = 3
-    stages_example['s2'] = {}
-    stages_example['s2']['cycles'] = 4
-    stages_string = json.dumps(stages_example)
-
-    return render_template('load.html', title='Load', form=form, stages_example=stages_string)
 
 
 if __name__ == "__main__":

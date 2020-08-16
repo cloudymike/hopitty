@@ -39,6 +39,12 @@ class brewque():
         except:
             print('Can not communicate with controller')
     
+    def put_command(self,data):
+        try:
+            result = self.comm_client.write_command(data)
+        except:
+            print('Can not communicate with controller')
+    
     def get_recipename(self):
         pass
     
