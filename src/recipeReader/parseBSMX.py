@@ -368,10 +368,10 @@ class bsmxStages():
 
     def prettyPrintStages(self):
         for stage, step in sorted(self.stages.items()):
-            print stage
+            print(stage)
             for ctrl, val in step.items():
                 if val['active']:
-                    print "    ", ctrl, ":", val['targetValue']
+                    print("    ", ctrl, ":", val['targetValue'])
 
 ##############################################################################
 # Temperature adjustment methods

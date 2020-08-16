@@ -1,7 +1,6 @@
 # import subprocess
 import appliances.genctrl
 import sensors
-import switches
 
 
 class cooler(appliances.genctrl):
@@ -10,7 +9,7 @@ class cooler(appliances.genctrl):
     """
     def __init__(self):
         self.errorState = False  # If an error has occured
-        self.coolerSwitch = switches.simSwitch()
+        self.coolerSwitch = None
         self.powerOn = False
         self.active = False
         self.target = 80
@@ -22,7 +21,6 @@ class cooler(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        #print 'Powering down'
 
     def connectSwitch(self, switch):
         self.coolerSwitch = switch
@@ -79,16 +77,12 @@ class cooler(appliances.genctrl):
         self.powerOn = False
 
     def HWOK(self):
-        if self.coolerSwitch is None:
-            return(False)
-        if not self.coolerSwitch.HWOK():
-            return(False)
         return(self.sensor.HWOK())
 
 if __name__ == '__main__':  # pragma: no cover
     testCooler = cooler()
     testCooler.on()
     while not testCooler.targetMet():
-        print testCooler.get()
+        print(testCooler.get())
     for x in range(0, 15):
-        print testCooler.get()
+        print(testCooler.get())

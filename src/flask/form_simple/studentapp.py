@@ -10,7 +10,7 @@ def result():
    if request.method == 'POST':
       result = request.form
       for key, value in result.items():
-          print key, value
+          print(key, value)
       return render_template("result.html",result = result)
 
 if __name__ == '__main__':

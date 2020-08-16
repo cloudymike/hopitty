@@ -105,7 +105,6 @@ def strikeTemp(bsmxObj, envT):
     beersmithTstrike = bsmxObj.getTempF("F_MS_INFUSION_TEMP")
     logging.debug("beersmith strike T {}".format(beersmithTstrike))
     logging.debug("calculated strike T {}".format(Tstrike))
-
     return(Tstrike)
 
 

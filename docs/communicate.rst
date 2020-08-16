@@ -68,6 +68,14 @@ communicate\.netsock module
     :undoc-members:
     :show-inheritance:
 
+communicate\.tstrunmqtt module
+------------------------------
+
+.. automodule:: communicate.tstrunmqtt
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

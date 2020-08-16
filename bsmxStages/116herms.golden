@@ -44,10 +44,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -127,10 +123,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -216,10 +208,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -299,10 +287,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -388,10 +372,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -471,10 +451,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -560,10 +536,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -643,10 +615,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -732,10 +700,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -815,10 +779,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -904,10 +864,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 2.4452811242375754
@@ -987,10 +943,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1076,10 +1028,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1159,10 +1107,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1248,10 +1192,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1331,10 +1271,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1420,10 +1356,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 2.4452811242375754
@@ -1503,10 +1435,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1592,10 +1520,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1675,10 +1599,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1764,10 +1684,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1847,10 +1763,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1936,10 +1848,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2019,10 +1927,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -2108,10 +2012,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2191,10 +2091,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -2280,10 +2176,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2363,10 +2255,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -2452,10 +2340,6 @@
       "active": false,
       "targetValue": 0
     },
-    "envTemp": {
-      "active": false,
-      "targetValue": 0
-    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2535,10 +2419,6 @@
       "targetValue": 0
     },
     "dispenser4": {
-      "active": false,
-      "targetValue": 0
-    },
-    "envTemp": {
       "active": false,
       "targetValue": 0
     },

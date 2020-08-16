@@ -54,29 +54,37 @@ def setupControllers(verbose, simulation, permissive, equipment):
     hwCirculationSwitch = usbPumps.getSwitch(0)
     wortSwitch = usbPumps.getSwitch(2)
     mashCirculationSwitch = usbPumps.getSwitch(3)
-    controllers.addController('waterHeater', appliances.hwt())
-    controllers['waterHeater'].connectSwitch(hwTunSwitch)
-    controllers['waterHeater'].connectSensor(tempSensors.getSensor('281a7a6d0b000096'))
 
-    controllers.addController('boiler', appliances.boiler())
-    controllers['boiler'].connectSwitch(boilerSwitch)
-    boilerSensor = tempSensors.getSensor('28ff922d0116039e')
-    controllers['boiler'].connectSensor(boilerSensor)
 
-    controllers.addController('aerator', appliances.aerator())
-    controllers['aerator'].connectSwitch(aeratorSwitch)
+    if 'waterHeater' in equipment['componentlist']:
+        controllers.addController('waterHeater', appliances.hwt())
+        controllers['waterHeater'].connectSwitch(hwTunSwitch)
+        controllers['waterHeater'].connectSensor(tempSensors.getSensor('281a7a6d0b000096'))
 
-    controllers.addController('cooler', appliances.cooler())
-    # Do not use coolerswitch anymore, that one is now on plate chiller
-    #controllers['cooler'].connectSwitch(coolerSwitch)
-    controllers['cooler'].connectSensor(boilerSensor)
+    if 'boiler' in equipment['componentlist']:
+        controllers.addController('boiler', appliances.boiler())
+        controllers['boiler'].connectSwitch(boilerSwitch)
+        boilerSensor = tempSensors.getSensor('28ff922d0116039e')
+        controllers['boiler'].connectSensor(boilerSensor)
 
-    # Reuse of same switch for plate cooler as immersion cooler
-    controllers.addController('plateValve', appliances.plateValve())
-    controllers['plateValve'].connectSwitch(coolerSwitch)
+    if 'aerator' in equipment['componentlist']:
+        controllers.addController('aerator', appliances.aerator())
+        controllers['aerator'].connectSwitch(aeratorSwitch)
 
-    controllers.addController('mashStirrer', appliances.mashStirrer())
-    controllers['mashStirrer'].connectSwitch(mashStirSwitch)
+    if 'cooler' in equipment['componentlist']:
+        controllers.addController('cooler', appliances.cooler())
+        # As we are using plate chller do not use cooler switch
+        #controllers['cooler'].connectSwitch(switches.simSwitch())
+        controllers['cooler'].connectSensor(boilerSensor)
+        # Reuse of same switch for plate cooler as immersion cooler
+
+    if 'plateValve' in equipment['componentlist']:
+        controllers.addController('plateValve', appliances.plateValve())
+        controllers['plateValve'].connectSwitch(coolerSwitch)
+
+    if 'mashStirrer' in equipment['componentlist']:
+        controllers.addController('mashStirrer', appliances.mashStirrer())
+        controllers['mashStirrer'].connectSwitch(mashStirSwitch)
 
     if 'mashHeater' in equipment['componentlist']:
         controllers.addController('mashHeater', appliances.mashHeater())
@@ -87,10 +95,13 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers['mashTemp'].connectSwitch(mashCirculationSwitch)
         controllers['mashTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
 
-    controllers.addController('boilerValve', appliances.boilerValve())
-    controllers['boilerValve'].connectSwitch(boilerValveSwitch)
-    controllers.addController('hotWaterPump', appliances.hwPump())
-    controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
+    if 'boilerValve' in equipment['componentlist']:
+        controllers.addController('boilerValve', appliances.boilerValve())
+        controllers['boilerValve'].connectSwitch(boilerValveSwitch)
+
+    if 'hotWaterPump' in equipment['componentlist']:
+        controllers.addController('hotWaterPump', appliances.hwPump())
+        controllers['hotWaterPump'].connectSwitch(hotWaterPumpSwitch)
 
     if 'hwtVolume' in equipment['componentlist']:
         controllers.addController('hwtVolume', appliances.hwtVolume())
@@ -100,13 +111,16 @@ def setupControllers(verbose, simulation, permissive, equipment):
     if 'mashVolume' in equipment['componentlist']:
         controllers.addController('mashVolume', appliances.mashVolume())
 
-    controllers.addController('waterCirculationPump',
+    if 'waterCirculationPump' in equipment['componentlist']:
+        controllers.addController('waterCirculationPump',
                               appliances.circulationPump())
-    controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
-    controllers.addController('wortPump', appliances.wortPump())
-    controllers['wortPump'].connectSwitch(wortSwitch)
+        controllers['waterCirculationPump'].connectSwitch(hwCirculationSwitch)
 
-    if 'hwtVolume' in equipment['componentlist']:
+    if 'wortPump' in equipment['componentlist']:
+        controllers.addController('wortPump', appliances.wortPump())
+        controllers['wortPump'].connectSwitch(wortSwitch)
+
+    if 'boilerVolume' in equipment['componentlist']:
         controllers.addController('boilerVolume', appliances.boilerVolume())
         controllers['boilerVolume'].attachHost(controllers['wortPump'])
 
@@ -116,15 +130,16 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers.addController('dispenser3', appliances.dispenser(3))
         controllers.addController('dispenser4', appliances.dispenser(4))
     
-    controllers.addController('envTemp', appliances.envTemp())
-    controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
-    #controllers['envTemp'].connectSensor(sensors.envTempSensor())
+    
+    if 'envTemp' in equipment['componentlist']:
+        controllers.addController('envTemp', appliances.envTemp())
+        controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+        #controllers['envTemp'].connectSensor(sensors.envTempSensor())
 
     logging.debug("appliance setup done")
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
-        # print key
     "returning..."
     return(controllers)
 

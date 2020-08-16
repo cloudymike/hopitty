@@ -97,7 +97,6 @@ class pyboardread():  # pragma: no cover
         mydict = None
         # Find the last full json record
         for l in response.splitlines():
-            # print '|'+l+'|'
             try:
                 mydict = json.loads(l)   
             except:
