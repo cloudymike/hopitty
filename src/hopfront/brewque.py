@@ -9,8 +9,8 @@ from boto3.dynamodb.conditions import Key
 
 class brewque():
 
-    def __init__(self, mqttserver=None):
-        self.comm_client = mqttsock.socketclient(connection=mqttserver)
+    def __init__(self, connection=None):
+        self.comm_client = mqttsock.socketclient(connection=connection)
     
     def get_state(self):
         try:

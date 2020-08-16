@@ -1,5 +1,6 @@
 import netsock
 import mqttsock
+import brewque
 from flask import Flask, render_template, flash, redirect, url_for
 from forms import CmdForm, LoadForm
 import sys
@@ -55,7 +56,7 @@ def cmd():
     except:
         print('Can not communicate with controller')
         current_status = 'Controller failing'
-        current_state = "stop"
+    current_state = bq.get_state()
 
     form = CmdForm(command=current_state)
 
@@ -157,17 +158,14 @@ def load():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-n", "--netsock", action='store_true', help='Use netsock communication')
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
     args = parser.parse_args()
     
-    if args.netsock:
-        comm_client = netsock.socketclient()
     if args.mqtt:
-        comm_client = mqttsock.socketclient(connection='localhost')
+        bq = brewque.brewque(connection='localhost')
     if args.aws:
-        comm_client = mqttsock.socketclient(connection='aws')
+         bq = brewque.brewque(connection='aws')
         
     # Wait for a message to appear
     time.sleep(2)
