@@ -30,7 +30,7 @@ def send_command(cmd, read_response=False):
         response = read_response and ser.read() or None
         ser.close()
     except:
-        print "ERROR, can not connect to powerswitch"
+        print("ERROR, can not connect to powerswitch")
         response = None
     return response
 

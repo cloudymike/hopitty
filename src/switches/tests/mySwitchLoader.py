@@ -24,16 +24,16 @@ class mySwitchLoader:
         """
         module = __import__("switches", fromlist="*")
         for aName in dir(module):
-            print "Found", aName
+            print("Found", aName)
             # Check if this is a class
             aClass = getattr(module, aName)
             if hasattr(aClass, "__init__") and \
                hasattr(aClass, "__module__") and \
                hasattr(aClass, "hasError"):
                 self.myClassCollection[aName] = aClass
-        print "================== Classes found =================="
+        print("================== Classes found ==================")
         for className, aClass in self.myClassCollection.iteritems():
-            print className
+            print(className)
 
     def classes(self):
         return(self.myClassCollection)
@@ -46,9 +46,9 @@ class mySwitchLoader:
         This will instantiate one copy of each class found and adding them
         to the myInstances dictionary.
         """
-        print "====Building....====="
+        print("====Building....=====")
         for className, aClass in self.myClassCollection.iteritems():
-            print className
+            print(className)
             self.myInstances[className] = aClass()
 
     def list(self):
@@ -56,13 +56,13 @@ class mySwitchLoader:
         This will list all instanticated classes in the myInstances dictionary
         and try one call to them, just for test
         """
-        print "============= Listing instantiated classes ============="
+        print("============= Listing instantiated classes =============")
         for className, anInstance in self.myInstances.iteritems():
-            print 'Instance of Class', className
+            print('Instance of Class', className)
 
 
 if __name__ == "__main__":
     s = mySwitchLoader()
     s.build()
     #s.list()
-    print "=====SUCCESS====="
+    print("=====SUCCESS=====")

@@ -46,7 +46,12 @@ Terminate program
 return  OK or ERROR
 stop current recipe
 load recipe provided
+Includes:
+* stages
+* recipename
 
 ## status
-return status of all in controllers
-status also includes state (run,pause,stop etc)
+* status of all in controllers
+* state (run,pause,stop etc)
+* equipment name
+* recipename currently loaded

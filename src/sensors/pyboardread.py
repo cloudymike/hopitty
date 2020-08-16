@@ -91,13 +91,12 @@ class pyboardread():  # pragma: no cover
                 r = serPort.read(8)
                 response = response + r
         except:
-            print "Failed to read"
+            print("Failed to read")
         serPort.close()
          
         mydict = None
         # Find the last full json record
         for l in response.splitlines():
-            # print '|'+l+'|'
             try:
                 mydict = json.loads(l)   
             except:
@@ -113,8 +112,8 @@ if __name__ == '__main__':  # pragma: no cover
     parser.add_argument('-r', '--rom', default=None, help='ROM hex code')
 
     args = parser.parse_args()
-    print args.rom
+    print(args.rom)
 
     pbr = pyboardread()
-    print json.dumps(pbr.get_dict(), sort_keys=True, indent=4)
-    print "Temperature is ", pbr.get_temperature('fahrenheit', args.rom)
+    print(json.dumps(pbr.get_dict(), sort_keys=True, indent=4))
+    print("Temperature is ", pbr.get_temperature('fahrenheit', args.rom))

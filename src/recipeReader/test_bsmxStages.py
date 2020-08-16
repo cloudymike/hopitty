@@ -827,7 +827,7 @@ def test_init_bsmxStages_string():
     assert equipmentName == "Grain 2.5G, 5Gcooler, 4Gpot"
     assert bx.getEquipment() == "Grain 2.5G, 5Gcooler, 4Gpot"
     assert bx.getStages() == {}
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_badProfile():
@@ -835,25 +835,25 @@ def test_badProfile():
     assert bx.getRecipeName() == "BadProfile"
     doc = bx.getDocTree()
     profileName = recipeReader.bsmxReadString(doc, "F_R_NAME")
-    print profileName
+    print(profileName)
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
-    print equipmentName
+    print(equipmentName)
     assert equipmentName == "Grain 2.5G, 5Gcooler, 4Gpot"
     assert bx.getEquipment() == "Grain 2.5G, 5Gcooler, 4Gpot"
     assert bx.getStages() == {}
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_init_bsmxStages_file():
     cp = os.path.dirname(__file__)
-    print cp
+    print(cp)
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
-    print rp
+    print(rp)
     e = equipment.allEquipment()
     myequipment = e.get("Grain 2.5G, 5Gcooler, 4Gpot")
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
-    print ctrl['controllerInfo'].getEquipmentName()
+    print(ctrl['controllerInfo'].getEquipmentName())
     bx = recipeReader.bsmxStages(rp, ctrl)
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     doc = bx.getDocTree()
@@ -862,7 +862,7 @@ def test_init_bsmxStages_file():
     assert bx.getEquipment() == "Grain 2.5G, 5Gcooler, 4Gpot"
     #print bx.getStages()
     assert bx.getStages() != {}
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_init_bsmxStages_doc():
@@ -874,52 +874,52 @@ def test_init_bsmxStages_doc():
     assert equipmentName == "Grain 2.5G, 5Gcooler, 4Gpot"
     assert bx.getEquipment() == "Grain 2.5G, 5Gcooler, 4Gpot"
     assert bx.getStages() == {}
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_testcold():
     cp = os.path.dirname(__file__)
-    print cp
+    print(cp)
     rp = cp + "/../../beersmith/testcold.bsmx"
-    print rp
+    print(rp)
     e = equipment.allEquipment()
     myequipment = e.get("Grain 3G, 5Gcooler, 5Gpot")
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
-    print ctrl['controllerInfo'].getEquipmentName()
+    print(ctrl['controllerInfo'].getEquipmentName())
     bx = recipeReader.bsmxStages(rp, ctrl)
     assert bx.getRecipeName() == "testcold"
     doc = bx.getDocTree()
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
-    print equipmentName
+    print(equipmentName)
     assert equipmentName == "Grain 3G, 5Gcooler, 5Gpot"
     assert bx.getEquipment() == "Grain 3G, 5Gcooler, 5Gpot"
     #print bx.getStages()
     assert bx.getStages() != {}
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_testbatchsparge():
     cp = os.path.dirname(__file__)
-    print cp
+    print(cp)
     rp = cp + "/../../beersmith/SilverDollarPorter.bsmx"
-    print rp
+    print(rp)
     e = equipment.allEquipment()
     myequipment = e.get("Pot and Cooler ( 5 Gal/19 L) - All Grain")
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
-    print ctrl['controllerInfo'].getEquipmentName()
+    print(ctrl['controllerInfo'].getEquipmentName())
     bx = recipeReader.bsmxStages(rp, ctrl)
-    print bx.getRecipeName()
+    print(bx.getRecipeName())
     assert bx.getRecipeName() == "Silver Dollar Porter 2.5 gallons"
     doc = bx.getDocTree()
     equipmentName = recipeReader.bsmxReadString(doc, "F_E_NAME")
-    print equipmentName
+    print(equipmentName)
     assert equipmentName == "Pot and Cooler ( 5 Gal/19 L) - All Grain"
     assert bx.getEquipment() == "Pot and Cooler ( 5 Gal/19 L) - All Grain"
     #print bx.getStages()
     assert bx.getStages() != {}
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getFieldStr():
@@ -927,7 +927,7 @@ def test_getFieldStr():
     v = bx.getFieldStr('F_E_MASH_VOL')
     assert isinstance(v, str) or isinstance(v, unicode)
     assert v == '640.0000000'
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getVolG():
@@ -935,7 +935,7 @@ def test_getVolG():
     v = bx.getVolG('F_E_MASH_VOL')
     assert isinstance(v, float)
     assert abs(v - 5.0) < 0.1
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_GoodRecipe():
@@ -945,7 +945,7 @@ def test_GoodRecipe():
     bx = recipeReader.bsmxStages(goodRecipe(),
                                  ctrl.setupControllers(False, True, True, myequipment))
     assert bx.isValid()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_badTunDeadSpace():
@@ -954,12 +954,12 @@ def test_badTunDeadSpace():
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     bx = recipeReader.bsmxStages(badTunDeadSpaceBsmx(),
                                  ctrl.setupControllers(False, True, True, myequipment))
-    print bx.getTunDeadSpace()
-    print bx.getRecipeName()
-    print bx.isValid()
+    print(bx.getTunDeadSpace())
+    print(bx.getRecipeName())
+    print(bx.isValid())
     assert not bx.isValid()
-    print str(bx.getStages())
-    print myname(), "OK"
+    print(str(bx.getStages()))
+    print(myname(), "OK")
 
 
 def test_getVolQt():
@@ -967,7 +967,7 @@ def test_getVolQt():
     v = bx.getVolQt('F_E_MASH_VOL')
     assert isinstance(v, float)
     assert abs(v - 20.0) < 0.1
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getWeightLb():
@@ -975,7 +975,7 @@ def test_getWeightLb():
     w = bx.getWeightLb('F_MH_GRAIN_WEIGHT')
     assert isinstance(w, float)
     assert abs(w - 7.25) < 0.1
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getTempF():
@@ -983,7 +983,7 @@ def test_getTempF():
     t = bx.getTempF('F_MH_GRAIN_TEMP')
     assert isinstance(t, float)
     assert abs(t - 68.0) < 0.1
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def myname():
@@ -995,7 +995,7 @@ def test_getTimeMin():
     t = bx.getTimeMin('F_MS_STEP_TIME')
     assert isinstance(t, float)
     assert abs(t - 60.0) < 0.1
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getMashProfile():
@@ -1003,7 +1003,7 @@ def test_getMashProfile():
     mp = bx.getMashProfile()
     assert isinstance(mp, str) or isinstance(mp, unicode)
     assert mp == 'Single Infusion, Medium Body, No Mash Out'
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getEquipment():
@@ -1011,7 +1011,7 @@ def test_getEquipment():
     e = bx.getEquipment()
     assert isinstance(e, str) or isinstance(e, unicode)
     assert e == 'Grain 2.5G, 5Gcooler, 4Gpot'
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getGrainAbsorption():
@@ -1019,7 +1019,7 @@ def test_getGrainAbsorption():
     g = bx.getGrainAbsorption()
     assert isinstance(g, float)
     assert abs(g - 3.49) < 0.01
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getTunDeadSpace():
@@ -1027,7 +1027,7 @@ def test_getTunDeadSpace():
     ds = bx.getTunDeadSpace()
     assert isinstance(ds, float)
     assert abs(ds - 0.2) < 0.01
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getStrikeVolume():
@@ -1035,7 +1035,7 @@ def test_getStrikeVolume():
     ds = bx.getStrikeVolume()
     assert isinstance(ds, float)
     assert abs(ds - 9.2625) < 0.01
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getPreBoilVolume():
@@ -1043,7 +1043,7 @@ def test_getPreBoilVolume():
     ds = bx.getPreBoilVolume()
     assert isinstance(ds, float)
     assert abs(ds - 13.648) < 0.01
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getSpargeVolume():
@@ -1051,7 +1051,7 @@ def test_getSpargeVolume():
     ds = bx.getSpargeVolume()
     assert isinstance(ds, float)
     assert abs(ds - 8.07947590361) < 0.01
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getDispense():
@@ -1059,7 +1059,7 @@ def test_getDispense():
     d = bx.getDispense()
     assert isinstance(d, list)
     assert d == [60.0, 15.0]
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getDispenserAtTime():
@@ -1076,7 +1076,7 @@ def test_getDispenserAtTime():
     assert isinstance(d3, str)
     assert d3 == 'error'
 
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getMisc():
@@ -1084,7 +1084,7 @@ def test_getMisc():
     m = bx.getMisc()
     assert isinstance(m, list)
     assert m == [15.0]
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getHops():
@@ -1092,13 +1092,13 @@ def test_getHops():
     h = bx.getHops()
     assert isinstance(h, list)
     assert h == [60]
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_prettyPrintStages():
     bx = recipeReader.bsmxStages(elaborateBsmx(), ctrlBsmxList())
     bx.prettyPrintStages()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_isValid():
@@ -1112,12 +1112,12 @@ def test_isValid():
                                  ctrl.setupControllers(False, True, True, myequipment))
     assert not cx.isValid()
     cp = os.path.dirname(__file__)
-    print cp
+    print(cp)
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
-    print rp
+    print(rp)
     dx = recipeReader.bsmxStages(rp, ctrl.setupControllers(False, True, True, myequipment))
     assert dx.isValid()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 if __name__ == "__main__":
@@ -1149,4 +1149,4 @@ if __name__ == "__main__":
     test_getMisc()
     test_getHops()
     test_prettyPrintStages()
-    print "=====SUCCESS====="
+    print("=====SUCCESS=====")

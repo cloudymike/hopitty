@@ -58,4 +58,4 @@ if __name__ == "__main__":
     test_HWOK()
     test_on()
 
-    print "=====SUCCESS====="
+    print("=====SUCCESS=====")
