@@ -4,7 +4,9 @@
 
 # Starting mosquitto should not be needed but included for completeness
 sudo service mosquitto start
-
+pushd dynamo
+./up.sh &
+popd
 
 export FN_AUTH_REDIRECT_URI=http://localhost:8080/google/auth
 export FN_BASE_URI=http://localhost:8080
@@ -20,3 +22,4 @@ popd
 
 # kill webserver
 kill %1
+kill %2
