@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Check the requirements list
+# virtualenv might be good
+
+
+
+
+
 export FN_AUTH_REDIRECT_URI=http://localhost:8080/google/auth
 export FN_BASE_URI=http://localhost:8080
 #export FN_AUTH_REDIRECT_URI=https://${C9_PID}.vfs.cloud9.us-east-1.amazonaws.com/google/auth

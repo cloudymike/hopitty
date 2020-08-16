@@ -6,3 +6,6 @@ paho-mqtt
 flask-wtf
 requests
 xmltodict
+boto3==1.14.43
+botocore==1.17.43
+simplejson==3.17.2
