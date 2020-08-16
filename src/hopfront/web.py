@@ -49,7 +49,7 @@ def cmd():
 def status():
     if not google_auth.is_logged_in():
         return (redirect('/'))
-    current_status = bq.get_status()
+    current_status = bq.get_controller_status()
     return render_template('status.html', title='Status', current_status = current_status)
 
 

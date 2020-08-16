@@ -64,12 +64,32 @@ class brewque():
         except:
             print('Can not communicate with controller')
             current_status = None
-        print(current_status)
         if current_status:
             statusdict = json.loads(current_status)
-            print(statusdict)
             if 'equipmentname' in statusdict:
                 equipmentname = statusdict['equipmentname']
             else:
                 equipmentname = ''
             return(equipmentname)
+
+    def get_controller_status(self):
+        try:
+            current_status = self.comm_client.read_status()
+            status_string = str(current_status).replace("'","")
+            statusdict = json.loads(status_string)
+            data = statusdict['status']
+        except:
+            print('Can not communicate with controller')
+            data = None
+
+        ctrlmatrix = []
+        for appliance, currstatus in data.items():
+            actual = str(currstatus['actual'])
+            if currstatus['active']:
+                target = str(currstatus['target'])
+            else:
+                target = ''
+            unit = currstatus['unit']
+            ctrlrow = [appliance,actual,target,unit]
+            ctrlmatrix.append(ctrlrow)
+        return(ctrlmatrix)
