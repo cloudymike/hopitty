@@ -2,6 +2,7 @@ import boto3
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key
 import json
+import simplejson
 
 
 class dynamorecipelist():
@@ -52,19 +53,9 @@ class dynamorecipelist():
         stages = resp['stages']
         recipename = resp['recipe_name']
         equipmentname = resp['equipment_name']
-        print(stages)
-        print(recipename)
-        print(equipmentname)
-        stagesstr = json.dumps(stages)
-
-# This is the problem:
-# u'targetValue': Decimal('0')}
-# should be
-# u'targetValue': 0}
-
         recipedict = {}
-        #recipedict['stages'] = stages
-        recipedict['recipename'] = recipe_name
-        print('get_loadable_recipe {}'.format(recipedict))
-        recipestr = json.dumps(recipedict)
+        recipedict['stages'] = stages
+        recipedict['recipename'] = recipename
+        recipestr = simplejson.dumps(recipedict)
+        print(recipestr)
         return(recipestr)
