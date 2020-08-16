@@ -1,7 +1,7 @@
 import netsock
 import mqttsock
 from flask import Flask, render_template, flash, redirect, url_for
-from forms import CmdForm, LoadForm
+from forms import CmdForm, LoadForm, RecipeForm
 import sys
 import json
 import time
@@ -9,7 +9,13 @@ import argparse
 import xmltodict
 import requests
 
+
 import google_auth
+
+
+RECIPE_CHOICES=[('porter','porter'),('saison','saison'),('IPA','IPA'),('NEIPA','NEIPA'),('wit','wit')]
+
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -73,8 +79,32 @@ def downloadBeerSmith():
     return(xmldict)
 
 
-@app.route('/list')
+@app.route('/list', methods=['GET', 'POST'])
 def list():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+ 
+    current_recipe = 'porter'
+    
+
+    form = RecipeForm(recipe=current_recipe)
+
+    if form.validate_on_submit():
+        print('Got Recipe {}'.format(form.recipe.data))
+        try:
+            print('Load recipe here')
+            #data = comm_client.write_command(form.command.data)
+        except:
+            print('Can not communicate with controller')
+        #return redirect(url_for('index'))
+    print('rerendering')
+    #time.sleep(4)
+    return render_template('recipe.html', title='Recipe', form=form)
+   
+
+
+@app.route('/listold')
+def listold():
     if not google_auth.is_logged_in():
         return (redirect('/'))
     try:

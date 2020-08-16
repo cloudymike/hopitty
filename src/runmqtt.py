@@ -73,6 +73,7 @@ class mqttctrl():
         self.state = 'stop'
         self.increment = 1
         self.controllers = controllers
+        self.equipmentname = str(self.controllers.getEquipmentName())
 
         self.hold_forever = self.controllers.stage_template('holdforever')
         self.hold_forever['holdforever']['delayTimer']['active'] = True
@@ -82,6 +83,8 @@ class mqttctrl():
             self.stages = stages
         else:
             self.stages = self.hold_forever
+        self.recipe = {}
+        self.recipename = ''
 
         # TODO parameterize the topic and host
         # TODO Break this out and pass do_command as a parameter.
@@ -142,7 +145,9 @@ class mqttctrl():
             data = command
             status_string = str(data).replace("'","")
             logger.debug(status_string)
-            self.stages = json.loads(status_string)
+            self.recipe = json.loads(status_string)
+            self.stages = self.recipe['stages']
+            self.recipename = self.recipe['recipename']
             self.increment = 0
             self.state = 'stop'
 
@@ -185,6 +190,8 @@ class mqttctrl():
                 fullstatus = {}
                 fullstatus['stage'] = str(r_key)
                 fullstatus['state'] = str(self.state)
+                fullstatus['recipename'] = str(self.recipename)
+                fullstatus['equipmentname'] = self.equipmentname
                 fullstatus['status'] = lightstatus
                 status = json.dumps(fullstatus)
                 print("{} {} {}".format(self.state, r_key, delayTimer))
@@ -205,6 +212,7 @@ class mqttctrl():
 
             mystatus={}
             mystatus['state'] = self.state
+            mystatus['equipmentname'] = self.equipmentname
             status = json.dumps(mystatus)
             print("Start loop. State: {}".format(self.state))
 

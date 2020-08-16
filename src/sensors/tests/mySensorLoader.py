@@ -31,9 +31,6 @@ class mySensorLoader:
                hasattr(aClass, "__module__") and \
                hasattr(aClass, "getID"):
                 self.myClassCollection[aName] = aClass
-        #print "================== Classes found =================="
-        #for className, aClass in self.myClassCollection.iteritems():
-        #    print className
 
     def classes(self):
         return(self.myClassCollection)
@@ -54,7 +51,7 @@ class mySensorLoader:
         This will list all instanticated classes in the myInstances dictionary
         and try one call to them, just for test
         """
-        print "============= Listing instantiated classes ============="
+        print("============= Listing instantiated classes =============")
         for className, anInstance in self.myInstances.iteritems():
             print 'Instance of Class', className, 'has ID', anInstance.getID()
 
