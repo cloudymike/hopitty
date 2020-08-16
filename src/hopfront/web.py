@@ -8,23 +8,11 @@ import time
 import argparse
 import xmltodict
 import requests
-import boto3
-from botocore.exceptions import ClientError
-from boto3.dynamodb.conditions import Key
 
 
 import google_auth
+import recipelist
 
-#==== Exportables
-def query_recipes(equipment_name='Grain 3G, HERMS, 5Gcooler, 5Gpot', dynamodb=None):
-    if not dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
-
-    table = dynamodb.Table('recipe4equipment')
-    response = table.query(
-        KeyConditionExpression=Key('equipment_name').eq(equipment_name)
-    )
-    return response['Items']
 
 
 
@@ -94,16 +82,10 @@ def downloadBeerSmith():
 def list():
     if not google_auth.is_logged_in():
         return (redirect('/'))
-    recipelist = query_recipes()
-    recipeNameList = []
+    recipeNameList = dynamorl.get_recipeNameList()
     recipeNameStr = ''
-    for recipe in recipelist:
-        recipeName = recipe['recipe_name']
-        recipeNameList.append(recipeName)
-        print(recipeName)
+    for recipeName in recipeNameList:
         recipeNameStr = recipeNameStr + '<p>' +recipeName + '</P>\n'
-    
-    
     return(recipeNameStr)
 
 
@@ -169,6 +151,8 @@ if __name__ == "__main__":
     if args.aws:
         comm_client = mqttsock.socketclient(connection='aws')
         
+    dynamorl = recipelist.recipelist()    
+    
     # Wait for a message to appear
     time.sleep(2)
 
