@@ -11,7 +11,8 @@ class brewque():
 
     def __init__(self, connection=None):
         self.comm_client = mqttsock.socketclient(connection=connection)
-    
+        print('Connection is {}'.format(connection))
+
     def get_state(self):
         try:
             current_status = self.comm_client.read_status()
@@ -23,39 +24,50 @@ class brewque():
             current_status = 'Controller failing'
             current_state = "stop"
         return(current_state)
-        
+
     def get_status(self):
-        
         try:
             current_status = self.comm_client.read_status()
         except:
             print('Can not communicate with controller')
             current_status = 'Controller failing'
         return(current_status)
-    
+
     def put_recipe(self,data):
         try:
             result = self.comm_client.write_command(data)
         except:
             print('Can not communicate with controller')
-    
+
     def put_command(self,data):
         try:
             result = self.comm_client.write_command(data)
         except:
             print('Can not communicate with controller')
-    
+
     def get_recipename(self):
-        pass
-    
+        try:
+            current_status = self.comm_client.read_status()
+        except:
+            print('Can not communicate with controller')
+            current_status = None
+        if current_status:
+            statusdict = json.loads(current_status)
+            if 'recipename' in statusdict:
+                return(statusdict['recipename'])
+            else:
+                return('')
+
     def get_equipmentname(self):
         try:
             current_status = self.comm_client.read_status()
         except:
             print('Can not communicate with controller')
             current_status = None
-        if current_status:    
+        print(current_status)
+        if current_status:
             statusdict = json.loads(current_status)
+            print(statusdict)
             if 'equipmentname' in statusdict:
                 equipmentname = statusdict['equipmentname']
             else:
