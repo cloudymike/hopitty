@@ -2,8 +2,8 @@
 #
 # Script to start the program for proper brewing
 # with all the options
-# 
-# This scripts is hackish at this point. It should be cleaned up and most likely 
+#
+# This scripts is hackish at this point. It should be cleaned up and most likely
 # moved into python
 #
 # Add proper logging for all print statements
@@ -17,7 +17,7 @@ echo "USAGE: $0"
 USR=$USER
 SIMULATE=0
 QUICK=0
-TYPEOFEQUIPMENT=
+TYPEOFEQUIPMENT='Grain 3G, 5Gcooler, 5Gpot, platechiller'
 while getopts ":su:t:bhq" opt; do
   case $opt in
     s)

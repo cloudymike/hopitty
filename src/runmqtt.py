@@ -92,12 +92,15 @@ class mqttctrl():
         self.client = mqtt.Client("hwctrl")
         logger.info("start connect")
 
+        # These are mutually exclusive
         if args.aws:
             ssl_context= ssl_alpn()
             self.client.tls_set_context(context=ssl_context)
             self.client.connect(aws_iot_endpoint, port=443)
         if args.mqtt:
             self.client.connect("localhost",1883,60)
+        if args.HOST:
+            self.client.connect(args.HOST,1883,60)
 
         # For testing purposes, remove all communication
         # Allows test to run without broker.
@@ -272,6 +275,7 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-n", "--noqueue", action='store_true', help='Do not use communication')
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
+    group.add_argument("-H", "--HOST", default=None, type=str, help='Use HOST as mqtt server')
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
 
     args = parser.parse_args()
