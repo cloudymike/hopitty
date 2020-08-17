@@ -44,6 +44,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -126,6 +130,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -156,7 +164,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 172.3858176401969
+      "targetValue": 172.56419354454863
     },
     "wortPump": {
       "active": false,
@@ -208,6 +216,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -238,7 +250,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 172.3858176401969
+      "targetValue": 172.23292400789546
     },
     "wortPump": {
       "active": false,
@@ -290,6 +302,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 9.575
@@ -320,7 +336,7 @@
     },
     "waterHeater": {
       "active": true,
-      "targetValue": 172.3858176401969
+      "targetValue": 171.90165447124224
     },
     "wortPump": {
       "active": false,
@@ -369,6 +385,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -454,6 +474,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -533,6 +557,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -618,6 +646,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 2.4452811242375754
@@ -697,6 +729,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -782,6 +818,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -861,6 +901,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -946,6 +990,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1025,6 +1073,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1110,6 +1162,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": true,
       "targetValue": 2.4452811242375754
@@ -1189,6 +1245,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1274,6 +1334,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1353,6 +1417,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1438,6 +1506,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1517,6 +1589,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1602,6 +1678,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1681,6 +1761,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1766,6 +1850,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -1845,6 +1933,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -1930,6 +2022,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2009,6 +2105,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -2094,6 +2194,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2173,6 +2277,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -2258,6 +2366,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2337,6 +2449,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
@@ -2422,6 +2538,10 @@
       "active": false,
       "targetValue": 0
     },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
     "hotWaterPump": {
       "active": false,
       "targetValue": 0
@@ -2501,6 +2621,10 @@
       "targetValue": 0
     },
     "dispenser4": {
+      "active": false,
+      "targetValue": 0
+    },
+    "envTemp": {
       "active": false,
       "targetValue": 0
     },
