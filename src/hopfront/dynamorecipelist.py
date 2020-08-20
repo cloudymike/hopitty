@@ -16,19 +16,29 @@ class dynamorecipelist():
             self.dynamodb = dynamodb
 
 
-    def query_recipes(self):
-        table = self.dynamodb.Table('recipe4equipment')
-        response = table.query(
-            KeyConditionExpression=Key('equipment_name').eq(self.equipmentname)
-        )
-        return response['Items']
-
     def get_recipeNameList(self):
-        recipelist = self.query_recipes()
+        table = self.dynamodb.Table('recipe4equipment')
         recipeNameList = []
-        for recipe in recipelist:
-            recipeName = recipe['recipe_name']
-            recipeNameList.append(recipeName)
+        lastkey = None
+        while True:
+            if lastkey:
+                response = table.query(
+                    KeyConditionExpression=Key('equipment_name').eq(self.equipmentname),
+                    ExclusiveStartKey=lastkey
+                )
+            else:
+                response = table.query(
+                    KeyConditionExpression=Key('equipment_name').eq(self.equipmentname)
+                )
+            for recipe in response['Items']:
+                recipeName = recipe['recipe_name']
+                recipeNameList.append(recipeName)
+           
+            if 'LastEvaluatedKey' in response:
+                lastkey = response['LastEvaluatedKey']
+            else:
+                break;
+
         return(recipeNameList)
 
     def set_equipmentname(self, equipmentname):
