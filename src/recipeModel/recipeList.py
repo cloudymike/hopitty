@@ -58,6 +58,9 @@ class RecipeList():
 
     def readBMXdoc(self, doc):
         cloudRecipes = doc.getElementsByTagName("Cloud")
+        # This looks like a singular file, try that
+        if not cloudRecipes:
+            cloudRecipes = doc.getElementsByTagName("Recipes")
         for recipe in cloudRecipes:
             name = recipeReader.bsmxReadString(recipe, "F_R_NAME")
             print("....reading {}".format(name))
