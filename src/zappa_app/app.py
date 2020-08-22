@@ -1,6 +1,6 @@
 # app.py
 
-from flask import Flask
+from flask import Flask, render_template, flash, redirect, url_for
 from flask import jsonify
 import xmltodict
 import requests
@@ -15,8 +15,10 @@ db = dynamodb.Table('zappatutorial')
 app = Flask(__name__)
 
 @app.route('/')
-def hello_world():
- return '<h1>Hey there people I am Bobby Brown</h1><p>Moving to Montana</p>'
+@app.route('/index')
+def index():
+    user_info = None
+    return render_template('index.html', title='Home', user=user_info)
 
 def downloadBeerSmith():
     i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
