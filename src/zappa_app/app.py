@@ -5,19 +5,32 @@ from flask import jsonify
 import xmltodict
 import requests
 import boto3
+import google_auth
+import os
+
+
 
 # Initialize dynamodb access
 dynamodb = boto3.resource('dynamodb')
 db = dynamodb.Table('zappatutorial')
 
 
-
+if 'STAGE' in os.environ:
+    top_uri = '/' + os.environ['STAGE'] +'/'
+else:
+    top_uri = '/'
+print('top_uri is {}'.format(top_uri))
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
+app.register_blueprint(google_auth.app)
 
 @app.route('/')
 @app.route('/index')
 def index():
-    user_info = None
+    if google_auth.is_logged_in():
+        user_info = google_auth.get_user_info()
+    else:
+        user_info = None
     return render_template('index.html', title='Home', user=user_info)
 
 def downloadBeerSmith():
