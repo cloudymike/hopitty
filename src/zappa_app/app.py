@@ -14,12 +14,6 @@ import os
 dynamodb = boto3.resource('dynamodb')
 db = dynamodb.Table('zappatutorial')
 
-
-if 'STAGE' in os.environ:
-    top_uri = '/' + os.environ['STAGE'] +'/'
-else:
-    top_uri = '/'
-print('top_uri is {}'.format(top_uri))
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
 app.register_blueprint(google_auth.app)
