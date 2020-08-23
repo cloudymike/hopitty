@@ -33,9 +33,10 @@ class socketclient():
 
     def __init__(self, host="localhost", maintopic="topic", connection=None):
         self.client = mqtt.Client()
-        if connection == 'localhost':
+        self.connection = connection
+        if self.connection == 'localhost':
             self.client.connect(host,1883,60)
-        if connection == 'aws':
+        if self.connection == 'aws':
             ssl_context= ssl_alpn()
             self.client.tls_set_context(context=ssl_context)
             self.client.connect(aws_iot_endpoint, port=443)
@@ -57,7 +58,10 @@ class socketclient():
 
     def write_command(self, command, subtopic='test'):
         topic = self.maintopic+"/"+subtopic
-        self.client.publish(topic, command, qos=2 )
+        if self.connection == 'localhost':
+            self.client.publish(topic, command, qos=2 )
+        else:
+            self.client.publish(topic, command )
         return('ok')
 
     def read_status(self):
