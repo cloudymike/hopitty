@@ -2,11 +2,14 @@
 
 from flask import Flask, render_template, flash, redirect, url_for
 from flask import jsonify
-import xmltodict
+from forms import CmdForm, LoadForm, RecipeForm
 import requests
 import boto3
-import google_auth
 import os
+
+import google_auth
+import brewque
+import ssl
 
 
 
@@ -17,6 +20,7 @@ db = dynamodb.Table('zappatutorial')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
 app.register_blueprint(google_auth.app)
+#bq = brewque.brewque(connection='aws')
 
 @app.route('/')
 @app.route('/index')
@@ -27,27 +31,23 @@ def index():
         user_info = None
     return render_template('index.html', title='Home', user=user_info)
 
-def downloadBeerSmith():
-    i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
-    bsmxRawData = i.content.decode("utf-8")
-    bsmxCleanData = bsmxRawData.replace('&', 'AMP')
-    xmldict = xmltodict.parse(bsmxCleanData)
-    return(xmldict)
 
 
-@app.route('/list')
-def list():
-    xmldict = downloadBeerSmith()
 
-    recipes = xmldict['Cloud']['Data']['Cloud']
-    recipelist = []
-    for recipe in recipes:
-        oneEntry = {}
-        oneEntry['name'] = recipe['F_R_NAME']
-        oneEntry['equipment'] = recipe['F_R_EQUIP_NAME']
-        recipelist.append(oneEntry)
 
-    return jsonify(recipelist)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/counter', methods=['GET'])
@@ -72,4 +72,6 @@ def counter_increase():
 
 # We only need this for local development.
 if __name__ == '__main__':
- app.run()
+
+
+    app.run()
