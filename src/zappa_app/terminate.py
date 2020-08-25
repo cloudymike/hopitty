@@ -66,7 +66,6 @@ def terminate():
             cert_bytes= str.encode(certbuf),
             pri_key_bytes=str.encode(privatebuf),
             client_bootstrap=client_bootstrap,
-            rootca_buffer=cabuf,
             client_id='hopitty')
 
     print("Connecting to {} with client ID '{}'...".format(
