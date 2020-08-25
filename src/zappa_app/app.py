@@ -10,7 +10,7 @@ import os
 import google_auth
 import brewque
 import ssl
-
+import terminate
 
 
 # Initialize dynamodb access
@@ -31,8 +31,10 @@ def index():
         user_info = None
     return render_template('index.html', title='Home', user=user_info)
 
-
-
+@app.route('/status')
+def status():
+    response=terminate.terminate()
+    return render_template('generic.html', title='Terminate', response=response)
 
 
 
