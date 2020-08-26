@@ -8,9 +8,9 @@ import boto3
 import os
 
 import google_auth
-import brewque
-import ssl
-import terminate
+import command
+import brewstatus
+
 
 
 # Initialize dynamodb access
@@ -20,7 +20,6 @@ db = dynamodb.Table('zappatutorial')
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
 app.register_blueprint(google_auth.app)
-#bq = brewque.brewque(connection='aws')
 
 @app.route('/')
 @app.route('/index')
@@ -31,9 +30,26 @@ def index():
         user_info = None
     return render_template('index.html', title='Home', user=user_info)
 
+@app.route('/cmd', methods=['GET', 'POST'])
+def cmd():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+    # TODO read the state
+    current_state = 'stop'
+    form = CmdForm(command=current_state)
+
+    if form.validate_on_submit():
+        print('Got command {}'.format(form.command.data))
+        if form.command.data in ['terminate','pause','run', 'stop', 'skip']:
+            try:
+                command.command(form.command.data)
+            except:
+                print('Can not communicate with controller')
+    return render_template('cmd.html', title='Command', form=form)
+
 @app.route('/status')
 def status():
-    response=terminate.terminate()
+    response=brewstatus.fullstatus()
     return render_template('generic.html', title='Terminate', response=response)
 
 
