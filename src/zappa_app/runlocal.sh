@@ -13,4 +13,7 @@ export FN_BASE_URI=http://localhost:5000
 export FLASK_DEBUG=1
 export FN_FLASK_SECRET_KEY=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)
 
+export IOT_CERT=$(cat $HOME/secrets/certs/e27d28a42b-certificate.pem.crt)
+export IOT_PRIVATE=$(cat $HOME/secrets/keys/e27d28a42b-private.pem.key)
+
 flask run
