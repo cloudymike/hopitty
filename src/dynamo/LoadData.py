@@ -18,9 +18,13 @@ def load_recipes(recipes, dynamodb=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Load recipedata into dynamodb')
-    parser.add_argument('-d', '--dynamoendpoint', default=None, help='Dynamodb endpoint to use')
+    parser.add_argument('-a', '--aws', action='store_true', help='Use AWS dynamo')
     args = parser.parse_args()
+    if args.aws:
+        dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+    else:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
     with open("../out.json") as json_file:
         recipe_list = json.load(json_file, parse_float=Decimal)
-    load_recipes(recipe_list, args.dynamoendpoint)
+    load_recipes(recipe_list, dynamodb)

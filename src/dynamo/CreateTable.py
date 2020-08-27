@@ -6,9 +6,10 @@ def create_recipe_table(dynamodb=None):
     if not dynamodb:
         dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 
-    table_name = 'recipe4equipment'
-    existing_tables = dynamodb_client.list_tables()['TableNames']
-    if table_name in existing_tables:
+    table_name  = 'recipe4equipment'
+    table_names = [table.name for table in dynamodb.tables.all()]
+
+    if table_name in table_names:
         table = dynamodb.Table('recipe4equipment')
     else:
         table = dynamodb.create_table(
@@ -44,7 +45,11 @@ def create_recipe_table(dynamodb=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Load recipedata into dynamodb')
-    parser.add_argument('-d', '--dynamoendpoint', default=None, help='Dynamodb endpoint to use')
+    parser.add_argument('-a', '--aws', action='store_true', help='Use AWS dynamo')
     args = parser.parse_args()
-    recipe_table = create_recipe_table(args.dynamoendpoint)
+    if args.aws:
+        dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+    else:
+        dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
+    recipe_table = create_recipe_table(dynamodb)
     print("Table status:", recipe_table.table_status)

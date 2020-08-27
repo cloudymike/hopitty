@@ -60,6 +60,6 @@ then
    read -p "Press any key to stop"
    kill -9 %1
 else
-   python3 CreateTable.py
-   python3 LoadData.py
+   python3 CreateTable.py -a
+   python3 LoadData.py -a
 fi
