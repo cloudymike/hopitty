@@ -103,12 +103,16 @@ def google_auth_redirect():
 
     flask.session[AUTH_TOKEN_KEY] = oauth2_tokens
 
-    domain = get_user_info()['hd']
-    print("Domain: {}".format(domain))
-    if domain != "cloudyforecast.com":
-        logout()
+    #domain = get_user_info()['hd']
+    userinfo = get_user_info()
+    if 'hd' in userinfo and userinfo['hd'] == "cloudyforecast.com":
+        return flask.redirect(BASE_URI, code=302)
+    else:
+        flask.session.pop(AUTH_TOKEN_KEY, None)
+        flask.session.pop(AUTH_STATE_KEY, None)
+        return flask.redirect(BASE_URI, code=302)
 
-    return flask.redirect(BASE_URI, code=302)
+
 
 @app.route('/google/logout')
 @no_cache

@@ -2,17 +2,18 @@
 
 from flask import Flask, render_template, flash, redirect, url_for
 from flask import jsonify
-import xmltodict
+from forms import CmdForm, LoadForm, RecipeForm
 import requests
 import boto3
-import google_auth
 import os
 
+import google_auth
+import command
+import brewstatus
 
 
-# Initialize dynamodb access
-dynamodb = boto3.resource('dynamodb')
-db = dynamodb.Table('zappatutorial')
+dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+statusdb = brewstatus.dynamostatus(dynamodb)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -27,27 +28,44 @@ def index():
         user_info = None
     return render_template('index.html', title='Home', user=user_info)
 
-def downloadBeerSmith():
-    i = requests.get('http://beersmithrecipes.s3-website.us-west-2.amazonaws.com/Cloud.bsmx')
-    bsmxRawData = i.content.decode("utf-8")
-    bsmxCleanData = bsmxRawData.replace('&', 'AMP')
-    xmldict = xmltodict.parse(bsmxCleanData)
-    return(xmldict)
+@app.route('/cmd', methods=['GET', 'POST'])
+def cmd():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+    # TODO read the state
+    current_state = 'stop'
+    form = CmdForm(command=current_state)
+
+    if form.validate_on_submit():
+        print('Got command {}'.format(form.command.data))
+        if form.command.data in ['terminate','pause','run', 'stop', 'skip']:
+            try:
+                command.command(form.command.data)
+            except:
+                print('Can not communicate with controller')
+    return render_template('cmd.html', title='Command', form=form)
+
+@app.route('/status')
+def status():
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+    response=statusdb.get_state()+' '+statusdb.get_stage()+' '+statusdb.get_equipmentname()+' '+statusdb.get_recipename()
+    return render_template('generic.html', title='Terminate', response=response)
 
 
-@app.route('/list')
-def list():
-    xmldict = downloadBeerSmith()
 
-    recipes = xmldict['Cloud']['Data']['Cloud']
-    recipelist = []
-    for recipe in recipes:
-        oneEntry = {}
-        oneEntry['name'] = recipe['F_R_NAME']
-        oneEntry['equipment'] = recipe['F_R_EQUIP_NAME']
-        recipelist.append(oneEntry)
 
-    return jsonify(recipelist)
+
+
+
+
+
+
+
+
+
+
+
 
 
 @app.route('/counter', methods=['GET'])
@@ -72,4 +90,6 @@ def counter_increase():
 
 # We only need this for local development.
 if __name__ == '__main__':
- app.run()
+
+
+    app.run()
