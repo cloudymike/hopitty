@@ -83,8 +83,8 @@ def list():
 def status():
     if not google_auth.is_logged_in():
         return (redirect('/'))
-    response=statusdb.get_state()+' '+statusdb.get_stage()+' '+statusdb.get_equipmentname()+' '+statusdb.get_recipename()
-    return render_template('generic.html', title='Terminate', response=response)
+    current_status = statusdb.get_controller_status()
+    return render_template('status.html', title='Status', current_status = current_status)
 
 
 
