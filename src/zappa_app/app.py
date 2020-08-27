@@ -12,10 +12,8 @@ import command
 import brewstatus
 
 
-
-# Initialize dynamodb access
-dynamodb = boto3.resource('dynamodb')
-db = dynamodb.Table('zappatutorial')
+dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+statusdb = brewstatus.dynamostatus(dynamodb)
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -49,7 +47,9 @@ def cmd():
 
 @app.route('/status')
 def status():
-    response=brewstatus.fullstatus()
+    if not google_auth.is_logged_in():
+        return (redirect('/'))
+    response=statusdb.get_state()+' '+statusdb.get_stage()+' '+statusdb.get_equipmentname()+' '+statusdb.get_recipename()
     return render_template('generic.html', title='Terminate', response=response)
 
 

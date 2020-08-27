@@ -9,11 +9,12 @@ class dynamostatus():
             print('dynamodb set to localhost')
         else:
             self.dynamodb = dynamodb
+        self.table = self.dynamodb.Table('hopittystatus')
+
 
     def fullstatus(self):
-        table = self.dynamodb.Table('hopittystatus')
         try:
-            response = table.get_item(Key={'hostname': 'dummyhost'})
+            response = self.table.get_item(Key={'hostname': 'dummyhost'})
         except ClientError as e:
             response = None
             print(e.response['Error']['Message'])
@@ -23,24 +24,29 @@ class dynamostatus():
         else:
             return(response)
 
-    def get_state(self):
-        possible = ['terminate','pause','run', 'stop', 'skip']
+    def get_field(self, field):
         fullstatus = self.fullstatus()
         status = fullstatus['Payload']
-        state = status['state']
-        return(state)
+        if field in status:
+            return(status[field])
+        else:
+            return('')
 
-def get_equipmentname():
-    return('Some equipment')
+    def get_state(self):
+        return(self.get_field('state'))
 
-def get_stage():
-    return('current state')
+    def get_equipmentname(self):
+        return(self.get_field('equipmentname'))
 
-def get_recipename():
-    return('current recipe name')
+    def get_stage(self):
+        return(self.get_field('stage'))
+
+    def get_recipename(self):
+        return(self.get_field('recipename'))
 
 def get_controller_status(self):
-    statusdict = {}
+    fullstatus = self.fullstatus()
+    statusdict = fullstatus['Payload']
     data = statusdict['status']
 
     ctrlmatrix = []
@@ -57,6 +63,7 @@ def get_controller_status(self):
 
 
 if __name__ == '__main__':
+
     dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
     statusdb = dynamostatus(dynamodb)
     full = statusdb.fullstatus()
