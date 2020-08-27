@@ -36,7 +36,7 @@ fi
 if [ ! -f ../out.json ]
 then
    pushd ..
-   python dynamorecipes.py -d
+   python dynamorecipes.py -u $USER
    popd
 fi
 
