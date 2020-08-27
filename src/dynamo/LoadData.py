@@ -1,6 +1,7 @@
 from decimal import Decimal
 import json
 import boto3
+import argparse
 
 
 def load_recipes(recipes, dynamodb=None):
@@ -16,7 +17,10 @@ def load_recipes(recipes, dynamodb=None):
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Load recipedata into dynamodb')
+    parser.add_argument('-d', '--dynamoendpoint', default=None, help='Dynamodb endpoint to use')
+    args = parser.parse_args()
+
     with open("../out.json") as json_file:
         recipe_list = json.load(json_file, parse_float=Decimal)
-        print(recipe_list)
-    load_recipes(recipe_list)
+    load_recipes(recipe_list, args.dynamoendpoint)
