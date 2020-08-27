@@ -21,9 +21,10 @@ import time
 import json
 import equipment
 import os
-import communicate
+#import communicate
 import argparse
 import paho.mqtt.client as mqtt
+import ssl
 
 
 IoT_protocol_name = "x-amzn-mqtt-ca"
@@ -284,10 +285,6 @@ if __name__ == "__main__":
     #if args.netsock:
     #    logger.error("Netsock not currently supported")
     #    sys.exit(1)
-
-    if args.aws:
-        logger.error("AWS mqtt not currently supported")
-        sys.exit(1)
 
     mypath = os.path.dirname(os.path.realpath(__file__))
     e = equipment.allEquipment(mypath + '/equipment/*.yaml')
