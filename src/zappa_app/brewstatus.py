@@ -44,22 +44,22 @@ class dynamostatus():
     def get_recipename(self):
         return(self.get_field('recipename'))
 
-def get_controller_status(self):
-    fullstatus = self.fullstatus()
-    statusdict = fullstatus['Payload']
-    data = statusdict['status']
+    def get_controller_status(self):
+        fullstatus = self.fullstatus()
+        statusdict = fullstatus['Payload']
+        data = statusdict['status']
 
-    ctrlmatrix = []
-    for appliance, currstatus in data.items():
-        actual = str(currstatus['actual'])
-        if currstatus['active']:
-            target = str(currstatus['target'])
-        else:
-            target = ''
-        unit = currstatus['unit']
-        ctrlrow = [appliance,actual,target,unit]
-        ctrlmatrix.append(ctrlrow)
-    return(ctrlmatrix)
+        ctrlmatrix = []
+        for appliance, currstatus in data.items():
+            actual = str(currstatus['actual'])
+            if currstatus['active']:
+                target = str(currstatus['target'])
+            else:
+                target = ''
+            unit = currstatus['unit']
+            ctrlrow = [appliance,actual,target,unit]
+            ctrlmatrix.append(ctrlrow)
+        return(ctrlmatrix)
 
 
 if __name__ == '__main__':
