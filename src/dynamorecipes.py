@@ -27,7 +27,7 @@ def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
     if recipefile is not None:
         bsmxfile = recipefile
     elif user is not None:
-        bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
+        bsmxfile = "/home/" + user + "/.beersmith3/Cloud.bsmx"
     else:
         bsmxfile = None
 
