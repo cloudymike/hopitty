@@ -1,14 +1,22 @@
+from __future__ import absolute_import
+from __future__ import print_function
+import argparse
+from awscrt import io,auth, http
+from awsiot import mqtt_connection_builder
+from awscrt import mqtt as awsmqtt
+
 import netsock
 import time
 from random import choice
 from string import ascii_uppercase
 import json
 import argparse
-import paho.mqtt.client as mqtt
+import paho.mqtt.client as pahomqtt
 import sys
 import ssl
 import logging, traceback
 import os
+
 
 
 IoT_protocol_name = "x-amzn-mqtt-ca"
@@ -16,7 +24,7 @@ aws_iot_endpoint = "a2d09uxsvr5exq-ats.iot.us-east-1.amazonaws.com" # <random>.i
 url = "https://{}".format(aws_iot_endpoint)
 
 HOMEDIR=os.getenv("HOME")
-ca = HOMEDIR+"/secrets/certs/awsroot.crt"
+ca = HOMEDIR+"/secrets/certs/awsrootca1.crt"
 cert = HOMEDIR+"/secrets/certs/e27d28a42b-certificate.pem.crt"
 private = HOMEDIR+"/secrets/keys/e27d28a42b-private.pem.key"
 
@@ -26,22 +34,6 @@ handler = logging.StreamHandler(sys.stdout)
 log_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 handler.setFormatter(log_format)
 logger.addHandler(handler)
-
-
-def ssl_alpn():
-    try:
-        #debug print opnessl version
-        logger.info("open ssl version:{}".format(ssl.OPENSSL_VERSION))
-        ssl_context = ssl.create_default_context()
-        ssl_context.set_alpn_protocols([IoT_protocol_name])
-        ssl_context.load_verify_locations(cafile=ca)
-        ssl_context.load_cert_chain(certfile=cert, keyfile=private)
-
-        return  ssl_context
-    except Exception as e:
-        print("exception ssl_alpn()")
-        raise e
-
 
 def mkdata(length):
     growbig = 10 * length
@@ -56,24 +48,47 @@ class mockctrl():
         # TODO parameterize the topic and host
         # TODO Break this out and pass do_command as a parameter.
         self.maintopic = 'topic'
-        self.client = mqtt.Client("hwctrl")
         logger.info("start connect")
 
         if args.aws:
-            ssl_context= ssl_alpn()
-            self.client.tls_set_context(context=ssl_context)
-            self.client.connect(aws_iot_endpoint, port=443)
+            # Spin up resources
+            event_loop_group = io.EventLoopGroup(1)
+            host_resolver = io.DefaultHostResolver(event_loop_group)
+            client_bootstrap = io.ClientBootstrap(event_loop_group, host_resolver)
+            self.client = mqtt_connection_builder.mtls_from_path(
+                endpoint=aws_iot_endpoint,
+                cert_filepath=cert,
+                pri_key_filepath=private,
+                ca_filepath=ca,
+                client_bootstrap=client_bootstrap,
+                client_id='hopitty')
+
+            connect_future = self.client.connect()
+            # Future.result() waits until a result is available
+            connect_future.result()
+            print("Connected!")
+
+            # Subscribe
+            subscribe_future, packet_id = self.client.subscribe(
+                topic=self.maintopic,
+                qos=awsmqtt.QoS.AT_LEAST_ONCE,
+                callback=self.on_message)
+
+            subscribe_result = subscribe_future.result()
+            print("Subscribed with {}".format(str(subscribe_result['qos'])))
+
         if args.mqtt:
+            self.client = pahomqtt.Client("hwctrl")
             self.client.connect("localhost",1883,60)
 
-        logger.info("connect success")
+            logger.info("connect success")
 
-        self.client.on_connect = self.on_connect
-        self.client.on_message = self.on_message
+            self.client.on_connect = self.on_connect
+            self.client.on_message = self.on_message
 
-        self.client.loop_start()
-
-        # Create an initial status. No stages, just state is stop
+            self.client.loop_start()
+            
+      # Create an initial status. No stages, just state is stop
         init_status={}
         init_status['state'] = self.state
         status = json.dumps(init_status)
@@ -116,7 +131,11 @@ class mockctrl():
 
     def set_status(self, message):
         topic = self.maintopic+"/status"
-        self.client.publish(topic, message)
+        if args.mqtt:
+            self.client.publish(topic, message)
+        else:
+            self.client.publish(topic, message, qos=awsmqtt.QoS.AT_LEAST_ONCE)
+
         return()
 
     def run(self):
