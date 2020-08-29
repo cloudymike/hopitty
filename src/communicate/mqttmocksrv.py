@@ -70,7 +70,7 @@ class mockctrl():
 
             # Subscribe
             subscribe_future, packet_id = self.client.subscribe(
-                topic=self.maintopic,
+                topic="topic/test",
                 qos=awsmqtt.QoS.AT_LEAST_ONCE,
                 callback=self.on_message)
 
@@ -130,11 +130,14 @@ class mockctrl():
 
 
     def set_status(self, message):
-        topic = self.maintopic+"/status"
+        mytopic = self.maintopic+"/status"
         if args.mqtt:
-            self.client.publish(topic, message)
+            self.client.publish(mytopic, message)
         else:
-            self.client.publish(topic, message, qos=awsmqtt.QoS.AT_LEAST_ONCE)
+            self.client.publish(
+                topic=mytopic,
+                payload=message,
+                qos=awsmqtt.QoS.AT_LEAST_ONCE)
 
         return()
 
