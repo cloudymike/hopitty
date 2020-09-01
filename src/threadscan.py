@@ -80,12 +80,6 @@ def updateRecipes(rl, bsmxfile, download):
 
 if __name__ == "__main__":
 
-    logging.basicConfig(format='%(asctime)s %(message)s',
-                        datefmt='%m/%d/%Y %I:%M:%S %p',
-                        level=logging.INFO,
-                        stream=sys.stdout)
-    logging.warning('warning test')
-    logging.info('Starting...')
 
     parser = argparse.ArgumentParser(description='Run a json or bsmx file')
     filegroup = parser.add_mutually_exclusive_group(required=True)
@@ -97,7 +91,18 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
 
     args = parser.parse_args()
-    
+
+    if args.verbose:
+        logginglevel = logging.DEBUG
+    else:
+        logginglevel = logging.ERROR
+
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=logginglevel,
+                        stream=sys.stdout)
+    logging.info('Starting...')
+
     e = equipment.allEquipment('equipment/*.yaml')
     if args.equipmentType:
         myequipment = e.get(args.equipmentType)

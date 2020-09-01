@@ -24,7 +24,7 @@ class Power8800(object):
                 if self.dev is None:
                     raise ValueError("Device not found")
             except:
-                print("Device found...or not")
+                logging.debug("Device found...or not")
 
     def IsOn(self):
         # Return True if the power is currently switched on.
@@ -68,7 +68,7 @@ class air8800Switch(switches.simSwitch):
         else:
             logging.info("**********air switch found, ")
             self.HWOKval = True
-        print("HWOK", self.HWOKval)
+        logging.info("HWOK {}".format(self.HWOKval))
         
     def on(self):
         returnCode = 0

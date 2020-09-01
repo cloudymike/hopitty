@@ -24,7 +24,7 @@ class coolerSwitch(switches.simSwitch):
         self.errorStatus = False
         scriptdir = os.path.dirname(os.path.abspath(__file__))
         self.exe = scriptdir + '/../../coolerUSB/coolerUSB'
-        print(self.exe)
+        logging.debug(self.exe)
         self.coolerOn = self.exe + ' 1'
         self.coolerOff = self.exe + ' 0'
         try:
@@ -89,6 +89,6 @@ if __name__ == '__main__':  # pragma: no cover
     testSW.off()
     hwok = testSW.HWOK()
     if hwok:
-        print("Hardware switch found with HWOK method")
+        logging.info("Hardware switch found with HWOK method")
     else:
-        print("Hardware switch not found with HWOK method")
+        logging.info("Hardware switch not found with HWOK method")
