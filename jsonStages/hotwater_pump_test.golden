@@ -12,10 +12,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0

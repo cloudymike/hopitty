@@ -1,0 +1,3 @@
+*.jar
+localdynamodb
+shared-local-instance.db

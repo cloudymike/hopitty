@@ -66,7 +66,6 @@ class mashStirSwitch(switches.simSwitch):
             self.clearError()
 
     def HWOK(self):
-        logging.info("Do not use me")
         try:
             returnCode = subprocess.call(self.exe)
             return(returnCode == 0)
@@ -91,6 +90,6 @@ if __name__ == '__main__':  # pragma: no cover
     testSW.off()
     hwok = testSW.HWOK()
     if hwok:
-        print "Hardware switch found with HWOK method"
+        logging.info("Hardware switch found with HWOK method")
     else:
-        print "Hardware switch not found with HWOK method"
+        logging.info("Hardware switch not found with HWOK method")

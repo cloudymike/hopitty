@@ -19,7 +19,6 @@ class hwPump(appliances.genctrl):
         self.unit = 'Qt'
         self.pumpMotor = None
         self.sensor = sensors.dymoScaleSensor()
-        # print "==========",self.sensor.getID()
         self.oldTime = datetime.datetime.now()
         self.actual = 0
         self.lastActual = 0
@@ -48,7 +47,7 @@ class hwPump(appliances.genctrl):
             # self.sensor.setValue(self.sensor.getValue())
             self.actual = self.sensor.getValue() - self.startVol
             if not self.checkFlow():
-                print "Error: Flow not detected in ", __name__
+                print("Error: Flow not detected in ", __name__)
                 self.forceError()
 
     def checkFlow(self):
@@ -81,7 +80,7 @@ class hwPump(appliances.genctrl):
         if elapsed < datetime.timedelta(seconds=30):
             return(True)
 
-        print elapsed
+        print(elapsed)
         return(False)
 
     def update(self):
@@ -118,10 +117,8 @@ class hwPump(appliances.genctrl):
             if c1.sensor.getID() == "mashScale":
                 foundSensor = True
                 self.sensor = c1.sensor
-                # print "Found mashScale sensor on", key
         if not foundSensor:
             self.sensor = sensors.dymoScaleSensor()
-            # print "Created mashScale sensor"
 
     def HWOK(self):
         if self.pumpMotor is None:
@@ -149,20 +146,18 @@ class wortPump(hwPump):
         Turn on the pumpmotor every countMod seconds (really runs) and keep
         it off for the rest of the time.
         """
-        #print ">>>>>>>>>>>>>>slowing down", self.speedcount
         self.speedcount = self.speedcount + 1
 
-        #print inspect.stack()
         epoch_time = int(time.time())
         if self.pumpMotor is not None:
             if self.powerOn and \
                 ( ( epoch_time % 2 ) == 0 ) and \
                 self.active:
                 self.pumpMotor.on()
-                print epoch_time, "=====================================ON========================"
+                print(epoch_time, "=====================================ON========================")
             else:
                 self.pumpMotor.off()
-                print epoch_time, "=====================================OFF========================"
+                print(epoch_time, "=====================================OFF========================")
 
 
     def closeToLimit(self):
@@ -217,4 +212,4 @@ class wortPump(hwPump):
             self.oldActual = self.actual
 
             if not self.checkFlow():
-                print "FAKE Error: Flow not detected in ", __name__
+                print("FAKE Error: Flow not detected in ", __name__)

@@ -54,9 +54,9 @@ pushd phidget
 tar xvzf libphidget.tar.gz
 #cd libphidget-2.1.8.20120912
 cd libphidget-*
-./configure 
-make 
-sudo make install 
+./configure
+make
+sudo make install
 popd
 
 pushd phidget
@@ -68,21 +68,31 @@ popd
 #Pololu, servo USB controller
 #######################################
 sudo apt-get install -y libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
-cd /tmp
-wget -O pololu-usb-sdk-120712.zip http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
+sudo apt-get install libmono-system-windows-forms4.0-cil
+sudo apt-get install libusb-1.0-0-dev mono-runtime libmono-winforms2.0-cil
 
-unzip pololu-usb-sdk-120712.zip
-cd pololu-usb-sdk
+#cd /tmp
+#wget -O pololu-usb-sdk-120712.zip http://www.pololu.com/file/download/pololu-usb-sdk-120712.zip?file_id=0J568
+#unzip pololu-usb-sdk-120712.zip
+#cd pololu-usb-sdk
 # Avoid sudo requirement to access USB port
-sudo cp 99-pololu.rules /etc/udev/rules.d/
+#sudo cp 99-pololu.rules /etc/udev/rules.d/
 
 # Everything is compiled for x86 so you could skip the below two lines
 # on an X86 machine
-make clean
-make
-cp -r Maestro/UscCmd $HOMEDIR
+#make clean
+#make
+#cp -r Maestro/UscCmd $HOMEDIR
+
 
 cd $HOMEDIR
+
+# Newer version of pololu maestro
+wget https://www.pololu.com/file/0J315/maestro-linux-150116.tar.gz
+tar xvzf maestro-linux-150116.tar.gz
+mv maestro-linux UscCmd
+sudo cp UscCmd/99-pololu.rules /etc/udev/rules.d/
+
 
 #DigiWeight
 #######################################
@@ -131,6 +141,11 @@ cd $HOMEDIR
 # Check all python versions installed
 $PIP freeze
 
+# python3
+pip3 install boto3
+
+
+
 # Check some specific troublesome packages
 python -c 'import bottle; print bottle.__version__'
 if [ "$?" != "0" ]; then exit 1; fi
@@ -142,5 +157,3 @@ python -c 'import sphinx; print sphinx.__version__'
 if [ "$?" != "0" ]; then exit 1; fi
 #python -c 'import pygtk; print pygtk.__name__'
 #if [ "$?" != "0" ]; then exit 1; fi
-
-

@@ -47,6 +47,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Communication specific code failed !!!!!!!!!!"
     exit 1
 fi
+echo "Testing mqtt based controller..."
+./testmqttrecipe > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed !!!!!!!!!!"
+    exit 1
+fi
 echo "Testing HW specific software..."
 ./testHWcode > /dev/null
 if [ "$?" != "0" ]; then

@@ -12,10 +12,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -87,10 +83,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -168,10 +160,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -243,10 +231,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -324,10 +308,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -399,10 +379,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -480,10 +456,6 @@
       "active": false,
       "targetValue": 0
     },
-    "boilerVolume": {
-      "active": false,
-      "targetValue": 0
-    },
     "controllerInfo": {
       "active": false,
       "targetValue": 0
@@ -555,10 +527,6 @@
       "targetValue": 0
     },
     "boilerValve": {
-      "active": false,
-      "targetValue": 0
-    },
-    "boilerVolume": {
       "active": false,
       "targetValue": 0
     },

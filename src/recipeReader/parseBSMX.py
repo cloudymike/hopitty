@@ -13,9 +13,11 @@ class bsmxStages():
     controllers, then the validRecipe will be false and any return of
     a stages list will be an empty list.
     """
-    def __init__(self, bsmx, controllers):
+    def __init__(self, bsmx, controllers, recipeonly=False):
         self.stages = {}
         self.ctrl = controllers
+        # Start to decouple recipe creation with controller and without
+        self.recipeonly = recipeonly
         self.name = ""
         self.inputTypeDebug = 'NA'
 
@@ -53,7 +55,7 @@ class bsmxStages():
                 self.valid = False
         if self.valid:
             self.valid = self.validateRecipe()
-            
+
 
     def __del__(self):
         pass
@@ -75,7 +77,7 @@ class bsmxStages():
         specific fields should be used.
         """
         return(self.ctrl)
-    
+
     def getCtrlEquipmentName(self):
         return(self.ctrl.getEquipmentName())
 
@@ -156,9 +158,11 @@ class bsmxStages():
     def getWeightLb(self, tagName):
         """Translates a Weight field to pounds, as a float"""
         return(float(self.getFieldStr(tagName)) / 16)
-        
+
     def getTempF(self, tagName):
         """Translates a Temperature field to Fahrenheit, as a float"""
+        if self.recipeonly:
+            return(float(self.getFieldStr(tagName)))
         if tagName == "F_MS_INFUSION_TEMP":
             if self.checkTempAdjust():
                 return(float(self.getFieldStr("F_MS_INFUSION_TEMP")))
@@ -368,10 +372,10 @@ class bsmxStages():
 
     def prettyPrintStages(self):
         for stage, step in sorted(self.stages.items()):
-            print stage
+            print(stage)
             for ctrl, val in step.items():
                 if val['active']:
-                    print "    ", ctrl, ":", val['targetValue']
+                    print("    ", ctrl, ":", val['targetValue'])
 
 ##############################################################################
 # Temperature adjustment methods
@@ -396,11 +400,11 @@ class bsmxStages():
             temp = 72
             logging.info("Environment temp not found")
         return(temp)
-        
+
     def compareStrikeTemp(self):
-        """ 
+        """
         Method to compare calculated and Beersmith strike temp. For testing onlyTestMash.onlyTestMash.Method
-        TODO The temperature from beersmith grain and tun needs to be extracted 
+        TODO The temperature from beersmith grain and tun needs to be extracted
         """
         beersmithTstrike = float(self.getFieldStr("F_MS_INFUSION_TEMP"))
         bsmxGrainTemp = float(self.getFieldStr("F_MH_GRAIN_TEMP"))
@@ -418,20 +422,19 @@ class bsmxStages():
             envT = self.getCurrentTemp()
         else:
             envT = testTemp
-        
         Mtun = self.getWeightLb('F_E_TUN_MASS')
         Ttun = envT
         Mgrain = self.getWeightLb('F_MH_GRAIN_WEIGHT')
         Tgrain = envT
-    
+
         Vtun = self.getVolG('F_E_MASH_VOL')
         Qtun = float(self.getFieldStr('F_E_TUN_SPECIFIC_HEAT'))
-    
+
         Vwater = self.getStrikeVolume()
         Tmash = self.getTempF('F_MS_STEP_TEMP')
-    
+
         Ffull = 0.39
-    
+
         Tstrike = (((((Tmash - 32) / 1.8) * (((Mtun / Vtun * Vwater * Ffull)
                     * 453.592 * Qtun) + (Mgrain * 453.592 * 0.38) +
                     (Vwater * 946.353)) -
@@ -439,8 +442,9 @@ class bsmxStages():
                 453.592 * Qtun * ((Ttun - 32) / 1.8)) -
             (Mgrain * 453.592 * 0.38 * ((Tgrain - 32) / 1.8))) /
             (Vwater * 946.353)) * 1.8) + 32
-    
+
         # Use this for validation and testing
+
         return(Tstrike)
 
 ##############################################################################

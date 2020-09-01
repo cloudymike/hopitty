@@ -17,6 +17,7 @@ from Phidgets.Events.Events import AttachEventArgs, DetachEventArgs
 from Phidgets.Events.Events import ErrorEventArgs, InputChangeEventArgs
 from Phidgets.Events.Events import OutputChangeEventArgs, SensorChangeEventArgs
 from Phidgets.Devices.InterfaceKit import InterfaceKit
+import logging
 
 
 class onePump():
@@ -110,12 +111,12 @@ if __name__ == "__main__":  # pragma: no cover
     pump3 = pu.getPump(3)
 
     for x in range(0, 4):
-        print "Pump %d" % (x)
+        print("Pump %d" % (x))
         pu.getPump(x).off()
-        print "Pump on"
+        print("Pump on")
         pu.getPump(x).on()
         time.sleep(1)
-        print "Pump off"
+        print("Pump off")
         pu.getPump(x).off()
         time.sleep(1)
 

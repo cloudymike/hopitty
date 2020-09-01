@@ -21,7 +21,6 @@ class cooler(appliances.genctrl):
 
     def __del__(self):
         self.powerOn = False
-        #print 'Powering down'
 
     def connectSwitch(self, switch):
         self.coolerSwitch = switch
@@ -78,16 +77,12 @@ class cooler(appliances.genctrl):
         self.powerOn = False
 
     def HWOK(self):
-        if self.coolerSwitch is None:
-            return(False)
-        if not self.coolerSwitch.HWOK():
-            return(False)
         return(self.sensor.HWOK())
 
 if __name__ == '__main__':  # pragma: no cover
     testCooler = cooler()
     testCooler.on()
     while not testCooler.targetMet():
-        print testCooler.get()
+        print(testCooler.get())
     for x in range(0, 15):
-        print testCooler.get()
+        print(testCooler.get())

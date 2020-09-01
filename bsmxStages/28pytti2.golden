@@ -52,6 +52,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -60,7 +64,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -130,6 +134,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -138,7 +146,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -208,6 +216,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -216,7 +228,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -286,6 +298,10 @@
       "active": true,
       "targetValue": 14.1875
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -294,7 +310,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -364,6 +380,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": true,
       "targetValue": 1
@@ -372,7 +392,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -442,6 +462,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -450,7 +474,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -520,6 +544,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -528,7 +556,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -598,6 +626,10 @@
       "active": true,
       "targetValue": 2.059823795180723
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -606,7 +638,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -676,6 +708,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -684,7 +720,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -754,6 +790,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -762,7 +802,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -832,6 +872,10 @@
       "active": true,
       "targetValue": 2.059823795180723
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -840,7 +884,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -910,6 +954,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -918,7 +966,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -988,6 +1036,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -996,7 +1048,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1066,6 +1118,10 @@
       "active": true,
       "targetValue": 2.059823795180723
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1074,7 +1130,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1144,6 +1200,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1152,7 +1212,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1222,6 +1282,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1230,7 +1294,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1300,6 +1364,10 @@
       "active": true,
       "targetValue": 2.059823795180723
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1308,7 +1376,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1378,6 +1446,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1386,7 +1458,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1456,6 +1528,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1464,7 +1540,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1534,6 +1610,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1542,7 +1622,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1612,6 +1692,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1620,7 +1704,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1690,6 +1774,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1698,7 +1786,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1768,6 +1856,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1776,7 +1868,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1846,6 +1938,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1854,7 +1950,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1924,6 +2020,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -1932,7 +2032,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2002,6 +2102,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2010,7 +2114,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2080,6 +2184,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2088,7 +2196,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2158,6 +2266,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2166,7 +2278,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2236,6 +2348,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2244,7 +2360,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2314,6 +2430,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2322,7 +2442,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2392,6 +2512,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2400,7 +2524,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2470,6 +2594,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashStirrer": {
       "active": false,
       "targetValue": 0
@@ -2478,7 +2606,7 @@
       "active": false,
       "targetValue": 0
     },
-    "plateValve": {
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },

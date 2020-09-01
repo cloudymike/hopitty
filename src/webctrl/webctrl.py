@@ -330,7 +330,7 @@ class runbrew():
 
     def volumePage(self):
         mylog = self.controllers.getMyLog()
-        return (volumeGraph.volumeGraph(mylog, 'boilerVolume', self.runningRecipeName))
+        return (volumeGraph.volumeGraph(mylog, 'boilerVolume', 'hwtVolume', 'mashVolume',self.runningRecipeName))
 
 
     def ingredientsPage(self):

@@ -16,7 +16,6 @@ class hwt(appliances.genctrl):
 
     def __del__(self):
         self.stop()
-        #print 'Powering down'
 
     def connectSwitch(self, switch):
         self.hotWaterTun = switch

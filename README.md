@@ -6,6 +6,20 @@ hopitty
 
 [![Code Health](https://landscape.io/github/cloudymike/hopitty/master/landscape.svg?style=flat)](https://landscape.io/github/cloudymike/hopitty/master)
 
+
+
+How to run with mqtt and dynamodb
+=================================
+Run mqtt, dynamodb and web page on the same server
+sudo service mosquitto start
+cd src/dynamo; up.sh
+cd src/hopfront; run.sh
+
+On the server connected to the hardware run:
+cd src; python runmqtt.py -H hostnameOfMqttServer
+
+
+
 Python controller
 
 How to run
@@ -60,14 +74,12 @@ ctrl/rununit.py:
 In function setupControllers, define the controllers(appliances) to be used. In most cases,
 you can leave controllers in, that are not called by recipe, without harm.
 
-In additon if you have specific hardware (USB devices) you may need to add 
+In additon if you have specific hardware (USB devices) you may need to add
 these in switches, sensors and appliances. There are generic examples of all
 of this to start from, and should be inherited.
 
 If you like to create your own cont
 
-ctrl/mashProfiles.py: 
-This file include the translation from the BeerSmith recipe to 
+ctrl/mashProfiles.py:
+This file include the translation from the BeerSmith recipe to
 a stages dictionary, defining how the controller is to be run.
-
-

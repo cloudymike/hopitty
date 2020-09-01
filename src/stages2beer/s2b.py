@@ -37,6 +37,7 @@ class s2b(threading.Thread):
         self.controllers = controllers
         
         self.oldtime = 0
+        self.deltatime = 0
 
         if isinstance(stages, dict):
             self.stages = stages
@@ -53,9 +54,9 @@ class s2b(threading.Thread):
         no blocking, I.e a separate thread
         """
         self.runOK = self.check()
-        print "run"
+        print("run")
         if not self.runOK:
-            print "check failed"
+            print("check failed")
             return
 
         for r_key, settings in sorted(self.stages.items()):
@@ -75,20 +76,19 @@ class s2b(threading.Thread):
                     else:
                         self.controllers.run(settings)
                     nowtime = time.time()
-                    deltatime = nowtime - self.oldtime
+                    self.deltatime = nowtime - self.oldtime
                     self.oldtime = nowtime
-                    difftime = 1.0 - deltatime
+                    difftime = 1.0 - self.deltatime
                     if abs(difftime) > 10:
                         difftime = 0
                     sleeptime = max(1.0 + difftime, 0.0)
                     sleeptime = min(1.0, sleeptime)
-                    #print "Now:",nowtime, \
-                    #      " Delta:", deltatime, \
-                    #      " Difftime:", difftime, \
-                    #      " Sleep time", sleeptime
                     time.sleep(sleeptime)
                 self.controllers.logstatus()
         #self.controllers.stop()
+
+    def cycletime(self):
+        return(self.deltatime)
 
     def OK(self):
         return(self.runOK)
@@ -98,12 +98,12 @@ class s2b(threading.Thread):
         Simple check to validate that the recipe uses controllers
         in the controller list.
         """
-        print "Stages", self.stages
+        print("Stages", self.stages)
         if self.stages == {}:
-            print "empty stages"
+            print("empty stages")
             return(False)
         if self.controllers is None:
-            print "no controllers"
+            print("no controllers")
             return(False)
         if self.stages is not None:
             for r_key, settings in sorted(self.stages.items()):

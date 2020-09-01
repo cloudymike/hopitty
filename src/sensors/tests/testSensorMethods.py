@@ -44,4 +44,4 @@ if __name__ == "__main__":
     test_error()
     test_ID()
 
-    print "=====SUCCESS====="
+    print("=====SUCCESS=====")

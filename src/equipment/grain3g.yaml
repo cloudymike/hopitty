@@ -1,6 +1,7 @@
 equipmentName: 'Grain 3G, 5Gcooler, 5Gpot'
 specs:
   boilerVolumeMax: 17
+  hwtVolumeMax: 32
 componentlist:
   - waterHeater
   - dispenser
@@ -13,4 +14,7 @@ componentlist:
   - waterCirculationPump
   - wortPump
   - boilerVolume
-
+  - hwtVolume
+  - mashVolume
+  - boiler
+  - envTemp

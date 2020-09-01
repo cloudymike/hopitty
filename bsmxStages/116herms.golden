@@ -52,11 +52,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -130,11 +138,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -208,11 +224,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -286,11 +310,19 @@
       "active": true,
       "targetValue": 9.575
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -364,6 +396,10 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": true,
       "targetValue": 152.0
@@ -371,6 +407,10 @@
     "mashStirrer": {
       "active": true,
       "targetValue": 1
+    },
+    "mashVolume": {
+      "active": false,
+      "targetValue": 0
     },
     "plateValve": {
       "active": false,
@@ -442,11 +482,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -520,11 +568,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -598,11 +654,19 @@
       "active": true,
       "targetValue": 2.4452811242375754
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -676,11 +740,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -754,11 +826,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -832,11 +912,19 @@
       "active": true,
       "targetValue": 2.4452811242375754
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -910,11 +998,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -988,11 +1084,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1066,11 +1170,19 @@
       "active": true,
       "targetValue": 2.4452811242375754
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1144,11 +1256,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1222,11 +1342,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1300,11 +1428,19 @@
       "active": true,
       "targetValue": 2.4452811242375754
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1378,11 +1514,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1456,11 +1600,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1534,11 +1686,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1612,11 +1772,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1690,11 +1858,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1768,11 +1944,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1846,11 +2030,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -1924,11 +2116,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2002,11 +2202,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2080,11 +2288,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2158,11 +2374,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2236,11 +2460,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
@@ -2314,11 +2546,19 @@
       "active": false,
       "targetValue": 0
     },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
     "mashHeater": {
       "active": false,
       "targetValue": 0
     },
     "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
       "active": false,
       "targetValue": 0
     },
