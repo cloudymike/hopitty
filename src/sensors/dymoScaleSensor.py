@@ -58,7 +58,7 @@ class dymoScaleSensor(sensors.genericSensor):
         #    return(None)
 
         interface = 0
-        if dev.is_kernel_driver_active(interface) and dev.is_kernel_driver_active(interface) is True:
+        if dev.is_kernel_driver_active(interface) is True:
             dev.detach_kernel_driver(interface)
             # use the first/default configuration
             dev.set_configuration()
