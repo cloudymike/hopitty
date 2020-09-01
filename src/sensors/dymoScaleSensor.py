@@ -5,6 +5,7 @@ import time
 import usb.core
 import usb.util
 import subprocess
+from retry import retry
 
 # DYMO 100lb scale
 VENDOR_ID = 0x0922
@@ -48,9 +49,14 @@ class dymoScaleSensor(sensors.genericSensor):
     def setID(self, newID):
         self.id = newID
 
+    @retry(tries=3)
     def readVol(self):  # pragma: no cover
         dev = usb.core.find(idVendor=VENDOR_ID,
                             idProduct=PRODUCT_ID)
+        #Something is bad, bail
+        #if not dev:
+        #    return(None)
+
         interface = 0
         if dev.is_kernel_driver_active(interface) is True:
             dev.detach_kernel_driver(interface)
