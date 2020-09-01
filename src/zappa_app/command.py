@@ -47,6 +47,13 @@ def command(message):
     print("Disconnected!")
     return('Command {} sent to client {}'.format(message, client_id))
 
+def put_recipe(data):
+    try:
+        command(data)
+    except:
+        print('Can not communicate with controller')
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Run brew equiipment with communication enabled for control.')
     parser.add_argument('-c', '--command', required=True, type=str, help='Command to execute')
