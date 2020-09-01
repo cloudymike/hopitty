@@ -46,6 +46,8 @@ class dynamostatus():
 
     def get_controller_status(self):
         fullstatus = self.fullstatus()
+        if not fullstatus:
+            return(None)
         statusdict = fullstatus['Payload']
         data = statusdict['status']
 
