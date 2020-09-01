@@ -19,8 +19,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Translate recipe to json')
     parser.add_argument('-i', '--inputfile', default=None, help='Input json file')
     parser.add_argument('-o', '--outputfile', default=None, help='Output stages file')
+    parser.add_argument('-e', '--equipment', default=None, help='Equipment to use')
     parser.add_argument('-d', '--debug', action='store_true', help='Set log level to debug')
-    parser.add_argument('-e', '--error', action='store_true', help='Set log level to debug')
+    parser.add_argument('-r', '--error', action='store_true', help='Set log level to debug')
     args = parser.parse_args()
 
     if args.debug:
@@ -30,11 +31,6 @@ if __name__ == "__main__":
     else:
         loglevel = logging.INFO
 
-
-    logging.basicConfig(format='%(asctime)s %(message)s',
-                        datefmt='%m/%d/%Y %I:%M:%S %p',
-                        level=loglevel,
-                        stream=sys.stdout)
 
     mypath = os.path.dirname(os.path.realpath(__file__))
     e = equipment.allEquipment(mypath + '/equipment/*.yaml')
