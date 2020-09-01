@@ -52,6 +52,8 @@ def list():
     if not google_auth.is_logged_in():
         return (redirect('/'))
     equipmentname = statusdb.get_equipmentname()
+    if not equipmentname:
+        return(render_template('generic.html',title='Recipe', response='No controller or recipes available'))
     dynamorl.set_equipmentname(equipmentname)
     recipeNameList = dynamorl.get_recipeNameList()
     recipeTupleList = []

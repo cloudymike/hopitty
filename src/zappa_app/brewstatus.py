@@ -26,6 +26,8 @@ class dynamostatus():
 
     def get_field(self, field):
         fullstatus = self.fullstatus()
+        if not fullstatus:
+            return(None)
         status = fullstatus['Payload']
         if field in status:
             return(status[field])
