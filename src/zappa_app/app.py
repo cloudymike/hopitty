@@ -52,6 +52,8 @@ def list():
     if not google_auth.is_logged_in():
         return (redirect('/'))
     equipmentname = statusdb.get_equipmentname()
+    if not equipmentname:
+        return(render_template('generic.html',title='Recipe', response='No controller or recipes available'))
     dynamorl.set_equipmentname(equipmentname)
     recipeNameList = dynamorl.get_recipeNameList()
     recipeTupleList = []
@@ -84,7 +86,10 @@ def status():
     if not google_auth.is_logged_in():
         return (redirect('/'))
     current_status = statusdb.get_controller_status()
-    return render_template('status.html', title='Status', current_status = current_status)
+    if current_status:
+        return render_template('status.html', title='Status', current_status = current_status)
+    else:
+        return(render_template('generic.html',title='Status', response='No brew controller available'))
 
 
 
