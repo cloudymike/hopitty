@@ -66,7 +66,6 @@ class mashStirSwitch(switches.simSwitch):
             self.clearError()
 
     def HWOK(self):
-        logging.info("Do not use me")
         try:
             returnCode = subprocess.call(self.exe)
             return(returnCode == 0)
