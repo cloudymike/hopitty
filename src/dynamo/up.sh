@@ -1,9 +1,14 @@
 #!/bin/bash
+if [ "$1" == "clean" ]
+then
+   rm ../out.json
+   rm shared-local-instance.db
+fi
 
 if [ ! -f ../out.json ]
 then
    pushd ..
-   python dynamorecipes.py -d
+   python dynamorecipes.py -u $USER
    popd
 fi
 
@@ -14,7 +19,7 @@ then
    mkdir -p localdynamodb
    pushd localdynamodb
    wget https://s3.us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_latest.tar.gz
-   tar xvzf dynamodb_local_latest.tar.gz 
+   tar xvzf dynamodb_local_latest.tar.gz
    popd
 fi
 

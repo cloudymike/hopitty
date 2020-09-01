@@ -27,12 +27,14 @@ def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
     if recipefile is not None:
         bsmxfile = recipefile
     elif user is not None:
-        bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
+        bsmxfile = "/home/" + user + "/.beersmith3/Cloud.bsmx"
     else:
-        print "ERROR: No data for BSMX file"
         bsmxfile = None
 
-    print bsmxfile
+    if bsmxfile:
+        download = False
+    else:
+        download = True
 
     if bsmxfile is not None and path.isfile(bsmxfile) and access(bsmxfile, R_OK):
         print "BSMX File", bsmxfile, "exists and is readable"
@@ -91,6 +93,7 @@ if __name__ == "__main__":
     filegroup = parser.add_mutually_exclusive_group(required=True)
     filegroup.add_argument('-u', '--user', default=None, help='User for home dir to check')
     filegroup.add_argument('-d', '--download', action='store_true', help='Download BSMX file')
+    filegroup.add_argument('-b', '--beersmithfile', default=None, help='Download BSMX file')
     parser.add_argument('-t', '--equipmentType', default='', help='Type of equipment to use')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
     parser.add_argument('-f', '--file', default='out.json', help='Output json file')
@@ -100,16 +103,18 @@ if __name__ == "__main__":
     e = equipment.allEquipment('equipment/*.yaml')
     if args.equipmentType:
         myequipment = e.get(args.equipmentType)
+        listOfEquipment = {}
+        listOfEquipment[args.equipmentType] = myequipment
     else:
-        myequipment = e.get('Grain 3G, HERMS, 5Gcooler, 5Gpot')
+        listOfEquipment = e.getAll()
 
     recipeByEquipmentList = []
-    listOfEquipment = e.getAll()
+
     for equipmentName, equipment in listOfEquipment.items():
         print('Equipment: {}'.format(equipmentName))
         controllers = ctrl.setupControllers(args.verbose, False, True, equipment)
         recipelist = readRecipeFile(controllers,
-                                None,
+                                args.beersmithfile,
                                 args.user,
                                 args.download)
         iterlist = recipelist.getlist()
@@ -117,7 +122,7 @@ if __name__ == "__main__":
             print('    Recipe: {}'.format(recipeName))
             recipeObjBsmx = recipelist.getRecipe(recipeName)
             recipeBSMX = recipeObjBsmx.getBSMXstring()
-            recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+            recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, True)
             recipeStages = recipeObjParsed.getStages()
             #print(recipeStages)
             recipe4list = {}

@@ -14,10 +14,13 @@ class dynamorecipelist():
             print('dynamodb set to localhost')
         else:
             self.dynamodb = dynamodb
+            print('dynamodb set to aws')
+
 
 
     def get_recipeNameList(self):
         table = self.dynamodb.Table('recipe4equipment')
+        print("Table status:", table.table_status)
         recipeNameList = []
         lastkey = None
         while True:
@@ -33,7 +36,7 @@ class dynamorecipelist():
             for recipe in response['Items']:
                 recipeName = recipe['recipe_name']
                 recipeNameList.append(recipeName)
-           
+
             if 'LastEvaluatedKey' in response:
                 lastkey = response['LastEvaluatedKey']
             else:
