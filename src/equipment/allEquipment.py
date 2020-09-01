@@ -1,5 +1,6 @@
 import yaml
-import glob   
+import glob 
+import logging
 
 class allEquipment():
     
@@ -28,9 +29,9 @@ if __name__ == '__main__':  # pragma: no cover
     e = allEquipment('./*.yaml')
     #e = allEquipment('grain3g.yaml')
      
-    print(e.getAll())
+    logging.info(e.getAll())
     
-    print(e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller'))
+    logging.info(e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller'))
     
     if not e.exist('Grain 2.5G, 5Gcooler 4Gpot'):
-        print("No such equipment")
+        logging.info("No such equipment")

@@ -25,7 +25,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
     # Timer is always required in all equipment
     controllers.addController('delayTimer', appliances.hoptimer())
 
-    print("Try to find hw switches")
+    logging.debug("Try to find hw switches")
     if not simulation:
         logging.info("Initializing hardware")
         try:
@@ -41,7 +41,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
 
     tempSensors = sensors.tempSensorDict()
 
-    print("Setting up appliances")
+    logging.debug("Setting up appliances")
 
     hwTunSwitch = switches.powerSwitch(1)
     boilerSwitch = switches.powerSwitch(2)
@@ -136,7 +136,7 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
         #controllers['envTemp'].connectSensor(sensors.envTempSensor())
 
-    print("appliance setup done")
+    logging.debug("appliance setup done")
     # Testing of sensor object Remove me later
     for key, c1 in controllers.items():
         c1.findOrAddSensor(controllers)
