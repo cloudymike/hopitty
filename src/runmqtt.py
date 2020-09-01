@@ -157,7 +157,6 @@ class mqttctrl():
 
     def set_status(self, message):
         topic = self.maintopic+"/status"
-        print('Publishing {} to {}'.format(message, topic))
         self.client.publish(topic, message)
         return()
 
