@@ -23,10 +23,13 @@ if __name__ == "__main__":
     parser.add_argument('-i', '--inputfile', default=None, help='Input beersmith file')
     parser.add_argument('-o', '--outputfile', default=None, help='Output stages file')
     parser.add_argument('-d', '--debug', action='store_true', help='Set log level to debug')
+    parser.add_argument('-e', '--error', action='store_true', help='Set log level to debug')
     args = parser.parse_args()
 
     if args.debug:
         loglevel = logging.DEBUG
+    elif args.error:
+        loglevel = logging.ERROR
     else:
         loglevel = logging.INFO
 

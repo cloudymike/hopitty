@@ -30,7 +30,7 @@ def send_command(cmd, read_response=False):
         response = read_response and ser.read() or None
         ser.close()
     except:
-        print("ERROR, can not connect to powerswitch")
+        logging.debug("ERROR, can not connect to powerswitch")
         response = None
     return response
 
@@ -99,16 +99,16 @@ if __name__ == '__main__':  # pragma: no cover
         print("Hardware switch not found with HWOK method")
 
     for i in range(1, 10):
-        print("HWtun on")
+        logging.info("HWtun on")
         testHWtun.on()
         time.sleep(1)
-        print("HWtun off")
+        logging.info("HWtun off")
         testHWtun.off()
 
         time.sleep(1)
-        print("Boiler on")
+        logging.info("Boiler on")
         testBoiler.on()
         time.sleep(1)
-        print("Boiler off")
+        logging.info("Boiler off")
         testBoiler.off()
         time.sleep(1)
