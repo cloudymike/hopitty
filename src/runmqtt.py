@@ -157,6 +157,7 @@ class mqttctrl():
 
     def set_status(self, message):
         topic = self.maintopic+"/status"
+        print('Publishing {} to {}'.format(message, topic))
         self.client.publish(topic, message)
         return()
 
@@ -167,12 +168,11 @@ class mqttctrl():
         no blocking, I.e a separate thread
         """
         logger.info("New run of new recipe")
+        self.state = 'run'
         for r_key, settings in sorted(self.stages.items()):
             logger.info("New stage: {}".format(r_key))
             self.controllers.stop()
-            #print(settings)
             self.controllers.run(settings)
-            #self.state='run'
             while not self.controllers.done():
                 if self.state == 'pause':
                     self.controllers.pause(settings)
