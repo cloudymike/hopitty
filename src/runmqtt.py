@@ -167,6 +167,7 @@ class mqttctrl():
         no blocking, I.e a separate thread
         """
         logger.info("New run of new recipe")
+        self.state = 'run'
         for r_key, settings in sorted(self.stages.items()):
             logger.info("New stage: {}".format(r_key))
             self.controllers.stop()
