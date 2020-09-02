@@ -5,11 +5,11 @@
 # Fails on first failing recipe
 
 
-pushd recipe
+pushd recipe  &> /dev/null
 for recipe in *; do
-  echo ".......................$recipe"
-  python ../src/runmqtt.py -n -q -f $recipe
+  ../src/recipemqtt.sh -q -f $recipe  &> /dev/null
   if [ "$?" != "0" ] ; then
+    echo recipe
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
   fi
