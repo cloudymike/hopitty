@@ -167,11 +167,12 @@ class mqttctrl():
         no blocking, I.e a separate thread
         """
         logger.info("New run of new recipe")
-        self.state = 'run'
         for r_key, settings in sorted(self.stages.items()):
             logger.info("New stage: {}".format(r_key))
             self.controllers.stop()
+            #print(settings)
             self.controllers.run(settings)
+            #self.state='run'
             while not self.controllers.done():
                 if self.state == 'pause':
                     self.controllers.pause(settings)
@@ -262,9 +263,10 @@ if __name__ == "__main__":
 
     logger.info('Starting...')
 
-    parser = argparse.ArgumentParser(description='Run brew equiipment with communication enabled for control.')
+    parser = argparse.ArgumentParser(description='Run brew equipment with communication enabled for control.')
     parser.add_argument('-c', '--checkonly', action='store_true', help='Only check, do not brew')
     parser.add_argument('-e', '--equipment', action='store_true', help='Force use of real equipment')
+    parser.add_argument('-t', '--equipmenttype', default=None, help='Equipment type')
     parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
     parser.add_argument('-f', '--file', default=None, type=str, help='Recipe file to use, json format, ')
     parser.add_argument('-r', '--raw', default=None, type=str, help='Stages file to use, json format, ')
@@ -287,7 +289,10 @@ if __name__ == "__main__":
 
     mypath = os.path.dirname(os.path.realpath(__file__))
     e = equipment.allEquipment(mypath + '/equipment/*.yaml')
-    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    if args.equipmenttype:
+        myequipment = e.get(args.equipmenttype)
+    else:
+        myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
 
     if args.equipment:
         args.simulate = False
