@@ -5,15 +5,17 @@
 # Fails on first failing recipe
 
 
-pushd recipe  &> /dev/null
-for recipe in *; do
-  echo ".......................$recipe"
-  ../src/recipemqtt.sh -q -f $recipe
+for json in recipe/*
+do
+  fbname=$(basename "$json" )
+  echo ".......................$fbname"
+  stagingfile="jsonStages/$fbname.tmp"
+  python src/json2stages.py -i $json -o $stagingfile -e 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
+  python src/runmqtt.py -n -q -r $stagingfile -t 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
   if [ "$?" != "0" ] ; then
     echo recipe
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
   fi
 done
-popd
 echo "===========All Tests Passed================"
