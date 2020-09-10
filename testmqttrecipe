@@ -7,7 +7,8 @@
 
 pushd recipe  &> /dev/null
 for recipe in *; do
-  ../src/recipemqtt.sh -q -f $recipe  &> /dev/null
+  echo ".......................$recipe"
+  ../src/recipemqtt.sh -q -f $recipe
   if [ "$?" != "0" ] ; then
     echo recipe
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
