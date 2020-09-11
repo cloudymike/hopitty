@@ -12,16 +12,11 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import getopt
 import ctrl
-import recipeReader
-import stages2beer
-import checker
 import logging
-import threading
 import time
 import json
 import equipment
 import os
-#import communicate
 import argparse
 import paho.mqtt.client as mqtt
 import ssl
@@ -258,9 +253,6 @@ class mqttctrl():
 
 
 if __name__ == "__main__":
-#    simTemp = 70
-#    shutdown = False
-
 
     logger.info('Starting...')
 
@@ -268,8 +260,6 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--checkonly', action='store_true', help='Only check, do not brew')
     parser.add_argument('-e', '--equipment', action='store_true', help='Force use of real equipment')
     parser.add_argument('-t', '--equipmenttype', default=None, help='Equipment type')
-    parser.add_argument('-b', '--bsmx', default=None, help='Beersmith file to use, bsmx format, ')
-    parser.add_argument('-f', '--file', default=None, type=str, help='Recipe file to use, json format, ')
     parser.add_argument('-r', '--raw', default=None, type=str, help='Stages file to use, json format, ')
     parser.add_argument('-q', '--quick', action='store_true', help='Run quick recipe with no delays, or meeting goals')
     parser.add_argument('-s', '--simulate', action='store_true', help='Force simulation')
@@ -306,35 +296,12 @@ if __name__ == "__main__":
             logger.info('ERROR: Missing USB devices, exiting')
             sys.exit(1)
 
-    # Read one of the recipe files
-    if args.file:
-        j = recipeReader.jsonStages(args.file, controllers)
-        if not j.isValid():
-            logger.error("Error: bad json recipe")
-            sys.exit(1)
-        else:
-            stages = j.getStages()
-    elif args.bsmx:
-        b = recipeReader.bsmxStages(args.bsmx, controllers)
-        if not b.isValid():
-            logger.error("Error: bad Beersmith recipe")
-            sys.exit(1)
-        else:
-            stages = b.getStages()
-    elif args.raw:
+    if args.raw:
         with open(args.raw) as data_file:
             stages = json.load(data_file)
     else:
         stages = {}
 
-    equipmentchecker = checker.equipment(controllers, stages)
-
-
-
-    if not equipmentchecker.check():
-        logger.error("Error: equipment vs recipe validation failed")
-
-    #devices = deviceloop(controllers, stages)
     mc = mqttctrl(args, controllers, stages)
 
     if not args.checkonly:
