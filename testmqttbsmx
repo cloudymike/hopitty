@@ -4,16 +4,19 @@
 # Runs the controller in quick mode
 # Fails on first failing recipe
 
-
-pushd beersmith
-for recipe in *; do
-  echo ".......................$recipe"
-  equipment=$(python ../src/bsmx2equipmentname.py -i $recipe)
-  python ../src/runmqtt.py -n -q -b $recipe -t "$equipment"
+for bsmx in beersmith/*
+do
+  echo -n "."
+  fbname=$(basename "$bsmx" .bsmx)
+  echo ".......................$fbname"
+  tstfile="bsmxStages/$fbname.tmp"
+  python src/bsmx2stages.py -i $bsmx -o $tstfile &> /dev/null
+  equipment=$(python src/bsmx2equipmentname.py -i $bsmx)
+  python src/runmqtt.py -n -q -r $tstfile -t "$equipment"
   if [ "$?" != "0" ] ; then
+    echo recipe
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
   fi
 done
-popd
 echo "===========All Tests Passed================"
