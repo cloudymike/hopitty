@@ -4,6 +4,14 @@ recipeReader package
 Submodules
 ----------
 
+recipeReader\.getEquipment module
+---------------------------------
+
+.. automodule:: recipeReader.getEquipment
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 recipeReader\.mashProfiles module
 ---------------------------------
 
