@@ -1,5 +1,15 @@
 # Zappa tutorial
 
+## Basic deploy
+### Local testing
+runlocal.sh will run the app locally. It will still talk to
+AWS mqtt server and dynamodb, so it is not fully local.
+
+### Update zappa
+Run script update.sh if you have a working app at AWS. This will not
+mess with the current setup, just update code. Make sure that you have
+verified that you have good code by running locally first.
+
 ## Learnings
 
 ### dynamodb
