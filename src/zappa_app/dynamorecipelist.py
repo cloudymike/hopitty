@@ -70,5 +70,4 @@ class dynamorecipelist():
         recipedict['stages'] = stages
         recipedict['recipename'] = recipename
         recipestr = simplejson.dumps(recipedict)
-        print(recipestr)
         return(recipestr)

@@ -61,23 +61,19 @@ def list():
         recipeTuple = (recipename, recipename)
         recipeTupleList.append(recipeTuple)
 
-    # This should come from brewque
+    # This should come from brewstatus
     current_recipe = statusdb.get_recipename()
     form = RecipeForm(recipe=current_recipe)
     form.recipe.choices = recipeTupleList
 
     if form.validate_on_submit():
-        print('Got Recipe {}'.format(form.recipe.data))
         recipe2load = dynamorl.get_loadable_recipe(form.recipe.data, equipmentname)
-        print('Recipe to load: {}'.format(recipe2load))
         try:
-            print('Load recipe here')
+            print('Loading recipe {}'.format(form.recipe.data))
             command.put_recipe(recipe2load)
         except:
             print('Can not communicate with controller')
-        #return redirect(url_for('index'))
     print('rerendering')
-    #time.sleep(4)
     return render_template('recipe.html', title='Recipe', form=form)
 
 
