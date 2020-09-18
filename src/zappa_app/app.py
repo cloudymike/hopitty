@@ -87,7 +87,8 @@ def status():
         return (redirect('/'))
     current_status = statusdb.get_controller_status()
     if current_status:
-        return render_template('status.html', title='Status', current_status = current_status)
+        stage = statusdb.get_stage()
+        return render_template('status.html', title='Status', current_status=current_status, stage=stage)
     else:
         return(render_template('generic.html',title='Status', response='No brew controller available'))
 
