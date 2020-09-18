@@ -54,11 +54,11 @@ class dymoScaleSensor(sensors.genericSensor):
         dev = usb.core.find(idVendor=VENDOR_ID,
                             idProduct=PRODUCT_ID)
         #Something is bad, bail
-        #if not dev:
-        #    return(None)
+        if not dev:
+            return(None)
 
         interface = 0
-        if dev.is_kernel_driver_active(interface) is True:
+        if dev.is_kernel_driver_active is not None and dev.is_kernel_driver_active(interface) is True:
             dev.detach_kernel_driver(interface)
             # use the first/default configuration
             dev.set_configuration()
