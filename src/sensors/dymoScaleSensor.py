@@ -21,7 +21,7 @@ class dymoScaleSensor(sensors.genericSensor):
         self.simulation = False
         # find the USB device
         try:
-            ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
+            ret = subprocess.call('lsusdatab',  stdout=open('/dev/null', 'w'),
                                   stderr=subprocess.STDOUT)
         except:
             ret = 9
@@ -54,11 +54,11 @@ class dymoScaleSensor(sensors.genericSensor):
         dev = usb.core.find(idVendor=VENDOR_ID,
                             idProduct=PRODUCT_ID)
         #Something is bad, bail
-        if not dev:
-            return(None)
+        #if not dev:
+        #    return(None)
 
         interface = 0
-        if dev.is_kernel_driver_active is not None and dev.is_kernel_driver_active(interface) is True:
+        if dev.is_kernel_driver_active(interface) is True:
             dev.detach_kernel_driver(interface)
             # use the first/default configuration
             dev.set_configuration()
@@ -117,9 +117,7 @@ class dymoScaleSensor(sensors.genericSensor):
             if newval is not None:
                 self.val = newval
             else:
-                self.data.setHWerror(myid=__name__,
-                                     errorText="dymoScale read error",
-                                     retries=10)
+                print("ERROR: Could not update volume value")
         return self.val
 
     def setValue(self, val):
