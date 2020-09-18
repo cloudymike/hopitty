@@ -117,9 +117,7 @@ class dymoScaleSensor(sensors.genericSensor):
             if newval is not None:
                 self.val = newval
             else:
-                self.data.setHWerror(myid=__name__,
-                                     errorText="dymoScale read error",
-                                     retries=10)
+                print("ERROR: Could not update volume value")
         return self.val
 
     def setValue(self, val):
