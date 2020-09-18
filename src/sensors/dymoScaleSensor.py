@@ -21,7 +21,7 @@ class dymoScaleSensor(sensors.genericSensor):
         self.simulation = False
         # find the USB device
         try:
-            ret = subprocess.call('lsusdatab',  stdout=open('/dev/null', 'w'),
+            ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),
                                   stderr=subprocess.STDOUT)
         except:
             ret = 9
