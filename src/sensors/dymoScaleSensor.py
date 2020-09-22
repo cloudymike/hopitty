@@ -56,7 +56,7 @@ class dymoScaleSensor(sensors.genericSensor):
 
         # Do not try to re-find scale
         dev = self.dev
-        
+
         #Something is bad, bail
         if not dev:
             print("ERROR: USB find for scale failed")
@@ -121,6 +121,7 @@ class dymoScaleSensor(sensors.genericSensor):
         if not self.simulation:
             newval = self.readVol()
             if newval is not None:
+                print("INFO: Good scale value: {}".format(newval))
                 self.val = newval
             else:
                 print("ERROR: Could not update volume value")
