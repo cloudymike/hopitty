@@ -49,12 +49,17 @@ class dymoScaleSensor(sensors.genericSensor):
     def setID(self, newID):
         self.id = newID
 
-    @retry(tries=3)
+    @retry(tries=5)
     def readVol(self):  # pragma: no cover
-        dev = usb.core.find(idVendor=VENDOR_ID,
-                            idProduct=PRODUCT_ID)
+        #dev = usb.core.find(idVendor=VENDOR_ID,
+        #                    idProduct=PRODUCT_ID)
+
+        # Do not try to re-find scale
+        dev = self.dev
+        
         #Something is bad, bail
         if not dev:
+            print("ERROR: USB find for scale failed")
             return(None)
 
         interface = 0
@@ -84,6 +89,7 @@ class dymoScaleSensor(sensors.genericSensor):
                 myd = dev.read(endpoint.bEndpointAddress,
                                endpoint.wMaxPacketSize)
             except:
+                print("WARNING: Scale read try {} failed".format(count))
                 myd = None
             if myd is not None:
                 raw_weight = myd[4] + myd[5] * 256
