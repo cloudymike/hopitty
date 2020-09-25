@@ -49,13 +49,23 @@ class dymoScaleSensor(sensors.genericSensor):
     def setID(self, newID):
         self.id = newID
 
-    @retry(tries=3)
+    @retry(tries=5)
     def readVol(self):  # pragma: no cover
-        dev = usb.core.find(idVendor=VENDOR_ID,
-                            idProduct=PRODUCT_ID)
-        #Something is bad, bail
-        if not dev:
-            return(None)
+
+        if not self.dev:
+            print("WARNING: No scale, try to reconnect")
+            self.dev = usb.core.find(idVendor=VENDOR_ID,
+                  idProduct=PRODUCT_ID)
+        # Check if device is connected else try to reconnect
+        try:
+            isActive = self.dev.is_kernel_driver_active
+        except:
+            print("WARNING: Scale disconnected, trying to reconnect")
+            self.dev = usb.core.find(idVendor=VENDOR_ID,
+                  idProduct=PRODUCT_ID)
+
+        # Simplify, but really we should just not use this.
+        dev = self.dev
 
         interface = 0
         if dev.is_kernel_driver_active is not None and dev.is_kernel_driver_active(interface) is True:
@@ -84,6 +94,7 @@ class dymoScaleSensor(sensors.genericSensor):
                 myd = dev.read(endpoint.bEndpointAddress,
                                endpoint.wMaxPacketSize)
             except:
+                print("WARNING: Scale read try {} failed".format(count))
                 myd = None
             if myd is not None:
                 raw_weight = myd[4] + myd[5] * 256
@@ -115,6 +126,7 @@ class dymoScaleSensor(sensors.genericSensor):
         if not self.simulation:
             newval = self.readVol()
             if newval is not None:
+                print("INFO: Good scale value: {}".format(newval))
                 self.val = newval
             else:
                 print("ERROR: Could not update volume value")
