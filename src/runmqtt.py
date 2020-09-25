@@ -274,7 +274,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.verbose:
-        logger.setLevel(logging.INFO)
+        logger.setLevel(logging.DEBUG)
 
 
 
