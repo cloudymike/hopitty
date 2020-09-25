@@ -1,1 +1,18 @@
 out.json
+
+# From top level to make Atom happy when opening in this dir
+# Files to ignore
+.settings
+*.tmp
+.idea
+.vagrant
+geckodriver.log
+
+# Python artifacts #
+###################
+*.pyc
+venv
+
+# editor backup files
+###################
+*~
