@@ -272,6 +272,12 @@ if __name__ == "__main__":
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
 
     args = parser.parse_args()
+
+    if args.verbose:
+        logger.setLevel(logging.INFO)
+
+
+
     permissive = True
 
     #if args.netsock:

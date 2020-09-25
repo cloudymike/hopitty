@@ -8,7 +8,7 @@ STRESSTEST = False
 
 
 class controllerList(dict):
-    def __init__(self, useHWlock):
+    def __init__(self, useHWlock=True):
         self.useHWlock = useHWlock
         # Lock the hardware anytime it is accessed
         if self.useHWlock:
