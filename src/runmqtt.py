@@ -272,6 +272,12 @@ if __name__ == "__main__":
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
 
     args = parser.parse_args()
+
+    if args.verbose:
+        logger.setLevel(logging.DEBUG)
+
+
+
     permissive = True
 
     #if args.netsock:
@@ -288,7 +294,7 @@ if __name__ == "__main__":
     if args.equipment:
         args.simulate = False
 
-    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment)
+    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment, False)
     if args.equipment:
         if controllers.HWOK():
             logger.info('USB devices connected')
