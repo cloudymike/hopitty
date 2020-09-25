@@ -84,7 +84,7 @@ if __name__ == "__main__":
     e = equipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
 
-    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myequipment)
+    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myequipment, False)
     if args.equipment:
         if controllers.HWOK():
             logging.info('USB devices connected')
