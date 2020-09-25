@@ -11,12 +11,12 @@ import logging
 import equipment.allEquipment
 
 
-def setupControllers(verbose, simulation, permissive, equipment):
-    controllers = ctrl.controllerList()
+def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
+    controllers = ctrl.controllerList(HWlock)
     # The controllerinfo is a special snowflake that stores some extra global controller info
     # It does not do anything intelligent itherwise and will always meet target
     controllers.addController('controllerInfo', appliances.controllerinfo())
-    
+
     if equipment is None:
         logging.error('Equipment is None')
         return(None)
@@ -129,8 +129,8 @@ def setupControllers(verbose, simulation, permissive, equipment):
         controllers.addController('dispenser2', appliances.dispenser(2))
         controllers.addController('dispenser3', appliances.dispenser(3))
         controllers.addController('dispenser4', appliances.dispenser(4))
-    
-    
+
+
     if 'envTemp' in equipment['componentlist']:
         controllers.addController('envTemp', appliances.envTemp())
         controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
@@ -142,4 +142,3 @@ def setupControllers(verbose, simulation, permissive, equipment):
         c1.findOrAddSensor(controllers)
     "returning..."
     return(controllers)
-

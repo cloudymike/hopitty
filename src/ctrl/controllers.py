@@ -8,10 +8,12 @@ STRESSTEST = False
 
 
 class controllerList(dict):
-    def __init__(self):
+    def __init__(self, useHWlock):
+        self.useHWlock = useHWlock
         # Lock the hardware anytime it is accessed
-        self.HWlock = threading.RLock()
-        #self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock = threading.RLock()
+
         self.mylog = {}
 
         if STRESSTEST:
@@ -52,21 +54,25 @@ class controllerList(dict):
         self[name] = ctrl
 
     def addControllerList(self, l):
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         for className, instance in l.iteritems():
             self.addController(className, instance)
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def load(self):
         """
         This should really be init, but is left as a function until all
         other calls to controllers are rewritten
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         l = appliances.myloader.myQuickLoader()
         l.build()
         self.addControllerList(l.instances())
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def shutdown(self):
         """
@@ -75,19 +81,23 @@ class controllerList(dict):
         The controllers should also be stopped
         """
 
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         for key, c in self.items():
             c.stop()
             del self[key]
             del c
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def stop(self):
         """Stop all controllers"""
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         for c in self.itervalues():
             c.stop()
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def HWOK(self):
         """
@@ -95,7 +105,8 @@ class controllerList(dict):
         False.
         On Failure, list what appliances are OK and failing.
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         usbOK = True
         for c in self.itervalues():
             if not c.HWOK():
@@ -108,7 +119,8 @@ class controllerList(dict):
                 else:
                     print("    Fail:", key)
             print("-----------------------------------")
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
         return(usbOK)
 
     def check(self, settings):
@@ -133,21 +145,24 @@ class controllerList(dict):
         Run all controllers
         Take a measure, check settings and update controllers
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         for key, c in self.items():
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.pause()
                 c.update()
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def run(self, settings):
         """
         Run all controllers
         Take a measure, check settings and update controllers
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         for key, c in self.items():
 #            if not STRESSTEST:
 #                time.sleep(0.01)
@@ -163,26 +178,30 @@ class controllerList(dict):
             # else:
                 if STRESSTEST:
                     c.stop()
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def stopCurrent(self, settings):
         """
         Stops controllers that are currently in the stage
         Significant speedup for quickRecipe
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         for key, c in self.items():
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.stop()
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
 
     def status(self):
         """
         Save the status of the controller in a dictionary
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         ctrlStat = {}
         for key, c in self.items():
             curr = {}
@@ -193,7 +212,8 @@ class controllerList(dict):
             curr['powerOn'] = c.getPowerOn()
             curr['targetMet'] = c.targetMet()
             ctrlStat[key] = curr
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
         return ctrlStat
 
     def stage_template(self, stagename):
@@ -214,7 +234,8 @@ class controllerList(dict):
         """
         Save the status of one of the appliances in the controller in a dictionary
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         c = self[key]
         curr = {}
         curr['active'] = c.isActive()
@@ -223,7 +244,8 @@ class controllerList(dict):
         curr['unit'] = c.getUnit()
         curr['powerOn'] = c.getPowerOn()
         curr['targetMet'] = c.targetMet()
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
         return curr
 
     def lightStatusAppliance(self, key):
@@ -246,7 +268,6 @@ class controllerList(dict):
         Save the status of the controller in a dictionary
         Lightweight version, do not re-measure
         """
-        #self.HWlock.acquire()
         ctrlStat = {}
         for key, c in self.items():
             curr = {}
@@ -257,7 +278,6 @@ class controllerList(dict):
             curr['powerOn'] = c.getPowerOn()
             curr['targetMet'] = False
             ctrlStat[key] = curr
-        #self.HWlock.release()
         return ctrlStat
 
     def logstatus(self):
@@ -274,30 +294,36 @@ class controllerList(dict):
         """
         Save the status of the controller in a csv line
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         t = datetime.datetime.now().time()
         ctrlStat = str(t)
         for key, c in self.items():
             ctrlStat = ctrlStat + "," + str(c.getActualVar())
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
         return ctrlStat
 
     def csvheader(self):
         """
         Save the values of the controller names as header
         """
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         ctrlStat = "Time"
         for key, c in self.items():
             ctrlStat = ctrlStat + "," + key
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
         return ctrlStat
 
     def done(self):
-        self.HWlock.acquire()
+        if self.useHWlock:
+            self.HWlock.acquire()
         alldone = True
         for key, c in self.items():
             if c.isActive():
                 alldone = alldone and c.targetMet()
-        self.HWlock.release()
+        if self.useHWlock:
+            self.HWlock.release()
         return(alldone)

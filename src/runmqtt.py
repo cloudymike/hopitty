@@ -288,7 +288,7 @@ if __name__ == "__main__":
     if args.equipment:
         args.simulate = False
 
-    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment)
+    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment, False)
     if args.equipment:
         if controllers.HWOK():
             logger.info('USB devices connected')
