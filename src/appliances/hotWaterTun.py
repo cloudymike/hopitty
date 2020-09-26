@@ -29,7 +29,7 @@ class hwt(appliances.genctrl):
         else:
             incval = -5
         self.sensor.setIncremental(incval)
-        print("Getting HWT temp")
+        print("HWT measure")
         return(self.sensor.getValue())
 
     def status(self):
@@ -48,6 +48,7 @@ class hwt(appliances.genctrl):
             self.on()
 
     def targetMet(self):
+        print("HWT targetMet")
         if self.sensor.getValue() < self.presetTemp:
             return(False)
         else:
