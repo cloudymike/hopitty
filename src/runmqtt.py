@@ -185,8 +185,8 @@ class mqttctrl():
                 sleeptime = min(1.0, sleeptime)
                 time.sleep(sleeptime)
                 #self.controllers.logstatus()
-                #lightstatus = self.controllers.lightStatus()
-                lightstatus = self.controllers.status()
+                lightstatus = self.controllers.lightStatus()
+                #lightstatus = self.controllers.status()
                 delayTimer = lightstatus['delayTimer']['actual']
                 fullstatus = {}
                 fullstatus['stage'] = str(r_key)
