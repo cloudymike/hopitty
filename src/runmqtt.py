@@ -170,6 +170,7 @@ class mqttctrl():
             self.controllers.run(settings)
             #self.state='run'
             while not self.controllers.done():
+                self.controllers.measureSensors()
                 if self.state == 'pause':
                     self.controllers.pause(settings)
                     print('Pausing...')

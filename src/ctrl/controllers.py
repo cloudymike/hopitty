@@ -196,9 +196,20 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.release()
 
+    def measureSensors(self):
+        """
+        Use measure to pull all sensors
+        Do this once pe cycle, then all other sensor values could be
+        pulled from stored value
+        """
+        for key, c in self.items():
+            c.measure()
+        return
+
     def status(self):
         """
         Save the status of the controller in a dictionary
+        Uses get to read the sensors directly (expensive)
         """
         if self.useHWlock:
             self.HWlock.acquire()

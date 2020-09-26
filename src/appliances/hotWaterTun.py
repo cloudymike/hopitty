@@ -24,7 +24,7 @@ class hwt(appliances.genctrl):
         self.sensor = sensor
 
     def measure(self):
-        print("HWT measure")
+        print("HWT measure..........................")
         if self.powerOn:
             incval = 5
         else:
@@ -58,6 +58,7 @@ class hwt(appliances.genctrl):
 
     def get(self):
         self.actual = self.measure()
+        print("HWT get from sensor {}".format(self.actual))
         return(self.actual)
 
     def getActualVar(self):
