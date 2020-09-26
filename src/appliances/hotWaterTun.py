@@ -24,7 +24,6 @@ class hwt(appliances.genctrl):
         self.sensor = sensor
 
     def measure(self):
-        print("HWT measure..........................")
         if self.powerOn:
             incval = 5
         else:
@@ -42,14 +41,12 @@ class hwt(appliances.genctrl):
         self.presetTemp = float(preset)
 
     def update(self):
-        print("HWT update")
         if self.targetMet():
             self.off()
         else:
             self.on()
 
     def targetMet(self):
-        print("HWT targetMet")
         if self.getActualVar() < self.presetTemp:
             return(False)
         else:
@@ -57,7 +54,6 @@ class hwt(appliances.genctrl):
 
     def get(self):
         self.measure()
-        print("HWT get from sensor {}".format(self.actual))
         return(self.actual)
 
     def getActualVar(self):
@@ -65,7 +61,6 @@ class hwt(appliances.genctrl):
         Get the actual measured value.
         Just get the value from variable, do not trigger measure
         """
-        print("HWT getActualVar {}".format(self.actual))
         return(self.actual)
 
     def getTarget(self):

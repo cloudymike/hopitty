@@ -165,6 +165,7 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         for key, c in self.items():
+            # measure once cut twice...this will read sensors, and store value
             c.measure()
             s = settings[key]
             c.set(s['targetValue'])
