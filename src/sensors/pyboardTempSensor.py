@@ -76,6 +76,7 @@ class pyboardTempSensor(sensors.genericSensor):
                 self.clearError()
             except:
                 self.forceError()
+            print("getValue temp: {}".format(self.val))
             return(self.val)
 
     def HWOK(self):

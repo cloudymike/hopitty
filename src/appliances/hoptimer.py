@@ -28,6 +28,7 @@ class hoptimer(appliances.genctrl):
         if deltamin < 0:
             deltamin = deltamin + 1.0
         self.absminutes = currmin
+        print("Time: {}".format(self.absminutes))
         if self.target > 0 :
             if self.pauseflag:
                 self.actual = self.actual
