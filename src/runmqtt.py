@@ -185,14 +185,17 @@ class mqttctrl():
                 sleeptime = min(1.0, sleeptime)
                 time.sleep(sleeptime)
                 #self.controllers.logstatus()
-                lightstatus = self.controllers.lightStatus()
-                delayTimer = lightstatus['delayTimer']['actual']
+                #lightstatus = self.controllers.lightStatus()
+                #delayTimer = lightstatus['delayTimer']['actual']
+                status = self.controllers.statustatus()
+                delayTimer = status['delayTimer']['actual']
                 fullstatus = {}
                 fullstatus['stage'] = str(r_key)
                 fullstatus['state'] = str(self.state)
                 fullstatus['recipename'] = str(self.recipename)
                 fullstatus['equipmentname'] = self.equipmentname
-                fullstatus['status'] = lightstatus
+                #fullstatus['status'] = lightStatus
+                fullstatus['status'] = status
                 status = json.dumps(fullstatus)
                 print("{} {} {}".format(self.state, r_key, delayTimer))
                 self.set_status(status)
