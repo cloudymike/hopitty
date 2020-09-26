@@ -2,6 +2,7 @@ import pyboardread
 import sensors
 import time
 import sys
+import traceback
 
 class tempSensorDict():
     """
@@ -77,6 +78,7 @@ class pyboardTempSensor(sensors.genericSensor):
             except:
                 self.forceError()
             print("getValue temp: {}".format(self.val))
+            traceback.print_stack(file=sys.stdout)
             return(self.val)
 
     def HWOK(self):
