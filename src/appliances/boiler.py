@@ -49,10 +49,10 @@ class boiler(appliances.genctrl):
             return(self.get() >= self.target)
 
     def measure(self):
-        return(self.sensor.getValue())
+        self.actual = self.sensor.getValue()
 
     def get(self):
-        self.actual = self.measure()
+        self.measure()
         return(self.actual)
 
     def getTarget(self):

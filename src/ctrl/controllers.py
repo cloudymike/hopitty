@@ -148,6 +148,7 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         for key, c in self.items():
+            c.measure()
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
@@ -164,20 +165,12 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         for key, c in self.items():
-#            if not STRESSTEST:
-#                time.sleep(0.01)
+            c.measure()
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.start()
                 c.update()
-            # This is not needed as we stop all controllers at
-            # beginning of each stage. It is also very time
-            # consuming as most controllers are not in use
-            # in each stage
-            # else:
-                if STRESSTEST:
-                    c.stop()
         if self.useHWlock:
             self.HWlock.release()
 

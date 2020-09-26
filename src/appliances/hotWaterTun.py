@@ -31,7 +31,6 @@ class hwt(appliances.genctrl):
             incval = -5
         self.sensor.setIncremental(incval)
         self.actual = self.sensor.getValue()
-        return(self.actual)
 
     def status(self):
         if self.powerOn:
@@ -51,13 +50,13 @@ class hwt(appliances.genctrl):
 
     def targetMet(self):
         print("HWT targetMet")
-        if self.get() < self.presetTemp:
+        if self.getActualVar() < self.presetTemp:
             return(False)
         else:
             return(True)
 
     def get(self):
-        self.actual = self.measure()
+        self.measure()
         print("HWT get from sensor {}".format(self.actual))
         return(self.actual)
 
