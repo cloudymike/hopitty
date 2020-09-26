@@ -148,7 +148,8 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         for key, c in self.items():
-            c.measure()
+            if not self.useHWlock:
+                c.measure()
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
@@ -166,7 +167,8 @@ class controllerList(dict):
             self.HWlock.acquire()
         for key, c in self.items():
             # measure once cut twice...this will read sensors, and store value
-            c.measure()
+            if not self.useHWlock:
+                c.measure()
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
