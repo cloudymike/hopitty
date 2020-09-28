@@ -46,7 +46,7 @@ class boiler(appliances.genctrl):
             self.off()
 
     def targetMet(self):
-            return(self.get() >= self.target)
+            return(self.getActualVar() >= self.target)
 
     def measure(self):
         self.actual = self.sensor.getValue()
