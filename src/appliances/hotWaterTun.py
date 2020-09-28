@@ -29,7 +29,7 @@ class hwt(appliances.genctrl):
         else:
             incval = -5
         self.sensor.setIncremental(incval)
-        return(self.sensor.getValue())
+        self.actual = self.sensor.getValue()
 
     def status(self):
         if self.powerOn:
@@ -47,13 +47,20 @@ class hwt(appliances.genctrl):
             self.on()
 
     def targetMet(self):
-        if self.sensor.getValue() < self.presetTemp:
+        if self.getActualVar() < self.presetTemp:
             return(False)
         else:
             return(True)
 
     def get(self):
-        self.actual = self.measure()
+        self.measure()
+        return(self.actual)
+
+    def getActualVar(self):
+        """
+        Get the actual measured value.
+        Just get the value from variable, do not trigger measure
+        """
         return(self.actual)
 
     def getTarget(self):

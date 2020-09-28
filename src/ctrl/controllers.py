@@ -148,6 +148,8 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         for key, c in self.items():
+            if not self.useHWlock:
+                c.measure()
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
@@ -164,20 +166,14 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         for key, c in self.items():
-#            if not STRESSTEST:
-#                time.sleep(0.01)
+            # measure once cut twice...this will read sensors, and store value
+            if not self.useHWlock:
+                c.measure()
             s = settings[key]
             c.set(s['targetValue'])
             if s['active']:
                 c.start()
                 c.update()
-            # This is not needed as we stop all controllers at
-            # beginning of each stage. It is also very time
-            # consuming as most controllers are not in use
-            # in each stage
-            # else:
-                if STRESSTEST:
-                    c.stop()
         if self.useHWlock:
             self.HWlock.release()
 
@@ -196,9 +192,20 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.release()
 
+    def measureSensors(self):
+        """
+        Use measure to pull all sensors
+        Do this once pe cycle, then all other sensor values could be
+        pulled from stored value
+        """
+        for key, c in self.items():
+            c.measure()
+        return
+
     def status(self):
         """
         Save the status of the controller in a dictionary
+        Uses get to read the sensors directly (expensive)
         """
         if self.useHWlock:
             self.HWlock.acquire()

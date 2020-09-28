@@ -60,7 +60,12 @@ class genctrl():
         Something trying to reach a target value, and stay there.
         Others (like pumps and time) will just go in one direction
 
+        This is usually expensive, accessing a USB port as example
+        and should just be done once on every cycle
+
         This functions MUST be rewritten for every controller!
+
+        Note, there is no return value on this but it must update self.actual
         """
         if self.targetMet():
             self.actual = self.actual + 1
@@ -95,6 +100,7 @@ class genctrl():
         """
         Get the actual measured value.
         As a side effect runs the measure command
+        This is expensive and should not be done often
         """
         self.measure()
         return(self.actual)
