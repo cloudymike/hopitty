@@ -41,6 +41,9 @@ class hwPump(appliances.genctrl):
         self.absSec = currSec
 
         if self.powerOn:
+            #print("Power On Measure HW pump")
+            #traceback.print_stack()
+
             self.sensor.setValue(self.sensor.getValue() + deltavol)
             # Error testing
             # self.sensor.setValue(self.sensor.getValue() - deltavol)
@@ -84,7 +87,7 @@ class hwPump(appliances.genctrl):
         return(False)
 
     def update(self):
-        self.measure()
+        #self.measure()
         if self.targetMet():
             self.pumpOff()
 
@@ -175,7 +178,7 @@ class wortPump(hwPump):
                 self.pumpMotor.on()
 
     def update(self):
-        self.measure()
+        #self.measure()
         if self.targetMet():
             self.pumpOff()
         else:
