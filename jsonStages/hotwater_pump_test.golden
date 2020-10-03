@@ -46,7 +46,7 @@
     },
     "hotWaterPump": {
       "active": true,
-      "targetValue": 0.2
+      "targetValue": 2.0
     },
     "mashStirrer": {
       "active": false,

@@ -2,7 +2,7 @@
 "name":"hotWaterPump_test",
   "recipe":   {
     "01":{
-      "hotWaterPump":0.2
+      "hotWaterPump":2.0
     }
   }
 
