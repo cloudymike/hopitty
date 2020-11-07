@@ -70,7 +70,7 @@ class dymoScaleSensor(sensors.genericSensor):
         interface = 0
         try:
             devOK = dev.is_kernel_driver_active is not None and dev.is_kernel_driver_active(interface) is True
-        else:
+        except:
             devOK = False
 
         if devOK:
