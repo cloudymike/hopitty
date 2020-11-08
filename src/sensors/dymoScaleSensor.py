@@ -113,7 +113,7 @@ class dymoScaleSensor(sensors.genericSensor):
                 myd = dev.read(endpoint.bEndpointAddress,
                                endpoint.wMaxPacketSize)
             except:
-                print("WARNING: Scale read try {} failed".format(count))
+                #print("WARNING: Scale read try {} failed".format(count))
                 myd = None
             if myd is not None:
                 raw_weight = myd[4] + myd[5] * 256
@@ -153,7 +153,7 @@ class dymoScaleSensor(sensors.genericSensor):
         if not self.simulation:
             newval = self.readVol()
             if newval is not None:
-                print("INFO: Good scale value: {}".format(newval))
+                #print("INFO: Good scale value: {}".format(newval))
                 self.val = newval
             else:
                 print("ERROR: Could not update volume value")
