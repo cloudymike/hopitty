@@ -54,15 +54,21 @@ class dymoScaleSensor(sensors.genericSensor):
 
         if not self.dev:
             print("WARNING: No scale, try to reconnect")
-            self.dev = usb.core.find(idVendor=VENDOR_ID,
+            try:
+                self.dev = usb.core.find(idVendor=VENDOR_ID,
                   idProduct=PRODUCT_ID)
+            except:
+                print("ERROR: Can not reconnect scale")
         # Check if device is connected else try to reconnect
         try:
             isActive = self.dev.is_kernel_driver_active
         except:
             print("WARNING: Scale disconnected, trying to reconnect")
-            self.dev = usb.core.find(idVendor=VENDOR_ID,
+            try:
+                self.dev = usb.core.find(idVendor=VENDOR_ID,
                   idProduct=PRODUCT_ID)
+            except:
+                print("ERROR: Can not reconnect scale")
 
         # Simplify, but really we should just not use this.
         dev = self.dev
@@ -74,9 +80,14 @@ class dymoScaleSensor(sensors.genericSensor):
             devOK = False
 
         if devOK:
-            dev.detach_kernel_driver(interface)
-            # use the first/default configuration
-            dev.set_configuration()
+            try:
+                dev.detach_kernel_driver(interface)
+            except:
+                print("ERROR: Can not detach kernel driver")
+            try:
+                dev.set_configuration()
+            except:
+                print("ERROR: Can not set device configuration")
             try:
                 usb.util.claim_interface(dev, interface)
             except:
@@ -89,7 +100,10 @@ class dymoScaleSensor(sensors.genericSensor):
                     print("ERROR: Can not claim scale interface")
 
         else:
-            dev.set_configuration()
+            try:
+                dev.set_configuration()
+            except:
+                print("ERROR: Can not set device configuration")
 
         qt = None
         for count in range(0, 10):
@@ -123,8 +137,16 @@ class dymoScaleSensor(sensors.genericSensor):
                 qt = grams / 946.0
                 break
 
-        usb.util.release_interface(dev, interface)
-        dev.attach_kernel_driver(interface)
+        try:
+            usb.util.release_interface(dev, interface)
+        except:
+            print("ERROR: Can not release interface")
+
+        try:
+            dev.attach_kernel_driver(interface)
+        except:
+            print("ERROR: Can not attach kernel driver")
+
         return(qt)
 
     def getValue(self):
