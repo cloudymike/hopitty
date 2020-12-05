@@ -1,33 +1,3 @@
-Skip to content
-Search or jump to…
-
-Pulls
-Issues
-Marketplace
-Explore
-
-@cloudymike
-sparkfun
-/
-usb-scale
-14
-115
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-usb-scale/readscale.py /
-@dclemmon
-dclemmon Updates error handling to attempt to correct scale disconnect
-…
-Latest commit 5b04ff1 on Oct 25, 2017
- History
- 1 contributor
-171 lines (144 sloc)  4.44 KB
-
 #!/usr/bin/env python
 # This program can be distributed under the terms of the GNU GPL.
 # See the file COPYING.
