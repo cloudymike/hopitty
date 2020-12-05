@@ -152,7 +152,7 @@ def system_type():
     if sys.platform == 'darwin':
         return 'Mac'
     elif sys.platform == 'linux2':
-        return 'Mac'
+        return 'Win'
     elif sys.platform == 'win32':
         return 'Win'
     else:
