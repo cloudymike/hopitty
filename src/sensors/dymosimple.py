@@ -5,7 +5,7 @@ class USB(object):
 
     def __init__(self):
         VENDOR_ID  = 0x0922
-        PRODUCT_ID = 0x8003
+        PRODUCT_ID = 0x8007
 
         self.device = usb.core.find(idVendor=VENDOR_ID,
                                     idProduct=PRODUCT_ID)
