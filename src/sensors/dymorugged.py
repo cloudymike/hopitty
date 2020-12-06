@@ -47,7 +47,7 @@ class dymorugged(object):
         except:
             logging.warning("Scale not released")
 
-    def reAttach(self):
+    def reInitialize(self):
         self.releaseDevice()
         self.initializeDevice()
 
@@ -74,7 +74,7 @@ class dymorugged(object):
 
         if data is None:
             logging.warning("Scale not read, trying to reinitialize")
-            self.initializeDevice()
+            self.reInitialize()
             return(None)
         else:
             raw_weight = data[4] + (256 * data[5])
