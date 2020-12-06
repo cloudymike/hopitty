@@ -46,7 +46,10 @@ class dymorugged(object):
         attempts = 10
         data = None
         while data is None and attempts > 0:
+            print attempts
             try:
+                if self.device is None:
+                    break
                 data = self.device.read(self.endpoint.bEndpointAddress,
                                         self.endpoint.wMaxPacketSize)
             except usb.core.USBError as e:
@@ -58,6 +61,7 @@ class dymorugged(object):
         if data is None:
             logging.warning("Scale not read, trying to reinitialize")
             self.initializeDevice()
+            return(None)
         else:
             raw_weight = data[4] + (256 * data[5])
             DATA_MODE_GRAMS = 2
