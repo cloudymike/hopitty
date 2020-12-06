@@ -93,12 +93,16 @@ class dymorugged(object):
         if data is None:
             return(None)
         else:
-            print(data)
             raw_weight = data[4] + (256 * data[5])
             DATA_MODE_GRAMS = 2
             DATA_MODE_KILOGRAMS = 3
             DATA_MODE_OUNCES = 11
             DATA_MODE_LB = 12
+
+            VAL_ZERO = 2
+            VAL_UNSTABLE = 3
+            VAL_POSITIVE = 4
+            VAL_NEGATIVE = 5
 
             if data[2] == DATA_MODE_OUNCES:
                 ounces = raw_weight * 0.1
@@ -112,6 +116,8 @@ class dymorugged(object):
                 grams = 453.592 * lbs
             else:
                 return(None)
+        if data[1] == VAL_NEGATIVE:
+            grams = -1 * grams
         qt = grams / 946.0
         return(qt)
 
