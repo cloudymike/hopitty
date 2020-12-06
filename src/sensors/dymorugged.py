@@ -58,23 +58,24 @@ class dymorugged(object):
         '''
         attempts = 10
         data = None
+        error = 'unknown'
         while data is None and attempts > 0:
             try:
                 if self.device is None:
+                    logging.warning("Scale USB, no device")
                     break
                 data = self.device.read(self.endpoint.bEndpointAddress,
                                         self.endpoint.wMaxPacketSize)
             except usb.core.USBError as e:
                 data = None
-                logging.warning("Scale USB error: {}".format(e.args))
-                if e.args == ('Operation timed out',):
-                    attempts -= 1
-                elif e.args == ('Resource busy',):
-                    attempts -= 1
+                attempts -= 1
+                if e.args == ('Operation timed out',) or
+                    e.args == ('Resource busy',) or
+                    e.args == ('Overflow',):
+                    logging.info("Accepted Scale USB error: {}".format(e.args))
                 else:
-                    logging.warning("New USB error")
-                    attempts -= 1
-                    print("Try again {}".format(attempts))
+                    logging.warning("New Scale USB error: {}".format(e.args))
+
         return(data)
 
     def readVol(self):
