@@ -57,6 +57,9 @@ class dymorugged(object):
                 if e.args == ('Operation timed out',):
                     attempts -= 1
                     continue
+                else:
+                    logging.warning("Scale USB error: {}".format(e.args))
+                    break
 
         if data is None:
             logging.warning("Scale not read, trying to reinitialize")
@@ -79,8 +82,10 @@ class dymorugged(object):
             elif data[2] == DATA_MODE_LB:
                 lbs = raw_weight / 10.0
                 grams = 453.592 * lbs
+            else:
+                return(None)
         qt = grams / 946.0
-        return qt
+        return(qt)
 
     def getID(self):
         return(self.id)
