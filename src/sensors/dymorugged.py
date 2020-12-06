@@ -63,11 +63,15 @@ class dymorugged(object):
                                         self.endpoint.wMaxPacketSize)
             except usb.core.USBError as e:
                 data = None
+                logging.warning("Scale USB error: {}".format(e.args))
                 if e.args == ('Operation timed out',):
                     attempts -= 1
                     #continue
+                elif e.args == ('Resource busy',):
+                    attempts -= 1
+                    #continue
                 else:
-                    logging.warning("Scale USB error: {}".format(e.args))
+                    logging.warning("New USB error")
                     attempts -= 1
                     print("Try again {}".format(attempts))
                     #continue
