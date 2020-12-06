@@ -93,6 +93,7 @@ class dymorugged(object):
         if data is None:
             return(None)
         else:
+            print(data)
             raw_weight = data[4] + (256 * data[5])
             DATA_MODE_GRAMS = 2
             DATA_MODE_KILOGRAMS = 3
