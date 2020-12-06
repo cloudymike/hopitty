@@ -65,11 +65,11 @@ class dymorugged(object):
                 data = None
                 if e.args == ('Operation timed out',):
                     attempts -= 1
-                    continue
+                    #continue
                 else:
                     logging.warning("Scale USB error: {}".format(e.args))
                     attempts -= 1
-                    continue
+                    #continue
 
         if data is None:
             logging.warning("Scale not read, trying to reinitialize")
