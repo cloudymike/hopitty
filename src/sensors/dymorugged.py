@@ -47,6 +47,10 @@ class dymorugged(object):
         except:
             logging.warning("Scale not released")
 
+    def reAttach(self):
+        self.releaseDevice()
+        self.initializeDevice()
+
     def readVol(self):
         attempts = 10
         data = None
@@ -64,7 +68,8 @@ class dymorugged(object):
                     continue
                 else:
                     logging.warning("Scale USB error: {}".format(e.args))
-                    break
+                    attempts -= 1
+                    continue
 
         if data is None:
             logging.warning("Scale not read, trying to reinitialize")
