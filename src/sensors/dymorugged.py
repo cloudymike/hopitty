@@ -69,6 +69,7 @@ class dymorugged(object):
                 else:
                     logging.warning("Scale USB error: {}".format(e.args))
                     attempts -= 1
+                    print("Try again"+attempts)
                     #continue
 
         if data is None:
