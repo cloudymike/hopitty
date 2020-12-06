@@ -40,7 +40,12 @@ class dymorugged(object):
             logging.warning("Device with VendorID: {} and ProductID: {} not initialized".format(VENDOR_ID, PRODUCT_ID))
 
     def releaseDevice(self):
-        logging.info("Device with VendorID: {} and ProductID: {} not released".format(VENDOR_ID, PRODUCT_ID))
+        logging.info("Releasing scale interface")
+        try:
+            usb.util.release_interface(self.device, 0)
+            self.device.attach_kernel_driver(0)
+        except:
+            logging.warning("Scale not released")
 
     def readVol(self):
         attempts = 10
