@@ -1,3 +1,6 @@
+# Rugged design of Dymo Scale sensor that should be able
+# to recover from a number of failure situations 
+
 import usb.core
 import usb.util
 import time

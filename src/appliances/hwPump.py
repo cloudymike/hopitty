@@ -18,7 +18,7 @@ class hwPump(appliances.genctrl):
         self.SEC_PER_QUART = 3.0
         self.unit = 'Qt'
         self.pumpMotor = None
-        self.sensor = sensors.dymoScaleSensor()
+        self.sensor = sensors.dymorugged()
         self.oldTime = datetime.datetime.now()
         self.actual = 0
         self.lastActual = 0
@@ -121,7 +121,7 @@ class hwPump(appliances.genctrl):
                 foundSensor = True
                 self.sensor = c1.sensor
         if not foundSensor:
-            self.sensor = sensors.dymoScaleSensor()
+            self.sensor = sensors.dymorugged()
 
     def HWOK(self):
         if self.pumpMotor is None:
