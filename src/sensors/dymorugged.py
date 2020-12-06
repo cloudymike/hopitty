@@ -69,8 +69,8 @@ class dymorugged(object):
             except usb.core.USBError as e:
                 data = None
                 attempts -= 1
-                if (e.args == ('Operation timed out',)) or (e.args == ('Resource busy',)) or (e.args == ('Overflow',)):
-                    logging.info("Accepted Scale USB error: {}".format(e.args))
+                if (e.args == ('Operation timed out',)) or (e.args == (16, 'Resource busy')) or (e.args == (75, 'Overflow')):
+                    logging.info("Acceptable Scale USB error: {}".format(e.args))
                 else:
                     logging.warning("New Scale USB error: {}".format(e.args))
 
