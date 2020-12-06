@@ -51,11 +51,14 @@ class dymorugged(object):
         self.releaseDevice()
         self.initializeDevice()
 
-    def readVol(self):
+    def readScale(self):
+        '''
+        Read the scale
+        If not able to read, first retry a few times then return None
+        '''
         attempts = 10
         data = None
         while data is None and attempts > 0:
-            print attempts
             try:
                 if self.device is None:
                     break
@@ -66,19 +69,29 @@ class dymorugged(object):
                 logging.warning("Scale USB error: {}".format(e.args))
                 if e.args == ('Operation timed out',):
                     attempts -= 1
-                    #continue
                 elif e.args == ('Resource busy',):
                     attempts -= 1
-                    #continue
                 else:
                     logging.warning("New USB error")
                     attempts -= 1
                     print("Try again {}".format(attempts))
-                    #continue
+        return(data)
 
+    def readVol(self):
+        '''
+        Read the scale and translate the value to quarts
+        If there is an error try to reinitialize a  few times
+        If scale can not be read, return None and let getValue deal with error
+        '''
+        attempts = 3
+        data = None
+        while data is None and attempts > 0:
+            data = self.readScale()
+            if data is None:
+                logging.warning("Scale not read, trying to reinitialize")
+                self.reInitialize()
+                attempts -= 1
         if data is None:
-            logging.warning("Scale not read, trying to reinitialize")
-            self.reInitialize()
             return(None)
         else:
             raw_weight = data[4] + (256 * data[5])
