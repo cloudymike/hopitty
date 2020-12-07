@@ -1,15 +1,18 @@
 # Rugged design of Dymo Scale sensor that should be able
-# to recover from a number of failure situations 
+# to recover from a number of failure situations
 
 import usb.core
 import usb.util
 import time
 import logging
+import sys
+sys.path.append('..')
+import sensors
 
 VENDOR_ID  = 0x0922
 PRODUCT_ID = 0x8007
 
-class dymorugged(object):
+class dymorugged(sensors.genericSensor):
 
     def __init__(self):
         self.errorState = False
