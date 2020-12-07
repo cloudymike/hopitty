@@ -30,7 +30,7 @@ class mashVolume():
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
         self.switch = switches.simSwitch
-        self.sensor = sensors.dymoScaleSensor()
+        self.sensor = sensors.dymorugged()
         self.grainVol = self.sensor.getValue()
 
     def __del__(self):
@@ -148,7 +148,7 @@ class mashVolume():
                 foundSensor = True
                 self.sensor = c1.sensor
         if not foundSensor:
-            self.sensor = sensors.dymoScaleSensor()
+            self.sensor = sensors.dymorugged()
 
     def pause(self):
         """
