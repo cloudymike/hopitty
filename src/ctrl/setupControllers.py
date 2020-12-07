@@ -85,7 +85,6 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if 'mashStirrer' in equipment['componentlist']:
         controllers.addController('mashStirrer', appliances.mashStirrer())
         controllers['mashStirrer'].connectSwitch(mashStirSwitch)
-switches.
     if 'mashHeater' in equipment['componentlist']:
         controllers.addController('mashHeater', appliances.mashHeater())
         controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
