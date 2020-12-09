@@ -122,16 +122,16 @@ def txBSMXtoStages(bsmxObj):
     Returns None if any error is found and a stages list could not be created
     """
     stages = None
-    
+
     ctrlEquipmentName = bsmxObj.getCtrlEquipmentName()
     equipmentName = bsmxObj.getEquipment()
     logging.info('Controller equipment: {}, Recipe equipment: {}'.format(ctrlEquipmentName, equipmentName))
     if equipmentName != ctrlEquipmentName:
         logging.error("Equipment does not match, Recipe: {} Controller: {}".format(equipmentName, ctrlEquipmentName))
         return(None)
-    
+
     equipmentdict=bsmxObj.getCtrlEquipment()
-    
+
     if 'plateValve' in equipmentdict['componentlist'] :
         chiller = 'plate'
     else:
@@ -143,7 +143,8 @@ def txBSMXtoStages(bsmxObj):
 
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
                            'Single Infusion, Medium Body, Batch Sparge',
-                           'Single Infusion, Full Body, Batch Sparge']:
+                           'Single Infusion, Full Body, Batch Sparge',
+                           'Single Infusion, Cold Mash, Batch Sparge']:
             if 'mashHeater' in equipmentdict['componentlist'] :
                 logging.debug("No valid mash profile found")
                 logging.debug("=== {} ===".format(mashProfile))
@@ -152,7 +153,8 @@ def txBSMXtoStages(bsmxObj):
 
         elif mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
-                             'Single Infusion, Full Body, No Mash Out']:
+                             'Single Infusion, Full Body, No Mash Out',
+                             'Single Infusion, Cold Mash, No Mash Out']:
             if 'mashHeater' in equipmentdict['componentlist'] :
                 stages = HERMSMultiBatchMash(bsmxObj, chiller)
             else:
@@ -170,7 +172,8 @@ def txBSMXtoStages(bsmxObj):
 
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
-                             'Single Infusion, Full Body, No Mash Out']:
+                             'Single Infusion, Full Body, No Mash Out',
+                             'Single Infusion, Cold Mash, No Mash Out']:
             stages = MultiBatchMash(bsmxObj, chiller)
         else:
             logging.debug("No valid mash profile found")
@@ -192,7 +195,7 @@ def checkVolBSMX(bsmxObj):
     maxInfusionVol = 18  # quarts, before it goes below heater element
     maxTotalInVol = 26  # quarts, before it goes below out spigot
     tunDeadSpaceMin = 0.19
-    
+
     ctrleq = bsmxObj.getCtrlEquipment()
     boilerVolumeMax = ctrleq['specs']['boilerVolumeMax']
 
@@ -206,7 +209,7 @@ def checkVolBSMX(bsmxObj):
 
     # Check boiler volume
     if bsmxObj.getPreBoilVolume() > boilerVolumeMax:
-        logging.error("{} exceeding boiler volume".format(bsmxObj.getPreBoilVolume())) 
+        logging.error("{} exceeding boiler volume".format(bsmxObj.getPreBoilVolume()))
         return(False)
 
     if bsmxObj.getStrikeVolume() > maxInfusionVol:
@@ -760,7 +763,7 @@ def HERMSMultiBatchMash(bsmxObj, chiller):
     step["mashStirrer"] = setDict(1)
     step["delayTimer"] = setDict(mashTime)
     step["mashHeater"] = setDict(bsmxObj.getTempF("F_MS_STEP_TEMP"))
-    
+
     stages[mkSname("Mashing", stageCount)] = step
     stageCount = stageCount + 1
 
