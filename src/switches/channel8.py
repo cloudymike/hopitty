@@ -79,6 +79,11 @@ if __name__ == "__main__":  # pragma: no cover
 
     logging.info("Opening channel8 board....")
     ch8 = channel8()
+    if ch8.HWOK():
+        logging.info("Using HW")
+    else:
+        logging.info("Just simulating")
+        
     for i in range(1, 9):
         currentSwitch = ch8.getSwitch(i)
         logging.info("Toggling switch {}".format(i))
