@@ -166,7 +166,15 @@ class dymorugged(sensors.genericSensor):
 
 if __name__ == '__main__':  # pragma: no cover
     loglevel = logging.DEBUG
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=loglevel,
+                        stream=sys.stdout)
     d = dymorugged()
+    if d.HWOK():
+        logging.info("Using HW")
+    else:
+        logging.info("Just simulating")
     while (1):
         print(d.getValue())
         time.sleep(1)
