@@ -61,7 +61,6 @@ class channel8():  # pragma: no cover
         rb.connect(dev)
 
         logging.info('Using device with serial number ' + str(dev.serial_number))
-        print('Using device with serial number ' + str(dev.serial_number))
 
         self.switchlist = []
         for i in range(0, 9):
