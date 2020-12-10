@@ -150,16 +150,9 @@ class dymorugged(sensors.genericSensor):
     def HWOK(self):
         if self.simulation:
             return(False)
-        else:
-            try:
-                dev = usb.core.find(idVendor=VENDOR_ID,
-                                     idProduct=PRODUCT_ID)
-            except:
-                dev = None
-            # was it found?
-            if dev is None:
-                logging.warning("Device with VendorID: {} and ProductID: {} not found".format(VENDOR_ID, PRODUCT_ID))
-                return(False)
+        if self.device is None:
+            logging.warning("Device with VendorID: {} and ProductID: {} not found".format(VENDOR_ID, PRODUCT_ID))
+            return(False)
         return(True)
 
 
