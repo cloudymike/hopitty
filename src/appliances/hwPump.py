@@ -132,7 +132,7 @@ class hwPump(appliances.genctrl):
                 if self.sensor.HWOK():
                     return(True)
                 else:
-                    print"Dymo scale sensor HW not OK")
+                    print("Dymo scale sensor HW not OK")
                     return(False)
             else:
                 print("Pumpmotor hw not ok")
