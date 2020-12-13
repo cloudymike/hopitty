@@ -312,7 +312,7 @@ def plateCooling(bsmxObj, stageCount, coolTemp):
     # Keep this stage in essence forever, well 10h
     step = stageCtrl(controllers)
     #step["cooler"] = setDict(coolTemp - 40)
-    step["delayTimer"] = setDict(600)
+    step["delayTimer"] = setDict(300)
     #step["boilerValve"] = setDict(0)
     #step["aerator"] = setDict(0)
     stages[mkSname("Done", stageCount)] = step
