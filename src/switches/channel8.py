@@ -67,7 +67,6 @@ class channel8():  # pragma: no cover
             self.switchlist.append(oneSwitch(rb,i))
 
     def getSwitch(self, index):
-        """ yes it is the same as getPump, standard name use """
         return(self.switchlist[index])
 
 
@@ -79,8 +78,11 @@ if __name__ == "__main__":  # pragma: no cover
 
     logging.info("Opening channel8 board....")
     ch8 = channel8()
+
     for i in range(1, 9):
         currentSwitch = ch8.getSwitch(i)
+        if currentSwitch.HWOK():
+            logging.info("Using HW for switch {}".format(i))
         logging.info("Toggling switch {}".format(i))
         currentSwitch.on()
         time.sleep(0.5)
