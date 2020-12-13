@@ -125,11 +125,17 @@ class hwPump(appliances.genctrl):
 
     def HWOK(self):
         if self.pumpMotor is None:
+            print("no pump motor")
             return(False)
         else:
             if self.pumpMotor.HWOK():
-                return(self.sensor.HWOK())
+                if self.sensor.HWOK():
+                    return(True)
+                else:
+                    print("Dymo scale sensor HW not OK")
+                    return(False)
             else:
+                print("Pumpmotor hw not ok")
                 return(False)
 
     def pause(self):

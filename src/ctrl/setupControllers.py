@@ -29,15 +29,15 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if not simulation:
         logging.info("Initializing hardware")
         try:
-            usbPumps = switches.pumpUSB()
+            switch12v = switches.channel8()
         except:
             if permissive:
                 logging.info("**********USB pumps not found, simulating HW")
-                usbPumps = switches.simSwitchList()
+                switch12v = switches.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
     else:
-        usbPumps = switches.simSwitchList()
+        switch12v = switches.simSwitchList()
 
     tempSensors = sensors.tempSensorDict()
 
@@ -45,15 +45,15 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
 
     hwTunSwitch = switches.powerSwitch(1)
     boilerSwitch = switches.powerSwitch(2)
-    aeratorSwitch = switches.air8800Switch()
+    aeratorSwitch = switch12v.getSwitch(8)
     coolerSwitch = switches.coolerSwitch()
     mashStirSwitch = switches.mashStirSwitch()
     #mashStirSwitch = switches.mashStir8800Switch()
     boilerValveSwitch = switches.boilerValveSwitch()
-    hotWaterPumpSwitch = usbPumps.getSwitch(1)
-    hwCirculationSwitch = usbPumps.getSwitch(0)
-    wortSwitch = usbPumps.getSwitch(2)
-    mashCirculationSwitch = usbPumps.getSwitch(3)
+    hotWaterPumpSwitch = switch12v.getSwitch(2)
+    hwCirculationSwitch = switch12v.getSwitch(1)
+    wortSwitch = switch12v.getSwitch(3)
+    mashCirculationSwitch = switch12v.getSwitch(4)
 
 
     if 'waterHeater' in equipment['componentlist']:
@@ -85,7 +85,6 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if 'mashStirrer' in equipment['componentlist']:
         controllers.addController('mashStirrer', appliances.mashStirrer())
         controllers['mashStirrer'].connectSwitch(mashStirSwitch)
-
     if 'mashHeater' in equipment['componentlist']:
         controllers.addController('mashHeater', appliances.mashHeater())
         controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
