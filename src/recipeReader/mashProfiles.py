@@ -299,22 +299,25 @@ def plateCooling(bsmxObj, stageCount, coolTemp):
 
     # Open the valve
     step = stageCtrl(controllers)
-    #step["cooler"] = setDict(coolTemp - 40)
-    step["delayTimer"] = setDict(7)
+    step["delayTimer"] = setDict(4)
     step["boilerValve"] = setDict(1)
     step["aerator"] = setDict(1)
     step["plateValve"] = setDict(1)
     stages[mkSname("Empty out", stageCount)] = step
     stageCount = stageCount + 1
 
+    # Stop airpump and cooling but let valve be open to do final drain
+    step = stageCtrl(controllers)
+    step["delayTimer"] = setDict(3)
+    step["boilerValve"] = setDict(1)
+    stages[mkSname("Final drain", stageCount)] = step
+    stageCount = stageCount + 1
+
     # Done
     # shutdown everything
     # Keep this stage in essence forever, well 10h
     step = stageCtrl(controllers)
-    #step["cooler"] = setDict(coolTemp - 40)
     step["delayTimer"] = setDict(600)
-    #step["boilerValve"] = setDict(0)
-    #step["aerator"] = setDict(0)
     stages[mkSname("Done", stageCount)] = step
     stageCount = stageCount + 1
 
