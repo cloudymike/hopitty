@@ -1560,7 +1560,7 @@
     },
     "boiler": {
       "active": true,
-      "targetValue": 195
+      "targetValue": 199
     },
     "boilerValve": {
       "active": false,
@@ -1708,7 +1708,7 @@
     },
     "boiler": {
       "active": true,
-      "targetValue": 200
+      "targetValue": 204
     },
     "boilerValve": {
       "active": false,
@@ -1782,7 +1782,7 @@
     },
     "boiler": {
       "active": true,
-      "targetValue": 200
+      "targetValue": 204
     },
     "boilerValve": {
       "active": false,
