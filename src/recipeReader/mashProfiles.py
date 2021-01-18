@@ -831,7 +831,7 @@ def HERMSMultiBatchMash(bsmxObj, chiller):
         stages.update(boiling(bsmxObj, stages, controllers, boilTempConstant))
         stageCount = len(stages)
     except:
-        logging.error("Boiling profile failed")
+        logging.error("Boiling profile failed in HERMS")
         stages = None
 
     try:

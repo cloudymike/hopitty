@@ -253,10 +253,15 @@ class bsmxStages():
                 firstChild.nodeValue
             use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
             if use == '4':
-                steepT = self.getTempF('F_H_WHIRLPOOL_TEMP')
+                # Beersmith2 does not have a steep temp
+                try:
+                    steepT = self.getTempF('F_H_WHIRLPOOL_TEMP')
+                except:
+                    steepT = 190
                 logging.debug("Steep " + name + " at " + str(steepT) + "F")
                 templist.append(float(steepT))
                 steepTemp = max(steepTemp, steepT)
+        logging.debug("Steep at " + str(steepT) + "F")
         return(steepTemp)
 
 
