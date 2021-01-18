@@ -408,6 +408,7 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     step["boiler"] = setDict(boilTemp)
     stages[mkSname("start boil", stageCount)] = step
     stageCount = stageCount + 1
+    logging.debug("Setting boil temp to {} ".format(boilTemp))
 
     boilTime = bsmxObj.getTimeMin("F_E_BOIL_TIME")
     dispenseTimeList = bsmxObj.getDispense()
@@ -465,7 +466,7 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     steepTime = bsmxObj.getSteepTime()
 
     if (steepTime > 1):
-        steepTemp = 190
+        steepTemp = bsmxObj.getSteepTemp()
         logging.debug("Waiting for steeping temp " + str(steepTemp) + "F")
         step = stageCtrl(controllers)
         step["cooler"] = setDict(steepTemp)

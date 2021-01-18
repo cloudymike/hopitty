@@ -243,6 +243,23 @@ class bsmxStages():
         logging.debug("Steep time is:" + str(stime))
         return stime
 
+    def getSteepTemp(self):
+        tagName = 'Hops'
+        hops = self.doc.getElementsByTagName(tagName)
+        steepTemp = 0
+        templist = []
+        for hop in hops:
+            name = hop.getElementsByTagName("F_H_NAME")[0].\
+                firstChild.nodeValue
+            use = hop.getElementsByTagName("F_H_USE")[0].firstChild.nodeValue
+            if use == '4':
+                steepT = self.getTempF('F_H_WHIRLPOOL_TEMP')
+                logging.debug("Steep " + name + " at " + str(steepT) + "F")
+                templist.append(float(steepT))
+                steepTemp = max(steepTemp, steepT)
+        return(steepTemp)
+
+
     def getMisc(self):
         tagName = 'Misc'
         ms = self.doc.getElementsByTagName(tagName)
@@ -369,6 +386,7 @@ class bsmxStages():
                 logging.debug("Steep " + name + " " + str(boil) + " minutes")
                 slist.append(float(boil))
         return(slist)
+
 
     def prettyPrintStages(self):
         for stage, step in sorted(self.stages.items()):
