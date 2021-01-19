@@ -1942,7 +1942,7 @@
     },
     "cooler": {
       "active": true,
-      "targetValue": 190
+      "targetValue": 194.44064
     },
     "delayTimer": {
       "active": false,
