@@ -1544,7 +1544,7 @@
     },
     "delayTimer": {
       "active": true,
-      "targetValue": 7
+      "targetValue": 4
     },
     "envTemp": {
       "active": false,
@@ -1583,7 +1583,73 @@
       "targetValue": 0
     }
   },
-  "25 Done": {
+  "25 Final drain": {
+    "aerator": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boiler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "boilerValve": {
+      "active": true,
+      "targetValue": 1
+    },
+    "boilerVolume": {
+      "active": false,
+      "targetValue": 0
+    },
+    "controllerInfo": {
+      "active": false,
+      "targetValue": 0
+    },
+    "cooler": {
+      "active": false,
+      "targetValue": 0
+    },
+    "delayTimer": {
+      "active": true,
+      "targetValue": 3
+    },
+    "envTemp": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hotWaterPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "hwtVolume": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashStirrer": {
+      "active": false,
+      "targetValue": 0
+    },
+    "mashVolume": {
+      "active": false,
+      "targetValue": 0
+    },
+    "plateValve": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterCirculationPump": {
+      "active": false,
+      "targetValue": 0
+    },
+    "waterHeater": {
+      "active": false,
+      "targetValue": 0
+    },
+    "wortPump": {
+      "active": false,
+      "targetValue": 0
+    }
+  },
+  "26 Done": {
     "aerator": {
       "active": false,
       "targetValue": 0
