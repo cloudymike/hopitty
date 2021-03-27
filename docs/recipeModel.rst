@@ -4,8 +4,8 @@ recipeModel package
 Submodules
 ----------
 
-recipeModel\.recipeList module
-------------------------------
+recipeModel.recipeList module
+-----------------------------
 
 .. automodule:: recipeModel.recipeList
     :members:
