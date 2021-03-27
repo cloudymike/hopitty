@@ -4,72 +4,72 @@ communicate package
 Submodules
 ----------
 
-communicate\.cmd module
------------------------
+communicate.cmd module
+----------------------
 
 .. automodule:: communicate.cmd
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.forms module
--------------------------
+communicate.forms module
+------------------------
 
 .. automodule:: communicate.forms
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.mockclient module
-------------------------------
+communicate.mockclient module
+-----------------------------
 
 .. automodule:: communicate.mockclient
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.mocksrv module
----------------------------
+communicate.mocksrv module
+--------------------------
 
 .. automodule:: communicate.mocksrv
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.mockweb module
----------------------------
+communicate.mockweb module
+--------------------------
 
 .. automodule:: communicate.mockweb
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.mqttmocksrv module
--------------------------------
+communicate.mqttmocksrv module
+------------------------------
 
 .. automodule:: communicate.mqttmocksrv
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.mqttsock module
-----------------------------
+communicate.mqttsock module
+---------------------------
 
 .. automodule:: communicate.mqttsock
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.netsock module
----------------------------
+communicate.netsock module
+--------------------------
 
 .. automodule:: communicate.netsock
     :members:
     :undoc-members:
     :show-inheritance:
 
-communicate\.tstrunmqtt module
-------------------------------
+communicate.tstrunmqtt module
+-----------------------------
 
 .. automodule:: communicate.tstrunmqtt
     :members:
