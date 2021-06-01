@@ -4,8 +4,8 @@ checker package
 Submodules
 ----------
 
-checker\.equipment module
--------------------------
+checker.equipment module
+------------------------
 
 .. automodule:: checker.equipment
     :members:
