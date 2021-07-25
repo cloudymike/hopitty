@@ -3,7 +3,7 @@
 AWS=0
 LOCAL=0
 CLEAN=0
-while getopts "h:acl" arg; do
+while getopts "h:aclt:" arg; do
   case $arg in
     h)
       echo "USAGE: $0 -achl "
@@ -17,6 +17,10 @@ while getopts "h:acl" arg; do
       l)
         LOCAL=1
         ;;
+      t)
+        TYPEOFEQUIPMENT="$OPTARG"
+        ;;
+
   esac
 done
 
@@ -36,7 +40,7 @@ fi
 if [ ! -f ../out.json ]
 then
    pushd ..
-   python dynamorecipes.py -u $USER
+   python dynamorecipes.py -u $USER -t "$TYPEOFEQUIPMENT"
    popd
 fi
 
