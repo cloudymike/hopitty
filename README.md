@@ -83,3 +83,4 @@ If you like to create your own cont
 ctrl/mashProfiles.py:
 This file include the translation from the BeerSmith recipe to
 a stages dictionary, defining how the controller is to be run.
+  
