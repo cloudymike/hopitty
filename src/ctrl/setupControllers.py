@@ -133,8 +133,8 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if 'envTemp' in equipment['componentlist']:
         controllers.addController('envTemp', appliances.envTemp())
         controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
- 
-   if 'mashExitTemp' in equipment['componentlist']:
+
+    if 'mashExitTemp' in equipment['componentlist']:
         controllers.addController('mashExitTemp', appliances.envTemp())
         controllers['mashExitTemp'].connectSensor(tempSensors.getSensor('285a9b6c0b00007b'))
 
