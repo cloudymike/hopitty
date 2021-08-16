@@ -110,10 +110,15 @@ class pyboardread():  # pragma: no cover
 if __name__ == '__main__':  # pragma: no cover
     parser = argparse.ArgumentParser(description='Process some integers.')
     parser.add_argument('-r', '--rom', default=None, help='ROM hex code')
+    parser.add_argument("-l", "--list",action="store_true",help="List temperature sensors")
 
     args = parser.parse_args()
     logging.info(args.rom)
 
     pbr = pyboardread()
+    if args.list:
+        for key in pbr.get_dict()['devicelist']:
+            print(key)
+
     logging.info(json.dumps(pbr.get_dict(), sort_keys=True, indent=4))
     logging.info("Temperature is {}".format(pbr.get_temperature('fahrenheit', args.rom)))
