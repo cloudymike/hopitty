@@ -33,3 +33,11 @@ Example of a full path for an error:
   2020/08/09/[$LATEST]233ecc2e55c64e0899e13d53548f9608
 
 Do not mix deployer users. One may not be able to update the others info
+
+## Lambda environment variables
+The following environment variables needs to be set on Lambda for you project
+
+FN_AUTH_REDIRECT_URI	https://subdomain.yourdomain.com/google/auth
+FN_BASE_URI	https://subdomain.yourdomain.com
+FN_CLIENT_ID	xxxsomeidzzz.apps.googleusercontent.com
+FN_CLIENT_SECRET	yyyasecretttt
