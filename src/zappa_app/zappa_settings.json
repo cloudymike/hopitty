@@ -4,7 +4,7 @@
         "aws_region": "us-west-2",
         "profile_name": "default",
         "project_name": "hopfront-app",
-        "runtime": "python3.6",
+        "runtime": "python3.8",
         "s3_bucket": "zappahopfront",
         "certificate_arn": "arn:aws:acm:us-east-1:097289641209:certificate/61ceb054-e744-497e-a6f5-4fb88d824dc3",
         "domain": "brew.hopitty.com",
