@@ -27,6 +27,14 @@ The destroy_zappa.sh script will undeploy zappa and (sometime in the future)
 remove all artifacts created
 
 ##TODO
+
+###Hardcoded variables
+* Regions for dynamo
+* Random key is not random for googleauth
+* Scan code for other variables and use environment variables for secrets and
+configuration file for anything else
+
+###AWS setup
 Need to create a build script for AWS to setup all of the environment
 from scratch
 * IOT mqtt
