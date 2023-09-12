@@ -40,7 +40,7 @@ fi
 if [ ! -f ../out.json ]
 then
    pushd ..
-   python dynamorecipes.py -u $USER -t "$TYPEOFEQUIPMENT"
+   python2 dynamorecipes.py -u $USER -t "$TYPEOFEQUIPMENT"
    popd
 fi
 
