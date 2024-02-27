@@ -7,11 +7,12 @@ import switches
 import time
 import usb.core
 import logging
-import cpuinfo
+#import cpuinfo
 
 def is_vm():
-    flags = cpuinfo.get_cpu_info()['flags']
-    return('hypervisor' in flags )
+    #flags = cpuinfo.get_cpu_info()['flags']
+    #return('hypervisor' in flags )
+    return(False)
 
 
 class Power8800(object):

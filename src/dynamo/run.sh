@@ -33,7 +33,7 @@ fi
 
 if [ "$CLEAN" == "1" ]
 then
-   rm ../out.json
+   rm -f ../out.json
    rm shared-local-instance.db
 fi
 
