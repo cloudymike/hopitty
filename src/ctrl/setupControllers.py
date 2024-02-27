@@ -64,7 +64,7 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if 'boiler' in equipment['componentlist']:
         controllers.addController('boiler', appliances.boiler())
         controllers['boiler'].connectSwitch(boilerSwitch)
-        boilerSensor = tempSensors.getSensor('28ff922d0116039e')
+        boilerSensor = tempSensors.getSensor('28ff916002160349')
         controllers['boiler'].connectSensor(boilerSensor)
 
     if 'aerator' in equipment['componentlist']:
@@ -88,11 +88,11 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if 'mashHeater' in equipment['componentlist']:
         controllers.addController('mashHeater', appliances.mashHeater())
         controllers['mashHeater'].connectSwitch(mashCirculationSwitch)
-        controllers['mashHeater'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+        controllers['mashHeater'].connectSensor(tempSensors.getSensor('28f496c156230b33'))
     elif 'mashTemp' in equipment['componentlist']:
         controllers.addController('mashTemp', appliances.mashHeater())
         controllers['mashTemp'].connectSwitch(mashCirculationSwitch)
-        controllers['mashTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+        controllers['mashTemp'].connectSensor(tempSensors.getSensor('28f496c156230b33'))
 
     if 'boilerValve' in equipment['componentlist']:
         controllers.addController('boilerValve', appliances.boilerValve())
@@ -132,7 +132,7 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
 
     if 'envTemp' in equipment['componentlist']:
         controllers.addController('envTemp', appliances.envTemp())
-        controllers['envTemp'].connectSensor(tempSensors.getSensor('28ffa570021603ea'))
+        controllers['envTemp'].connectSensor(tempSensors.getSensor('28f496c156230b33'))
 
     if 'mashExitTemp' in equipment['componentlist']:
         controllers.addController('mashExitTemp', appliances.envTemp())
