@@ -259,10 +259,10 @@ class bsmxStages():
                     steepT = float(steepTstr)
                 except:
                     steepT = 190
-                logging.info("Steep " + name + " at " + str(steepT) + "F")
+                logging.debug("Steep " + name + " at " + str(steepT) + "F")
                 templist.append(float(steepT))
                 steepTemp = max(steepTemp, steepT)
-        logging.info("Steep at " + str(steepT) + "F")
+        logging.debug("Steep at " + str(steepT) + "F")
         return(steepTemp)
 
 
