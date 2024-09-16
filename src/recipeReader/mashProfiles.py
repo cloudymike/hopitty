@@ -634,8 +634,9 @@ def MultiBatchMash(bsmxObj, chiller):
     volWortOut = volSpargeIn
     lastWortOut = bsmxObj.getPreBoilVolume() - (spargeSteps * volWortOut) - pumpAdjust
 
-    if volWortOut > infuseVolNet - bsmxObj.getGrainAbsorption():
-        logging.error("volWothOut failed")
+    grainAbsorbtion = bsmxObj.getGrainAbsorption()
+    if volWortOut > infuseVolNet - grainAbsorbtion:
+        logging.error("volWothOut failed, Worth Volume: {}  infuseVolume: {}  Grain Absorbstion: {}".format(volWortOut,infuseVolNet,grainAbsorbtion))
         return(None)
 
     for i in range(spargeSteps):
