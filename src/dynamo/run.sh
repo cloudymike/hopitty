@@ -61,7 +61,7 @@ then
    java -Djava.library.path=./localdynamodb/DynamoDBLocal_lib -jar ./localdynamodb/DynamoDBLocal.jar -sharedDb &
    python3 CreateTable.py
    python3 LoadData.py
-   read -p "Press any key to stop"
+   read -p "Press any key to stop dynamo db"
    kill -9 %1
 else
    python3 CreateTable.py -a
