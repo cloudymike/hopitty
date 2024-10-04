@@ -6,14 +6,20 @@ from forms import CmdForm, LoadForm, RecipeForm
 import requests
 import boto3
 import os
+import time
 
 import google_auth
 import command
 import brewstatus
 import dynamorecipelist
 
+time.sleep(5)
+print("We should see this  V3 ================================")
+#try:
+#    dynamodb = boto3.resource('dynamodb',region_name='us-west-2')
+#except:
+dynamodb = boto3.resource('dynamodb', endpoint_url="http://dynamodb:8000",region_name='us-west-2')
 
-dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
 statusdb = brewstatus.dynamostatus(dynamodb)
 dynamorl = dynamorecipelist.dynamorecipelist(dynamodb=dynamodb)
 

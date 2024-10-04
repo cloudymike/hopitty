@@ -6,7 +6,7 @@ import simplejson
 
 
 class dynamorecipelist():
-    def __init__(self, equipment_name='Grain 3G, HERMS, 5Gcooler, 5Gpot', dynamodb=None):
+    def __init__(self, equipment_name='Grain 3G, 5Gcooler, 5Gpot, mashexittemp', dynamodb=None):
         self.equipmentname = equipment_name
         print('Equipment name set to {}'.format(self.equipmentname))
         if not dynamodb:
