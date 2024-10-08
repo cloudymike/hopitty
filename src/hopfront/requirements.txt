@@ -9,3 +9,7 @@ xmltodict
 boto3==1.14.43
 botocore==1.17.43
 simplejson==3.17.2
+
+Jinja2==2.11.3
+MarkupSafe==1.1.1
+itsdangerous==1.1.0

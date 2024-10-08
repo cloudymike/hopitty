@@ -6,6 +6,8 @@ import time
 import argparse
 import requests
 
+import boto3
+
 
 import google_auth
 import dynamorecipelist
@@ -87,10 +89,12 @@ def list():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
+    parser.add_argument('-D', '--Dynamodb', default=None, type=str, help='Stages file to use, json format, ')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
     group.add_argument("-H", "--HOST", default=None, type=str, help='Use HOST as mqtt server')
+
     args = parser.parse_args()
 
     if args.mqtt:
@@ -99,11 +103,14 @@ if __name__ == "__main__":
         bq = brewque.brewque(connection='aws')
     if args.HOST:
         bq = brewque.brewque(connection=args.HOST)
-        print('host found')
 
 
     # Wait for a message to appear
     time.sleep(2)
-    dynamorl = dynamorecipelist.dynamorecipelist(bq.get_equipmentname())
+    if args.Dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url=args.Dynamodb)
+    else:
+        dynamodb = None
+    dynamorl = dynamorecipelist.dynamorecipelist(bq.get_equipmentname(),dynamodb)
 
     app.run(host='0.0.0.0', port=8080)
