@@ -90,12 +90,16 @@ if __name__ == "__main__":
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')
+    group.add_argument("-H", "--HOST", default=None, type=str, help='Use HOST as mqtt server')
     args = parser.parse_args()
 
     if args.mqtt:
         bq = brewque.brewque(connection='localhost')
     if args.aws:
-         bq = brewque.brewque(connection='aws')
+        bq = brewque.brewque(connection='aws')
+    if args.HOST:
+        bq = brewque.brewque(connection=args.HOST)
+        print('host found')
 
 
     # Wait for a message to appear
