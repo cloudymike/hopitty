@@ -1,6 +1,7 @@
 
 
-Docker work but not docker compose
+Docker work but not docker compose with dynamodb
+docker compose works with only hopfront and hardcoded IP
 
 Ugly hardcoded IPs in dockerfile but will not be needed when docker compose works
 

@@ -25,3 +25,4 @@ export AWS_SECRET_ACCESS_KEY='DUMMYEXAMPLEKEY'
 export REGION='us-west-2'
 
 python3 ./web.py -H 192.168.62.151 -D "http://192.168.62.151:8000"
+#python3 ./web.py -H localhost -D "http://localhost:8000"

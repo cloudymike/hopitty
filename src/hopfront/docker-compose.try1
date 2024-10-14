@@ -1,5 +1,9 @@
 version: '3'
 services:
+  dynamodb:
+    image: "amazon/dynamodb-local:1.20.0"
+    ports:
+      - "8000:8000"
   hopfront:
     build: 
         context: .
@@ -11,3 +15,5 @@ services:
       AWS_ACCESS_KEY_ID: 'DUMMYIDEXAMPLE'
       AWS_SECRET_ACCESS_KEY: 'DUMMYEXAMPLEKEY'
       REGION: 'us-west-2'
+    depends_on:
+      - dynamodb
