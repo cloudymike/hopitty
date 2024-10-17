@@ -21,5 +21,5 @@ RUN pip install -r requirements.txt
 EXPOSE 8080
 COPY . .
 #CMD ["flask", "run"]
-#CMD ["python", "./web.py", "-H", "192.168.62.151", "-D", "http://dynamodb:8000"]
-CMD ["python", "./web.py", "-H", "192.168.62.151", "-D", "http://192.168.62.151:8000"]
+CMD ["python", "./web.py", "-H", "192.168.62.151", "-D", "http://dynamodb:8000"]
+#CMD ["python", "./web.py", "-H", "192.168.62.151", "-D", "http://192.168.62.151:8000"]
