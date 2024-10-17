@@ -18,3 +18,10 @@ services:
       REGION: 'us-west-2'
     depends_on:
       - dynamodb
+      - mosquitto
+  mosquitto:
+    build: 
+        context: ./mosquitto
+    ports:
+      - 1883:1883
+
