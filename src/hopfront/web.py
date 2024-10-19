@@ -108,7 +108,7 @@ if __name__ == "__main__":
     # Wait for a message to appear
     time.sleep(2)
     if args.Dynamodb:
-        dynamodb = boto3.resource('dynamodb', endpoint_url=args.Dynamodb, region_name='us-west-2')
+        dynamodb = boto3.resource('dynamodb', endpoint_url=args.Dynamodb, region_name='us-east-2')
         print("Dynamodb on {}".format(args.Dynamodb))
     else:
         dynamodb = None
