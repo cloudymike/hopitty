@@ -42,6 +42,10 @@ class socketclient():
             ssl_context= ssl_alpn()
             self.client.tls_set_context(context=ssl_context)
             self.client.connect(aws_iot_endpoint, port=443)
+        else:
+            host=self.connection;
+            self.client.connect(self.connection,1883,60)
+        print("MQTT on {}".format(self.connection))
 
         self.maintopic = maintopic
         self.client.on_connect = self.on_connect
@@ -59,10 +63,10 @@ class socketclient():
 
     def write_command(self, command, subtopic='test'):
         topic = self.maintopic+"/"+subtopic
-        if self.connection == 'localhost':
-            self.client.publish(topic, command, qos=2 )
-        else:
+        if self.connection == 'aws':
             self.client.publish(topic, command )
+        else:
+            self.client.publish(topic, command, qos=2 )
         return('ok')
 
     def read_status(self):
