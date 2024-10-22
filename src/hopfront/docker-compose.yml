@@ -24,4 +24,7 @@ services:
         context: ./mosquitto
     ports:
       - 1883:1883
-
+  onlinebeersmith:
+    build:
+        context: ..
+        dockerfile: onlinebeersmith/Dockerfile
