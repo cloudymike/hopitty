@@ -1,7 +1,9 @@
 #!/bin/bash
 
 # Remember to use venv from top level....
-source ../../venv/bin/activate
+# source ../../venv/bin/activate
+
+cd /hopitty/src/onlinebeersmith
 
 USER=5399
 TYPEOFEQUIPMENT="Grain 3G, 5Gcooler, 5Gpot, mashexittemp"

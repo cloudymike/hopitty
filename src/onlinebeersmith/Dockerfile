@@ -32,7 +32,9 @@ RUN cd /hopitty/phidget/PhidgetsPython && python2 setup.py install
 
 RUN apt install -y python3
 RUN apt install -y python3-pip
-RUN python3 -m pip install -r onlinebeersmith/requirements.txt
+RUN python3 -m pip install -r src/onlinebeersmith/requirements.txt
 
 
-CMD ["sleep", "infinity"]
+#CMD ["sleep", "infinity"]
+CMD ["/hopitty/src/onlinebeersmith/online2dynamo.sh"]
+
