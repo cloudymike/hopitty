@@ -26,5 +26,7 @@ services:
       - 1883:1883
   onlinebeersmith:
     build:
-        context: ..
-        dockerfile: onlinebeersmith/Dockerfile
+        context: ../..
+        dockerfile: src/onlinebeersmith/Dockerfile
+    depends_on:
+      - dynamodb

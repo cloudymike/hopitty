@@ -19,9 +19,13 @@ def load_recipes(recipes, dynamodb=None):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Load recipedata into dynamodb')
     parser.add_argument('-a', '--aws', action='store_true', help='Use AWS dynamo')
+    parser.add_argument('-D', '--Dynamodb', default=None, type=str, help='URL for dynamoDB ')
     args = parser.parse_args()
     if args.aws:
         dynamodb = boto3.resource('dynamodb',region_name='us-east-1')
+    elif args.Dynamodb:
+        dynamodb = boto3.resource('dynamodb', endpoint_url=args.Dynamodb, region_name='us-east-2')
+        print("Dynamodb on {}".format(args.Dynamodb))
     else:
         dynamodb = boto3.resource('dynamodb', endpoint_url="http://localhost:8000")
 

@@ -33,6 +33,6 @@ cat $JSONDIR/*.json | jq -s 'add' > ../out.json
 echo "====================================== Current output file ========================================"
 jq .[].recipe_name ../out.json
 pushd ../dynamo
-python3 CreateTable.py
-python3 LoadData.py
+python3 CreateTable.py -D "http://dynamodb:8000"
+python3 LoadData.py -D "http://dynamodb:8000"
 popd
