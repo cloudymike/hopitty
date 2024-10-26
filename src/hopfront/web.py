@@ -54,6 +54,13 @@ def status():
     current_status = bq.get_controller_status()
     return render_template('status.html', title='Status', current_status = current_status)
 
+@app.route('/metrics')
+def metrics():
+#    if not google_auth.is_logged_in():
+#        return (redirect('/'))
+    current_status = bq.get_controller_status()
+    return render_template('metrics.html', title='metrics', current_status = current_status)
+
 
 @app.route('/list', methods=['GET', 'POST'])
 def list():
@@ -89,7 +96,7 @@ def list():
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument('-D', '--Dynamodb', default=None, type=str, help='Stages file to use, json format, ')
+    parser.add_argument('-D', '--Dynamodb', default=None, type=str, help='URL for dynamoDB ')
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument("-m", "--mqtt", action='store_true', help='Use mqtt communication')
     group.add_argument("-a", "--aws", action='store_true', help='Use aws mqtt communication')

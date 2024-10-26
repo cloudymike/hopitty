@@ -81,6 +81,7 @@ class brewque():
         except:
             print('Can not communicate with controller')
             data = None
+            return([])
 
         ctrlmatrix = []
         for appliance, currstatus in data.items():
