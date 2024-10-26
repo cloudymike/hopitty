@@ -6,14 +6,13 @@ Also pushes recipe name list to memcache for use by web pages
 """
 
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src")
+#sys.path.append("/home/mikael/workspace/hoppity/src")
 import getpass
 import ctrl
 import argparse
 from os import path, access, R_OK  # W_OK for write permission.
 import checker
 import recipeReader
-import webctrl
 import recipeModel
 import logging
 import equipment
@@ -37,17 +36,17 @@ def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
         download = True
 
     if bsmxfile is not None and path.isfile(bsmxfile) and access(bsmxfile, R_OK):
-        print "BSMX File", bsmxfile, "exists and is readable"
+        print("BSMX File", bsmxfile, "exists and is readable")
     else:
         if not download:
-            print "ERROR: BSMX file", bsmxfile,\
-                  "is missing or is not readable"
+            print( "ERROR: BSMX file", bsmxfile,\
+                              "is missing or is not readable")
         bsmxfile = None
 
     rlUpdate = updateRecipes(rl, bsmxfile, download)
-    print "================ Recipe List ==============="
+    print("================ Recipe List ===============")
     rlUpdate.printNameList()
-    print "============================================"
+    print("============================================")
     return(rlUpdate)
 
 
@@ -134,4 +133,4 @@ if __name__ == "__main__":
     print('Writing output to {}'.format(args.file))
     with open(args.file, 'w') as outfile:
         json.dump(recipeByEquipmentList, outfile)
-    print 'Done!'
+    print('Done!')
