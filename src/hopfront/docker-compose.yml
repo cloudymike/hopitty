@@ -3,8 +3,6 @@ services:
   dynamodb:
     image: "amazon/dynamodb-local:1.20.0"
     command: "-jar DynamoDBLocal.jar -sharedDb"
-    ports:
-      - "8000:8000"
   hopfront:
     build: 
         context: .
