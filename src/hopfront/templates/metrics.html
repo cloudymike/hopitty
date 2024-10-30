@@ -1,8 +1,7 @@
-{% extends "base.html" %}
-
-{% block content %}
+# HELP bogus bogus variable # TYPE bogus bogus 1.0
+<!--
 {% for row in current_status %}
- # TYPE {{ row[0] }} gauge<br>
- {{ row[0] }} {{ row[1] }} <br>
+ # TYPE {{ row[0] }} gauge 
+ {{ row[0] }} {{ row[1] }} 
 {% endfor %}
-{% endblock %}
+-->
