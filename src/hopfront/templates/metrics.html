@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% for row in current_status %}
+ # TYPE {{ row[0] }} gauge<br>
+ {{ row[0] }} {{ row[1] }} <br>
+{% endfor %}
+{% endblock %}
