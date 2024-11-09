@@ -102,11 +102,11 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "actual_temperature{device_name=\"$device\"}",
+          "expr": "boiler",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "actual temperature",
+          "legendFormat": "Boiler",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -118,18 +118,35 @@
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "target_temperature{device_name=\"$device\"}",
+          "expr": "waterHeater",
           "fullMetaSearch": false,
           "hide": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "target temperature",
+          "legendFormat": "Hot Water Tun",
           "range": true,
           "refId": "B",
           "useBackend": false
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PROMETHEUS"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "mashTemp",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Mash",
+          "range": true,
+          "refId": "C",
+          "useBackend": false
         }
       ],
-      "title": "Temperature actual and target for $device",
+      "title": "Temperatures",
       "type": "timeseries"
     },
 
@@ -233,15 +250,15 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PROMETHEUS"
+            "uid": "c27cfaac-1e36-40a3-bc1d-249847188a53"
           },
           "disableTextWrap": false,
           "editorMode": "builder",
-          "expr": "avg_over_time(cooler_on{device_name=\"$device\"}[1h])*100",
+          "expr": "hotWaterPump",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
           "instant": false,
-          "legendFormat": "cooler_on_1h_avg",
+          "legendFormat": "Hot Water Pump",
           "range": true,
           "refId": "A",
           "useBackend": false
@@ -249,226 +266,60 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PROMETHEUS"
+            "uid": "c27cfaac-1e36-40a3-bc1d-249847188a53"
           },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "avg_over_time(heater_on{device_name=\"$device\"}[1h])*100",
-          "fullMetaSearch": false,
-          "hide": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "heater_on_1h_avg",
-          "range": true,
-          "refId": "B",
-          "useBackend": false
-        }
-      ],
-      "title": "Cooler and heater average time in use over 1 h",
-      "type": "timeseries"
-    },
-
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PROMETHEUS"
-      },
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "palette-classic"
-          },
-          "custom": {
-            "axisCenteredZero": false,
-            "axisColorMode": "text",
-            "axisLabel": "BPM",
-            "axisPlacement": "auto",
-            "axisSoftMin": 0,
-            "barAlignment": 0,
-            "drawStyle": "line",
-            "fillOpacity": 0,
-            "gradientMode": "none",
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineInterpolation": "linear",
-            "lineWidth": 1,
-            "pointSize": 5,
-            "scaleDistribution": {
-              "type": "linear"
-            },
-            "showPoints": "auto",
-            "spanNulls": true,
-            "stacking": {
-              "group": "A",
-              "mode": "none"
-            },
-            "thresholdsStyle": {
-              "mode": "off"
-            }
-          },
-          "mappings": [],
-          "min": 0
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 9
-      },
-      "id": 6,
-      "options": {
-        "legend": {
-          "calcs": [],
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PROMETHEUS"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "avg_over_time(bubble_count{device_name=\"$device\"}[1h])",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "bubbles per minute",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        }
-      ],
-      "title": "Bubble count for $device",
-      "type": "timeseries"
-    },
-
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "PROMETHEUS"
-      },
-      "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "custom": {
-            "fillOpacity": 70,
-            "hideFrom": {
-              "legend": false,
-              "tooltip": false,
-              "viz": false
-            },
-            "insertNulls": false,
-            "lineWidth": 0,
-            "spanNulls": false
-          },
-          "mappings": [],
-          "max": 1,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "transparent",
-                "value": null
-              },
-              {
-                "color": "#3a485f",
-                "value": 0
-              },
-              {
-                "color": "green",
-                "value": 1
-              }
-            ]
-          }
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 8,
-        "w": 24,
-        "x": 0,
-        "y": 27
-      },
-      "id": 10,
-      "options": {
-        "alignValue": "left",
-        "legend": {
-          "displayMode": "list",
-          "placement": "bottom",
-          "showLegend": true
-        },
-        "mergeValues": true,
-        "rowHeight": 0.9,
-        "showValue": "auto",
-        "tooltip": {
-          "mode": "single",
-          "sort": "none"
-        }
-      },      
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PROMETHEUS"
-          },
-          "disableTextWrap": false,
-          "editorMode": "builder",
-          "expr": "dryhop1{device_name=\"$device\"}",
-          "fullMetaSearch": false,
-          "includeNullMetadata": true,
-          "instant": false,
-          "legendFormat": "dry hop 1",
-          "range": true,
-          "refId": "A",
-          "useBackend": false
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "PROMETHEUS"
-          },
-          "editorMode": "code",
-          "expr": "dryhop2{device_name=\"$device\"}",
+          "expr": "",
           "hide": false,
           "instant": false,
-          "legendFormat": "dry hop 2",
           "range": true,
           "refId": "B"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "PROMETHEUS"
+            "uid": "c27cfaac-1e36-40a3-bc1d-249847188a53"
           },
-          "editorMode": "code",
-          "expr": "clearingagent{device_name=\"$device\"}",
+          "expr": "",
           "hide": false,
           "instant": false,
-          "legendFormat": "clarifier",
           "range": true,
           "refId": "C"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "c27cfaac-1e36-40a3-bc1d-249847188a53"
+          },
+          "expr": "",
+          "hide": false,
+          "instant": false,
+          "range": true,
+          "refId": "D"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "c27cfaac-1e36-40a3-bc1d-249847188a53"
+          },
+          "disableTextWrap": false,
+          "editorMode": "builder",
+          "expr": "wortPump",
+          "fullMetaSearch": false,
+          "hide": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "Wort Pump",
+          "range": true,
+          "refId": "E",
+          "useBackend": false
         }
       ],
-      "title": "Events",
-      "type": "state-timeline"
+      "title": "Volumes",
+      "type": "timeseries"
     }
+
+
+
   ],
   "refresh": "1m",
   "schemaVersion": 38,
