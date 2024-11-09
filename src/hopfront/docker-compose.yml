@@ -28,3 +28,17 @@ services:
         dockerfile: src/onlinebeersmith/Dockerfile
     depends_on:
       - dynamodb
+  prometheus:
+    build:
+        context: ./prometheus
+    ports:
+      - "9090:9090"
+    depends_on:
+      - hopfront
+    volumes:
+      - /var/tmp/prometheus:/prometheus
+  grafana:
+    build:
+      context: ./grafana
+    ports:
+     - '3000:3000'

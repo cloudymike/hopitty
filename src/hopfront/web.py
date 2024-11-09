@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, redirect, url_for
+from flask import Flask, render_template, flash, redirect, url_for, make_response
 from forms import CmdForm, LoadForm, RecipeForm
 import sys
 import json
@@ -54,12 +54,29 @@ def status():
     current_status = bq.get_controller_status()
     return render_template('status.html', title='Status', current_status = current_status)
 
-@app.route('/metrics')
-def metrics():
+@app.route('/metricsox')
+def metricsox():
 #    if not google_auth.is_logged_in():
 #        return (redirect('/'))
     current_status = bq.get_controller_status()
-    return render_template('metrics.html', title='metrics', current_status = current_status)
+    return('# HELP bogus bogus variable # TYPE bogus bogus 1.0')
+    #return render_template('metrics.html', title='metrics', current_status = current_status)
+
+def generateMetrics():
+    current_status = bq.get_controller_status()
+    #current_status = [["tmp1", 100],["vol2",3]]
+    status_string = ""
+    for status in current_status:
+        status_string = "{} # TYPE {} gauge\n{} {}\n".format(status_string,status[0], status[0], status[1])
+    return(status_string)
+
+
+@app.route('/metrics')
+def metrics():
+    response = make_response(generateMetrics(), 200)
+    response.mimetype = "text/plain"
+    return response
+
 
 
 @app.route('/list', methods=['GET', 'POST'])
