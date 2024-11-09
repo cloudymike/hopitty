@@ -16,7 +16,7 @@ import brewque
 
 RECIPE_CHOICES=[('porter','porter'),('saison','saison'),('IPA','IPA'),('NEIPA','NEIPA'),('wit','wit')]
 
-
+hostname = '192.168.62.151'
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'cEumZnHA5QvxVDNXfazEDs7e6Eg368yD'
@@ -76,6 +76,17 @@ def metrics():
     response = make_response(generateMetrics(), 200)
     response.mimetype = "text/plain"
     return response
+
+
+@app.route('/graph')
+def graph():
+    prom_url = "http://{}:3000/d/HOPITTYVAR/hopittyvar?orgId=1&refresh=1m".format(hostname)
+    print(prom_url)
+
+    return render_template('graph.html', 
+        title='Graph',
+        frame_url=prom_url,
+    )
 
 
 
