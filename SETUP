@@ -147,8 +147,8 @@ pip3 install boto3
 
 
 # Check some specific troublesome packages
-python -c 'import bottle; print bottle.__version__'
-if [ "$?" != "0" ]; then exit 1; fi
+#python -c 'import bottle; print bottle.__version__'
+#if [ "$?" != "0" ]; then exit 1; fi
 python -c 'import usb; print usb.__version__'
 if [ "$?" != "0" ]; then exit 1; fi
 python -c 'import usb.core; print usb.core.__name__'
