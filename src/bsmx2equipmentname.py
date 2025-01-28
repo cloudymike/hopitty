@@ -1,17 +1,14 @@
 #!/usr/bin/python
 """
-Reads a beersmith recipe and creates stages file
+Reads a bsmx file and displays equipment name
 Runs basic checks against controllers
 
 """
 
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
-import ctrl
 import argparse
-import recipeReader
 import json
-import equipment
 import os
 import xml.etree.ElementTree
 import checker
@@ -19,7 +16,7 @@ import logging
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description='Load files to S3')
+    parser = argparse.ArgumentParser(description='Reads a bsmx file and displays equipment name')
     parser.add_argument('-i', '--inputfile', default=None, help='Input beersmith file')
     args = parser.parse_args()
 

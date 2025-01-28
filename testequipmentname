@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Simple test that is used to initial test for python2 and 3
+# Goes through all the the recipe in the recipe folder
+# Gets the name of he equipment from the BSMX file
+# Fails on first failing recipe
+
+for bsmx in beersmith/*
+do
+  echo -n "."
+  fbname=$(basename "$bsmx" .bsmx)
+  echo ".......................$fbname"
+  tstfile="bsmxStages/$fbname.tmp"
+  python src/bsmx2equipmentname.py -i $bsmx
+  if [ "$?" != "0" ] ; then
+    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+    exit 1
+  fi
+done
+echo "===========All Tests Passed================"
