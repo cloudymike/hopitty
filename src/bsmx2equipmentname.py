@@ -6,12 +6,10 @@ Runs basic checks against controllers
 """
 
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src")
 import argparse
 import json
 import os
 import xml.etree.ElementTree
-import checker
 import logging
 
 if __name__ == "__main__":

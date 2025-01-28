@@ -15,6 +15,13 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
+echo "bsmx read of equipmentname test, lightweight initial test.."
+./testequipmentname > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! bsmx read of equipmentname Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+
 echo "json to stages test.."
 ./testjson2stages > /dev/null 2>&1
 if [ "$?" != "0" ]; then
