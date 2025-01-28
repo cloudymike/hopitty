@@ -14,7 +14,7 @@ import getopt
 import ctrl
 import recipeReader
 import stages2beer
-import checker
+import checker.equipment
 import logging
 import threading
 import time
@@ -135,7 +135,7 @@ if __name__ == "__main__":
         
     print(stages)
 
-    equipmentchecker = checker.equipment(controllers, stages)
+    equipmentchecker = checker.equipment.equipment(controllers, stages)
     
     devices = deviceloop(controllers, stages)
     

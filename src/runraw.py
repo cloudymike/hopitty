@@ -10,7 +10,7 @@ import argparse
 import ctrl
 import recipeReader
 import stages2beer
-import checker
+import checker.equipment
 import logging
 import threading
 import time
@@ -99,7 +99,7 @@ if __name__ == "__main__":
     else:
         stages = {}
 
-    equipmentchecker = checker.equipment(controllers, stages)
+    equipmentchecker = checker.equipment.equipment(controllers, stages)
     if not equipmentchecker.check():
         logging.error("Error: equipment vs recipe validation failed")
 

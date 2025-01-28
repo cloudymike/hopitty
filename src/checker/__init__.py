@@ -1,1 +1,0 @@
-from checker.equipment import *
