@@ -14,7 +14,7 @@ import json
 import equipment
 import os
 import xml.etree.ElementTree
-import checker
+import checker.equipment
 import logging
 
 if __name__ == "__main__":
@@ -76,7 +76,7 @@ if __name__ == "__main__":
         print('Error: Invalid recipe')
         sys.exit(1)
 
-    equipmentchecker = checker.equipment(controllers, stagesStr)
+    equipmentchecker = checker.equipment.equipment(controllers, stagesStr)
     if not equipmentchecker.check():
         print("Error: equipment vs recipe validation failed")
         sys.exit(1)

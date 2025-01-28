@@ -11,7 +11,7 @@ import getpass
 import ctrl
 import argparse
 from os import path, access, R_OK  # W_OK for write permission.
-import checker
+import checker.equipment
 import recipeReader
 import recipeModel
 import logging
@@ -70,7 +70,7 @@ def updateRecipes(rl, bsmxfile, download):
             deleteList.append(recipeName)
             logging.info("**********Fail on parseBSMX:" + recipeName)
         else:
-            ce = checker.equipment(controllers, recipeObjParsed.getStages())
+            ce = checker.equipment.equipment(controllers, recipeObjParsed.getStages())
             if not ce.check():
                 deleteList.append(recipeName)
                 logging.info("**********Fail on equipment check:" + recipeName)
