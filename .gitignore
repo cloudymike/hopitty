@@ -9,6 +9,9 @@ geckodriver.log
 ###################
 *.pyc
 venv
+venv2
+venv3
+
 
 # editor backup files
 ###################
