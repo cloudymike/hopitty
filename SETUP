@@ -118,9 +118,9 @@ popd
 # Setup of a headless server to do selenium testing
 # This will add some GUI cruft to the server.
 ######################################
-sudo apt-get install -y firefox
-sudo apt-get install -y xvfb
-sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
+#sudo apt-get install -y firefox
+#sudo apt-get install -y xvfb
+#sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic
 
 # For graphing tool
 ######################################

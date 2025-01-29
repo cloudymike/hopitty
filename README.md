@@ -36,11 +36,6 @@ Got to web page:
 http://localhost:8080
 
 
-Web pages
-=========
-(This may change)
-The controller is now integrated with a bottlw web server, when running threadscan.py
-Thus starting this program will enable it all.
 
 How to build
 ============

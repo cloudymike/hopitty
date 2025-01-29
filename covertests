@@ -11,7 +11,6 @@ nosetests --cover-erase  --with-coverage --cover-html\
  --cover-package=sensors\
  --cover-package=stages2beer\
  --cover-package=switches\
- --cover-package=webctrl\
 
 #for recipe in beersmith/*; do
 #  python-coverage run -a src/runctrl.py -q -b $recipe

@@ -11,10 +11,8 @@ nosetests -v $1 src/sensor
 nosetests -v $1 src/stages2beer
 nosetests -v $1 src/switches
 nosetests -v $1 src/tests
-#nosetests -v $1 src/webctrl
 "
 TESTDIRS="src/appliances
-src/webctrl
 src/checker
 src/ctrl
 src/recipeModel
