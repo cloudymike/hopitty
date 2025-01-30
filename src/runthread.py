@@ -9,7 +9,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 import argparse
 import ctrl
 import recipeReader
-import stages2beer
+import stages2beer.s2b
 import checker.equipment
 import logging
 import threading
@@ -161,7 +161,7 @@ if __name__ == "__main__":
     logging.info("Running " + recipeName)
 
     if (stages != {}) and (stages is not None):
-        brun = stages2beer.s2b(controllers, stages)
+        brun = stages2beer.s2b.s2b(controllers, stages)
         dl = ctrl.datalogger(controllers)
 
         if args.checkonly:
