@@ -20,7 +20,7 @@ import time
 import json
 import equipment
 import os
-import communicate
+import communicate.netsock
 import argparse
 
 class deviceloop():
