@@ -67,6 +67,12 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Mqtt based controller failed with BSMX files !!!!!!!!!!"
     exit 1
 fi
+echo "Testing dynamo loader using bsmx files..."
+./testdynamorecipes > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Dynamo loader failed with BSMX files !!!!!!!!!!"
+    exit 1
+fi
 echo "Testing HW specific software..."
 ./testHWcode > /dev/null
 if [ "$?" != "0" ]; then

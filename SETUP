@@ -46,6 +46,11 @@ sudo apt-get -y install libusb-1.0-0-dev
 ######################################
 sudo apt-get -y  install sphinx-common
 
+# AWS command line for dynamo
+######################################
+sudo apt-get -y install awscli
+
+
 # phidgets
 #######################################
 sudo apt-get install -y libusb-1.0-0-dev
