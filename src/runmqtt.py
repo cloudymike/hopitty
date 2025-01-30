@@ -15,7 +15,7 @@ import ctrl
 import logging
 import time
 import json
-import equipment
+import equipment.allEquipment
 import os
 import argparse
 import paho.mqtt.client as mqtt
@@ -284,7 +284,7 @@ if __name__ == "__main__":
     #    sys.exit(1)
 
     mypath = os.path.dirname(os.path.realpath(__file__))
-    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     if args.equipmenttype:
         myequipment = e.get(args.equipmenttype)
     else:

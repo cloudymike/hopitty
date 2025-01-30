@@ -14,7 +14,7 @@ import checker.equipment
 import logging
 import threading
 import time
-import equipment
+import equipment.allEquipment
 import os
 import xml.etree.ElementTree
 import requests
@@ -61,7 +61,7 @@ if __name__ == "__main__":
         simulation = False
         
     mypath = os.path.dirname(os.path.realpath(__file__))
-    availableEquipment = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    availableEquipment = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
 
     bsmxIn = None
     if args.bsmx != "":

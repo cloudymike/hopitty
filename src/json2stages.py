@@ -11,7 +11,7 @@ import ctrl
 import argparse
 import recipeReader
 import json
-import equipment
+import equipment.allEquipment
 import os
 import logging
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
 
     mypath = os.path.dirname(os.path.realpath(__file__))
-    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     if args.equipment is None:
         myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     else:

@@ -18,7 +18,7 @@ import logging
 import threading
 import time
 import json
-import equipment
+import equipment.allEquipment
 import os
 import communicate.netsock
 import argparse
@@ -111,7 +111,7 @@ if __name__ == "__main__":
     permissive = True
 
     mypath = os.path.dirname(os.path.realpath(__file__))
-    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     
     if args.equipment:

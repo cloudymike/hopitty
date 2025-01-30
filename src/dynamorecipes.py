@@ -6,7 +6,6 @@ Also pushes recipe name list to memcache for use by web pages
 """
 
 import sys
-#sys.path.append("/home/mikael/workspace/hoppity/src")
 import getpass
 import ctrl
 import argparse
@@ -15,7 +14,7 @@ import checker.equipment
 import recipeReader
 import recipeModel.recipeList
 import logging
-import equipment
+import equipment.allEquipment
 import json
 
 
@@ -99,7 +98,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    e = equipment.allEquipment('equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment('equipment/*.yaml')
     if args.equipmentType:
         myequipment = e.get(args.equipmentType)
         listOfEquipment = {}

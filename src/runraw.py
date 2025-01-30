@@ -14,7 +14,7 @@ import logging
 import threading
 import time
 import json
-import equipment
+import equipment.allEquipment
 import os
 
 
@@ -80,7 +80,7 @@ if __name__ == "__main__":
         simulation = False
 
     mypath = os.path.dirname(os.path.realpath(__file__))
-    e = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
 
     controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myequipment, False)

@@ -4,7 +4,7 @@ import inspect
 import xml.dom.minidom
 import sys
 import ctrl
-import equipment
+import equipment.allEquipment
 import appliances
 
 
@@ -849,7 +849,7 @@ def test_init_bsmxStages_file():
     print(cp)
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
     print(rp)
-    e = equipment.allEquipment()
+    e = equipment.allEquipment.allEquipment()
     myequipment = e.get("Grain 2.5G, 5Gcooler, 4Gpot")
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
@@ -882,7 +882,7 @@ def test_testcold():
     print(cp)
     rp = cp + "/../../beersmith/testcold.bsmx"
     print(rp)
-    e = equipment.allEquipment()
+    e = equipment.allEquipment.allEquipment()
     myequipment = e.get("Grain 3G, 5Gcooler, 5Gpot")
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
@@ -904,7 +904,7 @@ def test_testbatchsparge():
     print(cp)
     rp = cp + "/../../beersmith/SilverDollarPorter.bsmx"
     print(rp)
-    e = equipment.allEquipment()
+    e = equipment.allEquipment.allEquipment()
     myequipment = e.get("Pot and Cooler ( 5 Gal/19 L) - All Grain")
     ctrl = ctrlBsmxList()
     ctrl['controllerInfo'].setEquipment(myequipment)
@@ -940,7 +940,7 @@ def test_getVolG():
 
 def test_GoodRecipe():
     print(os.getcwd())
-    e = equipment.allEquipment('src/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot')
     bx = recipeReader.bsmxStages(goodRecipe(),
                                  ctrl.setupControllers(False, True, True, myequipment))
@@ -950,7 +950,7 @@ def test_GoodRecipe():
 
 def test_badTunDeadSpace():
     print(os.getcwd())
-    e = equipment.allEquipment('src/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     bx = recipeReader.bsmxStages(badTunDeadSpaceBsmx(),
                                  ctrl.setupControllers(False, True, True, myequipment))
@@ -1106,7 +1106,7 @@ def test_isValid():
     assert bx.getRecipeName() == "18 Rune Stone  IPA 2.5G"
     assert not bx.isValid()
     print(os.getcwd())
-    e = equipment.allEquipment('src/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     cx = recipeReader.bsmxStages(elaborateBsmx(),
                                  ctrl.setupControllers(False, True, True, myequipment))
