@@ -1,11 +1,11 @@
 import os
 import getpass
-import recipeModel
+import recipeModel.recipeList
 
 
 def getTestRecipeList():
     """ Get recipe list in test directory, and return a recipe list"""
-    rl = recipeModel.RecipeList()
+    rl = recipeModel.recipeList.RecipeList()
     try:
         rl.readBeerSmith('../tests/Cloud.bsmx')
     except:
@@ -24,7 +24,7 @@ def testRecipeScanner(user=None):
     if user is None:
         rl = getTestRecipeList()
     else:
-        rl = recipeModel.RecipeList()
+        rl = recipeModel.recipeList.RecipeList()
         bsmxfile = "/home/" + user + "/.beersmith2/Cloud.bsmx"
         rl.readBeerSmith(bsmxfile)
     assert len(rl.getNameList()) > 0

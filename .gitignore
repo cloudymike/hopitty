@@ -4,6 +4,7 @@
 .idea
 .vagrant
 geckodriver.log
+out.json
 
 # Python artifacts #
 ###################

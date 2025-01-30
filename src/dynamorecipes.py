@@ -13,14 +13,14 @@ import argparse
 from os import path, access, R_OK  # W_OK for write permission.
 import checker.equipment
 import recipeReader
-import recipeModel
+import recipeModel.recipeList
 import logging
 import equipment
 import json
 
 
 def readRecipeFile(ctrl, recipefile=None, user=None, download=False):
-    rl = recipeModel.RecipeList()
+    rl = recipeModel.recipeList.RecipeList()
 
     # Try to find a recipe file
     if recipefile is not None:

@@ -1,10 +1,11 @@
+
 import os
 import recipeReader
 import inspect
 import xml.dom.minidom
 import sys
 import ctrl
-import recipeModel
+import recipeModel.recipeList
 import types
 import equipment
 
@@ -126,7 +127,7 @@ def myname():
 
 def getSimpleBSMX():
     """ Get recipe from simpleBSMX, and return a recipe list"""
-    rl = recipeModel.RecipeList()
+    rl = recipeModel.recipeList.RecipeList()
     doc = xml.dom.minidom.parseString(simpleBsmx())
 
     rl.readBMXdoc(doc)
@@ -136,7 +137,7 @@ def getSimpleBSMX():
 
 def getElaborateBSMX():
     """ Get recipe from simpleBSMX, and return a recipe list"""
-    rl = recipeModel.RecipeList()
+    rl = recipeModel.recipeList.RecipeList()
     doc = xml.dom.minidom.parseString(elaborateBsmx())
 
     rl.readBMXdoc(doc)
@@ -146,7 +147,7 @@ def getElaborateBSMX():
 
 def getTestRecipeList():
     """ Get recipe list in test directory, and return a recipe list"""
-    rl = recipeModel.RecipeList()
+    rl = recipeModel.recipeList.RecipeList()
     #cp = os.getcwd()
     cp = os.path.dirname(__file__)
     filename = cp + '/../../tests/Cloud.bsmx'
