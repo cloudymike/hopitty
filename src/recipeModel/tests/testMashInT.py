@@ -7,7 +7,7 @@ import sys
 import ctrl
 import recipeModel.recipeList
 import types
-import equipment
+import equipment.allEquipment
 
 def simpleBsmx():
     retval = """
@@ -191,7 +191,7 @@ def testOneFullBSMX():
     rl = getTestRecipeList()
     
     print(os.getcwd())
-    e = equipment.allEquipment('src/equipment/*.yaml')
+    e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     controllers = ctrl.setupControllers(False, True, True, myequipment)
     assert len(rl.getNameList()) > 0

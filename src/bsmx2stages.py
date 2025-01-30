@@ -11,7 +11,7 @@ import ctrl
 import argparse
 import recipeReader
 import json
-import equipment
+import equipment.allEquipment
 import os
 import xml.etree.ElementTree
 import checker.equipment
@@ -66,7 +66,7 @@ if __name__ == "__main__":
     equipmentName = e.find('Data').find('Recipe').find('F_R_EQUIPMENT').find('F_E_NAME').text
     print('Equipment: {}'.format(equipmentName))
     mypath = os.path.dirname(os.path.realpath(__file__))
-    availableEquipment = equipment.allEquipment(mypath + '/equipment/*.yaml')
+    availableEquipment = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     myEquipment = availableEquipment.get(equipmentName)
     controllers = ctrl.setupControllers(False, True, True, myEquipment)
 
