@@ -12,7 +12,6 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import getopt
 import ctrl
-import recipeReader
 import checker.equipment
 import logging
 import threading

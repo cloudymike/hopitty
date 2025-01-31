@@ -2,7 +2,7 @@ import json
 import stages2beer.s2b
 import ctrl
 import appliances
-import recipeReader
+import recipeReader.readRecipe
 import inspect
 import time
 
@@ -158,14 +158,14 @@ def test_ThreadEdgeCases():
 
 
 def test_quickRun():
-    r = recipeReader.jsonStages(simpleStages(), simpleCtrl())
+    r = recipeReader.readRecipe.jsonStages(simpleStages(), simpleCtrl())
     a = stages2beer.s2b.s2b(simpleCtrl(), r.getStages())
     assert a.quickRun()
     print myname(), "OK"
 
 
 def test_check():
-    r = recipeReader.jsonStages(simpleStages(), simpleCtrl())
+    r = recipeReader.readRecipe.jsonStages(simpleStages(), simpleCtrl())
     a = stages2beer.s2b.s2b(simpleCtrl(), r.getStages())
     assert a.check()
     print myname(), "OK"
@@ -178,7 +178,7 @@ def test_getStages():
        json string
        dict
     """
-    r1 = recipeReader.jsonStages(simpleStages(), simpleCtrl())
+    r1 = recipeReader.readRecipe.jsonStages(simpleStages(), simpleCtrl())
     a1 = stages2beer.s2b.s2b(simpleCtrl(), r1.getStages())
     stages1 = a1.getStages()
     assert isinstance(stages1, dict)

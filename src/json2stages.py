@@ -9,7 +9,7 @@ import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
 import ctrl
 import argparse
-import recipeReader
+import recipeReader.readRecipe
 import json
 import equipment.allEquipment
 import os
@@ -58,7 +58,7 @@ if __name__ == "__main__":
             sys.exit(1)
     jsonStr = inf.read()
     inf.close()
-    jsonObj = recipeReader.jsonStages(jsonStr, controllers)
+    jsonObj = recipeReader.readRecipe.jsonStages(jsonStr, controllers)
     stagesStr = jsonObj.getStages()
     json.dump(stagesStr, outf, sort_keys=True,
                            indent=2, separators=(',', ': '))

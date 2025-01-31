@@ -1,5 +1,5 @@
 import os
-import recipeReader
+import recipeReader.parseBSMX
 import inspect
 import xml.dom.minidom
 import sys
@@ -165,7 +165,7 @@ def testSimpleBSMX():
         print("...", name)
         recipeObjBsmx = rl.getRecipe(name)
         recipeBSMX = recipeObjBsmx.getBSMXdoc()
-        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+        recipeObjParsed = recipeReader.parseBSMX.bsmxStages(recipeBSMX, controllers)
         print(recipeObjParsed.getEquipment())
         print(recipeObjParsed.getStages())
 
@@ -183,7 +183,7 @@ def testOneFullBSMX():
     recipeObj = rl.getRecipe('17 Falconers Flight IPA')
     recipeBSMX = recipeObj.getBSMXstring()
     print(recipeBSMX)
-    recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+    recipeObjParsed = recipeReader.parseBSMX.bsmxStages(recipeBSMX, controllers)
     print(recipeObjParsed.getEquipment())
     s = recipeObjParsed.getStages()
     assert(s != {})

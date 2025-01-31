@@ -9,7 +9,7 @@ import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
 import ctrl
 import argparse
-import recipeReader
+import recipeReader.parseBSMX
 import json
 import equipment.allEquipment
 import os
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     myEquipment = availableEquipment.get(equipmentName)
     controllers = ctrl.setupControllers(False, True, True, myEquipment)
 
-    bsmxObj = recipeReader.bsmxStages(bsmxStr, controllers)
+    bsmxObj = recipeReader.parseBSMX.bsmxStages(bsmxStr, controllers)
     stagesStr = bsmxObj.getStages()
     if stagesStr is None:
         print('Error: Invalid recipe')

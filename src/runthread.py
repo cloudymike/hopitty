@@ -8,7 +8,8 @@ sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import argparse
 import ctrl
-import recipeReader
+import recipeReader.parseBSMX
+import recipeReader.readRecipe
 import stages2beer.s2b
 import checker.equipment
 import logging
@@ -127,14 +128,14 @@ if __name__ == "__main__":
 
     # Read one of the recipe files
     if args.file != "":
-        j = recipeReader.jsonStages(args.file, controllers)
+        j = recipeReader.readRecipe.jsonStages(args.file, controllers)
         if not j.isValid():
             logging.error("Error: bad json recipe")
         else:
             recipeName = j.getRecipeName()
             stages = j.getStages()
     elif args.bsmx != "" :
-        b = recipeReader.bsmxStages(args.bsmx, controllers)
+        b = recipeReader.parseBSMX.bsmxStages(args.bsmx, controllers)
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
             sys.exit(1)
@@ -142,7 +143,7 @@ if __name__ == "__main__":
             recipeName = b.getRecipeName()
             stages = b.getStages()
     elif args.download != "":
-        b = recipeReader.bsmxStages(bsmxStr, controllers)
+        b = recipeReader.parseBSMX.bsmxStages(bsmxStr, controllers)
         if not b.isValid():
             logging.error("Error: bad bsmx recipe")
             sys.exit(1)

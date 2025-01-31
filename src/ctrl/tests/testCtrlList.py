@@ -7,7 +7,7 @@ import appliances.hotWaterTun
 import appliances.hwPump
 #import ctrl.controllers
 import ctrl
-import recipeReader
+import recipeReader.readRecipe
 import appliances.circulationPump
 
 
@@ -30,15 +30,15 @@ def testReadStages():
 
     print os.getcwd()
     try:
-        js = recipeReader.jsonStages('src/ctrl/tests/json_data', ctrl1)
+        js = recipeReader.readRecipe.jsonStages('src/ctrl/tests/json_data', ctrl1)
     except:
         try:
-            js = recipeReader.jsonStages('ctrl/tests/json_data', ctrl1)
+            js = recipeReader.readRecipe.jsonStages('ctrl/tests/json_data', ctrl1)
         except:
             try:
-                js = recipeReader.jsonStages('tests/json_data', ctrl1)
+                js = recipeReader.readRecipe.jsonStages('tests/json_data', ctrl1)
             except:
-                js = recipeReader.jsonStages('json_data', ctrl1)
+                js = recipeReader.readRecipe.jsonStages('json_data', ctrl1)
     #js = ctrl.jsonStages(data, ctrl1)
     stages = js.getStages()
     assert len(stages) > 0
