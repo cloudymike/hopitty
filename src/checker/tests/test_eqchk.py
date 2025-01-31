@@ -8,7 +8,12 @@ testing of equipment checker, module eqchk
 import inspect
 import checker.equipment
 import ctrl.controllers
-import appliances
+import appliances.genctrl
+import appliances.hoptimer
+import appliances.boiler
+import appliances.circulationPump
+import appliances.hotWaterTun
+import appliances.hwPump
 
 
 def printMyname():
@@ -20,7 +25,7 @@ def simpleCtrl():
     Very simple controller for testingt
     """
     ctrl1 = ctrl.controllers.controllerList()
-    ctrl1.addController('genctrl', appliances.genctrl())
+    ctrl1.addController('genctrl', appliances.genctrl.genctrl())
     return(ctrl1)
 
 
@@ -75,13 +80,13 @@ def simpleStages():
 def mediumCtrl():
     """Instantiate a list of several controllers"""
     ctrl1 = ctrl.controllers.controllerList()
-    ctrl1.addController('genctrl', appliances.genctrl())
-    ctrl1.addController('timer', appliances.hoptimer())
-    ctrl1.addController('hotWaterPump', appliances.hwPump())
-    ctrl1.addController('circulationPump', appliances.circulationPump())
-    ctrl1.addController('wortPump', appliances.wortPump())
+    ctrl1.addController('genctrl', appliances.genctrl.genctrl())
+    ctrl1.addController('timer', appliances.hoptimer.hoptimer())
+    ctrl1.addController('hotWaterPump', appliances.hwPump.hwPump())
+    ctrl1.addController('circulationPump', appliances.circulationPump.circulationPump())
+    ctrl1.addController('wortPump', appliances.hwPump.wortPump())
     ctrl1.addController('waterHeater', appliances.hotWaterTun.hwt())
-    ctrl1.addController('boiler', appliances.boiler())
+    ctrl1.addController('boiler', appliances.boiler.boiler())
     return(ctrl1)
 
 

@@ -6,7 +6,9 @@ import sys
 import ctrl.controllers
 import ctrl.setupControllers
 import equipment.allEquipment
-import appliances
+import appliances.controllerinfo
+import appliances.boiler
+import appliances.hwPump
 
 
 def simpleBsmx():
@@ -805,9 +807,9 @@ Examples: Anchor Steam, Old Peculiar, </F_H_NOTES>
 
 def ctrlBsmxList():
     retlst = ctrl.controllers.controllerList()
-    retlst.addController('controllerInfo', appliances.controllerinfo())
-    retlst.addController('wortPump', appliances.wortPump())
-    retlst.addController('boiler', appliances.boiler())
+    retlst.addController('controllerInfo', appliances.controllerinfo.controllerinfo())
+    retlst.addController('wortPump', appliances.hwPump.wortPump())
+    retlst.addController('boiler', appliances.boiler.boiler())
     #retlst = ['wortPump', 'boiler']
     return(retlst)
 
