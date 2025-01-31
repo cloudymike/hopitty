@@ -5,7 +5,7 @@ Created on Nov 20, 2013
 '''
 # import subprocess
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 import switches
 
 
@@ -21,7 +21,7 @@ class mashHeater(appliances.genctrl):
         self.active = False
         self.target = 150.0
         self.unit = 'F'
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.simulation = False
         self.actual = 70.0
 

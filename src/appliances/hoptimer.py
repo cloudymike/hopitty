@@ -1,6 +1,6 @@
 import time
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class hoptimer(appliances.genctrl):
@@ -17,7 +17,7 @@ class hoptimer(appliances.genctrl):
         self.absminutes = time.localtime(time.time()).tm_sec / 60.0
         self.unit = 'min'
         self.powerOn = False
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
 
     def __del__(self):
         pass

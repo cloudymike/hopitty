@@ -1,6 +1,6 @@
 # import subprocess
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class hwt(appliances.genctrl):
@@ -11,7 +11,7 @@ class hwt(appliances.genctrl):
         self.active = False
         self.presetTemp = 40.0
         self.unit = 'F'
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
