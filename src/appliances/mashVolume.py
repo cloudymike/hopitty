@@ -4,7 +4,7 @@ Created on Oct 17, 2012
 @author: mikael
 '''
 
-import sensors
+import sensors.dymorugged
 import switches
 
 
@@ -30,7 +30,7 @@ class mashVolume():
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
         self.switch = switches.simSwitch
-        self.sensor = sensors.dymorugged()
+        self.sensor = sensors.dymorugged.dymorugged()
         self.grainVol = self.sensor.getValue()
 
     def __del__(self):

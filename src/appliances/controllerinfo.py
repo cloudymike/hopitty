@@ -1,6 +1,6 @@
 import time
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class controllerinfo(appliances.genctrl):
@@ -16,7 +16,7 @@ class controllerinfo(appliances.genctrl):
         self.active = False
         self.unit = 'U'
         self.powerOn = 'False'
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         
         self.equipment = {}
 

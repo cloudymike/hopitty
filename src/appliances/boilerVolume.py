@@ -5,7 +5,7 @@ Created on Oct 17, 2012
 '''
 
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 import switches
 import logging
 
@@ -32,7 +32,7 @@ class boilerVolume(appliances.genctrl):
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
         self.switch = switches.simSwitch  # Switch object. Should have method on and off
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.host = None
         self.acc = 0
         self.current = 0

@@ -1,5 +1,5 @@
 import pyboardread
-import sensors
+import sensors.genericSensor
 import time
 import sys
 import traceback
@@ -33,7 +33,7 @@ class tempSensorDict():
         return(self.sensorDict[ROM])
 
 
-class pyboardTempSensor(sensors.genericSensor):
+class pyboardTempSensor(sensors.genericSensor.genericSensor):
 
     def __init__(self, ROM="", device=None):
         self.errorState = False

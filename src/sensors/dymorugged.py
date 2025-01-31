@@ -7,12 +7,12 @@ import time
 import logging
 import sys
 sys.path.append('..')
-import sensors
+import sensors.genericSensor
 
 VENDOR_ID  = 0x0922
 PRODUCT_ID = 0x8007
 
-class dymorugged(sensors.genericSensor):
+class dymorugged(sensors.genericSensor.genericSensor):
 
     def __init__(self):
         self.errorState = False

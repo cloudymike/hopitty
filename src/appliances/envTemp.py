@@ -1,5 +1,5 @@
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class envTemp(appliances.genctrl):
@@ -14,7 +14,7 @@ class envTemp(appliances.genctrl):
         self.target = 72
         self.unit = 'F'
         #self.sensor = sensors.envTempSensor()
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.actual = 100
 
     def measure(self):

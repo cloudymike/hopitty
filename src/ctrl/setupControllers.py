@@ -5,7 +5,7 @@ import ctrl.controllers
 import recipeReader
 import appliances.boiler
 import switches
-import sensors
+import sensors.pyboardTempSensor
 import sys
 import logging
 import equipment.allEquipment
@@ -39,7 +39,7 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     else:
         switch12v = switches.simSwitchList()
 
-    tempSensors = sensors.tempSensorDict()
+    tempSensors = sensors.pyboardTempSensor.tempSensorDict()
 
     logging.debug("Setting up appliances")
 

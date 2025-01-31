@@ -2,7 +2,7 @@
 
 import time
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class circulationPump(appliances.genctrl):
@@ -23,7 +23,7 @@ class circulationPump(appliances.genctrl):
         self.SEC_PER_QUART = 39.0
         self.unit = None
         self.pumpMotor = None
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
 
     def connectSwitch(self, switch):
         """

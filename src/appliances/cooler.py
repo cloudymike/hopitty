@@ -1,6 +1,6 @@
 # import subprocess
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class cooler(appliances.genctrl):
@@ -16,7 +16,7 @@ class cooler(appliances.genctrl):
         self.unit = 'F'
         # self.sensor = sensors.temperCoolerSensor()
         # Set a generic sensor, later swap for same sensor as boiler.
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):
