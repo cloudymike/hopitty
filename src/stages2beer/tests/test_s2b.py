@@ -1,6 +1,6 @@
 import json
 import stages2beer.s2b
-import ctrl
+import ctrl.controllers
 import appliances
 import recipeReader.readRecipe
 import inspect
@@ -12,7 +12,7 @@ def myname():
 
 
 def simpleCtrl():
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     return(ctrl1)
 
@@ -81,7 +81,7 @@ def multiTimerDict():
 
 def mediumCtrl():
     """Instantiate a list of several controllers"""
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('pump', appliances.hwPump())
@@ -93,7 +93,7 @@ def mediumCtrl():
 
 def timerCtrl():
     """Instantiate a list of several controllers"""
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('timer', appliances.hoptimer())
     return(ctrl1)
 

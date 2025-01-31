@@ -2,7 +2,7 @@ import appliances.boiler
 import appliances.hoptimer
 #import appliances.hotWaterTun
 import appliances.hwPump
-import ctrl
+import ctrl.controllers
 import appliances.circulationPump
 #import switches
 
@@ -12,7 +12,7 @@ def createCtrl():
     #cirsw = switches.simSwitch()
     #pumpsw = switches.simSwitch()
 
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('pump', appliances.hwPump())
@@ -30,7 +30,7 @@ def testss1():
 
 
 def testss2():
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     assert len(ctrl1) > 0
     ctrl1.shutdown()
@@ -38,7 +38,7 @@ def testss2():
 
 
 def testStatus():
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     assert len(ctrl1) > 0
     status = ctrl1.status()
@@ -46,7 +46,7 @@ def testStatus():
 
 
 def testStartStop():
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     settings = {}
     for key, c in ctrl1.items():
@@ -62,7 +62,7 @@ def testStartStop():
 
 
 def testTarget():
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         testVal = 3.1415926
@@ -73,7 +73,7 @@ def testTarget():
 
 
 def testTargetMet():
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         curVal = c.get()
@@ -95,7 +95,7 @@ def testUnit():
     """
     Test that unit is a string
     """
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         s = c.getUnit()
@@ -109,7 +109,7 @@ def testHWOK():
     Test that HWOK is a boolean
     More importantly, test that HWOK is implemented and does not crash
     """
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         s = c.HWOK()
@@ -121,7 +121,7 @@ def testVal():
     """
     Test that current value and target value is a number
     """
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         a = c.get()
@@ -134,7 +134,7 @@ def testPowerOn():
     """
     Test that power is off after stop, and it is a boolean
     """
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         print key
@@ -146,7 +146,7 @@ def testError():
     """
     Test that power is off after stop, and it is a boolean
     """
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
         print key

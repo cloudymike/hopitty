@@ -1,7 +1,7 @@
 
 import time
 import datetime
-import ctrl
+import ctrl.controllers
 import recipeReader
 import appliances.boiler
 import switches
@@ -12,7 +12,7 @@ import equipment.allEquipment
 
 
 def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
-    controllers = ctrl.controllerList(HWlock)
+    controllers = ctrl.controllers.controllerList(HWlock)
     # The controllerinfo is a special snowflake that stores some extra global controller info
     # It does not do anything intelligent itherwise and will always meet target
     controllers.addController('controllerInfo', appliances.controllerinfo())

@@ -1,5 +1,5 @@
 import appliances.myloader
-import ctrl
+import ctrl.controllers
 
 
 def testlistbuild():
@@ -23,7 +23,7 @@ def testget():
 
 
 def testloadcontroller():
-    c = ctrl.controllerList()
+    c = ctrl.controllers.controllerList()
     l = appliances.myloader.myQuickLoader()
     l.build()
     for className, instance in l.instances().iteritems():
@@ -33,7 +33,7 @@ def testloadcontroller():
 
 
 def testloadlist():
-    c = ctrl.controllerList()
+    c = ctrl.controllers.controllerList()
     l = appliances.myloader.myQuickLoader()
     l.build()
     c.addControllerList(l.instances())
@@ -41,6 +41,6 @@ def testloadlist():
 
 
 def testloadself():
-    c = ctrl.controllerList()
+    c = ctrl.controllers.controllerList()
     c.load()
     assert len(c) > 0

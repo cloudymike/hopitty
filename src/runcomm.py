@@ -11,7 +11,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import getopt
-import ctrl
+import ctrl.setupControllers
 import checker.equipment
 import logging
 import threading
@@ -116,7 +116,7 @@ if __name__ == "__main__":
     if args.equipment:
         args.simulate = False
 
-    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment)
+    controllers = ctrl.setupControllers.setupControllers(args.verbose, args.simulate, permissive, myequipment)
     if args.equipment:
         if controllers.HWOK():
             logging.info('USB devices connected')

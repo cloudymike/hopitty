@@ -7,7 +7,7 @@ Runs basic checks against controllers
 
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
-import ctrl
+import ctrl.setupControllers
 import argparse
 import recipeReader.parseBSMX
 import json
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     mypath = os.path.dirname(os.path.realpath(__file__))
     availableEquipment = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     myEquipment = availableEquipment.get(equipmentName)
-    controllers = ctrl.setupControllers(False, True, True, myEquipment)
+    controllers = ctrl.setupControllers.setupControllers(False, True, True, myEquipment)
 
     bsmxObj = recipeReader.parseBSMX.bsmxStages(bsmxStr, controllers)
     stagesStr = bsmxObj.getStages()

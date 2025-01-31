@@ -7,7 +7,7 @@ testing of equipment checker, module eqchk
 '''
 import inspect
 import checker.equipment
-import ctrl
+import ctrl.controllers
 import appliances
 
 
@@ -19,7 +19,7 @@ def simpleCtrl():
     """
     Very simple controller for testingt
     """
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     return(ctrl1)
 
@@ -74,7 +74,7 @@ def simpleStages():
 
 def mediumCtrl():
     """Instantiate a list of several controllers"""
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('hotWaterPump', appliances.hwPump())

@@ -11,7 +11,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import getopt
-import ctrl
+import ctrl.setupControllers
 import logging
 import time
 import json
@@ -293,7 +293,7 @@ if __name__ == "__main__":
     if args.equipment:
         args.simulate = False
 
-    controllers = ctrl.setupControllers(args.verbose, args.simulate, permissive, myequipment, False)
+    controllers = ctrl.setupControllers.setupControllers(args.verbose, args.simulate, permissive, myequipment, False)
     if args.equipment:
         if controllers.HWOK():
             logger.info('USB devices connected')

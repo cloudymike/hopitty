@@ -7,7 +7,7 @@ Also pushes recipe name list to memcache for use by web pages
 
 import sys
 import getpass
-import ctrl
+import ctrl.setupControllers
 import argparse
 from os import path, access, R_OK  # W_OK for write permission.
 import checker.equipment
@@ -110,7 +110,7 @@ if __name__ == "__main__":
 
     for equipmentName, equipment in listOfEquipment.items():
         print('Equipment: {}'.format(equipmentName))
-        controllers = ctrl.setupControllers(args.verbose, False, True, equipment)
+        controllers = ctrl.setupControllers.setupControllers(args.verbose, False, True, equipment)
         recipelist = readRecipeFile(controllers,
                                 args.beersmithfile,
                                 args.user,
