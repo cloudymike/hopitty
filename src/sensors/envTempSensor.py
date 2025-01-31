@@ -1,6 +1,6 @@
 import sys
 sys.path.append('..')
-import sensors
+import sensors.genericSensor
 import time
 import serial
 import logging
@@ -13,7 +13,7 @@ altPortName = \
     '/dev/serial/by-id/pci-Microchip_Technology_Inc._CDC_RS-232_Emulation_Demo-if00'
 
 
-class envTempSensor(sensors.genericSensor):
+class envTempSensor(sensors.genericSensor.genericSensor):
     def __init__(self):
         self.id = 'mashTemp'
         self.errorState = False

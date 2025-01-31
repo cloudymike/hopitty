@@ -1,10 +1,10 @@
-import sensors
+import sensors.genericSensor
 import subprocess
 import os
 import random
 
 
-class mashScaleSensor(sensors.genericSensor):
+class mashScaleSensor(sensors.genericSensor.genericSensor):
 
     def __init__(self):
         self.errorState = False

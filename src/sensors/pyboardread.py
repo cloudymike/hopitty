@@ -1,6 +1,6 @@
 import sys
 sys.path.append('..')
-import sensors
+import sensors.genericSensor
 import time
 import serial
 import logging
