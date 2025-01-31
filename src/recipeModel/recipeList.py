@@ -11,7 +11,7 @@ from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import scoped_session
 
-import recipeReader
+import recipeReader.parseBSMX
 import xml.dom.minidom
 import requests
 
@@ -62,11 +62,11 @@ class RecipeList():
         if not cloudRecipes:
             cloudRecipes = doc.getElementsByTagName("Recipes")
         for recipe in cloudRecipes:
-            name = recipeReader.bsmxReadString(recipe, "F_R_NAME")
+            name = recipeReader.parseBSMX.bsmxReadString(recipe, "F_R_NAME")
             print("....reading {}".format(name))
             xmlstring = recipe.toxml()
             if self.session.query(Recipe).filter_by(name=name).first() is None:
-                equipment = recipeReader.bsmxReadString(recipe, "F_E_NAME")
+                equipment = recipeReader.parseBSMX.bsmxReadString(recipe, "F_E_NAME")
                 r = Recipe(name=name,
                            equipment=equipment,
                            bsmx=xmlstring)

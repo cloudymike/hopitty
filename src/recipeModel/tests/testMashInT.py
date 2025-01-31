@@ -1,6 +1,6 @@
 
 import os
-import recipeReader
+import recipeReader.parseBSMX
 import inspect
 import xml.dom.minidom
 import sys
@@ -179,9 +179,9 @@ def testElaborateBSMX():
         print("...", name)
         recipeObjBsmx = rl.getRecipe(name)
         recipeBSMX = recipeObjBsmx.getBSMXdoc()
-        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+        recipeObjParsed = recipeReader.parseBSMX.bsmxStages(recipeBSMX, controllers)
 
-        Tstrike = recipeReader.strikeTemp(recipeObjParsed, 60)
+        Tstrike = recipeReader.mashProfiles.strikeTemp(recipeObjParsed, 60)
         print("Strike temperature ",  Tstrike)
 
     print(myname(), "OK")
@@ -199,7 +199,7 @@ def testOneFullBSMX():
     recipeObj = rl.getRecipe('17 Falconers Flight IPA')
     recipeBSMX = recipeObj.getBSMXstring()
     print(recipeBSMX)
-    recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+    recipeObjParsed = recipeReader.parseBSMX.bsmxStages(recipeBSMX, controllers)
     print(recipeObjParsed.getEquipment())
     s = recipeObjParsed.getStages()
     assert(s != {})
