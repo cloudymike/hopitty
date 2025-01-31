@@ -7,7 +7,7 @@ sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import argparse
-import ctrl
+import ctrl.setupControllers
 import checker.equipment
 import logging
 import threading
@@ -82,7 +82,7 @@ if __name__ == "__main__":
     e = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
 
-    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myequipment, False)
+    controllers = ctrl.setupControllers.setupControllers(args.verbose, simulation, permissive, myequipment, False)
     if args.equipment:
         if controllers.HWOK():
             logging.info('USB devices connected')

@@ -10,7 +10,6 @@
 # Help functions are included to get and check data.
 
 import time
-import ctrl
 import json
 #from threading import Thread
 import threading

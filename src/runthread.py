@@ -7,7 +7,8 @@ sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
 sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import argparse
-import ctrl
+import ctrl.setupControllers
+import ctrl.datalog
 import recipeReader.parseBSMX
 import recipeReader.readRecipe
 import stages2beer.s2b
@@ -114,7 +115,7 @@ if __name__ == "__main__":
 
     logging.info('Equipment: {}'.format(myEquipment['equipmentName']))
     
-    controllers = ctrl.setupControllers(args.verbose, simulation, permissive, myEquipment)
+    controllers = ctrl.setupControllers.setupControllers(args.verbose, simulation, permissive, myEquipment)
     if controllers is None:
         logging.error('No controllers')
         sys.exit(1)
@@ -163,7 +164,7 @@ if __name__ == "__main__":
 
     if (stages != {}) and (stages is not None):
         brun = stages2beer.s2b.s2b(controllers, stages)
-        dl = ctrl.datalogger(controllers)
+        dl = ctrl.datalog.datalogger(controllers)
 
         if args.checkonly:
             if brun.check():

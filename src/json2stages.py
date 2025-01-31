@@ -7,7 +7,7 @@ Also pushes recipe name list to memcache for use by web pages
 
 import sys
 sys.path.append("/home/mikael/workspace/hoppity/src")
-import ctrl
+import ctrl.setupControllers
 import argparse
 import recipeReader.readRecipe
 import json
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     else:
         myequipment = e.get(args.equipment)
     print(myequipment)
-    controllers = ctrl.setupControllers(False, True, True, myequipment)
+    controllers = ctrl.setupControllers.setupControllers(False, True, True, myequipment)
     if args.inputfile is None:
         inf = sys.stdin
     else:
