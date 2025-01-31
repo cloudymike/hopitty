@@ -11,7 +11,7 @@ import ctrl
 import argparse
 from os import path, access, R_OK  # W_OK for write permission.
 import checker.equipment
-import recipeReader
+import recipeReader.parseBSMX
 import recipeModel.recipeList
 import logging
 import equipment.allEquipment
@@ -64,7 +64,7 @@ def updateRecipes(rl, bsmxfile, download):
     for recipeName in iterlist:
         recipeObjBsmx = rl.getRecipe(recipeName)
         recipeBSMX = recipeObjBsmx.getBSMXstring()
-        recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers)
+        recipeObjParsed = recipeReader.parseBSMX.bsmxStages(recipeBSMX, controllers)
         if not recipeObjParsed.isValid():
             deleteList.append(recipeName)
             logging.info("**********Fail on parseBSMX:" + recipeName)
@@ -120,7 +120,7 @@ if __name__ == "__main__":
             print('    Recipe: {}'.format(recipeName))
             recipeObjBsmx = recipelist.getRecipe(recipeName)
             recipeBSMX = recipeObjBsmx.getBSMXstring()
-            recipeObjParsed = recipeReader.bsmxStages(recipeBSMX, controllers, True)
+            recipeObjParsed = recipeReader.parseBSMX.bsmxStages(recipeBSMX, controllers, True)
             recipeStages = recipeObjParsed.getStages()
             #print(recipeStages)
             recipe4list = {}
