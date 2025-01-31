@@ -1,5 +1,5 @@
 import appliances
-import ctrl
+import ctrl.controllers
 
 
 def testGenSensor():
@@ -10,7 +10,7 @@ def testGenSensor():
 
 
 def testSensors():
-    clist = ctrl.controllerList()
+    clist = ctrl.controllers.controllerList()
     clist.load()
     for key, c1 in clist.items():
         print "Checking sensor", key

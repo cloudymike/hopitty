@@ -3,7 +3,8 @@ import recipeReader.parseBSMX
 import inspect
 import xml.dom.minidom
 import sys
-import ctrl
+import ctrl.controllers
+import ctrl.setupControllers
 import equipment.allEquipment
 import appliances
 
@@ -803,7 +804,7 @@ Examples: Anchor Steam, Old Peculiar, </F_H_NOTES>
 
 
 def ctrlBsmxList():
-    retlst = ctrl.controllerList()
+    retlst = ctrl.controllers.controllerList()
     retlst.addController('controllerInfo', appliances.controllerinfo())
     retlst.addController('wortPump', appliances.wortPump())
     retlst.addController('boiler', appliances.boiler())
@@ -943,7 +944,7 @@ def test_GoodRecipe():
     e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot')
     bx = recipeReader.parseBSMX.bsmxStages(goodRecipe(),
-                                 ctrl.setupControllers(False, True, True, myequipment))
+                                 ctrl.setupControllers.setupControllers(False, True, True, myequipment))
     assert bx.isValid()
     print(myname(), "OK")
 
@@ -953,7 +954,7 @@ def test_badTunDeadSpace():
     e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
     bx = recipeReader.parseBSMX.bsmxStages(badTunDeadSpaceBsmx(),
-                                 ctrl.setupControllers(False, True, True, myequipment))
+                                 ctrl.setupControllers.setupControllers(False, True, True, myequipment))
     print(bx.getTunDeadSpace())
     print(bx.getRecipeName())
     print(bx.isValid())
@@ -1109,13 +1110,13 @@ def test_isValid():
     e = equipment.allEquipment.allEquipment('src/equipment/*.yaml')
     myequipment = e.get('Grain 2.5G, 5Gcooler, 4Gpot')
     cx = recipeReader.parseBSMX.bsmxStages(elaborateBsmx(),
-                                 ctrl.setupControllers(False, True, True, myequipment))
+                                 ctrl.setupControllers.setupControllers(False, True, True, myequipment))
     assert not cx.isValid()
     cp = os.path.dirname(__file__)
     print(cp)
     rp = cp + "/../../beersmith/18RuneStoneIPA.bsmx"
     print(rp)
-    dx = recipeReader.parseBSMX.bsmxStages(rp, ctrl.setupControllers(False, True, True, myequipment))
+    dx = recipeReader.parseBSMX.bsmxStages(rp, ctrl.setupControllers.setupControllers(False, True, True, myequipment))
     assert dx.isValid()
     print(myname(), "OK")
 

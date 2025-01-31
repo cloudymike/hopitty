@@ -5,8 +5,7 @@ from pprint import pprint
 import appliances.hoptimer
 import appliances.hotWaterTun
 import appliances.hwPump
-#import ctrl.controllers
-import ctrl
+import ctrl.controllers
 import recipeReader.readRecipe
 import appliances.circulationPump
 
@@ -14,7 +13,7 @@ import appliances.circulationPump
 def createCtrl():
     """Instantiate a list of all controllers"""
 
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('pump', appliances.hwPump())
@@ -39,7 +38,6 @@ def testReadStages():
                 js = recipeReader.readRecipe.jsonStages('tests/json_data', ctrl1)
             except:
                 js = recipeReader.readRecipe.jsonStages('json_data', ctrl1)
-    #js = ctrl.jsonStages(data, ctrl1)
     stages = js.getStages()
     assert len(stages) > 0
     pprint(stages)

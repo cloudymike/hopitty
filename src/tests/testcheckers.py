@@ -1,8 +1,7 @@
 import os
 from pprint import pprint
 #import appliances.myloader
-#import ctrl.controllers
-import ctrl
+import ctrl.controllers
 import ctrl.checkers
 import recipeReader.readRecipe
 import appliances
@@ -11,7 +10,7 @@ import appliances
 def createCtrl():
     """Instantiate a list of all controllers"""
 
-    ctrl1 = ctrl.controllerList()
+    ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('generic', appliances.genctrl())
     ctrl1.addController('timer', appliances.hoptimer())
     ctrl1.addController('pump', appliances.hwPump())
@@ -23,7 +22,7 @@ def createCtrl():
 
 def testRecipeCheck():
     ctrl1 = createCtrl()
-    #ctrl1 = ctrl.controllerList()
+    #ctrl1 = ctrl.controllers.controllerList()
     #ctrl1.load()
 
     print len(ctrl1)
@@ -42,7 +41,6 @@ def testRecipeCheck():
                 js = recipeReader.readRecipe.jsonStages('tests/json_data', ctrl1)
             except:
                 js = recipeReader.readRecipe.jsonStages('json_data', ctrl1)
-    #js = ctrl.jsonStages(data, ctrl1)
     stages = js.getStages()
     assert len(stages) > 0
     print "========================"
@@ -56,6 +54,6 @@ def testRecipeCheck():
 
 
 def testcheck2():
-    c = ctrl.controllerList()
+    c = ctrl.controllers.controllerList()
     c.load()
     assert len(c) > 0
