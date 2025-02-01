@@ -17,22 +17,28 @@ RUN apt install -y build-essential
 RUN apt install -y curl
 RUN apt install -y jq
 RUN apt install -y wget
-RUN apt install -y python2
+#RUN apt install -y python2
+#RUN apt update
+#RUN apt install -y python-pip
+
+RUN apt install -y python3
 RUN apt update
-RUN apt install -y python-pip
+RUN apt install -y python3-pip
 
 COPY ../../requirements.txt /requirements.txt
-RUN /usr/bin/pip2 install -r /requirements.txt
+#RUN /usr/bin/pip2 install -r /requirements.txt
+RUN /usr/bin/pip3 install -r /requirements.txt
 
 COPY . .
 
 #RUN cd phidget/PhidgetsPython
-RUN cd /hopitty/phidget/PhidgetsPython && python2 setup.py install
+#RUN cd /hopitty/phidget/PhidgetsPython && python2 setup.py install
+RUN cd /hopitty/phidget/PhidgetsPython && python3 setup.py install
 #RUN cd /hopitty
 
-RUN apt install -y python3
-RUN apt install -y python3-pip
-RUN python3 -m pip install -r src/onlinebeersmith/requirements.txt
+#RUN apt install -y python3
+#RUN apt install -y python3-pip
+#RUN python3 -m pip install -r src/onlinebeersmith/requirements.txt
 
 
 #CMD ["sleep", "infinity"]
