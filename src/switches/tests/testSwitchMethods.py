@@ -19,7 +19,7 @@ def test_error():
     """
     allS = mySwitchLoader.mySwitchLoader()
     allS.build()
-    for sname, sobj in allS.instances().iteritems():
+    for sname, sobj in allS.instances().items():
         assert not sobj.hasError()
         sobj.forceError()
         assert sobj.hasError()
@@ -34,7 +34,7 @@ def test_on():
     """
     allS = mySwitchLoader.mySwitchLoader()
     allS.build()
-    for sname, sobj in allS.instances().iteritems():
+    for sname, sobj in allS.instances().items():
         sobj.on()
         sobj.off()
         assert not sobj.hasError()
@@ -47,7 +47,7 @@ def test_HWOK():
     """
     allS = mySwitchLoader.mySwitchLoader()
     allS.build()
-    for sname, sobj in allS.instances().iteritems():
+    for sname, sobj in allS.instances().items():
         print(sname, sobj.HWOK())
         assert not sobj.HWOK()
 

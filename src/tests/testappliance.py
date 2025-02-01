@@ -17,7 +17,7 @@ def testlistbuild():
 def testget():
     l = appliances.myloader.myQuickLoader()
     l.build()
-    for className, instance in l.instances().iteritems():
+    for className, instance in l.instances().items():
         x = instance.get()
         assert isinstance(x, int) or isinstance(x, float)
 
@@ -26,7 +26,7 @@ def testloadcontroller():
     c = ctrl.controllers.controllerList()
     l = appliances.myloader.myQuickLoader()
     l.build()
-    for className, instance in l.instances().iteritems():
+    for className, instance in l.instances().items():
         print(className)
         c.addController(className, instance)
     assert len(c) > 0

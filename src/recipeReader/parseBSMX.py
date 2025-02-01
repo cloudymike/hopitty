@@ -1,5 +1,9 @@
+# This allows to run this as a script, in the "wrong" directory
+import sys
+sys.path.append('..')
+
 import xml.dom.minidom
-import mashProfiles
+import recipeReader.mashProfiles
 import logging
 import sys
 
@@ -49,7 +53,7 @@ class bsmxStages():
                 self.valid = False
         if self.valid:
             try:
-                self.stages = mashProfiles.txBSMXtoStages(self)
+                self.stages = recipeReader.mashProfiles.txBSMXtoStages(self)
             except:
                 self.valid = False
         if self.valid:

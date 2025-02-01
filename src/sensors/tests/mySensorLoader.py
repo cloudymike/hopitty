@@ -73,7 +73,7 @@ class mySensorLoader:
         This will instantiate one copy of each class found and adding them
         to the myInstances dictionary.
         """
-        for className, aClass in self.myClassCollection.iteritems():
+        for className, aClass in self.myClassCollection.items():
             self.myInstances[className] = aClass()
 
     def list(self):
@@ -82,7 +82,7 @@ class mySensorLoader:
         and try one call to them, just for test
         """
         print("============= Listing instantiated classes =============")
-        for className, anInstance in self.myInstances.iteritems():
+        for className, anInstance in self.myInstances.items():
             print('Instance of Class', className, 'has ID', anInstance.getID())
 
 

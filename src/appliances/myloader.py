@@ -51,6 +51,7 @@ class myQuickLoader:
                     aClass = getattr(submodule, aName)
                     if hasattr(aClass, "__init__") and \
                         hasattr(aClass, "__module__") and \
+                        hasattr(aClass, "hasError") and \
                         aName != "myQuickLoader" :
                         print("Adding class {}".format(aName))
                         localClassCollection[aName] = aClass
@@ -70,7 +71,8 @@ class myQuickLoader:
         to the myInstances dictionary.
         """
         print("====Building....=====")
-        for className, aClass in self.myClassCollection.iteritems():
+        for className, aClass in self.myClassCollection.items():
+            print(className)
             self.myInstances[className] = aClass()
 
     def list(self):
@@ -79,7 +81,7 @@ class myQuickLoader:
         and try one call to them, just for test
         """
         print("============= Listing instantiated classes =============")
-        for className, anInstance in self.myInstances.iteritems():
+        for className, anInstance in self.myInstances.items():
             print('Instance of Class', className, 'has', anInstance.get())
 
 if __name__ == "__main__":

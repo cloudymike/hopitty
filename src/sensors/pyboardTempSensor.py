@@ -1,4 +1,4 @@
-import pyboardread
+import sensors.pyboardread
 import sensors.genericSensor
 import time
 import sys
