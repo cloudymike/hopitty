@@ -4,13 +4,10 @@ import appliances.hoptimer
 import appliances.hwPump
 import ctrl.controllers
 import appliances.circulationPump
-#import switches
 
 
 def createCtrl():
     """Instantiate a list of all controllers"""
-    #cirsw = switches.simSwitch()
-    #pumpsw = switches.simSwitch()
 
     ctrl1 = ctrl.controllers.controllerList()
     ctrl1.addController('genctrl', appliances.genctrl())

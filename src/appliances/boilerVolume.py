@@ -6,7 +6,7 @@ Created on Oct 17, 2012
 
 import appliances.genctrl
 import sensors.genericSensor
-import switches
+import switches.simSwitch
 import logging
 
 
@@ -31,7 +31,7 @@ class boilerVolume(appliances.genctrl):
         self.unit = 'Qt'  # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
-        self.switch = switches.simSwitch  # Switch object. Should have method on and off
+        self.switch = switches.simSwitch.simSwitch  # Switch object. Should have method on and off
         self.sensor = sensors.genericSensor.genericSensor()
         self.host = None
         self.acc = 0

@@ -5,12 +5,12 @@ Created on Nov 20, 2013
 '''
 import subprocess
 import os
-import switches
+import switches.simSwitch
 import time
 import logging
 
 
-class boilerValveSwitch(switches.simSwitch):
+class boilerValveSwitch(switches.simSwitch.simSwitch):
     '''
     Simulated switch. Does not do a lot of things except fullfills the
     required methods of a switch object.

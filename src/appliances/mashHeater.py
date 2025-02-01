@@ -6,7 +6,6 @@ Created on Nov 20, 2013
 # import subprocess
 import appliances.genctrl
 import sensors.genericSensor
-import switches
 
 
 class mashHeater(appliances.genctrl):
