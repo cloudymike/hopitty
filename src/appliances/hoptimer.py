@@ -3,7 +3,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class hoptimer(appliances.genctrl):
+class hoptimer(appliances.genctrl.genctrl):
 
     def __init__(self):
         """

@@ -1,7 +1,12 @@
 import json
 import stages2beer.s2b
 import ctrl.controllers
-import appliances
+import appliances.genctrl
+import appliances.hoptimer
+import appliances.boiler
+import appliances.circulationPump
+import appliances.hotWaterTun
+import appliances.hwPump
 import recipeReader.readRecipe
 import inspect
 import time
@@ -13,7 +18,7 @@ def myname():
 
 def simpleCtrl():
     ctrl1 = ctrl.controllers.controllerList()
-    ctrl1.addController('genctrl', appliances.genctrl())
+    ctrl1.addController('genctrl', appliances.genctrl.genctrl())
     return(ctrl1)
 
 
@@ -82,19 +87,19 @@ def multiTimerDict():
 def mediumCtrl():
     """Instantiate a list of several controllers"""
     ctrl1 = ctrl.controllers.controllerList()
-    ctrl1.addController('genctrl', appliances.genctrl())
-    ctrl1.addController('timer', appliances.hoptimer())
-    ctrl1.addController('pump', appliances.hwPump())
-    ctrl1.addController('circulationPump', appliances.circulationPump())
+    ctrl1.addController('genctrl', appliances.genctrl.genctrl())
+    ctrl1.addController('timer', appliances.hoptimer.hoptimer())
+    ctrl1.addController('pump', appliances.hwPump.hwPump())
+    ctrl1.addController('circulationPump', appliances.circulationPump.circulationPump())
     ctrl1.addController('heater', appliances.hotWaterTun.hwt())
-    ctrl1.addController('boiler', appliances.boiler())
+    ctrl1.addController('boiler', appliances.boiler.boiler())
     return(ctrl1)
 
 
 def timerCtrl():
     """Instantiate a list of several controllers"""
     ctrl1 = ctrl.controllers.controllerList()
-    ctrl1.addController('timer', appliances.hoptimer())
+    ctrl1.addController('timer', appliances.hoptimer.hoptimer())
     return(ctrl1)
 
 

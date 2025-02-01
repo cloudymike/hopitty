@@ -3,7 +3,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class hwt(appliances.genctrl):
+class hwt(appliances.genctrl.genctrl):
     def __init__(self):
         self.errorState = False  # If an error has occured
         self.hotWaterTun = None

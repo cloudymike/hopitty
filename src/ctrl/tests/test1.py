@@ -9,7 +9,7 @@ def testPass():
 
 
 def testHwtOnOff():
-    mytun = appliances.hwt()
+    mytun = appliances.hotWaterTun.hwt()
     status = mytun.status()
     assert status == 'Off'
     mytun.on()

@@ -8,7 +8,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class mashHeater(appliances.genctrl):
+class mashHeater(appliances.genctrl.genctrl):
     """
     Manage the mash heater.
     Initial version, just check temperature.

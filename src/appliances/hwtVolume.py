@@ -10,7 +10,7 @@ import switches.simSwitch
 import logging
 
 
-class hwtVolume(appliances.genctrl):
+class hwtVolume(appliances.genctrl.genctrl):
     '''
     Generic controller
     Use this baseclass to derive the actual controllers

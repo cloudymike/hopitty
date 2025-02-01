@@ -13,7 +13,7 @@ empty = 0
 full = 1
 
 
-class dispenser(appliances.genctrl):
+class dispenser(appliances.genctrl.genctrl):
     '''
     Generic controller
     Use this baseclass to derive the actual controllers

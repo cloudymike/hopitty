@@ -4,7 +4,7 @@ import sensors.dymorugged
 import datetime
 import traceback
 
-class hwPump(appliances.genctrl):
+class hwPump(appliances.genctrl.genctrl):
 
     def __init__(self):
         self.errorState = False  # If an error has occured

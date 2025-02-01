@@ -1,9 +1,9 @@
-import appliances
+import appliances.genctrl
 import ctrl.controllers
 
 
 def testGenSensor():
-    c1 = appliances.genctrl()
+    c1 = appliances.genctrl.genctrl()
     assert isinstance(c1.sensor.getID(), str)
     assert (isinstance(c1.sensor.getValue(), int) or
             isinstance(c1.sensor.getValue(), float))
@@ -20,7 +20,7 @@ def testSensors():
 
 
 if __name__ == "__main__":
-    c1 = appliances.genctrl()
+    c1 = appliances.genctrl.genctrl()
     print c1.sensor.getID()
     testGenSensor()
     testSensors()
