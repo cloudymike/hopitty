@@ -10,12 +10,12 @@ def createCtrl():
     """Instantiate a list of all controllers"""
 
     ctrl1 = ctrl.controllers.controllerList()
-    ctrl1.addController('genctrl', appliances.genctrl())
-    ctrl1.addController('timer', appliances.hoptimer())
-    ctrl1.addController('pump', appliances.hwPump())
-    ctrl1.addController('circulationPump', appliances.circulationPump())
-    ctrl1.addController('heater', appliances.hwt())
-    ctrl1.addController('boiler', appliances.boiler())
+    ctrl1.addController('genctrl', appliances.genctrl.genctrl())
+    ctrl1.addController('timer', appliances.hoptimer.hoptimer())
+    ctrl1.addController('pump', appliances.hwPump.hwPump())
+    ctrl1.addController('circulationPump', appliances.circulationPump.circulationPump())
+    ctrl1.addController('heater', appliances.hotWaterTun.hwt())
+    ctrl1.addController('boiler', appliances.boiler.boiler())
     return(ctrl1)
 
 

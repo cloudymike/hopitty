@@ -10,14 +10,14 @@ def testPass():
 
 
 def testSetGetTime():
-    m = appliances.hoptimer()
+    m = appliances.hoptimer.hoptimer()
     m.set(5)
     assert m.get() == 0
     assert not m.targetMet()
 
 
 def testwaitamin():
-    m = appliances.hoptimer()
+    m = appliances.hoptimer.hoptimer()
     m.set(0.01)
     m.start()
     time.sleep(1)
@@ -26,7 +26,7 @@ def testwaitamin():
 
 
 def testStop():
-    m = appliances.hoptimer()
+    m = appliances.hoptimer.hoptimer()
     m.set(1)
     time.sleep(1)
     m.stop()
