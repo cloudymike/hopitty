@@ -50,7 +50,7 @@ jobs:
       - name: Python packages
         run: |
           virtualenv venv
-          venv/bin/activate
+          source venv/bin/activate
           python --version
           pip install -r requirements.txt
 
@@ -71,6 +71,6 @@ jobs:
 
       - name: Run tests
         run: |
-          venv/bin/activate
+          source venv/bin/activate
           source checkall
 
