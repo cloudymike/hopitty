@@ -152,7 +152,7 @@ def getTestRecipeList():
                     rl.readBeerSmith('src/tests/Cloud.bsmx')
                 except:
                     print("Could not find test file")
-                    print os.getcwd()
+                    print(os.getcwd())
     return(rl)
 
 
@@ -190,7 +190,7 @@ def testOneFullBSMX():
     assert len(s) > 0
     assert(recipeObjParsed.isValid())
 
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 if __name__ == "__main__":

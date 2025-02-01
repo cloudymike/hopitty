@@ -27,7 +27,7 @@ def list_submodules(package_name):
             submodules[name]=submodule
             print(name)
             for aName in dir(submodule):
-                print "Found", aName
+                print("Found", aName)
                 aClass = getattr(submodule, aName)
                 if hasattr(aClass, "__init__") and \
                     hasattr(aClass, "__module__") and \
@@ -83,7 +83,7 @@ class mySensorLoader:
         """
         print("============= Listing instantiated classes =============")
         for className, anInstance in self.myInstances.iteritems():
-            print 'Instance of Class', className, 'has ID', anInstance.getID()
+            print('Instance of Class', className, 'has ID', anInstance.getID())
 
 
 if __name__ == "__main__":

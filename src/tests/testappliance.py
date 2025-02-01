@@ -5,11 +5,11 @@ import ctrl.controllers
 def testlistbuild():
     l = appliances.myloader.myQuickLoader()
     cll = l.classes().__len__()
-    print "Length of class list", cll
+    print("Length of class list", cll)
     assert cll > 0
     l.build()
     ill = l.instances().__len__()
-    print "Length of list", ill
+    print("Length of list", ill)
     assert ill > 0
     assert ill == cll
 
@@ -27,7 +27,7 @@ def testloadcontroller():
     l = appliances.myloader.myQuickLoader()
     l.build()
     for className, instance in l.instances().iteritems():
-        print className
+        print(className)
         c.addController(className, instance)
     assert len(c) > 0
 

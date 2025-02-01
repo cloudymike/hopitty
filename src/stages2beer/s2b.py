@@ -107,7 +107,6 @@ class s2b(threading.Thread):
         if self.stages is not None:
             for r_key, settings in sorted(self.stages.items()):
                 if not self.controllers.check(settings):
-                    "print missing controller check"
                     return(False)
             return(True)
         return(False)

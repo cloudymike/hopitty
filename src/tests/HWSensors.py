@@ -54,11 +54,11 @@ def countFails(scale, count):
 
         sys.stdout.flush()
         if x % 25 == 24:
-            print ""
+            print("")
 
-    print ""
-    print "Exceptions:", exceptions
-    print "Zeros     :", zeros
+    print("")
+    print("Exceptions:", exceptions)
+    print("Zeros     :", zeros)
 
 
 if __name__ == "__main__":
@@ -68,4 +68,4 @@ if __name__ == "__main__":
         countFails(scale, 26)
     else:
         countFails(scale, 1)
-        print "No HW"
+        print("No HW")

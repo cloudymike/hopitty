@@ -83,6 +83,6 @@ class plateValve(appliances.genctrl.genctrl):
 if __name__ == '__main__':  # pragma: no cover
     testplateValve = plateValve()
     testplateValve.on()
-    print testplateValve.get()
+    print(testplateValve.get())
     testplateValve.off()
-    print testplateValve.get()
+    print(testplateValve.get())

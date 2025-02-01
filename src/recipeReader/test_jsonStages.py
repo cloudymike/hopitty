@@ -92,8 +92,8 @@ def test_wortpumptest():
     rp = cp + "/../../recipe/wort_pump_test"
     print(rp)
     js = jsonStages(rp, ctrlDummyList())
-    print js.getRecipeName()
-    print js.getStages()
+    print(js.getRecipeName())
+    print(js.getStages())
     assert js.getRecipeName() == "wort_pump_test"
     stages = js.getStages()
     assert stages["01"] is not None

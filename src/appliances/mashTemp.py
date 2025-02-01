@@ -79,9 +79,7 @@ class mashTemp(appliances.genctrl.genctrl):
     def HWOK(self):
         """
         Return True if all USB connections are OK to the HW devices.
-        As the appliance has gone into simulation, this has extra print statements
-        Can be removed later
-        Also, do not check for switch as this is checked in other places, for pumps.
+        Do not check for switch as this is checked in other places, for pumps.
         """
         if self.sensor is None:
             return(False)
