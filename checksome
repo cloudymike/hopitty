@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Some tests that are working for github
+
+echo "bsmx read of equipmentname test, lightweight initial test.."
+./testequipmentname > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! bsmx read of equipmentname Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+
+echo "json to stages test.."
+./testjson2stages > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! json to stages Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+echo "bsmx to stages test.."
+./testbsmx2stages > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! bsxm to stages Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+
+echo "Testing mqtt based controller using recipe files (json)..."
+./testmqttrecipe > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed with recipe files (json) !!!!!!!!!!"
+    exit 1
+fi
+echo "Testing mqtt based controller using bsmx files..."
+./testmqttbsmx > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed with BSMX files !!!!!!!!!!"
+    exit 1
+fi
+echo "Testing dynamo loader using bsmx files..."
+./testdynamorecipes > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Dynamo loader failed with BSMX files !!!!!!!!!!"
+    exit 1
+fi
+
+echo "=========== Everything is OK! ================"
