@@ -3,7 +3,7 @@ Created on March 7, 2015
 
 @author: mikael
 '''
-import switches
+import switches.simSwitch
 import time
 import usb.core
 import logging
@@ -41,7 +41,7 @@ class Power8800(object):
         return(self.dev is not None)
 
 
-class air8800Switch(switches.simSwitch):
+class air8800Switch(switches.simSwitch.simSwitch):
     '''
     Simulated switch. Does not do a lot of things except fullfills the
     required methods of a switch object.

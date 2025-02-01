@@ -3,7 +3,9 @@ sys.path.append('..')
 
 import sensors.genericSensor
 import sensors.mashScaleSensor
-import switches
+import switches.coolerSwitch
+import switches.simSwitch
+import switches.pumpUSB
 
 
 def countFails(scale, count):
@@ -12,10 +14,10 @@ def countFails(scale, count):
 
     drone1 = sensors.genericSensor.genericSensor()
     drone2 = sensors.genericSensor.genericSensor()
-    switch1 = switches.coolerSwitch()
+    switch1 = switches.coolerSwitch.coolerSwitch()
     switch2 = switches.myX10('/dev/serial/by-id/usb-Prolific_Technology'
                              '_Inc._USB-Serial_Controller-if00-port0')
-    switch3 = switches.pumpUSB()
+    switch3 = switches.pumpUSB.pumpUSB()
 
     for x in range(0, count):
 

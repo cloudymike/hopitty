@@ -5,7 +5,7 @@ Created on Oct 17, 2012
 '''
 
 import sensors.dymorugged
-import switches
+import switches.simSwitch
 
 
 class mashVolume():
@@ -29,7 +29,7 @@ class mashVolume():
         self.unit = 'Qt'  # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
-        self.switch = switches.simSwitch
+        self.switch = switches.simSwitch.simSwitch
         self.sensor = sensors.dymorugged.dymorugged()
         self.grainVol = self.sensor.getValue()
 
