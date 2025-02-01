@@ -4,7 +4,7 @@ Created on Oct 17, 2012
 @author: mikael
 '''
 
-import sensors
+import sensors.genericSensor
 
 
 class genctrl():
@@ -29,7 +29,7 @@ class genctrl():
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
         self.switch = None  # Switch object. Should have method on and off
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
 
     def __del__(self):
         self.stop()

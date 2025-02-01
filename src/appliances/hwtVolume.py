@@ -5,8 +5,8 @@ Created on Oct 17, 2012
 '''
 
 import appliances.genctrl
-import sensors
-import switches
+import sensors.genericSensor
+import switches.simSwitch
 import logging
 
 
@@ -31,8 +31,8 @@ class hwtVolume(appliances.genctrl):
         self.unit = 'Qt'  # Unit of measure
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False  # Controller is running
-        self.switch = switches.simSwitch  # Switch object. Should have method on and off
-        self.sensor = sensors.genericSensor()
+        self.switch = switches.simSwitch.simSwitch  # Switch object. Should have method on and off
+        self.sensor = sensors.genericSensor.genericSensor()
         self.host = None
         self.acc = 0
         self.current = 0

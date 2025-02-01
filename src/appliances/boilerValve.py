@@ -5,7 +5,7 @@ Created on Nov 20, 2013
 '''
 # import subprocess
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 
 class boilerValve(appliances.genctrl):
@@ -21,7 +21,7 @@ class boilerValve(appliances.genctrl):
         self.unit = 'F'
         # self.sensor = sensors.temperboilerValveSensor()
         # Set a generic sensor, later swap for same sensor as boiler.
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def connectSwitch(self, switch):

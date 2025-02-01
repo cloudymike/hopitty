@@ -1,4 +1,40 @@
+
+import pkgutil
+import importlib
+
+# This allows to run this as a script, in the "wrong" directory
+import sys
+sys.path.append('../..')
+
 import switches
+
+def list_submodules(package_name):
+    localClassCollection = {}
+    try:
+        package = importlib.import_module(package_name)
+    except ImportError:
+        raise ValueError("Package {} not found".format(package_name))
+
+    if not hasattr(package, '__path__'):
+        raise ValueError("{} is not a package".format(package_name))
+
+    submodules = {}
+    for _, name, is_pkg in pkgutil.iter_modules(package.__path__):
+        full_name = "{}.{}".format(package_name,name)
+        try:
+            submodule = importlib.import_module(full_name)
+            submodules[name]=submodule
+            for aName in dir(submodule):
+                #print "Found", aName
+                aClass = getattr(submodule, aName)
+                if hasattr(aClass, "__init__") and \
+                    hasattr(aClass, "__module__") and \
+                    hasattr(aClass, "hasError"):
+                    #print("Adding class {}".format(aName))
+                    localClassCollection[aName] = aClass
+        except ImportError:
+            print("Warning: Could not import submodule {}".format(full_name))
+    return localClassCollection
 
 
 class mySwitchLoader:
@@ -22,18 +58,7 @@ class mySwitchLoader:
         package mymods. Modules are defined in __init__.py
         Any class within those modules are collected
         """
-        module = __import__("switches", fromlist="*")
-        for aName in dir(module):
-            print("Found", aName)
-            # Check if this is a class
-            aClass = getattr(module, aName)
-            if hasattr(aClass, "__init__") and \
-               hasattr(aClass, "__module__") and \
-               hasattr(aClass, "hasError"):
-                self.myClassCollection[aName] = aClass
-        print("================== Classes found ==================")
-        for className, aClass in self.myClassCollection.iteritems():
-            print(className)
+        self.myClassCollection=list_submodules('switches')
 
     def classes(self):
         return(self.myClassCollection)
@@ -64,5 +89,5 @@ class mySwitchLoader:
 if __name__ == "__main__":
     s = mySwitchLoader()
     s.build()
-    #s.list()
+    s.list()
     print("=====SUCCESS=====")

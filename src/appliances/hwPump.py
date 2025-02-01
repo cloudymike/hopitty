@@ -1,6 +1,6 @@
 import time
 import appliances.genctrl
-import sensors
+import sensors.dymorugged
 import datetime
 import traceback
 
@@ -18,7 +18,7 @@ class hwPump(appliances.genctrl):
         self.SEC_PER_QUART = 3.0
         self.unit = 'Qt'
         self.pumpMotor = None
-        self.sensor = sensors.dymorugged()
+        self.sensor = sensors.dymorugged.dymorugged()
         self.oldTime = datetime.datetime.now()
         self.actual = 0
         self.lastActual = 0

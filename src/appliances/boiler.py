@@ -1,6 +1,6 @@
 # import subprocess
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 class boiler(appliances.genctrl):
     """
@@ -18,7 +18,7 @@ class boiler(appliances.genctrl):
         self.unit = None
         self.target = 200
         self.unit = 'F'
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def __del__(self):

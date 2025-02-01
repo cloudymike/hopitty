@@ -5,12 +5,12 @@ Created on Oct 25, 2012
 '''
 import subprocess
 import os
-import switches
+import switches.simSwitch
 import time
 import logging
 
 
-class coolerSwitch(switches.simSwitch):
+class coolerSwitch(switches.simSwitch.simSwitch):
     '''
     Simulated switch. Does not do a lot of things except fullfills the
     required methods of a switch object.

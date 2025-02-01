@@ -1,5 +1,41 @@
+
+import pkgutil
+import importlib
+
+# This allows to run this as a script, in the "wrong" directory
+import sys
+sys.path.append('../..')
+
+
 import sensors
 
+def list_submodules(package_name):
+    localClassCollection = {}
+    try:
+        package = importlib.import_module(package_name)
+    except ImportError:
+        raise ValueError("Package {} not found".format(package_name))
+
+    if not hasattr(package, '__path__'):
+        raise ValueError("{} is not a package".format(package_name))
+
+    submodules = {}
+    for _, name, is_pkg in pkgutil.iter_modules(package.__path__):
+        full_name = "{}.{}".format(package_name,name)
+        try:
+            submodule = importlib.import_module(full_name)
+            submodules[name]=submodule
+            print(name)
+            for aName in dir(submodule):
+                print "Found", aName
+                aClass = getattr(submodule, aName)
+                if hasattr(aClass, "__init__") and \
+                    hasattr(aClass, "__module__") and \
+                    hasattr(aClass, "getID"):
+                    localClassCollection[aName] = aClass
+        except ImportError:
+            print("Warning: Could not import submodule {}".format(full_name))
+    return localClassCollection
 
 class mySensorLoader:
     """
@@ -16,21 +52,15 @@ class mySensorLoader:
     myClassCollection = {}
     myInstances = {}
 
+
     def __init__(self):
         """
         Creates a list of all the classes, as defined in modules in
         package mymods. Modules are defined in __init__.py
         Any class within those modules are collected
         """
-        module = __import__("sensors", fromlist="*")
-        for aName in dir(module):
-            #print "Found", aName
-            # Check if this is a class
-            aClass = getattr(module, aName)
-            if hasattr(aClass, "__init__") and \
-               hasattr(aClass, "__module__") and \
-               hasattr(aClass, "getID"):
-                self.myClassCollection[aName] = aClass
+
+        self.myClassCollection=list_submodules('sensors')
 
     def classes(self):
         return(self.myClassCollection)

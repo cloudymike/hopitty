@@ -5,7 +5,7 @@ Created on Nov 20, 2013
 '''
 # import subprocess
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 import logging
 
 
@@ -22,7 +22,7 @@ class aerator(appliances.genctrl):
         self.unit = 'X'
         # self.sensor = sensors.temperaeratorSensor()
         # Set a generic sensor, later swap for same sensor as boiler.
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
         self.actual = 0  # Actual measured value, ex temp
 
     def connectSwitch(self, switch):

@@ -1,6 +1,6 @@
 import sys
 sys.path.append('..')
-import sensors
+import sensors.genericSensor
 import time
 import usb.core
 import usb.util
@@ -12,7 +12,7 @@ VENDOR_ID = 0x0922
 PRODUCT_ID = 0x8007
 
 
-class dymoScaleSensor(sensors.genericSensor):
+class dymoScaleSensor(sensors.genericSensor.genericSensor):
 
     def __init__(self):
         self.errorState = False

@@ -7,7 +7,7 @@ import os
 import subprocess
 
 import appliances.genctrl
-import sensors
+import sensors.genericSensor
 
 empty = 0
 full = 1
@@ -37,7 +37,7 @@ class dispenser(appliances.genctrl):
         self.powerOn = False  # If the power is on heater/pump etc
         self.active = False   # Controller is running
         self.switch = None    # Switch object. Should have method on and off
-        self.sensor = sensors.genericSensor()
+        self.sensor = sensors.genericSensor.genericSensor()
 
         try:
             ret = subprocess.call('lsusb',  stdout=open('/dev/null', 'w'),

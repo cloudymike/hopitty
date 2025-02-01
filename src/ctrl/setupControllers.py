@@ -4,8 +4,13 @@ import datetime
 import ctrl.controllers
 import recipeReader
 import appliances.boiler
-import switches
-import sensors
+import switches.boilerValveSwitch
+import switches.channel8
+import switches.simSwitch
+import switches.powerSwitch
+import switches.mashStirSwitch
+
+import sensors.pyboardTempSensor
 import sys
 import logging
 import equipment.allEquipment
@@ -29,27 +34,27 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if not simulation:
         logging.info("Initializing hardware")
         try:
-            switch12v = switches.channel8()
+            switch12v = switches.channel8.channel8()
         except:
             if permissive:
                 logging.info("**********USB pumps not found, simulating HW")
-                switch12v = switches.simSwitchList()
+                switch12v = switches.simSwitch.simSwitchList()
             else:
                 raise Exception("USB pumps not available")
     else:
-        switch12v = switches.simSwitchList()
+        switch12v = switches.simSwitch.simSwitchList()
 
-    tempSensors = sensors.tempSensorDict()
+    tempSensors = sensors.pyboardTempSensor.tempSensorDict()
 
     logging.debug("Setting up appliances")
 
-    hwTunSwitch = switches.powerSwitch(1)
-    boilerSwitch = switches.powerSwitch(2)
+    hwTunSwitch = switches.powerSwitch.powerSwitch(1)
+    boilerSwitch = switches.powerSwitch.powerSwitch(2)
     aeratorSwitch = switch12v.getSwitch(8)
     coolerSwitch = switch12v.getSwitch(7)
-    mashStirSwitch = switches.mashStirSwitch()
-    #mashStirSwitch = switches.mashStir8800Switch()
-    boilerValveSwitch = switches.boilerValveSwitch()
+    mashStirSwitch = switches.mashStirSwitch.mashStirSwitch()
+    #mashStirSwitch = switches.mashStirSwitch.mashStir8800Switch()
+    boilerValveSwitch = switches.boilerValveSwitch.boilerValveSwitch()
     hotWaterPumpSwitch = switch12v.getSwitch(2)
     hwCirculationSwitch = switch12v.getSwitch(1)
     wortSwitch = switch12v.getSwitch(3)
@@ -74,7 +79,7 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
     if 'cooler' in equipment['componentlist']:
         controllers.addController('cooler', appliances.cooler())
         # As we are using plate chller do not use cooler switch
-        #controllers['cooler'].connectSwitch(switches.simSwitch())
+        #controllers['cooler'].connectSwitch(switches.simSwitch.simSwitch())
         controllers['cooler'].connectSensor(boilerSensor)
         # Reuse of same switch for plate cooler as immersion cooler
 
