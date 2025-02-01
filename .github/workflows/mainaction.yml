@@ -63,3 +63,8 @@ jobs:
       - name: Python packages
         run: |
           sudo pip install -r requirements.txt
+
+      - name: Run tests
+        run: |
+          source checkall
+
