@@ -15,8 +15,8 @@ def getTestRecipeList():
             try:
                 rl.readBeerSmith('src/tests/Cloud.bsmx')
             except:
-                print "Could not find test file"
-                print os.getcwd()
+                print("Could not find test file")
+                print(os.getcwd())
     return(rl)
 
 
@@ -33,6 +33,6 @@ def testRecipeScanner(user=None):
 
 if __name__ == "__main__":
     user = getpass.getuser()
-    print "Getting cloud recipes for", user
+    print("Getting cloud recipes for", user)
     rl = testRecipeScanner(user)
-    print rl.len()
+    print(rl.len())

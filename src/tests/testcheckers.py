@@ -29,12 +29,12 @@ def testRecipeCheck():
     #ctrl1 = ctrl.controllers.controllerList()
     #ctrl1.load()
 
-    print len(ctrl1)
+    print(len(ctrl1))
     for key, c in ctrl1.items():
-        print key
+        print(key)
 
     here = os.getcwd()
-    print here
+    print(here)
     try:
         js = recipeReader.readRecipe.jsonStages('src/ctrl/tests/json_data', ctrl1)
     except:
@@ -47,12 +47,12 @@ def testRecipeCheck():
                 js = recipeReader.readRecipe.jsonStages('json_data', ctrl1)
     stages = js.getStages()
     assert len(stages) > 0
-    print "========================"
+    print("========================")
     pprint(stages)
-    print "========================"
+    print("========================")
     assert ctrl.checkers.checkRecipe(ctrl1, stages, True)
     name = js.getRecipeName()
-    print 'Name:', name
+    print('Name:', name)
     assert len(name) > 0
 #    assert isinstance(name, str)
 

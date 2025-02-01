@@ -48,7 +48,7 @@ def test_HWOK():
     allS = mySwitchLoader.mySwitchLoader()
     allS.build()
     for sname, sobj in allS.instances().iteritems():
-        print sname, sobj.HWOK()
+        print(sname, sobj.HWOK())
         assert not sobj.HWOK()
 
 

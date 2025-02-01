@@ -119,7 +119,7 @@ class FT245R:
             try:
                 self.dev.attach_kernel_driver(0)
             except:
-                print ("relayctl: could not attach kernel driver")
+                print("relayctl: could not attach kernel driver")
 
 
     def connect(self, dev):

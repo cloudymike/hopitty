@@ -52,7 +52,7 @@ def testStartStop():
         s['targetValue'] = 1
         s['active'] = True
         settings[key] = s
-    print settings
+    print(settings)
     ctrl1.run(settings)
     for key, c in ctrl1.items():
         assert c.isActive()
@@ -65,7 +65,7 @@ def testTarget():
         testVal = 3.1415926
         c.set(testVal)
         chkVal = c.getTarget()
-        print testVal, key, chkVal
+        print(testVal, key, chkVal)
         assert testVal == chkVal
 
 
@@ -110,7 +110,7 @@ def testHWOK():
     ctrl1.load()
     for key, c in ctrl1.items():
         s = c.HWOK()
-        print key, s
+        print(key, s)
         assert isinstance(s, bool)
 
 
@@ -134,7 +134,7 @@ def testPowerOn():
     ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
-        print key
+        print(key)
         c.stop()
         assert not c.getPowerOn()
 
@@ -146,7 +146,7 @@ def testError():
     ctrl1 = ctrl.controllers.controllerList()
     ctrl1.load()
     for key, c in ctrl1.items():
-        print key
+        print(key)
         assert not c.hasError()
         c.forceError()
         assert c.hasError()

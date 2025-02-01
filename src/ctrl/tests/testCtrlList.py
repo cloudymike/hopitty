@@ -27,7 +27,7 @@ def testReadStages():
 
     ctrl1 = createCtrl()
 
-    print os.getcwd()
+    print(os.getcwd())
     try:
         js = recipeReader.readRecipe.jsonStages('src/ctrl/tests/json_data', ctrl1)
     except:
@@ -42,7 +42,7 @@ def testReadStages():
     assert len(stages) > 0
     pprint(stages)
     ctrlCount = len(ctrl1)
-    print ctrlCount
+    print(ctrlCount)
     for s_key, s_val in stages.items():
-        print s_key
+        print(s_key)
         assert ctrlCount == len(s_val)

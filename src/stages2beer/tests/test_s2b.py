@@ -106,7 +106,7 @@ def timerCtrl():
 def test_instantiate():
     a = stages2beer.s2b.s2b()
     assert a is not None
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_controllerInstantiate():
@@ -115,14 +115,14 @@ def test_controllerInstantiate():
     b = stages2beer.s2b.s2b(simpleCtrl())
     assert isinstance(b.getCtrl(), dict)
     assert 'genctrl' in b.getCtrl()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_simpleStages():
     stages = simpleDict()
     a = stages2beer.s2b.s2b(simpleCtrl(), stages)
     a.check()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_basicThread():
@@ -135,7 +135,7 @@ def test_basicThread():
     a.stop()
     a.join()
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_ThreadEdgeCases():
@@ -159,21 +159,21 @@ def test_ThreadEdgeCases():
     time.sleep(0.1)
     assert not d.isAlive()
 
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_quickRun():
     r = recipeReader.readRecipe.jsonStages(simpleStages(), simpleCtrl())
     a = stages2beer.s2b.s2b(simpleCtrl(), r.getStages())
     assert a.quickRun()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_check():
     r = recipeReader.readRecipe.jsonStages(simpleStages(), simpleCtrl())
     a = stages2beer.s2b.s2b(simpleCtrl(), r.getStages())
     assert a.check()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_getStages():
@@ -201,7 +201,7 @@ def test_getStages():
     assert isinstance(stages4, dict)
     assert '1 stage' in stages4
     assert 'name' not in stages4
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_runShortTimer():
@@ -210,7 +210,7 @@ def test_runShortTimer():
     assert a.isAlive()
     a.join()
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_runLongTimer():
@@ -219,7 +219,7 @@ def test_runLongTimer():
     assert a.isAlive()
     a.join()
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_runStop():
@@ -229,7 +229,7 @@ def test_runStop():
     a.stop()
     time.sleep(2)
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_runPause():
@@ -242,7 +242,7 @@ def test_runPause():
     a.unpause()
     a.join()
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_runSkip():
@@ -252,7 +252,7 @@ def test_runSkip():
     a.skip()
     a.join()
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 def test_checkStage():
@@ -265,7 +265,7 @@ def test_checkStage():
     a.unpause()
     a.join()
     assert not a.isAlive()
-    print myname(), "OK"
+    print(myname(), "OK")
 
 
 if __name__ == "__main__":
@@ -284,4 +284,4 @@ if __name__ == "__main__":
     test_runPause()
     test_runSkip()
     test_checkStage()
-    print "====SUCCESS===="
+    print("====SUCCESS====")

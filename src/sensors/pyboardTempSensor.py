@@ -87,7 +87,7 @@ class pyboardTempSensor(sensors.genericSensor.genericSensor):
 if __name__ == '__main__':  # pragma: no cover
     tempSensors = tempSensorDict()
     ts = tempSensors.getSensor('28ff425f0216038b')
-    print ts.getValue()
-    print ts.getValue()
+    print(ts.getValue())
+    print(ts.getValue())
     time.sleep(1)
-    print ts.getValue()
+    print(ts.getValue())

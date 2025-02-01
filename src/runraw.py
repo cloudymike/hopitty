@@ -25,7 +25,7 @@ def run(stages, controllers):
     no blocking, I.e a separate thread
     """
     #self.runOK = self.check()
-    print "run"
+    print("run")
     #if not self.runOK:
     #    print "check failed"
     #    return
