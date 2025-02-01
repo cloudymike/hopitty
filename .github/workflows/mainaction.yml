@@ -34,6 +34,7 @@ jobs:
           lsb_release -a
           pwd
           python --version
+          whoami
 
       # Runs a set of commands using the runners shell
       - name: Install basic linux tools
@@ -44,6 +45,14 @@ jobs:
           sudo apt-get -y install xdotool
           sudo apt-get -y install build-essential
           sudo apt-get -y install libusb-1.0-0-dev
+          sudo apt-get -y install python3-virtualenv
+
+      - name: Python packages
+        run: |
+          virtualenv venv
+          venv/bin/activate
+          python --version
+          pip install -r requirements.txt
 
       - name: Phidget
         run: |
@@ -59,13 +68,6 @@ jobs:
           cd PhidgetsPython/
           sudo python setup.py install
           popd
-
-      - name: Python packages
-        run: |
-          virtualenv venv
-          venv/bin/activate
-          python --version
-          pip install -r requirements.txt
 
       - name: Run tests
         run: |
