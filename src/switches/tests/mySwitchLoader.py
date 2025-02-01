@@ -72,7 +72,7 @@ class mySwitchLoader:
         to the myInstances dictionary.
         """
         print("====Building....=====")
-        for className, aClass in self.myClassCollection.iteritems():
+        for className, aClass in self.myClassCollection.items():
             print(className)
             self.myInstances[className] = aClass()
 
@@ -82,7 +82,7 @@ class mySwitchLoader:
         and try one call to them, just for test
         """
         print("============= Listing instantiated classes =============")
-        for className, anInstance in self.myInstances.iteritems():
+        for className, anInstance in self.myInstances.items():
             print('Instance of Class', className)
 
 

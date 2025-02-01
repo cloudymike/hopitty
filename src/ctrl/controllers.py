@@ -56,7 +56,7 @@ class controllerList(dict):
     def addControllerList(self, l):
         if self.useHWlock:
             self.HWlock.acquire()
-        for className, instance in l.iteritems():
+        for className, instance in l.items():
             self.addController(className, instance)
         if self.useHWlock:
             self.HWlock.release()
@@ -83,7 +83,13 @@ class controllerList(dict):
 
         if self.useHWlock:
             self.HWlock.acquire()
+
+        # Clumsy but Python3 can not deal with removing while iterating
+        keylist=[]
         for key, c in self.items():
+            keylist.append(key)
+        for key in keylist:
+            c = self[key]
             c.stop()
             del self[key]
             del c
@@ -94,7 +100,7 @@ class controllerList(dict):
         """Stop all controllers"""
         if self.useHWlock:
             self.HWlock.acquire()
-        for c in self.itervalues():
+        for c in self.values():
             c.stop()
         if self.useHWlock:
             self.HWlock.release()
@@ -108,7 +114,7 @@ class controllerList(dict):
         if self.useHWlock:
             self.HWlock.acquire()
         usbOK = True
-        for c in self.itervalues():
+        for c in self.values():
             if not c.HWOK():
                 usbOK = False
         if not usbOK:

@@ -18,7 +18,7 @@ If you like to add another brew schedule, just create a new def describing
 the translation, and then add this def as an alternative in txBSMXtoStages,
 selected based on the Equipment Name, and the Mash Profile Name.
 """
-import parseBSMX
+
 import logging
 
 empty = 0

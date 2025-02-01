@@ -19,7 +19,7 @@ def test_error():
     """
     allS = mySensorLoader.mySensorLoader()
     allS.build()
-    for sname, sobj in allS.instances().iteritems():
+    for sname, sobj in allS.instances().items():
         assert not sobj.hasError()
         sobj.forceError()
         assert sobj.hasError()
@@ -34,7 +34,7 @@ def test_ID():
     """
     allS = mySensorLoader.mySensorLoader()
     allS.build()
-    for sname, sobj in allS.instances().iteritems():
+    for sname, sobj in allS.instances().items():
         sobj.setID('qwerty')
         assert sobj.getID() == 'qwerty'
 

@@ -88,13 +88,13 @@ def testMini():
     print("Number of recipes:", len(rl.getNameList()))
     for name in rl.getNameList():
         assert len(name) > 0
-        assert isinstance(name, types.StringTypes)
+        assert isinstance(name, str)
         print(name)
         recipe = rl.getRecipeByName(name)
         assert name == recipe.getName()
 
         # Checks on each recipe
-        assert isinstance(recipe.getEquipment(), types.StringTypes)
+        assert isinstance(recipe.getEquipment(), str)
         assert len(recipe.getEquipment()) > 0
 
     #rl.printNameList()
@@ -111,12 +111,12 @@ def testReading():
     print("Number of recipes:", len(rl.getNameList()))
     for name in rl.getNameList():
         assert len(name) > 0
-        assert isinstance(name, types.StringTypes)
+        assert isinstance(name, str)
         recipe = rl.getRecipeByName(name)
         assert name == recipe.getName()
 
         # Checks on each recipe
-        assert isinstance(recipe.getEquipment(), types.StringTypes)
+        assert isinstance(recipe.getEquipment(), str)
         assert len(recipe.getEquipment()) > 0
 
     #rl.printNameList()
