@@ -44,3 +44,18 @@ jobs:
           sudo apt-get -y install xdotool
           sudo apt-get -y install build-essential
           sudo apt-get -y install libusb-1.0-0-dev
+
+      - name: Phidget
+        run: |
+          pushd phidget
+          tar xvzf libphidget.tar.gz
+          cd libphidget-*
+          ./configure
+          make
+          sudo make install
+          popd
+          pushd phidget
+          unzip PhidgetsPython.zip
+          cd PhidgetsPython/
+          sudo python setup.py install
+          popd
