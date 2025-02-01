@@ -72,6 +72,5 @@ jobs:
       - name: Run tests
         run: |
           source venv/bin/activate
-          source testequipmentname
-          source testjson2stages
+          source checksome
 
