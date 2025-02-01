@@ -28,7 +28,7 @@ do
 		wget -qO - https://beersmithrecipes.com/download.php?id=$RECIPEID > /tmp/tmp.bsmx
 
 		pushd ..
-		python2 dynamorecipes.py -b /tmp/tmp.bsmx -f $JSONDIR/$RECIPEID.json -t "$TYPEOFEQUIPMENT"
+		python3 dynamorecipes.py -b /tmp/tmp.bsmx -f $JSONDIR/$RECIPEID.json -t "$TYPEOFEQUIPMENT"
 		popd
 
 	done
