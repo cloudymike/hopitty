@@ -9,7 +9,7 @@ import sensors.genericSensor
 import logging
 
 
-class aerator(appliances.genctrl):
+class aerator(appliances.genctrl.genctrl):
     """
     Manage the aerator
     """

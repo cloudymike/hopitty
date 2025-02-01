@@ -2,7 +2,7 @@
 import appliances.genctrl
 import sensors.genericSensor
 
-class boiler(appliances.genctrl):
+class boiler(appliances.genctrl.genctrl):
     """
     Manage the wort boiler
     Checks that a boil is started by checking temp, over 200F is boil

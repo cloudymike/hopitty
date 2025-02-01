@@ -2,7 +2,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class envTemp(appliances.genctrl):
+class envTemp(appliances.genctrl.genctrl):
 
     def __init__(self):
         """

@@ -10,7 +10,7 @@ import switches.simSwitch
 import logging
 
 
-class boilerVolume(appliances.genctrl):
+class boilerVolume(appliances.genctrl.genctrl):
     '''
     Generic controller
     Use this baseclass to derive the actual controllers

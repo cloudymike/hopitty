@@ -5,7 +5,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class circulationPump(appliances.genctrl):
+class circulationPump(appliances.genctrl.genctrl):
     """
     The circulation pump is just controller by explicit on and off
     The target is always met

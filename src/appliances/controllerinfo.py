@@ -3,7 +3,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class controllerinfo(appliances.genctrl):
+class controllerinfo(appliances.genctrl.genctrl):
 
     def __init__(self):
         """

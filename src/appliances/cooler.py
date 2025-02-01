@@ -3,7 +3,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class cooler(appliances.genctrl):
+class cooler(appliances.genctrl.genctrl):
     """
     Manage the wort cooler
     """

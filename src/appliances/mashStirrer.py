@@ -8,7 +8,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class mashStirrer(appliances.genctrl):
+class mashStirrer(appliances.genctrl.genctrl):
     """
     Manage the mash stirrer
     """

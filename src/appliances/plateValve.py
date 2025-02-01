@@ -8,7 +8,7 @@ import appliances.genctrl
 import sensors.genericSensor
 
 
-class plateValve(appliances.genctrl):
+class plateValve(appliances.genctrl.genctrl):
     """
     Manage the boilervalve
     """
