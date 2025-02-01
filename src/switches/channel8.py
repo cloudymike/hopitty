@@ -1,4 +1,4 @@
-import relay_ft245r
+import switches.relay_ft245r
 import sys
 import time
 import logging
@@ -44,7 +44,7 @@ class oneSwitch():
 class channel8():  # pragma: no cover
     def __init__(self):
 
-        rb = relay_ft245r.FT245R()
+        rb = switches.relay_ft245r.FT245R()
         dev_list = rb.list_dev()
 
         # list of FT245R devices are returned
