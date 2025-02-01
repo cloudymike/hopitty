@@ -33,6 +33,7 @@ jobs:
         run: |
           lsb_release -a
           pwd
+          python --version
 
       # Runs a set of commands using the runners shell
       - name: Install stuff
