@@ -69,6 +69,11 @@ jobs:
           sudo python setup.py install
           popd
 
+      - name: Install and test HW required C code
+        run: |
+          source HWSETUP
+          source testHWcoe
+
       - name: Run tests
         run: |
           source venv/bin/activate
