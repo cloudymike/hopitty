@@ -1,6 +1,7 @@
 # Simplest brew controller, mostly for testing
 # Takes a fully formed stages file and runs it
 # No threads, communication, just raw controller
+# Not even a class, true KISS
 
 
 import sys
@@ -40,6 +41,22 @@ def run(stages, controllers):
             controllers.logstatus()
     #self.controllers.stop()
 
+def quickRun(stages, controllers):
+    """
+    Runs through the recipe without any delay to just check it is OK
+    This is different from check recipe in that it will also run
+    each controller, thus test hardware if connected and not
+    permissive
+    """
+    controllers.stop()
+    for r_key, settings in sorted(stages.items()):
+        try:
+            controllers.run(settings)
+            controllers.stopCurrent(settings)
+        except:
+            return(False)
+    return(True)
+
 
 if __name__ == "__main__":
 
@@ -60,6 +77,7 @@ if __name__ == "__main__":
     parser.add_argument('-e', '--equipment', action='store_true', help='Equipment check')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
     parser.add_argument('-t', '--equipmenttype', default=None, help='Equipment type')
+    parser.add_argument('-q', '--quick', action='store_true', help='Run quick recipe with no delays, or meeting goals')
 
     args = parser.parse_args()
 
@@ -95,7 +113,10 @@ if __name__ == "__main__":
 
     if not args.checkonly:
         if (stages != {}) and (stages is not None):
-            run(stages, controllers)
+            if args.quick:
+                quickRun(stages,controllers)
+            else:
+                run(stages, controllers)
 
 
     logging.info(" ")

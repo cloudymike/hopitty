@@ -12,7 +12,7 @@ do
   tstfile="bsmxStages/$fbname.tmp"
   python src/bsmx2stages.py -i $bsmx -o $tstfile &> /dev/null
   equipment=$(python src/bsmx2equipmentname.py -i $bsmx)
-  python src/runraw.py -c -f $tstfile -t "$equipment"
+  python src/runraw.py -q -f $tstfile -t "$equipment"
   if [ "$?" != "0" ] ; then
     echo recipe
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"

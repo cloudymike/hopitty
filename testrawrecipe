@@ -11,7 +11,7 @@ do
   echo ".......................$fbname"
   stagingfile="jsonStages/$fbname.tmp"
   python src/json2stages.py -i $json -o $stagingfile -e 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
-  python src/runraw.py -c -f $stagingfile -t 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
+  python src/runraw.py -q -f $stagingfile -t 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
   if [ "$?" != "0" ] ; then
     echo recipe
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
