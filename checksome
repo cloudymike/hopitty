@@ -29,6 +29,20 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
+echo "Testing raw controller using recipe files (json)..."
+./testrawrecipe > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed with recipe files (json) !!!!!!!!!!"
+    exit 1
+fi
+echo "Testing raw controller using bsmx files..."
+./testrawbsmx > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed with BSMX files !!!!!!!!!!"
+    exit 1
+fi
+
+
 echo "Testing mqtt based controller using recipe files (json)..."
 ./testmqttrecipe > /dev/null 2>&1
 if [ "$?" != "0" ]; then
