@@ -2,6 +2,13 @@
 
 # Some tests that are working for github
 
+echo "Unit test..."
+./testunit > /dev/null
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Unit Tests Failed !!!!!!!!!!"
+    exit 1
+fi
+
 echo "bsmx read of equipmentname test, lightweight initial test.."
 ./testequipmentname > /dev/null 2>&1
 if [ "$?" != "0" ]; then

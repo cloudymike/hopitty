@@ -34,18 +34,20 @@ if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! bsxm to stages Tests Failed !!!!!!!!!!"
     exit 1
 fi
-echo "Recipe test with thread version.."
-./threadrecipe > /dev/null 2>&1
-if [ "$?" != "0" ]; then
-    echo "!!!!!!!!!! Thread Recipe Tests Failed !!!!!!!!!!"
-    exit 1
-fi
-echo "Thread BeerSmith bsmx test.."
-./threadbsmx > /dev/null
-if [ "$?" != "0" ]; then
-    echo "!!!!!!!!!! Thread BeerSmith Tests Failed !!!!!!!!!!"
-    exit 1
-fi
+
+# Remove all thread based execs
+#echo "Recipe test with thread version.."
+#./threadrecipe > /dev/null 2>&1
+#if [ "$?" != "0" ]; then
+#    echo "!!!!!!!!!! Thread Recipe Tests Failed !!!!!!!!!!"
+#    exit 1
+#fi
+#echo "Thread BeerSmith bsmx test.."
+#./threadbsmx > /dev/null
+#if [ "$?" != "0" ]; then
+#    echo "!!!!!!!!!! Thread BeerSmith Tests Failed !!!!!!!!!!"
+#    exit 1
+#fi
 
 # This test is fragile and will  never fail
 #echo "Testing communication specific code..."
