@@ -12,9 +12,11 @@ HOMEDIR=`pwd`
 
 #Pololu, servo USB controller
 #######################################
-sudo apt-get install -y libusb-1.0-0-dev mono-gmcs mono-devel libmono-winforms2.0-cil
-sudo apt-get install libmono-system-windows-forms4.0-cil
-sudo apt-get install libusb-1.0-0-dev mono-runtime libmono-winforms2.0-cil
+sudo apt-get install -y libusb-1.0-0-dev 
+#sudo apt-get install -y mono-gmcs mono-devel libmono-winforms2.0-cil
+sudo apt-get install -y mono-complete=*
+sudo apt-get install -y libmono-system-windows-forms4.0-cil
+#sudo apt-get install -y libusb-1.0-0-dev mono-runtime libmono-winforms2.0-cil
 
 # Newer version of pololu maestro
 wget https://www.pololu.com/file/0J315/maestro-linux-150116.tar.gz
