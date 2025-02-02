@@ -72,7 +72,7 @@ jobs:
       - name: Install and test HW required C code
         run: |
           source HWSETUP
-          source testHWcoe
+          source testHWcode
 
       - name: Run tests
         run: |
