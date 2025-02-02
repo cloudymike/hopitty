@@ -2,9 +2,6 @@
 
 # branch t1
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src")
-sys.path.append("/home/mikael/workspace/hoppity/src/appliances")
-sys.path.append("/home/mikael/workspace/hoppity/src/ctrl")
 
 import argparse
 import ctrl.setupControllers

@@ -6,7 +6,6 @@ Runs basic checks against controllers
 """
 
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src")
 import ctrl.setupControllers
 import argparse
 import recipeReader.parseBSMX

@@ -6,7 +6,6 @@ Also pushes recipe name list to memcache for use by web pages
 """
 
 import sys
-sys.path.append("/home/mikael/workspace/hoppity/src")
 import ctrl.setupControllers
 import argparse
 import recipeReader.readRecipe
