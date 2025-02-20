@@ -35,27 +35,19 @@ if [ "$?" != "0" ]; then
     exit 1
 fi
 
-# Remove all thread based execs
-#echo "Recipe test with thread version.."
-#./threadrecipe > /dev/null 2>&1
-#if [ "$?" != "0" ]; then
-#    echo "!!!!!!!!!! Thread Recipe Tests Failed !!!!!!!!!!"
-#    exit 1
-#fi
-#echo "Thread BeerSmith bsmx test.."
-#./threadbsmx > /dev/null
-#if [ "$?" != "0" ]; then
-#    echo "!!!!!!!!!! Thread BeerSmith Tests Failed !!!!!!!!!!"
-#    exit 1
-#fi
+echo "Testing raw controller using recipe files (json)..."
+./testrawrecipe > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed with recipe files (json) !!!!!!!!!!"
+    exit 1
+fi
+echo "Testing raw controller using bsmx files..."
+./testrawbsmx > /dev/null 2>&1
+if [ "$?" != "0" ]; then
+    echo "!!!!!!!!!! Mqtt based controller failed with BSMX files !!!!!!!!!!"
+    exit 1
+fi
 
-# This test is fragile and will  never fail
-#echo "Testing communication specific code..."
-#./testcomm > /dev/null
-#if [ "$?" != "0" ]; then
-#    echo "!!!!!!!!!! Communication specific code failed !!!!!!!!!!"
-#    exit 1
-#fi
 
 echo "Testing mqtt based controller using recipe files (json)..."
 ./testmqttrecipe > /dev/null 2>&1

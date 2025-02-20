@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# Goes through all the the recipe in the recipe folder
+# Runs the controller in check only
+# Fails on first failing recipe
+
+for bsmx in beersmith/*
+do
+  echo -n "."
+  fbname=$(basename "$bsmx" .bsmx)
+  echo ".......................$fbname"
+  tstfile="bsmxStages/$fbname.tmp"
+  python src/bsmx2stages.py -i $bsmx -o $tstfile &> /dev/null
+  equipment=$(python src/bsmx2equipmentname.py -i $bsmx)
+  python src/runraw.py -q -f $tstfile -t "$equipment"
+  if [ "$?" != "0" ] ; then
+    echo recipe
+    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+    exit 1
+  fi
+done
+echo "===========All Tests Passed================"

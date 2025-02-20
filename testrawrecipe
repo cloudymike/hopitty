@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Goes through all the the recipe in the recipe folder
+# Runs the controller in quick mode
+# Fails on first failing recipe
+
+
+for json in recipe/*
+do
+  fbname=$(basename "$json" )
+  echo ".......................$fbname"
+  stagingfile="jsonStages/$fbname.tmp"
+  python src/json2stages.py -i $json -o $stagingfile -e 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
+  python src/runraw.py -q -f $stagingfile -t 'Grain 3G, 5Gcooler, 5Gpot, platechiller'
+  if [ "$?" != "0" ] ; then
+    echo recipe
+    echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
+    exit 1
+  fi
+done
+echo "===========All Tests Passed================"

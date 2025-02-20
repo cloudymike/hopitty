@@ -1,13 +1,15 @@
-#!/usr/bin/python
+# Simplest brew controller, mostly for testing
+# Takes a fully formed stages file and runs it
+# No threads, communication, just raw controller
+# Not even a class, true KISS
 
-# branch t1
+
 import sys
 
 import argparse
 import ctrl.setupControllers
 import checker.equipment
 import logging
-import threading
 import time
 import json
 import equipment.allEquipment
@@ -19,13 +21,8 @@ def run(stages, controllers):
     """
     Main run loop. Go through each stage of recipe and
     for each stage loop until all targets met.
-    no blocking, I.e a separate thread
     """
-    #self.runOK = self.check()
     print("run")
-    #if not self.runOK:
-    #    print "check failed"
-    #    return
     oldtime = 0
     for r_key, settings in sorted(stages.items()):
         controllers.stop()
@@ -44,10 +41,24 @@ def run(stages, controllers):
             controllers.logstatus()
     #self.controllers.stop()
 
+def quickRun(stages, controllers):
+    """
+    Runs through the recipe without any delay to just check it is OK
+    This is different from check recipe in that it will also run
+    each controller, thus test hardware if connected and not
+    permissive
+    """
+    controllers.stop()
+    for r_key, settings in sorted(stages.items()):
+        try:
+            controllers.run(settings)
+            controllers.stopCurrent(settings)
+        except:
+            return(False)
+    return(True)
+
 
 if __name__ == "__main__":
-#    simTemp = 70
-#    shutdown = False
 
     logging.basicConfig(format='%(asctime)s %(message)s',
                         datefmt='%m/%d/%Y %I:%M:%S %p',
@@ -65,6 +76,8 @@ if __name__ == "__main__":
     parser.add_argument('-c', '--checkonly', action='store_true', help='Check only')
     parser.add_argument('-e', '--equipment', action='store_true', help='Equipment check')
     parser.add_argument('-v', '--verbose', action='store_true', help='Verbose output')
+    parser.add_argument('-t', '--equipmenttype', default=None, help='Equipment type')
+    parser.add_argument('-q', '--quick', action='store_true', help='Run quick recipe with no delays, or meeting goals')
 
     args = parser.parse_args()
 
@@ -77,7 +90,7 @@ if __name__ == "__main__":
 
     mypath = os.path.dirname(os.path.realpath(__file__))
     e = equipment.allEquipment.allEquipment(mypath + '/equipment/*.yaml')
-    myequipment = e.get('Grain 3G, 5Gcooler, 5Gpot, platechiller')
+    myequipment = e.get(args.equipmenttype)
 
     controllers = ctrl.setupControllers.setupControllers(args.verbose, simulation, permissive, myequipment, False)
     if args.equipment:
@@ -100,7 +113,10 @@ if __name__ == "__main__":
 
     if not args.checkonly:
         if (stages != {}) and (stages is not None):
-            run(stages, controllers)
+            if args.quick:
+                quickRun(stages,controllers)
+            else:
+                run(stages, controllers)
 
 
     logging.info(" ")
