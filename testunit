@@ -2,7 +2,8 @@
 
 pkill -9 -f bottleweb &> /dev/null
 
-nosetests $1 . 
+#nosetests $1 .
+python2.7 -m nose $1 . 
 if [ "$?" != "0" ]; then
     echo "!!!!!!!!!! Tests Failed !!!!!!!!!!"
     exit 1
