@@ -1,0 +1,49 @@
+#!/bin/bash
+# Setup file to properly
+# setup an Ubuntu server
+# for HW using compiled C code
+
+
+set -x
+# When you are confident that all install is clean
+#set -e
+
+HOMEDIR=`pwd`
+
+#Pololu, servo USB controller
+#######################################
+sudo apt-get install -y libusb-1.0-0-dev 
+#sudo apt-get install -y mono-gmcs mono-devel libmono-winforms2.0-cil
+sudo apt-get install -y mono-complete=*
+sudo apt-get install -y libmono-system-windows-forms4.0-cil
+#sudo apt-get install -y libusb-1.0-0-dev mono-runtime libmono-winforms2.0-cil
+
+# Newer version of pololu maestro
+wget https://www.pololu.com/file/0J315/maestro-linux-150116.tar.gz
+tar xvzf maestro-linux-150116.tar.gz
+mv maestro-linux UscCmd
+sudo cp UscCmd/99-pololu.rules /etc/udev/rules.d/
+
+
+#DigiWeight
+#######################################
+pushd $HOMEDIR/DigiWeight
+make
+popd
+
+# FTDI devices
+######################################
+sudo apt-get -y install libftdi-dev
+sudo apt-get install usbutils
+
+cd $HOMEDIR
+pushd ./boilerValve
+./makeme
+popd
+pushd ./coolerUSB
+./makeme
+popd
+pushd ./mashStirUSB
+./makeme
+popd
+
