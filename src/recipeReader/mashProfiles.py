@@ -144,7 +144,8 @@ def txBSMXtoStages(bsmxObj):
         if mashProfile in ['Single Infusion, Light Body, Batch Sparge',
                            'Single Infusion, Medium Body, Batch Sparge',
                            'Single Infusion, Full Body, Batch Sparge',
-                           'Single Infusion, Cold Mash, Batch Sparge']:
+                           'Single Infusion, Cold Mash, Batch Sparge',
+                           'High hydration, Medium Body']:
             if 'mashHeater' in equipmentdict['componentlist'] :
                 logging.debug("No valid mash profile found")
                 logging.debug("=== {} ===".format(mashProfile))
@@ -173,7 +174,8 @@ def txBSMXtoStages(bsmxObj):
         if mashProfile in ['Single Infusion, Light Body, No Mash Out',
                              'Single Infusion, Medium Body, No Mash Out',
                              'Single Infusion, Full Body, No Mash Out',
-                             'Single Infusion, Cold Mash, No Mash Out']:
+                             'Single Infusion, Cold Mash, No Mash Out',
+                             'High hydration, Medium Body']:
             stages = MultiBatchMash(bsmxObj, chiller)
         else:
             logging.debug("No valid mash profile found")
