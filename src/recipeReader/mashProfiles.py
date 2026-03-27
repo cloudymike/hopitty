@@ -24,7 +24,7 @@ import logging
 empty = 0
 full = 1
 dispenserMax = 4
-boilTempConstant = 204
+boilTempConstant = 206
 coolTempConstant = 72
 pumpAdjust = 1.6
 
@@ -396,7 +396,7 @@ def tempBoil(bsmxObj, stageCount, boilTemp):
     # by checking the temperature
     # So no delay required
     step = stageCtrl(controllers)
-    step["boiler"] = setDict(boilTemp - 5)
+    step["boiler"] = setDict(boilTemp - 3)
     stages[mkSname("pre-boil", stageCount)] = step
     stageCount = stageCount + 1
 
