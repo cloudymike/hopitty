@@ -1,4 +1,3 @@
-#!/usr/bin/python
 """
 Reads a beersmith recipe and creates stages file
 Runs basic checks against controllers

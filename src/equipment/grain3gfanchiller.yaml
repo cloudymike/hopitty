@@ -1,0 +1,17 @@
+equipmentName: 'Grain 3G, 5Gcooler, 5Gpot, fanchiller'
+specs:
+  boilerVolumeMax: 17
+  hwtVolumeMax: 32
+componentlist:
+  - waterHeater
+  - dispenser
+  - aerator
+  - cooler
+  - mashTemp
+  - mashStirrer
+  - boilerValve
+  - hotWaterPump
+  - waterCirculationPump
+  - wortPump
+  - boiler
+  - envTemp

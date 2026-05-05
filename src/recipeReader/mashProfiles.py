@@ -25,7 +25,8 @@ empty = 0
 full = 1
 dispenserMax = 4
 boilTempConstant = 204
-coolTempConstant = 72
+#coolTempConstant = 72
+coolTempConstant = 120 # For aircooler
 pumpAdjust = 1.6
 
 
