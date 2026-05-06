@@ -25,6 +25,7 @@ def run(stages, controllers):
     print("run")
     oldtime = 0
     for r_key, settings in sorted(stages.items()):
+        print(r_key)
         controllers.stop()
         controllers.run(settings)
         while not controllers.done() :
@@ -122,6 +123,9 @@ if __name__ == "__main__":
     logging.info(" ")
     logging.info("OK")
     logging.info("Shutting down")
+    if args.verbose:
+        print(controllers.getMyLog())
+
     del controllers
 
     sys.exit(0)
