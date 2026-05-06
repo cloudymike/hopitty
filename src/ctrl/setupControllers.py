@@ -100,6 +100,7 @@ def setupControllers(verbose, simulation, permissive, equipment, HWlock=True):
         #controllers['cooler'].connectSwitch(switches.simSwitch.simSwitch())
         controllers['cooler'].connectSensor(boilerSensor)
         # Reuse of same switch for plate cooler as immersion cooler
+        controllers['cooler'].connectSwitch(coolerSwitch)
 
     if 'plateValve' in equipment['componentlist']:
         controllers.addController('plateValve', appliances.plateValve.plateValve())
