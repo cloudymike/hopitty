@@ -6,7 +6,7 @@
 cd /hopitty/src/onlinebeersmith
 
 USER=5399
-TYPEOFEQUIPMENT='Grain 3G, 5Gcooler, 5Gpot, platechiller'
+TYPEOFEQUIPMENT='Grain 3G, 5Gcooler, 5Gpot'
 
 JSONDIR=/tmp/tmpjsonrecipies
 

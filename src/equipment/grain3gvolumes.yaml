@@ -1,4 +1,4 @@
-equipmentName: 'Grain 3G, 5Gcooler 5Gpot'
+equipmentName: 'Grain 3G, 5Gcooler 5Gpot volumes'
 specs:
   boilerVolumeMax: 17
   hwtVolumeMax: 32

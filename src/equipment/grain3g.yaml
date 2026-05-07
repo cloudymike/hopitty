@@ -13,8 +13,5 @@ componentlist:
   - hotWaterPump
   - waterCirculationPump
   - wortPump
-  - boilerVolume
-  - hwtVolume
-  - mashVolume
   - boiler
   - envTemp
